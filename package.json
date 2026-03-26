@@ -2,7 +2,7 @@
   "name": "linux-command",
   "version": "1.22.0",
   "description": "Linux Command",
-  "homepage": "https://jaywcjlove.github.io/linux-command/",
+  "homepage": "https://benben17.github.io/linux-command/",
   "main": "dist/data.json",
   "scripts": {
     "start": "npm run build",
@@ -18,18 +18,17 @@
     "Linux",
     "Command"
   ],
-  "author": "kenny wang <wowohoo@qq.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jaywcjlove/linux-command.git"
+    "url": "git+https://github.com/benben17/linux-command.git"
   },
   "devDependencies": {
     "@uiw/github-corners": "~1.5.11",
     "@wcj/dark-mode": "~1.0.14",
     "colors-cli": "~1.0.31",
-    "ejs": "~3.1.6",
     "compressing": "^1.6.2",
+    "ejs": "~3.1.6",
     "fs-extra": "~10.1.0",
     "markdown-to-html-cli": "~4.0.0",
     "sitemap-generator": "~8.5.1",
@@ -39,5 +38,8 @@
   },
   "engines": {
     "node": ">=16.0.0"
+  },
+  "dependencies": {
+    "linux-command": "^1.22.0"
   }
 }
