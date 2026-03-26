@@ -1,49 +1,47 @@
 cksum
 ===
 
-检查文件的CRC是否正确
+Check the CRC checksum of files
 
-## 补充说明
+## Description
 
-**cksum命令** 是检查文件的CRC是否正确，确保文件从一个系统传输到另一个系统的过程中不被损坏。这种方法要求校验和在源系统中被计算出来，在目的系统中又被计算一次，两个数字进行比较，如果校验和相等，则该文件被认为是正确传输了。
+The **cksum command** checks the Cyclic Redundancy Check (CRC) of a file to ensure it has not been corrupted during transfer from one system to another. This method requires the checksum to be calculated on the source system and again on the destination system. If the two numbers match, the file is considered correctly transferred.
 
-注意：CRC是指一种排错检查方法，即循环冗余校验法。
+Note: CRC is an error-checking method known as Cyclic Redundancy Check.
 
-指定文件交由cksum命令进行校验后，会返回校验结果供用户核对文件是否正确无误。若不指定任何文件名称或是所给予的文件名为"-"，则cksum命令会从标准输入设备中读取数据。
+When a specified file is checked by the `cksum` command, it returns the check results for the user to verify the file's integrity. If no file name is specified or if the file name is "-", the `cksum` command reads data from standard input.
 
-###  语法
-
-```shell
-cksum(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
---help：在线帮助；
---version：显示版本信息。
+cksum [options] [arguments]
 ```
 
-###  参数
-
-文件：指定要计算校验的版本信息。
-
-###  实例
-
-使用cksum命令计算文件"testfile1"的完整性，输入如下命令：
+### Options
 
 ```shell
-cksum testfile1            #对指定文件进行CRC校验
+--help: Online help;
+--version: Display version information.
 ```
 
-以上命令执行后，将输出校验码等相关的信息，具体输出信息如下所示：
+### Arguments
+
+File: Specify the file(s) to calculate the checksum for.
+
+### Examples
+
+Use the `cksum` command to calculate the integrity of the file "testfile1":
 
 ```shell
-1263453430 78 testfile1     #输出信息
+cksum testfile1            # Perform CRC check on the specified file
 ```
 
-上面的输出信息中，"1263453430"表示校验码，"78"表示字节数。
+After executing the above command, the checksum and related information will be output as follows:
 
-注意：如果文件中有任何字符被修改，都将改变计算后CRC校验码的值。
+```shell
+1263453430 78 testfile1     # Output information
+```
 
+In the output, "1263453430" represents the checksum, and "78" represents the number of bytes.
 
+Note: If any character in the file is modified, the calculated CRC checksum value will change.

@@ -1,44 +1,42 @@
 lvreduce
 ===
 
-收缩逻辑卷空间
+Reduce the size of a logical volume
 
-## 补充说明
+## Description
 
-**lvreduce命令** 用于减少LVM逻辑卷占用的空间大小。使用lvreduce命令收缩逻辑卷的空间大小有可能会删除逻辑卷上已有的数据，所以在操作前必须进行确认。
+The **lvreduce command** is used to reduce the space occupied by an LVM logical volume. Reducing the size of a logical volume may result in data loss, so it is crucial to back up data and confirm the operation before proceeding.
 
-###  语法
+### Syntax
 
 ```shell
-lvreduce(选项)(参数)
+lvreduce [OPTION]... LOGICAL_VOLUME_PATH
 ```
 
-###  选项
+### Options
 
 ```shell
--L：指定逻辑卷的大小，单位为“kKmMgGtT”字节；
--l：指定逻辑卷的大小（LE数）。
+-L, --size: Specify the new (reduced) size of the logical volume. Units can be kKmMgGtT. Prefix with '-' to subtract from the current size.
+-l, --extents: Specify the new size in logical extents (LE). Prefix with '-' to subtract from the current size.
 ```
 
-###  参数
+### Parameters
 
-逻辑卷：指定要操作的逻辑卷对应的设备文件。
+Logical Volume: The device file path of the logical volume to be reduced.
 
-###  实例
+### Examples
 
-使用lvreduce命令减少指定的逻辑卷的空间大小。在命令行中输入下面的命令：
+Reduce the size of a logical volume by 50MB:
 
 ```shell
-[root@localhost ~]# lvreduce -L -50M /dev/vg1000/lvol0     #将逻辑卷的空间大小减少50M
+[root@localhost ~]# lvreduce -L -50M /dev/vg1000/lvol0
 ```
 
-输出信息如下：
+Output:
 
 ```shell
-......省略部分输出内容......  
-Do you really want to reduce lvol0? [y/n]: y  #确认操作  
+... (output truncated) ...
+Do you really want to reduce lvol0? [y/n]: y
   Reducing logical volume lvol0 to 252.00 MB  
   Logical volume lvol0 successfully resized
 ```
-
-

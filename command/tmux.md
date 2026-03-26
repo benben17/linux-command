@@ -1,126 +1,126 @@
 tmux
 ===
 
-Tmux是一个优秀的终端复用软件，类似GNU Screen，但来自于OpenBSD，采用BSD授权
+Tmux is an excellent terminal multiplexer, similar to GNU Screen but originating from OpenBSD and licensed under BSD.
 
-## 补充说明
+## Description
 
-使用它最直观的好处就是，通过一个终端登录远程主机并运行tmux后，在其中可以开启多个控制台而无需再“浪费”多余的终端来连接这台远程主机；
+The most intuitive benefit of using it is that after logging in to a remote host through a terminal and running tmux, you can open multiple consoles within it without "wasting" extra terminals to connect to the remote host.
 
-开启鼠标滚轮滚动：  
-`ctrl+b`，按下冒号 `:` 进入命令行模式，然后输入 `set -g mouse on` 后按回车
+Enable mouse wheel scrolling:
+`ctrl+b`, press colon `:` to enter command-line mode, then type `set -g mouse on` and press Enter.
 
-## 功能
+## Features
 
--  提供了强劲的、易于使用的命令行界面。
--  可横向和纵向分割窗口。
--  窗格可以自由移动和调整大小，或直接利用四个预设布局之一。
--  支持 UTF-8 编码及 256 色终端。
--  可在多个缓冲区进行复制和粘贴。
--  可通过交互式菜单来选择窗口、会话及客户端。
--  支持跨窗口搜索。
--  支持自动及手动锁定窗口。
+- Provides a powerful and easy-to-use command-line interface.
+- Supports horizontal and vertical window splitting.
+- Panes can be moved and resized freely, or you can use one of the four preset layouts.
+- Supports UTF-8 encoding and 256-color terminals.
+- Copy and paste across multiple buffers.
+- Select windows, sessions, and clients via an interactive menu.
+- Supports searching across windows.
+- Supports automatic and manual window locking.
 
-## 安装
+## Installation
 
 ```shell
-# 在 Mac OS 中，通过 brew 安装
+# On macOS, install via brew
 brew install tmux
-# ubuntu版本下直接apt-get安装
+# On Ubuntu, install directly via apt-get
 sudo apt-get install tmux
-# centos7版本下直接yum安装
+# On CentOS 7, install directly via yum
 yum install -y tmux
 
-# centos6版本需要编译安装
+# On CentOS 6, manual compilation is required
 yum install libevent libevent-devel ncurses-devel
-tar -zvxf tmux-2.3.tar.gz # (提前下载：wget https://github.com/tmux/tmux/releases/download/2.3/tmux-2.3.tar.gz)
+tar -zvxf tmux-2.3.tar.gz # (Download beforehand: wget https://github.com/tmux/tmux/releases/download/2.3/tmux-2.3.tar.gz)
 cd tmux-2.3
 ./configure
 make && make install
 ```
 
-## 快捷键使用说明
+## Shortcut Usage Guide
 
-| 快捷键 | 功能说明                     |
+| Shortcut | Description |
 | :----- | :--------------------------- |
-| Ctrl+b | 激活控制台；此时以下按键生效 |
+| Ctrl+b | Activate the console; subsequent keys take effect after this |
 
 
-### 系统操作
+### System Operations
 
-| 快捷键 | 功能说明                                                     |
+| Shortcut | Description |
 | :----- | ------------------------------------------------------------ |
-| ?      | 列出所有快捷键；按q返回                                      |
-| d      | 脱离当前会话；这样可以暂时返回Shell界面，输入tmux attach能够重新进入之前的会话 |
-| D      | 选择要脱离的会话；在同时开启了多个会话时使用                 |
-| Ctrl+z | 挂起当前会话                                                 |
-| r      | 强制重绘未脱离的会话                                         |
-| s      | 选择并切换会话；在同时开启了多个会话时使用                   |
-| :      | 进入命令行模式；此时可以输入支持的命令，例如kill-server可以关闭服务器 |
-| \[     | 进入复制模式；此时的操作与vi/emacs相同，按q/Esc退出          |
-| \~     | 列出提示信息缓存；其中包含了之前tmux返回的各种提示信息       |
+| ?      | List all shortcuts; press q to return |
+| d      | Detach from current session; you can return to the Shell and use `tmux attach` to re-enter |
+| D      | Select a session to detach; used when multiple sessions are open |
+| Ctrl+z | Suspend current session |
+| r      | Force redraw of a non-detached session |
+| s      | Select and switch session; used when multiple sessions are open |
+| :      | Enter command-line mode; you can input supported commands, e.g., `kill-server` to stop the server |
+| [      | Enter copy mode; operations are similar to vi/emacs, press q/Esc to exit |
+| ~      | List prompt message buffer; contains various messages previously returned by tmux |
 
 
-### 窗口操作
+### Window Operations
 
-| 快捷键 | 功能说明                             |
+| Shortcut | Description |
 | :----- | ------------------------------------ |
-| c      | 创建新窗口                           |
-| &      | 关闭当前窗口                         |
-| 数字键 | 切换至指定窗口                       |
-| p      | 切换至上一窗口                       |
-| n      | 切换至下一窗口                       |
-| l      | 在前后两个窗口间互相切换             |
-| w      | 通过窗口列表切换窗口                 |
-| ,      | 重命名当前窗口；这样便于识别         |
-| .      | 修改当前窗口编号；相当于窗口重新排序 |
-| f      | 在所有窗口中查找指定文本             |
+| c      | Create a new window |
+| &      | Close current window |
+| Digit  | Switch to the specified window |
+| p      | Switch to the previous window |
+| n      | Switch to the next window |
+| l      | Switch between the last two windows |
+| w      | Switch window via window list |
+| ,      | Rename current window for easier identification |
+| .      | Change current window number (reorder windows) |
+| f      | Find specified text in all windows |
 
-### 面板操作
+### Pane Operations
 
-| 快捷键      | 功能说明                                                     |
+| Shortcut | Description |
 | :---------- | ------------------------------------------------------------ |
-| ”           | 将当前面板平分为上下两块                                     |
-| %           | 将当前面板平分为左右两块                                     |
-| x           | 关闭当前面板                                                 |
-| !           | 将当前面板置于新窗口；即新建一个窗口，其中仅包含当前面板     |
-| Ctrl+方向键 | 以1个单元格为单位移动边缘以调整当前面板大小                  |
-| Alt+方向键  | 以5个单元格为单位移动边缘以调整当前面板大小                  |
-| Space       | 在预置的面板布局中循环切换；依次包括even-horizontal、even-vertical、main-horizontal、main-vertical、tiled |
-| q           | 显示面板编号                                                 |
-| o           | 在当前窗口中选择下一面板                                     |
-| 方向键      | 移动光标以选择面板                                           |
-| {           | 向前置换当前面板                                             |
-| }           | 向后置换当前面板                                             |
-| Alt+o       | 逆时针旋转当前窗口的面板                                     |
-| Ctrl+o      | 顺时针旋转当前窗口的面板                                     |
+| ”           | Split current pane horizontally into two |
+| %           | Split current pane vertically into two |
+| x           | Close current pane |
+| !           | Move current pane to a new window |
+| Ctrl+Arrow  | Resize current pane by 1 cell |
+| Alt+Arrow   | Resize current pane by 5 cells |
+| Space       | Cycle through preset pane layouts (even-horizontal, even-vertical, main-horizontal, main-vertical, tiled) |
+| q           | Display pane numbers |
+| o           | Select the next pane in the current window |
+| Arrow Keys  | Move cursor to select pane |
+| {           | Swap current pane with previous one |
+| }           | Swap current pane with next one |
+| Alt+o       | Rotate panes in the current window counter-clockwise |
+| Ctrl+o      | Rotate panes in the current window clockwise |
 
 
-1）进入tmux面板后，一定要先按ctrl+b，然后松开，再按其他的组合键才生效。
-2）常用到的几个组合键：
+1) After entering the tmux panel, you must first press `ctrl+b`, release it, and then press other key combinations.
+2) Frequently used combinations:
 
 ```shell
-ctrl+b ?        #     显示快捷键帮助
-ctrl+b 空格键   #     采用下一个内置布局，这个很有意思，在多屏时，用这个就会将多有屏幕竖着展示
-ctrl+b !        #     把当前窗口变为新窗口
-ctrl+b  "       #     模向分隔窗口
-ctrl+b %        #     纵向分隔窗口
-ctrl+b q        #     显示分隔窗口的编号
-ctrl+b o        #     跳到下一个分隔窗口。多屏之间的切换
-ctrl+b 上下键   #    上一个及下一个分隔窗口
-ctrl+b C-方向键 #    调整分隔窗口大小
-ctrl+b &        #    确认后退出当前tmux
-ctrl+b [        #    复制模式，即将当前屏幕移到上一个的位置上，其他所有窗口都向前移动一个。
-ctrl+b c        #    创建新窗口
-ctrl+b n        #    选择下一个窗口
-ctrl+b l        #    最后使用的窗口
-ctrl+b p        #    选择前一个窗口
-ctrl+b w        #    以菜单方式显示及选择窗口
-ctrl+b s        #    以菜单方式显示和选择会话。这个常用到，可以选择进入哪个tmux
-ctrl+b t        #    显示时钟。然后按enter键后就会恢复到shell终端状态
-ctrl+b d        #    脱离当前会话；这样可以暂时返回Shell界面，输入tmux attach能够重新进入之前的会话
+ctrl+b ?        # Display shortcut help
+ctrl+b Space    # Use next built-in layout; interesting for displaying multiple screens vertically
+ctrl+b !        # Turn current pane into a new window
+ctrl+b  "       # Split window horizontally
+ctrl+b %        # Split window vertically
+ctrl+b q        # Show pane numbers
+ctrl+b o        # Jump to next pane; switch between multiple screens
+ctrl+b Arrows   # Previous and next pane
+ctrl+b C-Arrows # Resize pane
+ctrl+b &        # Exit current tmux after confirmation
+ctrl+b [        # Copy mode: moves current screen to previous position, all others move forward
+ctrl+b c        # Create new window
+ctrl+b n        # Select next window
+ctrl+b l        # Last used window
+ctrl+b p        # Select previous window
+ctrl+b w        # Display and select window via menu
+ctrl+b s        # Display and select session via menu; commonly used to choose which tmux to enter
+ctrl+b t        # Show clock; press Enter to return to shell
+ctrl+b d        # Detach current session; return to Shell and use `tmux attach` to re-enter
 ```
 
-## 参考资料
+## References
 
-- tmux 官网下载地址：http://tmux.github.io/ 
+- Tmux Official Site: http://tmux.github.io/

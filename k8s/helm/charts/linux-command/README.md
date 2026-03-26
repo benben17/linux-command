@@ -1,24 +1,24 @@
 # linux-command
 
-linux-command 的 Helm 图表。该图表使用 Helm 软件包管理器在 Kubernetes 集群上引导部署 linux-command。
+Helm Chart for `linux-command`. This chart bootstraps a `linux-command` deployment on a Kubernetes cluster using the Helm package manager.
 
-## 安装 Chart
+## Installing the Chart
 
-```
+```bash
 $ helm install linux-command ./linux-command --namespace linux-command --create-namespace
 ```
 
-## 卸载 Chart
+## Uninstalling the Chart
 
-```
+```bash
 $ helm -n linux-command uninstall linux-command
 ```
 
-这会删除与图表相关的所有 Kubernetes 组件，并删除发布。
+This will remove all Kubernetes components associated with the chart and delete the release.
 
-## 配置参数
+## Configuration Parameters
 
-下表列出了 linux-command 图表的可配置参数及其默认值。
+The following table lists the configurable parameters of the `linux-command` chart and their default values.
 
 | Key                                                          | Type   | Default                   | Description |
 | ------------------------------------------------------------ | ------ | ------------------------- | ----------- |
@@ -35,10 +35,10 @@ $ helm -n linux-command uninstall linux-command
 | service.ports[0].targetPort                                  | int    | `3000`                    |             |
 | service.type                                                 | string | `"NodePort"`              |             |
 
-使用`-set key=value[,key=value]`参数为`helm install`指定每个参数。
+Each parameter can be specified for `helm install` using the `--set key=value[,key=value]` argument.
 
-或者，也可以在安装图表时提供指定参数值的 YAML 文件。例如
+Alternatively, you can provide a YAML file specifying the values when installing the chart. For example:
 
-```
+```bash
 helm install <release-name> -f values.yaml ./linux-command
 ```

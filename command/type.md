@@ -1,52 +1,52 @@
 type
 ===
 
-显示指定命令的类型。
+Display information about command type.
 
-## 概要
+## Synopsis
 
 ```shell
  type [-afptP] name [name ...]
  ```
 
-## 主要用途
+## Main Purpose
 
-- 显示要查找的命令的信息。
-- 控制查找范围和行为。
-- 显示要查找的命令优先级最高的类型。
+- Display information about the searched command.
+- Control search scope and behavior.
+- Display the highest-priority type for the searched command.
 
-## 选项
+## Options
 
 ```shell
--a：在环境变量PATH中查找并显示所有包含name的可执行文件路径；当'-p'选项没有同时给出时，如果在别名、关键字，函数，内建的信息中存在name，则一并显示。
--f：排除对shell函数的查找。
--p：如果name在执行'type -t name'返回的不是'file'，那么什么也不返回；否则会在环境变量PATH中查找并返回可执行文件路径。
--P：即使要查找的name是别名、内建、函数中的一个，仍然会在环境变量PATH中查找并返回可执行文件路径。
--t：根据name的类型返回一个单词（别名，关键字，函数，内建，文件），否则返回空值。
+-a: Search the PATH environment variable and display all executable file paths containing 'name'. If '-p' is not given, also display information if 'name' exists as an alias, keyword, function, or built-in.
+-f: Exclude shell functions from the search.
+-p: Returns nothing if 'type -t name' would not return 'file'. Otherwise, search the PATH and return the executable file path.
+-P: Even if 'name' is an alias, built-in, or function, search the PATH and return the executable file path.
+-t: Returns a single word describing the type of 'name' (alias, keyword, function, builtin, file). Returns empty if not found.
 ```
 
-## 参数
+## Parameters
 
-name：要查找的命令，可以为多个。
+name: The command(s) to search for.
 
-## 返回值
+## Return Value
 
-当指定的命令可以找到时返回成功，如果有没找到的返回失败。
+Returns success if the specified command(s) can be found, otherwise returns failure.
 
-## 例子
+## Examples
 
 ```shell
-接下来要用到的例子假设'~/.bashrc'文件定义了以下的内容：
+The following examples assume '~/.bashrc' defines the following:
 
 alias ls='ls --color=auto'
 mybash(){ vim ~/.bashrc; }
 
-而且执行环境里没有使用enable禁用内建命令。
+And built-in commands are not disabled using 'enable'.
 ```
 
 ```shell
 type -a mybash
-# 输出
+# Output
 mybash is a function
 mybash ()
 {
@@ -54,69 +54,65 @@ mybash ()
 }
 
 type -a -f mybash
-# 输出（因为排除了函数，所以报错）
+# Output (error because functions are excluded)
 bash: type: mybash: not found
 
 type -a -p mybash
-# 输出为空（因为排除了函数，所以什么也不返回）
+# Output is empty (nothing returned because functions are excluded)
 
 type -a ls
-# 输出
-ls is aliased to `ls --color=suto'
+# Output
+ls is aliased to `ls --color=auto'
 ls is /usr/bin/ls
 ls is /bin/ls
 
 type -a -p ls
-# 输出
+# Output
 /usr/bin/ls
 /bin/ls
 ```
 
 ```shell
-# '-f'不会影响'-P'的范围，'-f'不建议和'-p'使用。
-# 注意：printf同时是内建命令以及可执行文件（GNU coreutils），优先作为内建处理。
+# '-f' does not affect the scope of '-P'; using '-f' with '-p' is not recommended.
+# Note: printf is both a built-in command and an executable (GNU coreutils); built-in takes priority.
 
 type -p printf
-# 输出为空
+# Output is empty
 
 type -P printf
-# 输出
+# Output
 /usr/bin/printf
 /bin/printf
 ```
 
 ```shell
-# 如果有多个类型，那么输出优先级最高的类型。
+# If multiple types exist, the one with the highest priority is output.
 
 type -t ls
-# 输出
+# Output
 alias
 
 type -t for
-# 输出（bash关键字）
+# Output (bash keyword)
 keyword
 
 type -t mybash
-# 输出
+# Output
 function
 
 type -t -f mybash
-# 输出空值
+# Output empty
 
 type -t printf
-# 输出（bash内建优先级高）
+# Output (bash built-in has higher priority)
 builtin
 
 type -t chmod
-# 输出
+# Output
 file
 ```
 
-### 注意
+### Notes
 
-1. 该命令是bash内建命令，相关的帮助信息请查看`help`命令。
-
-2. 命令优先级问题请查看`builtin`命令。
-
-
-
+1. This command is a bash built-in; see the `help` command for related help information.
+2. For command priority issues, see the `builtin` command.

@@ -1,29 +1,28 @@
 perl
 ===
 
-perl语言解释器
+The Perl language interpreter.
 
-## 补充说明
+## Description
 
-**perl命令** 是perl语言解释器，负责解释执行perl语言程序。
+The **perl command** is the interpreter for the Perl programming language. It is responsible for parsing and executing Perl scripts.
 
-###  语法
-
-```shell
-perl(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--w：输出有用的警告信息；
--U：允许不安全的操作；
--c：仅检查文件的语法；
--d：在调试下运行脚本程序。
+perl [options] [scriptfile] [arguments]
 ```
 
-###  参数
+### Options
 
-文件：要运行的perl脚本程序。
+```shell
+-w: Enable useful warning messages.
+-U: Allow unsafe operations.
+-c: Check the syntax of the script without executing it.
+-d: Run the script under the Perl debugger.
+-e <commandline>: Execute a single line of Perl code from the command line.
+```
 
+### Parameters
 
+File: The Perl script to be executed.

@@ -1,45 +1,43 @@
 vgdisplay
 ===
 
-显示LVM卷组的信息
+Display information about LVM volume groups.
 
-## 补充说明
+## Description
 
-**vgdisplay命令** 用于显示LVM卷组的信息。如果不指定"卷组"参数，则分别显示所有卷组的属性。
+The **vgdisplay command** is used to display information about LVM volume groups. If no "Volume Group" parameter is specified, the attributes of all volume groups are displayed.
 
-###  语法
-
-```shell
-vgdisplay(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--A：仅显示活动卷组的属性；
--s：使用短格式输出的信息。
+vgdisplay (option) (parameter)
 ```
 
-###  参数
-
-卷组：要显示属性的卷组名称。
-
-###  实例
-
-使用vgdisplay命令显示存在的卷组"vg1000"的属性。在命令行中输入下面的命令：
+### Options
 
 ```shell
-[root@localhost ~]# vgdisplay vg1000     #显示卷组"vg1000"的属性
+-A: Display attributes of active volume groups only;
+-s: Use short format for output information.
 ```
 
-输出信息如下：
+### Parameters
+
+Volume Group: The name of the volume group whose attributes are to be displayed.
+
+### Examples
+
+Use the vgdisplay command to show the attributes of the existing volume group "vg1000". Enter the following command at the command line:
+
+```shell
+[root@localhost ~]# vgdisplay vg1000     # Display attributes of volume group "vg1000"
+```
+
+The output information is as follows:
 
 ```shell
   --- Volume group ---  
   VG Name               vg1000  
-......省略部分输出内容......  
-  free  PE / Size       50 / 200.00 MB  
-  VG UUID  ICprwg-ZmhA-JKYF-WYuy-jNHa-AyCN-ZS5F7B
+...... (output truncated) ......  
+  free PE / Size        50 / 200.00 MB  
+  VG UUID               ICprwg-ZmhA-JKYF-WYuy-jNHa-AyCN-ZS5F7B
 ```
-
-

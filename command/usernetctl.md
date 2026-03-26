@@ -1,23 +1,21 @@
 usernetctl
 ===
 
-被允许时操作指定的网络接口
+Manipulate a specified network interface when permitted.
 
-## 补充说明
+## Description
 
-**usernetctl命令** 在用于被允许时操作指定的网络接口。
+The **usernetctl command** is used to manipulate a specified network interface when permitted.
 
-###  语法
+### Syntax
 
 ```shell
-usernetctl(参数)
+usernetctl (parameter)
 ```
 
-###  参数
+### Parameters
 
-*   网络接口：被操纵的网络接口；
-*   up：激活网络接口；
-*   down：禁用网络接口；
-*   report：报告网络接口状态。
-
-
+*   Network Interface: The network interface to be manipulated;
+*   up: Activate the network interface;
+*   down: Disable the network interface;
+*   report: Report the status of the network interface.

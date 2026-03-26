@@ -1,27 +1,25 @@
 groupdel
 ===
 
-用于删除指定的工作组
+Delete a specific group.
 
-## 补充说明
+## Supplemental Information
 
-**groupdel命令** 用于删除指定的工作组，本命令要修改的系统文件包括/ect/group和/ect/gshadow。若该群组是某些用户的主组，则必须先删除这些用户或改变其主组后，才能删除该群组;如果该群组仅为某些用户的附加组,则可以直接删除,这些用户中的该组信息也会被删除。
+The **groupdel command** is used to remove an existing group from the system. This command modifies the `/etc/group` and `/etc/gshadow` files. If the group is the primary group of any user, that user must be deleted or have their primary group changed before the group can be deleted. If the group is only a secondary group for some users, it can be deleted directly, and the group information will be removed for those users.
 
-###  语法
-
-```shell
-groupdel(参数)
-```
-
-###  参数
-
-组：要删除的工作组名。
-
-###  实例
+### Syntax
 
 ```shell
-groupadd damon  //创建damon工作组
-groupdel damon  //删除这个工作组
+groupdel (parameters)
 ```
 
+### Parameters
 
+Group: The name of the group to be deleted.
+
+### Examples
+
+```shell
+groupadd damon  # Create the 'damon' group
+groupdel damon  # Delete the 'damon' group
+```

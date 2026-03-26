@@ -1,28 +1,26 @@
 zipsplit
 ===
 
-将较大的zip压缩包分割成各个较小的压缩包
+Split a large zip archive into smaller ones
 
-## 补充说明
+## Description
 
-**zipsplit命令** 用于将较大的“zip”压缩包分割成各个较小的“zip”压缩包。
+The **zipsplit** command is used to split a large zip archive into multiple smaller zip archives.
 
-###  语法
-
-```shell
-zipsplit(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--n：指定分割后每个zip文件的大小；
--t：报告将要产生的较小的zip文件的大小；
--b：指定分割后的zip文件的存放位置。
+zipsplit [options] [parameters]
 ```
 
-###  参数
+### Options
 
-文件：指定要分割的zip压缩包。
+```shell
+-n, --size=[size]: Specify the maximum size for each split zip file;
+-t, --test: Report how many smaller zip files will be created and their sizes;
+-b, --path=[path]: Specify the directory where the split zip files will be stored.
+```
 
+### Parameters
 
+File: Specifies the zip archive to be split.

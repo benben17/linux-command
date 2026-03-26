@@ -1,20 +1,18 @@
 ex
 ===
 
-启动vim编辑器的ex编辑模式
+Start the vim editor in ex mode.
 
-## 补充说明
+## Description
 
-在 **ex** 模式下启动vim文本编辑器。ex执行效果如同`vi -E`，适用于法及参数可参照vi指令，如要从Ex模式回到普通模式，则在vim中输入`:vi`或`:visual`即可。
+The **ex** command starts the vim text editor in ex mode. The execution effect of `ex` is the same as `vi -E`. Its syntax and parameters are consistent with the `vi` command. To return from ex mode to normal mode, enter `:vi` or `:visual` within vim.
 
-###  语法
+### Syntax
 
 ```shell
-ex（参数）
+ex [parameters]
 ```
 
-###  参数
+### Parameters
 
-文件：指定待编辑的文件。
-
-
+File: Specify the file to be edited.

@@ -1,24 +1,24 @@
 tracepath
 ===
 
-追踪目的主机经过的路由信息
+Trace the path to a destination host and discover MTU information
 
-## 补充说明
+## Description
 
-**tracepath命令** 用来追踪并显示报文到达目的主机所经过的路由信息。
+The **tracepath command** is used to trace and display the route that packets take to reach a destination host, while also discovering the Path MTU (Maximum Transmission Unit).
 
-###  语法
+### Syntax
 
 ```shell
-tracepath(参数)
+tracepath [parameters]
 ```
 
-###  参数
+### Parameters
 
-*   目的主机：指定追踪路由信息的目的主机；
-*   端口：指定使用的UDP端口号。
+*   Destination Host: Specifies the destination host to trace;
+*   Port: Specifies the UDP port number to use.
 
-###  实例
+### Example
 
 ```shell
 tracepath www.58.com
@@ -38,5 +38,3 @@ tracepath www.58.com
 13:  211.151.111.30 (211.151.111.30)                      asymm 12 118.989ms reached
      Resume: pmtu 1500 hops 13 back 12
 ```
-
-

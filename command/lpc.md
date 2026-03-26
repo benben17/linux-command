@@ -1,27 +1,25 @@
 lpc
 ===
 
-命令行方式打印机控制程序
+Command-line printer control program
 
-## 补充说明
+## Description
 
-**lpc命令** 式命令行方式打印机控制程序，有5个内置命令。
+The **lpc** command is a command-line printer control program with several built-in commands.
 
-###  语法
+### Syntax
 
 ```shell
 lpc
 ```
 
-###  实例
+### Examples
 
 ```shell
 [root@localhost ~]# lpc
 lpc> ?         
-命令可能是缩写。命令是：
+Commands may be abbreviated. Commands are:
 
 exit    help    quit    status  ?
 lpc> exit
 ```
-
-

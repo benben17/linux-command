@@ -1,52 +1,51 @@
 base64
 ===
 
-base64 编码/解码文件或标准输入输出
+Base64 encode/decode files or standard input/output.
 
-### 描述
+### Description
 
-base64将`文件`或`标准输入`编码或解码为标准输出; 
+`base64` encodes or decodes `FILE`, or standard input, to standard output.
 
-### 语法
+### Syntax
 
 ```shell
 base64 [OPTION]... [FILE]
 ```
 
-### 参数
+### Options
 
 ```shell
--d, --decode         # 解码
--i, --ignore-garbage # 解码时，忽略非字母字符
--w, --wrap=COLS      # 在指定的字符数后自动换行(默认为76), 0 为禁用自动换行
+-d, --decode         # Decode data
+-i, --ignore-garbage # When decoding, ignore non-alphabetic characters
+-w, --wrap=COLS      # Wrap encoded lines after COLS character (default 76). Use 0 to disable line wrapping
 
---help      # 显示此帮助说明并退出
---version   # 输出版本信息并退出
+--help               # Display this help and exit
+--version            # Output version information and exit
 ```
 
-### 实例
+### Examples
 
-编码字符串
+Encode a string:
 
 ```bash
-printf foo|base64
+printf foo | base64
 ```
 
-编码文件
+Encode a file:
 
 ```bash
 base64 file
 ```
 
-解码
+Decode a string:
 
 ```bash
-printf Zm9v|base64 -d
+printf Zm9v | base64 -d
 ```
 
-解码文件
+Decode a file:
 
 ```bash
 base64 -d file
 ```
-

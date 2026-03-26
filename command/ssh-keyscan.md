@@ -1,32 +1,30 @@
 ssh-keyscan
 ===
 
-收集主机公钥的使用工具
+Gather SSH public keys from a number of hosts
 
-## 补充说明
+## Description
 
-**ssh-keyscan命令** 是一个收集大量主机公钥的使用工具。
+The **ssh-keyscan command** is a utility for gathering the public SSH host keys of a number of hosts.
 
-###  语法
-
-```shell
-ssh-keyscan(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--4：强制使用IPv4地址；
--6：强制使用IPv6地址；
--f：从指定文件中读取“地址列表/名字列表”；
--p：指定连接远程主机的端口；
--T：指定连接尝试的超时时间；
--t：指定要创建的密钥类型；
--v：信息模式，打印调试信息。
+ssh-keyscan [option] [host ...]
 ```
 
-###  参数
+### Options
 
-主机列表：指定要收集公钥的主机列表。
+```shell
+-4: Force ssh-keyscan to use IPv4 addresses only.
+-6: Force ssh-keyscan to use IPv6 addresses only.
+-f: Read addresses or hostnames from the specified file, one per line.
+-p: Port to connect to on the remote host.
+-T: Set the timeout for connection attempts.
+-t: Specify the type of the key to fetch from the scanned hosts.
+-v: Verbose mode; causes ssh-keyscan to print debugging messages.
+```
 
+### Parameters
 
+Host List: Specifies the list of hosts from which to gather public keys.

@@ -1,61 +1,60 @@
 fdisk
 ===
 
-查看磁盘使用情况和磁盘分区
+View disk usage and manage disk partitions.
 
-## 补充说明
+## Description
 
-**fdisk命令** 用于观察硬盘实体使用情况，也可对硬盘分区。它采用传统的问答式界面，而非类似DOS fdisk的cfdisk互动式操作界面，因此在使用上较为不便，但功能却丝毫不打折扣。
+The **fdisk command** is used to observe the usage of physical hard disks and to partition them. It uses a traditional question-and-answer interface rather than an interactive interface like `cfdisk` (similar to DOS `fdisk`). While this makes it somewhat less convenient to use, its functionality is uncompromising.
 
-###  语法 
-
-```shell
-fdisk [选项] <磁盘>           更改分区表
-fdisk [选项] -l [<磁盘>...]   列出分区表
-```
-
-###  选项 
+### Syntax
 
 ```shell
-
-选项：
- -b, --sectors-size <大小>     显示扇区计数和大小
- -B, --protect-boot            创建新标签时不要擦除 bootbits
- -c, --compatibility[=<模式>]  模式，为“dos”或“nondos”(默认)
- -L, --color[=<时机>]          彩色输出（auto, always 或 never）默认启用颜色
- -l, --list                    显示分区并退出
- -x, --list-details            类似 --list 但提供更多细节
- -n, --noauto-pt               不要在空设备上创建默认分区表
- -o, --output <列表>           输出列
- -t, --type <类型>             只识别指定的分区表类型
- -u, --units[=<单位>]          显示单位，“cylinders”柱面或“sectors”扇区(默认)
- -s, --getsz                   以 512-字节扇区显示设备大小[已废弃]
-      -b, --bytes                   以字节为单位而非易读的格式来打印 SIZE
-      --lock[=<模式>]           使用独占设备锁（yes、no 或 nonblock）
- -w, --wipe <模式>             擦除签名（auto, always 或 never）
- -W, --wipe-partitions <模式>  擦除新分区的签名(auto, always 或 never)
-
- -C, --cylinders <数字>        指定柱面数
- -H, --heads <数字>            指定磁头数
- -S, --sectors <数字>          指定每条磁道的扇区数
-
- -h, --help                    显示此帮助
- -V, --version                 显示版本
+fdisk [options] <disk>           Change partition table
+fdisk [options] -l [<disk>...]   List partition table
 ```
 
-###  参数 
+### Options
 
-设备文件：指定要进行分区或者显示分区的硬盘设备文件。
+```shell
+Options:
+ -b, --sectors-size <size>     Display sector count and size.
+ -B, --protect-boot            Do not erase bootbits when creating a new label.
+ -c, --compatibility[=<mode>]  Mode, either "dos" or "nondos" (default).
+ -L, --color[=<when>]          Colored output (auto, always, or never). Color is enabled by default.
+ -l, --list                    Display partitions and exit.
+ -x, --list-details            Similar to --list but provides more details.
+ -n, --noauto-pt               Do not create a default partition table on empty devices.
+ -o, --output <list>           Output columns.
+ -t, --type <type>             Recognize only specified partition table types.
+ -u, --units[=<unit>]          Display units, "cylinders" or "sectors" (default).
+ -s, --getsz                   Display device size in 512-byte sectors [deprecated].
+ -b, --bytes                   Print SIZE in bytes instead of a human-readable format.
+     --lock[=<mode>]           Use an exclusive device lock (yes, no, or nonblock).
+ -w, --wipe <mode>             Wipe signatures (auto, always, or never).
+ -W, --wipe-partitions <mode>  Wipe signatures from new partitions (auto, always, or never).
 
-###  实例 
+ -C, --cylinders <number>      Specify the number of cylinders.
+ -H, --heads <number>          Specify the number of heads.
+ -S, --sectors <number>        Specify the number of sectors per track.
 
-首先选择要进行操作的磁盘：
+ -h, --help                    Display this help message.
+ -V, --version                 Display version information.
+```
+
+### Parameters
+
+Device File: Specifies the hard disk device file to be partitioned or displayed.
+
+### Examples
+
+First, select the disk to operate on:
 
 ```shell
 [root@localhost ~]# fdisk /dev/sdb
 ```
 
-输入`m`列出可以执行的命令：
+Enter `m` to list executable commands:
 
 ```shell
 command (m for help): m
@@ -78,7 +77,7 @@ Command action
    x   extra functionality (experts only)
 ```
 
-输入`p`列出磁盘目前的分区情况：
+Enter `p` to list the current partitions on the disk:
 
 ```shell
 Command (m for help): p
@@ -92,7 +91,7 @@ Units = cylinders of 16065 * 512 = 8225280 bytes
 /dev/sdb2               2          26      200812+  83  Linux
 ```
 
-输入`d`然后选择分区，删除现有分区：
+Enter `d`, then select a partition number to delete an existing partition:
 
 ```shell
 Command (m for help): d
@@ -102,7 +101,7 @@ Command (m for help): d
 Selected partition 2
 ```
 
-查看分区情况，确认分区已经删除：
+Check partitions to confirm they have been deleted:
 
 ```shell
 Command (m for help): print
@@ -116,31 +115,31 @@ Units = cylinders of 16065 * 512 = 8225280 bytes
 Command (m for help):
 ```
 
-输入`n`建立新的磁盘分区，首先建立两个主磁盘分区：
+Enter `n` to create new disk partitions; first, create two primary partitions:
 
 ```shell
 Command (m for help): n
 Command action
    e   extended
    p   primary partition (1-4)
-p    //建立主分区
-Partition number (1-4): 1  //分区号
-First cylinder (1-391, default 1):  //分区起始位置
+p    // Create primary partition
+Partition number (1-4): 1  // Partition number
+First cylinder (1-391, default 1):  // Partition start position
 Using default value 1
-last cylinder or +size or +sizeM or +sizeK (1-391, default 391): 100  //分区结束位置，单位为扇区
+last cylinder or +size or +sizeM or +sizeK (1-391, default 391): 100  // Partition end position
 
-Command (m for help): n  //再建立一个分区
+Command (m for help): n  // Create another partition
 Command action
    e   extended
    p   primary partition (1-4)
 p 
-Partition number (1-4): 2  //分区号为2
+Partition number (1-4): 2  // Partition number 2
 First cylinder (101-391, default 101):
 Using default value 101
-Last cylinder or +size or +sizeM or +sizeK (101-391, default 391): +200M  //分区结束位置，单位为M
+Last cylinder or +size or +sizeM or +sizeK (101-391, default 391): +200M  // Partition end position, in MB
 ```
 
-确认分区建立成功：
+Confirm that the partitions were created successfully:
 
 ```shell
 Command (m for help): p
@@ -154,14 +153,14 @@ Units = cylinders of 16065 * 512 = 8225280 bytes
 /dev/sdb2             101         125      200812+  83  Linux
 ```
 
-再建立一个逻辑分区：
+Create an extended partition:
 
 ```shell
 Command (m for help): n
 Command action
    e   extended
    p   primary partition (1-4)
-e  //选择扩展分区
+e  // Select extended partition
 Partition number (1-4): 3
 First cylinder (126-391, default 126):
 Using default value 126
@@ -169,7 +168,7 @@ Last cylinder or +size or +sizeM or +sizeK (126-391, default 391):
 Using default value 391
 ```
 
-确认扩展分区建立成功：
+Confirm that the extended partition was created successfully:
 
 ```shell
 Command (m for help): p
@@ -184,14 +183,14 @@ Units = cylinders of 16065 * 512 = 8225280 bytes
 /dev/sdb3             126         391     2136645    5  Extended
 ```
 
-在扩展分区上建立两个逻辑分区：
+Create two logical partitions within the extended partition:
 
 ```shell
 Command (m for help): n
 Command action
    l   logical (5 or over)
    p   primary partition (1-4)
-l //选择逻辑分区
+l // Select logical partition
 First cylinder (126-391, default 126):
 Using default value 126
 Last cylinder or +size or +sizeM or +sizeK (126-391, default 391): +400M    
@@ -207,7 +206,7 @@ Last cylinder or +size or +sizeM or +sizeK (176-391, default 391):
 Using default value 391
 ```
 
-确认逻辑分区建立成功：
+Confirm that the logical partitions were created successfully:
 
 ```shell
 Command (m for help): p
@@ -226,11 +225,11 @@ Units = cylinders of 16065 * 512 = 8225280 bytes
 Command (m for help):
 ```
 
-从上面的结果我们可以看到，在硬盘sdb我们建立了2个主分区（sdb1，sdb2），1个扩展分区（sdb3），2个逻辑分区（sdb5，sdb6）
+From the above results, we can see that on disk `sdb`, we created 2 primary partitions (`sdb1`, `sdb2`), 1 extended partition (`sdb3`), and 2 logical partitions (`sdb5`, `sdb6`).
 
-注意：主分区和扩展分区的磁盘号位1-4，也就是说最多有4个主分区或者扩展分区，逻辑分区开始的磁盘号为5，因此在这个实验中试没有sdb4的。
+Note: Primary and extended partition numbers are 1-4, meaning there can be at most 4 primary or extended partitions. Logical partition numbers start from 5, which is why there is no `sdb4` in this experiment.
 
-最后对分区操作进行保存：
+Finally, save the partition operations:
 
 ```shell
 Command (m for help): w
@@ -240,9 +239,9 @@ Calling ioctl() to re-read partition table.
 Syncing disks.
 ```
 
-建立好分区之后我们还需要对分区进行格式化才能在系统中使用磁盘。
+After creating partitions, we need to format them before they can be used in the system.
 
-在sdb1上建立ext2分区：
+Create an `ext2` partition on `sdb1`:
 
 ```shell
 [root@localhost ~]# mkfs.ext2 /dev/sdb1
@@ -268,7 +267,7 @@ This filesystem will be automatically checked every 32 mounts or
 180 days, whichever comes first.  Use tune2fs -c or -i to override.
 ```
 
-在sdb6上建立ext3分区：
+Create an `ext3` partition on `sdb6`:
 
 ```shell
 [root@localhost ~]# mkfs.ext3 /dev/sdb6
@@ -296,7 +295,7 @@ This filesystem will be automatically checked every 32 mounts or
 [root@localhost ~]#
 ```
 
-建立两个目录`/oracle`和`/web`，将新建好的两个分区挂载到系统：
+Create two directories `/oracle` and `/web`, and mount the two new partitions to the system:
 
 ```shell
 [root@localhost ~]# mkdir /oracle
@@ -305,11 +304,11 @@ This filesystem will be automatically checked every 32 mounts or
 [root@localhost ~]# mount /dev/sdb6 /web
 ```
 
-查看分区挂载情况：
+Check partition mounting:
 
 ```shell
 [root@localhost ~]# df -h
-文件系统              容量  已用 可用 已用% 挂载点
+Filesystem            Size  Used Avail Use% Mounted on
 /dev/mapper/VolGroup00-LogVol00
                       6.7G  2.8G  3.6G  44% /
 /dev/sda1              99M   12M   82M  13% /boot
@@ -318,7 +317,7 @@ tmpfs                 125M     0  125M   0% /dev/shm
 /dev/sdb6             1.7G   35M  1.6G   3% /web
 ```
 
-如果需要每次开机自动挂载则需要修改`/etc/fstab`文件，加入两行配置：
+To automatically mount these partitions on boot, modify the `/etc/fstab` file and add the following two lines:
 
 ```shell
 [root@localhost ~]# vim /etc/fstab
@@ -333,6 +332,3 @@ proc                    /proc                   proc    defaults        0 0
 /dev/sdb1               /oracle                 ext2    defaults        0 0
 /dev/sdb6               /web                    ext3    defaults        0 0
 ```
-
-
-

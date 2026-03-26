@@ -1,37 +1,34 @@
 setsid
 ===
 
-在新的会话中运行程序
+Run a program in a new session.
 
-## 补充说明
+## Description
 
-**setsid命令** 子进程从父进程继承了：SessionID、进程组ID和打开的终端。子进程如果要脱离这些，代码中可通过调用setsid来实现。，而命令行或脚本中可以通过使用命令setsid来运行程序实现。setsid帮助一个进程脱离从父进程继承而来的已打开的终端、隶属进程组和隶属的会话。
+The **setsid command** allows a child process to break away from its parent process's Session ID, Process Group ID, and controlling terminal. While this can be achieved in code by calling the `setsid` function, the `setsid` command provides a way to do this from the command line or within scripts. It helps a process detach from the inherited terminal, process group, and session of its parent.
 
-###  语法
-
-```shell
-setsid[options] <program> [arguments ...]
-```
-
-###  选项
+### Syntax
 
 ```shell
--c, --ctty   将控制终端设置为当前控制终端
--f, --fork   总是 fork
--w, --wait   等待程序退出，并使用相同的返回
+setsid [options] <program> [arguments ...]
 ```
 
+### Options
 
-### 实例
+```shell
+-c, --ctty   Set the controlling terminal to the current one.
+-f, --fork   Always fork.
+-w, --wait   Wait for the program to exit and return its exit status.
+```
 
-可见 setsid 的使用也是非常方便的，也只需在要处理的命令前加上 setsid 即可
+### Examples
+
+Using `setsid` is very straightforward; simply prefix the command you want to run with `setsid`:
 
 ```shell
 [root@root ~]# setsid ping www.ibm.com
-[root@root ~]# ps -ef |grep www.ibm.com
+[root@root ~]# ps -ef | grep www.ibm.com
 root 31094 1 0 07:28 ? 00:00:00 ping www.ibm.com
 root 31102 29217 0 07:29 pts/4 00:00:00 grep www.ibm.com
 [root@root ~]#
 ```
-
-

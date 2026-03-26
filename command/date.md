@@ -1,183 +1,178 @@
 date
 ===
 
-显示或设置系统时间与日期
+Display or set system time and date
 
-## 概要
+## Synopsis
 
 ```shell
 date [OPTION]... [+FORMAT]
 date [-u|--utc|--universal] [MMDDhhmm[[CC]YY][.ss]]
 ```
 
-## 主要用途
+## Description
 
-- 转换时间到选定的格式，默认为当前。
-- 设置系统时间。
+- Convert time to a selected format, default is current time.
+- Set the system time.
 
-## 参数
+## Parameters
 
-format：输出的时间格式。
+format: Output time format.
 
 ```shell
-format可用的转义序列如下：
+The following escape sequences are available for format:
 
-%%      百分号
-%a      当地缩写的工作日名称（例如，Sun）
-%A      当地完整的工作日名称（例如，Sunday）
-%b      当地缩写的月份名称（例如，Jan）
-%B      当地完整的月份名称（例如，January）
-%c      当地的日期和时间（例如，Thu Mar  3 23:05:25 2005）
-%C      世纪，和%Y类似，但是省略后两位（例如，20）
-%d      一月中的一天（例如，01）
-%D      日期，等价于%m/%d/%y
-%e      一月中的一天，格式使用空格填充，等价于%_d
-%F      完整的日期；等价于%+4Y-%m-%d
-%g      ISO标准计数周的年份的最后两位数字
-%G      ISO标准计数周的年份，通常只对%V有用
-%h      等价于%b
-%H      小时，范围（00..23）
-%I      小时，范围（00..23）
-%j      一年中的一天，范围（001..366）
-%k      小时，使用空格填充，范围（0..23），等价于%_H
-%l      小时，使用空格填充，范围（1..12），等价于%_I
-%m      月，范围（01..12）
-%M      分钟，范围（00..59）
-%n      换行符
-%N      纳秒，范围（000000000..000000000）
-%p      用于表示当地的AM或PM，如果未知则为空白
-%P      类似于%p，但用小写表示
-%q      季度，范围（1..4）
-%r      当地以12小时表示的时钟时间（例如，11:11:04 PM）
-%R      24小时每分钟；等价于%H:%M
-%s      自协调世界时1970年01月01日00时00分以来的秒数
-%S      秒数，范围（00..60）
-%t      水平制表符
-%T      时间；等价于%H:%M:%S
-%u      一周中的一天（1..7），1代表星期一
-%U      一年中的第几周，周日作为一周的起始（00..53）
-%V      ISO标准计数周，该方法将周一作为一周的起始（01..53）
-%w      一周中的一天（0..6），0代表星期天
-%W      一年中的第几周，周一作为一周的起始（00..53）
-%x      当地的日期表示（例如，12/31/99）
-%X      当地的时间表示（例如，23:13:48）
-%y      年份后两位数字，范围（00..99）
-%Y      年份
-%z      +hhmm格式的数值化时区格式（例如，-0400）
-%:z     +hh:mm格式的数值化时区格式（例如，-04:00）
-%::z    +hh:mm:ss格式的数值化时区格式（例如，-04:00:00）
-%:::z   数值化时区格式，相比上一个格式增加':'以显示必要的精度（例如，-04，+05:30）
-%Z      时区缩写（如EDT）
+%%      A literal %
+%a      Locale's abbreviated weekday name (e.g., Sun)
+%A      Locale's full weekday name (e.g., Sunday)
+%b      Locale's abbreviated month name (e.g., Jan)
+%B      Locale's full month name (e.g., January)
+%c      Locale's date and time (e.g., Thu Mar  3 23:05:25 2005)
+%C      Century; like %Y, except omit last two digits (e.g., 20)
+%d      Day of month (e.g., 01)
+%D      Date; same as %m/%d/%y
+%e      Day of month, space padded; same as %_d
+%F      Full date; same as %+4Y-%m-%d
+%g      Last two digits of year of ISO week number
+%G      Year of ISO week number; normally useful only with %V
+%h      Same as %b
+%H      Hour (00..23)
+%I      Hour (01..12)
+%j      Day of year (001..366)
+%k      Hour, space padded ( 0..23); same as %_H
+%l      Hour, space padded ( 1..12); same as %_I
+%m      Month (01..12)
+%M      Minute (00..59)
+%n      A newline
+%N      Nanoseconds (000000000..999999999)
+%p      Locale's equivalent of either AM or PM; blank if not known
+%P      Like %p, but lower case
+%q      Quarter of year (1..4)
+%r      Locale's 12-hour clock time (e.g., 11:11:04 PM)
+%R      24-hour hour and minute; same as %H:%M
+%s      Seconds since 1970-01-01 00:00:00 UTC
+%S      Second (00..60)
+%t      A tab
+%T      Time; same as %H:%M:%S
+%u      Day of week (1..7); 1 is Monday
+%U      Week number of year, with Sunday as first day of week (00..53)
+%V      ISO week number, with Monday as first day of week (01..53)
+%w      Day of week (0..6); 0 is Sunday
+%W      Week number of year, with Monday as first day of week (00..53)
+%x      Locale's date representation (e.g., 12/31/99)
+%X      Locale's time representation (e.g., 23:13:48)
+%y      Last two digits of year (00..99)
+%Y      Year
+%z      +hhmm numeric time zone (e.g., -0400)
+%:z     +hh:mm numeric time zone (e.g., -04:00)
+%::z    +hh:mm:ss numeric time zone (e.g., -04:00:00)
+%:::z   Numeric time zone with : to necessary precision (e.g., -04, +05:30)
+%Z      Alphabetic time zone abbreviation (e.g., EDT)
 
-默认情况下，日期用零填充数字字段；以下可选的符号可以跟在'%'后面:
+By default, date pads numeric fields with zeroes. The following optional flags may follow '%':
 
--      (连字符) 不要填充相应的字段。
-_      (下划线) 使用空格填充相应的字段。
-0      (数字0) 使用数字0填充相应的字段。
-+      用数字0填充，未来年份大于4位数字则在前面加上'+'号。
-^      允许的情况下使用大写。
-#      允许的情况下将默认的大写转换为小写，默认的小写转换为大写。
+-      (hyphen) Do not pad the field.
+_      (underscore) Pad with spaces.
+0      (zero) Pad with zeros.
++      Pad with zeros, and place '+' before future years with >4 digits.
+^      Use upper case if possible.
+#      Use opposite case if possible.
 
-在任何标志之后都有一个可选的字段宽度，如小数；然后是一个可选的修饰符，在可用的情况下，使用E来使用当地语言环境的替代表示，
-使用O来使用当地语言环境的替代数字符号。
+After any flags comes an optional field width, as a decimal number; then an optional modifier, which is either E to use the locale's alternate representations if available, or O to use the locale's alternate numeric symbols if available.
 ```
 
-## 选项 
+## Options
 
 ```shell
-长选项与短选项等价
+Long options are mandatory for short options too.
 
--d, --date=STRING          解析字符串并按照指定格式输出，字符串不能是'now'。
---debug                    注释已解析的日期，并将有疑问的用法发送到标准错误。
--f, --file=DATEFILE        类似于--date; 一次从DATEFILE处理一行。
--I[FMT], --iso-8601[=FMT]  按照ISO 8601格式输出，FMT可以为'date'(默认)，'hours'，'minutes'，'seconds'，'ns'。例如：2006-08-14T02:34:56-06:00
--R, --rfc-email            按照RFC 5322格式输出，例如: Mon, 14 Aug 2006 02:34:56 -0600
---rfc-3339=FMT             按照RFC 3339格式输出，FMT可以为'date', 'seconds','ns'中的一个，例如：2006-08-14 02:34:56-06:00
--r, --reference=FILE       显示文件的上次修改时间。
--s, --set=STRING           根据字符串设置系统时间。
--u, --utc, --universal     显示或设置世界协调时(UTC)。
---help                     显示帮助信息并退出。
---version                  显示版本信息并退出。
+-d, --date=STRING          Display time described by STRING, not 'now'.
+--debug                    Annotate the parsed date, and send warnings to stderr.
+-f, --file=DATEFILE        Like --date; read lines from DATEFILE.
+-I[FMT], --iso-8601[=FMT]  Output date/time in ISO 8601 format. FMT can be 'date' (default), 'hours', 'minutes', 'seconds', or 'ns'. e.g.: 2006-08-14T02:34:56-06:00
+-R, --rfc-email            Output date and time in RFC 5322 format. e.g.: Mon, 14 Aug 2006 02:34:56 -0600
+--rfc-3339=FMT             Output date/time in RFC 3339 format. FMT can be 'date', 'seconds', or 'ns'. e.g.: 2006-08-14 02:34:56-06:00
+-r, --reference=FILE       Display the last modification time of FILE.
+-s, --set=STRING           Set time described by STRING.
+-u, --utc, --universal     Print or set Coordinated Universal Time (UTC).
+--help                     Display help and exit.
+--version                  Output version information and exit.
 ```
 
-## 返回值
+## Return Value
 
-返回状态为成功除非给出了非法选项或非法参数。
+Returns 0 on success, and a non-zero value if an invalid option or parameter is provided.
 
-## 例子 
+## Examples
 
 ```shell
-# 格式化输出：
+# Format output:
 date +"%Y-%m-%d"
 2009-12-07
 
-# 输出昨天日期：
+# Yesterday's date:
 date -d "1 day ago" +"%Y-%m-%d"
 2012-11-19
 
-# 2秒后输出：
+# Time after 2 seconds:
 date -d "2 second" +"%Y-%m-%d %H:%M.%S"
 2012-11-20 14:21.31
 
-# 传说中的 1234567890 秒：
+# The legendary 1234567890 seconds:
 date -d "1970-01-01 1234567890 seconds" +"%Y-%m-%d %H:%M:%S"
-# 或者
+# Or
 date -d@1234567890 +"%F %T"
-# 输出结果
+# Result
 2009-02-13 23:02:30
 
-# 时间格式转换：
+# Time format conversion:
 date -d "2009-12-12" +"%Y/%m/%d %H:%M.%S"
-# 输出结果
+# Result
 2009/12/12 00:00.00
 
-# apache格式转换：
+# Apache format conversion:
 date -d "Dec 5, 2009 12:00:37 AM" +"%Y-%m-%d %H:%M.%S"
-# 输出结果
+# Result
 2009-12-05 00:00.37
 
-# 格式转换后时间游走：
+# Time offset with conversion:
 date -d "Dec 5, 2009 12:00:37 AM 2 year ago" +"%Y-%m-%d %H:%M.%S"
-# 输出结果
+# Result
 2007-12-05 00:00.37
 
-# 时间加减操作：
-date +%Y%m%d                   # 显示年月日
-date -d "+1 day" +%Y%m%d       # 显示前一天的日期
-date -d "-1 day" +%Y%m%d       # 显示后一天的日期
-date -d "-1 month" +%Y%m%d     # 显示上一月的日期
-date -d "+1 month" +%Y%m%d     # 显示下一月的日期
-date -d "-1 year" +%Y%m%d      # 显示前一年的日期
-date -d "+1 year" +%Y%m%d      # 显示下一年的日期
+# Time addition and subtraction:
+date +%Y%m%d                   # Show year, month, day
+date -d "+1 day" +%Y%m%d       # Show tomorrow's date
+date -d "-1 day" +%Y%m%d       # Show yesterday's date
+date -d "-1 month" +%Y%m%d     # Show last month's date
+date -d "+1 month" +%Y%m%d     # Show next month's date
+date -d "-1 year" +%Y%m%d      # Show last year's date
+date -d "+1 year" +%Y%m%d      # Show next year's date
 
-# 设定时间：
-date -s                         # 设置当前时间，只有root权限才能设置，其他只能查看
-date -s 20120523                # 设置成20120523，这样会把具体时间设置成00:00:00
-date -s 01:01:01                # 设置具体时间，不会对日期做更改
-date -s "01:01:01 2012-05-23"   # 这样可以设置全部时间
-date -s "01:01:01 20120523"     # 这样可以设置全部时间
-date -s "2012-05-23 01:01:01"   # 这样可以设置全部时间
-date -s "20120523 01:01:01"     # 这样可以设置全部时间
+# Setting time:
+date -s                         # Set current time (requires root)
+date -s 20120523                # Set date to 20120523, time resets to 00:00:00
+date -s 01:01:01                # Set specific time without changing date
+date -s "01:01:01 2012-05-23"   # Set date and time
+date -s "01:01:01 20120523"     # Set date and time
+date -s "2012-05-23 01:01:01"   # Set date and time
+date -s "20120523 01:01:01"     # Set date and time
 
-# 有时需要检查一组命令花费的时间：
+# Measuring command execution time:
 start=$(date +%s)
-nmap wangchujiang.com &> /dev/null
+nmap example.com &> /dev/null
 end=$(date +%s)
 difference=$(( end - start ))
-# 显示执行时间
 echo $difference seconds.
 
-# 当你考虑输出带有时间的字符串时，例如（Current time: 2019/05/19）：
-# 通常使用的方法：
+# Output string with time (e.g., Current time: 2019/05/19):
+# Common method:
 echo "Current time: $(date +"%Y/%m/%d")"
-# 另一种方法：
+# Alternative method:
 suffix='Current time:'
-# 注意如果换成单引号就不能替换变量了。
 date +"${suffix} %Y/%m/%d"
 ```
 
-### 注意
+### Note
 
-1. 该命令是`GNU coreutils`包中的命令，相关的帮助信息请查看`man -s 1 date`或`info coreutils 'date invocation'`。
-
-
+1. This command is part of the `GNU coreutils` package. For more information, see `man -s 1 date` or `info coreutils 'date invocation'`.

@@ -1,65 +1,63 @@
 set
 ===
 
-显示或设置shell特性及shell变量
+Display or set shell attributes and variables.
 
-## 补充说明
+## Description
 
-**set命令** 作用主要是显示系统中已经存在的shell变量，以及设置shell变量的新变量值。使用set更改shell特性时，符号"+"和"-"的作用分别是打开和关闭指定的模式。set命令不能够定义新的shell变量。如果要定义新的变量，可以使用declare命令以`变量名=值`的格式进行定义即可。
+The **set command** is primarily used to display existing shell variables and set their values. When using `set` to modify shell attributes, the "+" and "-" signs are used to enable and disable specific modes, respectively. The `set` command cannot define new shell variables; use the `declare` command in the format `variable_name=value` to define new variables.
 
-###  语法
-
-```shell
-set(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--a：标示已修改的变量，以供输出至环境变量。
--b：使被中止的后台程序立刻回报执行状态。
--C：转向所产生的文件无法覆盖已存在的文件。
--d：Shell预设会用杂凑表记忆使用过的指令，以加速指令的执行。使用-d参数可取消。
--e：若指令传回值不等于0，则立即退出shell。
--f：取消使用通配符。
--h：自动记录函数的所在位置。
--H Shell：可利用"!"加<指令编号>的方式来执行history中记录的指令。
--k：指令所给的参数都会被视为此指令的环境变量。
--l：记录for循环的变量名称。
--m：使用监视模式。
--n：只读取指令，而不实际执行。
--p：启动优先顺序模式。
--P：启动-P参数后，执行指令时，会以实际的文件或目录来取代符号连接。
--t：执行完随后的指令，即退出shell。
--u：当执行时使用到未定义过的变量，则显示错误信息。
--v：显示shell所读取的输入值。
--x：执行指令后，会先显示该指令及所下的参数。
+set [options] [parameters]
 ```
 
-###  参数
-
-取消某个set曾启动的参数。
-
-###  实例
-
-使用declare命令定义一个新的环境变量"mylove"，并且将其值设置为"Visual C++"，输入如下命令：
+### Options
 
 ```shell
-declare mylove='Visual C++'   #定义新环境变量
+-a: Mark modified or created variables for export to the environment.
+-b: Cause the status of terminated background jobs to be reported immediately.
+-C: Prevent existing regular files from being overwritten by redirection.
+-d: Shell uses a hash table to remember the locations of commands to speed up execution. Use -d to disable this.
+-e: Exit immediately if a command exits with a non-zero status.
+-f: Disable pathname expansion (globbing).
+-h: Remember the location of functions as they are defined.
+-H: Enable "!" style history substitution.
+-k: All arguments in the form of assignment statements are placed in the environment for a command.
+-l: Save and restore the binding of a name in a for loop.
+-m: Enable job control (monitor mode).
+-n: Read commands but do not execute them.
+-p: Turn on privileged mode.
+-P: If set, do not follow symbolic links when performing commands such as cd.
+-t: Exit after reading and executing one command.
+-u: Treat unset variables as an error when performing parameter expansion.
+-v: Print shell input lines as they are read.
+-x: Print commands and their arguments as they are executed.
 ```
 
-再使用set命令将新定义的变量输出为环境变量，输入如下命令：
+### Parameters
+
+Used to disable a previously set attribute.
+
+### Examples
+
+Use the `declare` command to define a new environment variable "mylove" and set its value to "Visual C++":
 
 ```shell
-set -a mylove                 #设置为环境变量
+declare mylove='Visual C++'   # Define a new environment variable
 ```
 
-执行该命令后，将会新添加对应的环境变量。用户可以使用env命令和grep命令分别显示和搜索环境变量"mylove"，输入命令如下：
+Use the `set` command to export the newly defined variable to the environment:
 
 ```shell
-env | grep mylove             #显示环境变量值
+set -a mylove                 # Set as an environment variable
 ```
 
-此时，该命令执行后，将输出查询到的环境变量值。
+After executing this command, the corresponding environment variable will be added. You can use the `env` and `grep` commands to display and search for the environment variable "mylove":
 
+```shell
+env | grep mylove             # Display the value of the environment variable
+```
 
+At this point, the command will output the value of the environment variable.

@@ -1,35 +1,35 @@
 shopt
 ===
 
-显示和设置shell操作选项
+Display and set shell execution options.
 
-## 补充说明
+## Description
 
-**shopt命令** 用于显示和设置shell中的行为选项，通过这些选项以增强shell易用性。shopt命令若不带任何参数选项，则可以显示所有可以设置的shell操作选项。
+The **shopt command** is used to display and set behavioral options in the shell to enhance shell usability. If the shopt command is used without any options, it displays all settable shell execution options.
 
-###  语法
+### Syntax
 
 ```shell
-shopt(选项)(参数)
+shopt [option] [parameter]
 ```
 
-###  选项
+### Options
 
 ```shell
--s：激活指定的shell行为选项；
--u：关闭指定的shell行为选项。
+-s: Enable (set) the specified shell behavior options;
+-u: Disable (unset) the specified shell behavior options.
 ```
 
-###  参数
+### Parameters
 
-shell选项：指定要操作的shell选项。
+shell options: Specify the shell options to operate on.
 
-###  实例
+### Examples
 
-使用shopt命令显示当前所有可以设置的shell操作选项，输入如下命令：
+Use the shopt command to display all current settable shell execution options:
 
 ```shell
-shopt           #输出所有可以设置的shell操作选项
+shopt           # Output all settable shell execution options
 autocd         	off
 cdable_vars    	off
 cdspell        	off
@@ -81,18 +81,16 @@ syslog_history 	off
 xpg_echo       	off
 ```
 
-如图上所示，选项"cdspell"的状态为"off"，即关闭cd拼写检查选项。现在，可以使用shopt命令将其开启，输入如下命令：
+As shown above, the status of the "cdspell" option is "off", meaning the cd spelling check option is disabled. Now, you can use the shopt command to enable it:
 
 ```shell
-shopt -s cdspell          #开启cd拼写检查
+shopt -s cdspell          # Enable cd spelling check
 ```
 
-执行上面的命令后，该选项的状态将变为"on"，即开启状态。可以再次通过该命令显示一下shell操作选项即可，输出信息如下：
+After executing the command, the status of this option will change to "on". You can display the shell execution options again to verify:
 
 ```shell
-cdspell on                #开启cdspell选项
+cdspell on                # cdspell option is enabled
 ```
 
-用户可以通过实际执行cd命令检查该选项是否被成功开启。
-
-
+Users can verify if the option has been successfully enabled by executing the cd command.

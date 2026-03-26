@@ -1,20 +1,18 @@
 spell
 ===
 
-对文件进行拼写检查
+Spell check a file.
 
-## 补充说明
+## Description
 
-**spell命令** 对文件进行拼写检查，并把拼写错误的单词输出。
+The **spell command** performs spell checking on a file and outputs misspelled words.
 
-###  语法
+### Syntax
 
 ```shell
-spell(参数)
+spell [parameter]
 ```
 
-###  参数
+### Parameter
 
-文件：指定需要进行拼写检查的文件。
-
-
+File: Specify the file to be spell-checked.

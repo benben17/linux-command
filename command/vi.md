@@ -1,107 +1,103 @@
 vi
 ===
 
-功能强大的纯文本编辑器
+A powerful text editor.
 
-## 补充说明
+## Description
 
-**vi命令** 是UNIX操作系统和类UNIX操作系统中最通用的全屏幕纯文本编辑器。Linux中的vi编辑器叫vim，它是vi的增强版（vi Improved），与vi编辑器完全兼容，而且实现了很多增强功能。
+The **vi command** is the most versatile full-screen plain text editor in UNIX and Unix-like operating systems. The vi editor in Linux is called Vim, which stands for "Vi Improved." It is fully compatible with the vi editor and includes many enhanced features.
 
-vi编辑器支持编辑模式和命令模式，编辑模式下可以完成文本的编辑功能，命令模式下可以完成对文件的操作命令，要正确使用vi编辑器就必须熟练掌握着两种模式的切换。默认情况下，打开vi编辑器后自动进入命令模式。从编辑模式切换到命令模式使用“esc”键，从命令模式切换到编辑模式使用“A”、“a”、“O”、“o”、“I”、“i”键。
+The vi editor supports two main modes: Edit mode (Insert mode) and Command mode. Text editing functions are performed in Edit mode, while file operation commands are executed in Command mode. To use the vi editor effectively, you must be proficient in switching between these two modes. By default, opening the vi editor puts you into Command mode. To switch from Edit mode to Command mode, use the "Esc" key. To switch from Command mode to Edit mode, use keys such as "A", "a", "O", "o", "I", or "i".
 
-vi编辑器提供了丰富的内置命令，有些内置命令使用键盘组合键即可完成，有些内置命令则需要以冒号“：”开头输入。常用内置命令如下：
-
-```shell
-Ctrl+u：向文件首翻半屏；
-Ctrl+d：向文件尾翻半屏；
-Ctrl+f：向文件尾翻一屏；
-Ctrl+b：向文件首翻一屏；
-Esc：从编辑模式切换到命令模式；
-ZZ：命令模式下保存当前文件所做的修改后退出vi；
-:行号：光标跳转到指定行的行首；
-:$：光标跳转到最后一行的行首；
-x或X：删除一个字符，x删除光标后的，而X删除光标前的；
-D：删除从当前光标到光标所在行尾的全部字符；
-dd：删除光标行正行内容；
-ndd：删除当前行及其后n-1行；
-nyy：将当前行及其下n行的内容保存到寄存器？中，其中？为一个字母，n为一个数字；
-p：粘贴文本操作，用于将缓存区的内容粘贴到当前光标所在位置的下方；
-P：粘贴文本操作，用于将缓存区的内容粘贴到当前光标所在位置的上方；
-/字符串：文本查找操作，用于从当前光标所在位置开始向文件尾部查找指定字符串的内容，查找的字符串会被加亮显示；
-?字符串：文本查找操作，用于从当前光标所在位置开始向文件头部查找指定字符串的内容，查找的字符串会被加亮显示；
-a，bs/F/T：替换文本操作，用于在第a行到第b行之间，将F字符串换成T字符串。其中，“s/”表示进行替换操作；
-a：在当前字符后添加文本；
-A：在行末添加文本；
-i：在当前字符前插入文本；
-I：在行首插入文本；
-o：在当前行后面插入一空行；
-O：在当前行前面插入一空行；
-:wq：在命令模式下，执行存盘退出操作；
-:w：在命令模式下，执行存盘操作；
-:w!：在命令模式下，执行强制存盘操作；
-:q：在命令模式下，执行退出vi操作；
-:q!：在命令模式下，执行强制退出vi操作；
-:e文件名：在命令模式下，打开并编辑指定名称的文件；
-:n：在命令模式下，如果同时打开多个文件，则继续编辑下一个文件；
-:f：在命令模式下，用于显示当前的文件名、光标所在行的行号以及显示比例；
-:set number：在命令模式下，用于在最左端显示行号；
-:set nonumber：在命令模式下，用于在最左端不显示行号；
-```
-
-###  语法
+The vi editor provides a wealth of built-in commands. Some are executed using keyboard combinations, while others require entering a colon ":" followed by the command. Common built-in commands include:
 
 ```shell
-vi(选项)(参数)
+Ctrl+u: Scroll up half a screen;
+Ctrl+d: Scroll down half a screen;
+Ctrl+f: Scroll down a full screen;
+Ctrl+b: Scroll up a full screen;
+Esc: Switch from Edit mode to Command mode;
+ZZ: Save changes and exit vi in Command mode;
+:line_number: Jump to the beginning of the specified line;
+:$: Jump to the beginning of the last line;
+x or X: Delete a character (x deletes after the cursor, X deletes before);
+D: Delete all characters from the current cursor to the end of the line;
+dd: Delete the entire line at the cursor;
+ndd: Delete the current line and the following n-1 lines;
+nyy: Copy the current line and the following n lines into register '?', where '?' is a letter and n is a number;
+p: Paste text below the current cursor position;
+P: Paste text above the current cursor position;
+/string: Search forward for the specified string from the cursor position;
+?string: Search backward for the specified string from the cursor position;
+a,bs/F/T: Replace string F with string T between lines a and b (s/ denotes substitution);
+a: Append text after the current character;
+A: Append text at the end of the line;
+i: Insert text before the current character;
+I: Insert text at the beginning of the line;
+o: Insert a blank line after the current line;
+O: Insert a blank line before the current line;
+:wq: Save and exit in Command mode;
+:w: Save file in Command mode;
+:w!: Force save in Command mode;
+:q: Exit vi in Command mode;
+:q!: Force exit vi without saving;
+:e filename: Open and edit the specified file;
+:n: Edit the next file if multiple files are open;
+:f: Display the current filename, line number, and percentage;
+:set number: Display line numbers;
+:set nonumber: Hide line numbers;
 ```
 
-###  选项
+### Syntax
 
 ```shell
-+<行号>：从指定行号的行开始显示文本内容；
--b：以二进制模式打开文件，用于编辑二进制文件和可执行文件；
--c<指令>：在完成对第一个文件编辑任务后，执行给出的指令；
--d：以diff模式打开文件，当多个文件编辑时，显示文件差异部分；
--l：使用lisp模式，打开“lisp”和“showmatch”；
--m：取消写文件功能，重设“write”选项；
--M：关闭修改功能；
--n：不实用缓存功能；
--o<文件数目>：指定同时打开指定数目的文件；
--R：以只读方式打开文件；
--s：安静模式，不显示指令的任何错误信息。
+vi (option) (parameter)
 ```
 
-###  参数
-
-文件列表：指定要编辑的文件列表。多个文件之间使用空格分隔开。
-
-## 知识扩展  
-
-vi编辑器有三种工作方式：命令方式、输入方式和ex转义方式。通过相应的命令或操作，在这三种工作方式之间可以进行转换。
-
-**命令方式** 
-
-在Shell提示符后输入命令vi，进入vi编辑器，并处于vi的命令方式。此时，从键盘上输入的任何字符都被作为编辑命令来解释，例如，a(append）表示附加命令，i(insert）表示插入命令，x表示删除字符命令等。如果输入的字符不是vi的合法命令，则机器发出“报警声”，光标不移动。另外，在命令方式下输入的字符（即vi命令）并不在屏幕上显示出来，例如，输入i，屏幕上并无变化，但通过执行i命令，编辑器的工作方式却发生变化：由命令方式变为输入方式。
-
-**输入方式** 
-
-通过输入vi的插入命令（i）、附加命令（a）、打开命令（o）、替换命令（s）、修改命令(c）或取代命令（r）可以从命令方式进入输入方式。在输入方式下，从键盘上输入的所有字符都被插入到正在编辑的缓冲区中，被当做该文件的正文。进入输入方式后，输入的可见字符都在屏幕上显示出来，而编辑命令不再起作用，仅作为普通字母出现。例如，在命令方式下输入字母i，进到输入方式，然后再输入i，就在屏幕上相应光标处添加一个字母i。
-
-由输入方式回到命令方式的办法是按下Esc键。如果已在命令方式下，那么按下Esc键就会发出“嘟嘟”声。为了确保用户想执行的vi命令是在命令方式下输入的，不妨多按几下Esc键，听到嘟声后再输入命令。
-
-**ex转义方式** 
-
-vi和ex编辑器的功能是相同的，二者的主要区别是用户界面。在vi中，命令通常是单个字母，如a,x,r等。而在ex中，命令是以Enter；键结束的命令行。vi有一个专门的“转义”命令，可访问很多面向行的ex命令。为使用ex转义方式，可输入一个冒号（:）。作为ex命令提示符，冒号出现在状态行（通常在屏幕最下一行）。按下中断键（通常是Del键），可终止正在执行的命令。多数文件管理命令都是在ex转义方式下执行的（例如，读取文件，把编辑缓冲区的内容写到文件中等）。转义命令执行后，自动回到命令方式。例如：
+### Options
 
 ```shell
-:1,$s/I/i/g 按Enter键
++<line_number>: Start displaying text from the specified line number;
+-b: Open in binary mode, used for editing binary and executable files;
+-c<command>: Execute the given command after finishing editing the first file;
+-d: Open in diff mode to display differences when multiple files are being edited;
+-l: Use Lisp mode, enabling "lisp" and "showmatch";
+-m: Disable writing to files by resetting the "write" option;
+-M: Disable modifications;
+-n: Do not use a swap file;
+-o<number>: Specify the number of files to open simultaneously;
+-R: Open file in read-only mode;
+-s: Quiet mode; do not display error messages for commands.
 ```
 
-则从文件第一行至文件末尾（$）将大写I全部替换成小写i。vi编辑器的三种工作方式之间的转换如图所示。
+### Parameters
 
-!vi
-【查看行号】
-在 vi 或 vim 编辑器中，按 Esc，然后输入：
-:set number
+File list: Specifies the list of files to be edited, separated by spaces.
 
+## Extended Knowledge
 
+The vi editor has three operational modes: Command mode, Input (Insert) mode, and ex (Last-line) mode. You can switch between these modes using specific commands or actions.
 
+**Command Mode**
+
+Entering the command `vi` at the shell prompt opens the vi editor in Command mode. In this mode, any characters typed are interpreted as editing commands. For example, `a` (append), `i` (insert), and `x` (delete character). If the input is not a valid vi command, the system may beep, and the cursor will not move. Characters typed in Command mode do not appear on the screen. For instance, typing `i` changes the mode to Input mode without showing any change on the screen.
+
+**Input Mode**
+
+You enter Input mode from Command mode by typing insertion commands such as `i` (insert), `a` (append), `o` (open), `s` (substitute), `c` (change), or `r` (replace). In Input mode, all characters typed are inserted into the buffer as the text of the file and displayed on the screen. Editing commands no longer work in this mode.
+
+To return to Command mode from Input mode, press the `Esc` key. If you are already in Command mode, pressing `Esc` may cause a beep. To ensure you are in Command mode before typing a command, you can press `Esc` several times until you hear a beep or see no change.
+
+**ex Mode**
+
+The vi and ex editors offer the same functionality; the primary difference is the user interface. In vi, commands are usually single letters. In ex, commands are command lines ending with the `Enter` key. vi has a "Last-line" command that allows access to line-oriented ex commands by typing a colon (`:`). The colon appears as a prompt on the status line (usually the bottom line of the screen). You can terminate a command by pressing the interrupt key (usually `Del`). Most file management tasks, such as reading or writing files, are performed in this mode. After an ex command executes, you automatically return to Command mode. For example:
+
+```shell
+:1,$s/I/i/g
+```
+
+This command replaces all occurrences of uppercase `I` with lowercase `i` from the first line to the end of the file (`$`).
+
+### Displaying Line Numbers
+In vi or vim, press `Esc` and then type:
+`:set number`

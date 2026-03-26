@@ -1,23 +1,21 @@
 rpmdb
 ===
 
-初始化和重建RPM数据库
+Initialize and rebuild the RPM database.
 
-## 补充说明
+## Description
 
-**rpmdb命令** 用于初始化和重建rpm数据库。
+The **rpmdb command** is used to initialize and rebuild the RPM database.
 
-###  语法
-
-```shell
-rpmdb(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
---initdb：初始化RPM数据库；
---rebuilddb：从已安装的包头文件，反向重建RPM数据库。
+rpmdb(options)
 ```
 
+### Options
 
+```shell
+--initdb: Initialize the RPM database.
+--rebuilddb: Rebuild the RPM database from installed package headers.
+```

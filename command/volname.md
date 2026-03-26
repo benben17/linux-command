@@ -1,20 +1,18 @@
 volname
 ===
 
-显示指定的ISO-9660格式的设备的卷名称
+Display the volume name of a specified ISO-9660 format device.
 
-## 补充说明
+## Description
 
-**volname命令** 用于显示指定的“ISO-9660”格式的设备的卷名称，通常这种格式的设备为光驱。
+The **volname command** is used to display the volume name of a specified device in "ISO-9660" format, which is typically an optical drive.
 
-###  语法
+### Syntax
 
 ```shell
-volname(参数)
+volname (parameter)
 ```
 
-###  参数
+### Parameters
 
-设备文件名：指定要显示卷名称的设备。
-
-
+Device filename: Specifies the device for which to display the volume name.

@@ -1,42 +1,40 @@
 vgreduce
 ===
 
-从卷组中删除物理卷
+Remove physical volumes from a volume group.
 
-## 补充说明
+## Description
 
-**vgreduce命令** 通过删除LVM卷组中的物理卷来减少卷组容量。不能删除LVM卷组中剩余的最后一个物理卷。
+The **vgreduce command** reduces the capacity of an LVM volume group by removing physical volumes from it. You cannot remove the last remaining physical volume in an LVM volume group.
 
-### 语法
-
-```shell
-vgreduce(选项)(参数)
-```
-
-### 选项
+### Syntax
 
 ```shell
--a：如果命令行中没有指定要删除的物理卷，则删除所有的空物理卷；
---removemissing：删除卷组中丢失的物理卷，使卷组恢复正常状态。
+vgreduce (option) (parameter)
 ```
 
-### 参数
-
-*   卷组：指定要操作的卷组名称；
-*   物理卷列表：指定要删除的物理卷列表。
-
-### 实例
-
-使用vgreduce命令从卷组"vg2000"中移除物理卷`/dev/sdb2`。在命令行中输入下面的命令：
+### Options
 
 ```shell
-[root@localhost ~]# vgreduce vg2000 /dev/sdb2    #将物理卷"/dev/sdb2"从卷组"vg2000"中删除
+-a: If no physical volumes are specified on the command line, remove all empty physical volumes;
+--removemissing: Remove missing physical volumes from the volume group to restore it to a normal state.
 ```
 
-输出信息如下：
+### Parameters
+
+*   Volume Group: Specifies the name of the volume group to be operated on;
+*   Physical Volume List: Specifies the list of physical volumes to be removed.
+
+### Examples
+
+Use the vgreduce command to remove physical volume `/dev/sdb2` from the volume group "vg2000". Enter the following command at the command line:
+
+```shell
+[root@localhost ~]# vgreduce vg2000 /dev/sdb2    # Remove physical volume "/dev/sdb2" from volume group "vg2000"
+```
+
+The output information is as follows:
 
 ```shell
 Removed "/dev/sdb2" from volume group "vg2000"
 ```
-
-

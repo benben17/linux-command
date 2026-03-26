@@ -1,17 +1,15 @@
 sshpass
 ===
 
-免交互 SSH 登录工具。
+Non-interactive SSH password provider
 
-## 补充说明
+## Description
 
-免交互 SSH 登录工具，但不要用在生产服务器上。
+The **sshpass command** is a utility for non-interactive SSH password authentication. It should generally not be used on production servers for security reasons.
 
-如果你想自动在 SSH 登录提示符中提供**密码**和**用户名**怎么办？这时 **sshpass** 就可以帮到你了。
+If you need to automatically provide a password and username at an SSH login prompt, `sshpass` can help. It is a simple, lightweight tool that provides a non-interactive way to handle password verification.
 
-**sshpass** 是一个简单、轻量级的命令行工具，通过它我们能够向命令提示符本身提供密码（非交互式密码验证）。
-
-### 安装
+### Installation
 
 ```shell
 # RedHat/CentOS
@@ -21,47 +19,47 @@ yum install sshpass
 apt-get install sshpass
 ```
 
-###  语法
+### Syntax
 
 ```shell
-sshpass (选项)
+sshpass [option] command [arg ...]
 ```
 
-###  选项
+### Options
 
 ```shell
-用法: sshpass [-f|-d|-p|-e] [-hV] 命令 参数
-    -f 文件名     从文件中获取密码
-    -d 数字       使用数字作为文件描述符来获取密码
-    -p 密码       将密码作为参数提供（安全上不明智）
-    -e            密码以环境变量 "SSHPASS" 的形式传递
-    如果没有参数 - 密码将从标准输入中获取
+Usage: sshpass [-f|-d|-p|-e] [-hV] command parameters
+    -f filename: Read the password from the first line of the specified file.
+    -d number: Use the specified file descriptor as the source for the password.
+    -p password: Provide the password as an argument (insecure).
+    -e: Read the password from the environment variable "SSHPASS".
+    (If no argument is provided, the password is read from standard input.)
 
-    -P 提示       sshpass 搜索以检测密码提示的字符串
-    -v            显示详细信息
-    -h            显示帮助信息（本屏幕）
-    -V            打印版本信息
-只能使用 -f、-d、-p 或 -e 中的一个
+    -P prompt: Specify a prompt string for sshpass to detect the password request.
+    -v: Verbose mode.
+    -h: Display help.
+    -V: Print version information.
+Only one of -f, -d, -p, or -e can be used at a time.
 ```
 
-### 实例
+### Examples
 
-1.明文传输密码（**不建议**）
+1. Pass password in plain text (**not recommended**):
 
 ```shell
 sshpass -p 'my_pass_here' ssh aaronkilik@10.42.0.1 'df -h'
 ```
 
-2.使用文件传输密码
+2. Pass password via a file:
 
 ```shell
 sshpass -f password_filename ssh aaronkilik@10.42.0.1 'df -h'
 ```
 
-3.使用环境变量 `SSHPASS`
+3. Use the `SSHPASS` environment variable:
 
 ```shell
 sshpass -e ssh aaronkilik@10.42.0.1 'df -h'
 ```
 
-更多使用详情请参考 [https://linux.cn/article-8086-1.html](https://linux.cn/article-8086-1.html) 。
+For more usage details, refer to [https://linux.cn/article-8086-1.html](https://linux.cn/article-8086-1.html).

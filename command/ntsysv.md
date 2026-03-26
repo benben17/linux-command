@@ -1,34 +1,31 @@
 ntsysv
 ===
 
-集中管理系统的各种服务
+Centrally manage various system services.
 
-## 补充说明
+## Description
 
-**ntsysv命令** 提供了一个基于文本界面的菜单操作方式，集中管理系统不同的运行等级下的系统服务启动状态。在RedHat各个发行版，CentOS各个版本，都自带这个工具。它具有互动式操作界面，您可以轻易地利用方向键和空格键等，开启，关闭操作系统在每个执行等级中，所要执行的系统服务。
+The **ntsysv command** provides a text-based menu interface for centrally managing the startup status of system services across different runlevels. This tool is included by default in various Red Hat distributions and CentOS versions. It features an interactive interface where you can easily use the arrow keys and the spacebar to enable or disable system services for each execution level.
 
-###  语法 
-
-```shell
-ntsysv(选项)
-```
-
-###  选项 
+### Syntax
 
 ```shell
---leve：指定运行等级；
---back：在互动式界面里，显示Back钮，而非cancel钮。
+ntsysv(options)
 ```
 
-###  实例 
-
-输入ntsysv命令后，出现一个交互式的管理菜单，如下：
+### Options
 
 ```shell
-!ntsysv
+--level <levels>: Specify the runlevels to configure (e.g., --level 35).
+--back: Display a "Back" button instead of a "Cancel" button in the interactive interface.
 ```
 
-使用空格键选择或者取消选项！
+### Examples
 
+After entering the `ntsysv` command, an interactive management menu will appear:
 
+```shell
+ntsysv
+```
 
+Use the **Spacebar** to select or deselect options!

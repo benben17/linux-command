@@ -1,35 +1,33 @@
 vgremove
 ===
 
-用于用户删除LVM卷组
+Used to delete LVM volume groups.
 
-## 补充说明
+## Description
 
-**vgremove命令** 用于用户删除LVM卷组。当要删除的卷组上已经创建了逻辑卷时，vgremove命令需要进行确认删除，防止误删除数据。
+The **vgremove command** is used to delete LVM volume groups. If logical volumes have already been created on the volume group to be deleted, the vgremove command requires confirmation to prevent accidental data loss.
 
-###  语法
+### Syntax
 
 ```shell
-vgremove(选项)(参数)
+vgremove (option) (parameter)
 ```
 
-###  选项
+### Options
 
 ```shell
--f：强制删除。
+-f: Force deletion.
 ```
 
-###  参数
+### Parameters
 
-卷组：指定要删除的卷组名称。
+Volume Group: Specifies the name of the volume group to be deleted.
 
-###  实例
+### Examples
 
-使用vgremove命令删除LVM卷组"vg1000"。在命令行中输入下面的命令：
+Use the vgremove command to delete LVM volume group "vg1000". Enter the following command at the command line:
 
 ```shell
-[root@localhost ~]# vgremove vg1000    #删除卷组"vg1000"
+[root@localhost ~]# vgremove vg1000    # Delete volume group "vg1000"
 Volume group "vg1000" successfully removed
 ```
-
-

@@ -1,27 +1,25 @@
 pwunconv
 ===
 
-用来关闭用户的投影密码
+Disable shadow passwords for users.
 
-## 补充说明
+## Description
 
-**pwunconv命令** 与pwconv功能相反，用来关闭用户的投影密码。它会把密码从shadow文件内，重回存到passwd文件里。
+The **pwunconv command** is the opposite of `pwconv`. it is used to disable shadow passwords for users by moving the encrypted passwords from the `shadow` file back into the `passwd` file.
 
-###  语法
+### Syntax
 
 ```shell
 pwunconv
 ```
 
-###  实例
+### Example
 
 ```shell
-pwunconv     # 关闭影子密码
-cat /etc/passwd | grep test     # 发现密码已经在passwd文件中了
+pwunconv     # Disable shadow passwords
+cat /etc/passwd | grep test     # Password is now back in the passwd file
 test:$6$nYOEWamm$bz07nlv/.RgJufb3FAqJJeULfwybzgxmrWqbk7O4vI0KsT6N.ujrh6dDIUcAJdfjksyuyAFDPIngZeD3cgcf.0:3001:3001::/home/test:/bin/sh
 
-ls /etc/shadow     # 查看影子文件，提示没有这个文件或目录
+ls /etc/shadow     # Check for the shadow file; it should no longer exist
 ls: cannot access /etc/shadow: No such file or directory
 ```
-
-

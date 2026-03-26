@@ -1,20 +1,18 @@
 bzmore
 ===
 
-查看bzip2压缩过的文本文件的内容
+View the contents of bzip2-compressed text files.
 
-## 补充说明
+## Description
 
-**bzmore命令** 用于查看bzip2压缩过的文本文件的内容，当下一屏显示不下时可以实现分屏显示。
+The **bzmore command** is used to view the contents of text files compressed with bzip2, enabling paginated display when the content exceeds one screen.
 
-###  语法
+### Syntax
 
 ```shell
-bzmore(参数)
+bzmore [parameters]
 ```
 
-###  参数
+### Parameters
 
-文件：指定要分屏显示的.bz2压缩包。
-
-
+File: Specify the `.bz2` compressed package to be displayed page by page.

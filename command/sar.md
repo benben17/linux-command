@@ -1,54 +1,54 @@
 sar
 ===
 
-系统运行状态统计工具
+System activity reporting tool.
 
-## 补充说明
+## Description
 
-**sar命令** 是Linux下系统运行状态统计工具，它将指定的操作系统状态计数器显示到标准输出设备。sar工具将对系统当前的状态进行取样，然后通过计算数据和比例来表达系统的当前运行状态。它的特点是可以连续对系统取样，获得大量的取样数据。取样数据和分析的结果都可以存入文件，使用它时消耗的系统资源很小。
+The **sar command** is a system activity reporting tool under Linux that displays specified operating system state counters to the standard output device. The `sar` tool samples the current state of the system and then expresses the system's current operating state by calculating data and ratios. Its characteristic is that it can continuously sample the system to obtain a large amount of sampling data. Both sampling data and analysis results can be stored in files, and it consumes very few system resources when used.
 
-###  语法
-
-```shell
-sar(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--A: 显示所有的报告信息；
--b: 显示I/O速率；
--B: 显示换页状态；
--c: 显示进程创建活动；
--d: 显示每个块设备的状态；
--e: 设置显示报告的结束时间；
--f: 从指定文件提取报告；
--i: 设状态信息刷新的间隔时间；
--n: 报告网络统计信息。
--P: 报告每个CPU的状态；
--R: 显示内存状态；
--u: 显示CPU利用率；
--v: 显示索引节点，文件和其他内核表的状态；
--w: 显示交换分区状态；
--x: 显示给定进程的状态。
+sar(options)(parameters)
+```
+
+### Options
+
+```shell
+-A: Displays all report information.
+-b: Displays I/O rates.
+-B: Displays paging statistics.
+-c: Displays process creation activity.
+-d: Displays the status of each block device.
+-e: Sets the end time for the report.
+-f: Extracts the report from the specified file.
+-i: Sets the interval for refreshing status information.
+-n: Reports network statistics.
+-P: Reports status for each CPU.
+-R: Displays memory statistics.
+-u: Displays CPU utilization.
+-v: Displays the status of inodes, files, and other kernel tables.
+-w: Displays swapping statistics.
+-x: Displays the status of a given process.
 ```
 
 ```shell
--r: 以分页方式显示输出，每页最多显示 100 行。  
--o: 输出选项，指定要显示的列。例如，`-o mrk,prt,cvg` 将显示 CPU 使用率、进程标识符、磁盘使用率 和 网络流量。  
--t: 时间戳选项，指定要在输出中添加时间戳。  
--s: 统计选项，指定要显示的统计数据的类型。例如，`-s us,ms` 将显示 CPU 使用率的 us 和 ms 时间段的平均值。  
--c: 选项用于指定要发送的命令。例如，`-c ls` 将显示当前目录中的文件和子目录列表。
+-r: Displays output in pages, with a maximum of 100 lines per page.
+-o: Output options; specifies the columns to be displayed. E.g., `-o mrk,prt,cvg` displays CPU usage, PIDs, disk usage, and network traffic.
+-t: Timestamp option; adds timestamps to the output.
+-s: Statistics option; specifies the type of statistics to display. E.g., `-s us,ms` displays average values for us and ms CPU time.
+-c: Specifies the command to be sent. E.g., `-c ls` displays the list of files and subdirectories in the current directory.
 ```
 
-###  参数
+### Parameters
 
-*   间隔时间：每次报告的间隔时间（秒）；
-*   次数：显示报告的次数。
+*   Interval: The interval between reports in seconds.
+*   Count: The number of reports to display.
 
-###  实例
+### Examples
 
-**察看内存和交换空间的使用率：** 
+**Check memory and swap space utilization:**
 
 ```shell
 sar -r
@@ -66,50 +66,50 @@ Average:       324346    964374     74.83
 0     96072    467559 
 ```
 
-kbmemfree与kbmemused字段分别显示内存的未使用与已使用空间，后面跟着的是已使用空间的百分比（%memused字段）。kbbuffers与kbcached字段分别显示缓冲区与系统全域的数据存取量，单位为KB。
+The `kbmemfree` and `kbmemused` fields show unused and used memory, respectively, followed by the percentage of used memory (`%memused`). The `kbbuffers` and `kbcached` fields show the amount of data accessed by buffers and the system cache, respectively, in KB.
 
-**观察系统部件10分钟，并对数据进行排序：** 
+**Monitor system components for 10 minutes and sort the data:**
 
 ```shell
 sar -o temp 60 10
 ```
 
-**显示保存在每日数据文件“sa16”中的内存和网络统计信息。**
+**Display memory and network statistics stored in the daily data file "sa16":**
 
 ```shell
 sar -r -n DEV -f /var/log/sa/sa16
 ```
 
-**查看 CPU 使用率：**
+**Check CPU utilization:**
 
 ```shell
 sar -t
 ```
 
-**查看磁盘使用率：**
+**Check disk utilization:**
 
 ```shell
 sar -s disk
 ```
 
-**查看网络流量：**
+**Check network traffic:**
 
 ```shell
 sar -s nic
 ```
 
-**发送命令到系统服务：**
+**Send a command to a system service:**
 
 ```shell
 sar -c ls
 ```
 
-**显示系统当前时间戳：** 
+**Display the current system timestamp:**
 
 ```shell
 sar -t +%s
 ```
 
-这些只是 `sar` 命令的一些示例，您可以根据具体需求选择不同的选项和参数。
+These are just a few examples of the `sar` command; you can choose different options and parameters based on your specific needs.
 
-注意: `sar` 命令的输出结果可能会因为系统性能的不同而有所不同。如果要获得更准确的结果，请考虑在系统性能最佳的时候进行监控。
+Note: The output of the `sar` command may vary depending on system performance. For more accurate results, consider monitoring when system performance is optimal.

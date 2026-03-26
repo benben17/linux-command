@@ -1,42 +1,40 @@
 lvremove
 ===
 
-删除指定LVM逻辑卷
+Remove a logical volume
 
-## 补充说明
+## Description
 
-**lvremove命令** 用于删除指定LVM逻辑卷。如果逻辑卷已经使用mount命令加载，则不能使用lvremove命令删除。必须使用umount命令卸载后，逻辑卷方可被删除。
+The **lvremove command** is used to remove an LVM logical volume. If a logical volume is currently mounted, it cannot be removed. It must be unmounted using the `umount` command before it can be deleted.
 
-###  语法
-
-```shell
-lvremove(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--f：强制删除。
+lvremove [OPTION]... LOGICAL_VOLUME_PATH
 ```
 
-###  参数
-
-逻辑卷：指定要删除的逻辑卷。
-
-###  实例
-
-使用lvremove命令删除指定的逻辑卷。在命令行中输入下面的命令：
+### Options
 
 ```shell
-[root@localhost ~]# lvremove /dev/vg1000/lvol0    #删除逻辑卷"lvol0"
+-f, --force: Force removal without confirmation.
 ```
 
-输出信息如下：
+### Parameters
+
+Logical Volume: The path to the logical volume to be removed.
+
+### Examples
+
+Remove a specific logical volume:
+
+```shell
+[root@localhost ~]# lvremove /dev/vg1000/lvol0
+```
+
+Output:
 
 ```shell
 Do you really want to remove active logical 
-volume "lvol0"? [y/n]: y    #确认删除
+volume "lvol0"? [y/n]: y
   Logical volume "lvol0" successfully removed
 ```
-
-

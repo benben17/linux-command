@@ -1,34 +1,32 @@
 halt
 ===
 
-关闭正在运行的Linux操作系统
+Shut down the running Linux operating system.
 
-## 补充说明
+## Supplemental Information
 
-**halt命令** 用来关闭正在运行的Linux操作系统。halt命令会先检测系统的runlevel，若runlevel为0或6，则关闭系统，否则即调用shutdown来关闭系统。
+The **halt command** is used to shut down the running Linux operating system. It first checks the system's current runlevel; if the runlevel is 0 or 6, it shuts down the system directly. Otherwise, it calls `shutdown` to perform the shutdown process.
 
-###  语法
-
-```shell
-halt(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
--d：不要在wtmp中记录；
--f：不论目前的runlevel为何，不调用shutdown即强制关闭系统；
--i：在halt之前，关闭全部的网络界面；
--n：halt前，不用先执行sync；
--p：halt之后，执行poweroff；
--w：仅在wtmp中记录，而不实际结束系统。
+halt (options)
 ```
 
-###  实例
+### Options
 
 ```shell
-halt -p     # 关闭系统后关闭电源。
-halt -d     # 关闭系统，但不留下纪录。
+-d: Do not record the action in wtmp;
+-f: Force shutdown without calling shutdown, regardless of the current runlevel;
+-i: Shut down all network interfaces before halting;
+-n: Do not perform a sync before halting;
+-p: Execute poweroff after halting;
+-w: Only record the action in wtmp without actually halting the system.
 ```
 
+### Examples
 
+```shell
+halt -p     # Shut down the system and turn off the power.
+halt -d     # Shut down the system without leaving a record in wtmp.
+```

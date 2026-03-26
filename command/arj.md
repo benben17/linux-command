@@ -1,21 +1,19 @@
 arj
 ===
 
-用于创建和管理.arj压缩包
+Used to create and manage .arj archives
 
-## 补充说明
+## Additional Information
 
-**arj命令** 是 `.arj` 格式的压缩文件的管理器，用于创建和管理 `.arj` 压缩包。
+The **arj command** is a manager for compressed files in `.arj` format, used for creating and managing `.arj` archives.
 
-###  语法
+### Syntax
 
 ```shell
-arj(参数)
+arj [command]
 ```
 
-###  参数
+### Parameters
 
-*  操作指令：对  `.arj` 压缩包执行的操作指令；
-*  压缩包名称：指定要操作的arj压缩包名称。
-
-
+* Command: The operation to perform on the `.arj` archive.
+* Archive name: The name of the arj archive to be manipulated.

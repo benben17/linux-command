@@ -1,29 +1,27 @@
 xlsfonts
 ===
 
-列出X Server使用的字体
+List fonts used by the X Server.
 
-## 补充说明
+## Supplemental Information
 
-**xlsfonts命令** 列出X Server使用的字体，也能使用范本样式仅列出的符合条件的字体。
+The **xlsfonts command** lists the fonts used by the X Server. You can also use pattern matching to list only those fonts that meet specific criteria.
 
-###  语法
-
-```shell
-xlsfonts(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
--l：除字体名称外，同时列出字体的属性；
--ll：此参数的效果和指定"l"参数类似，但显示更详细的信息；
--lll：此参数的效果和指定"ll"参数类似，但显示更详细的信息；
--m：配合参数"-l"使用时，一并列出字体大小的上下限；
--n<显示栏位数>：设置每列显示的栏位数；
--o：以OpenFont的形式列出字体清单；
--u：列出字体清单时不依照其名称排序；
--w<每列字符数>：设置每列的最大字符数。
+xlsfonts(options)
 ```
 
+### Options
 
+```shell
+-l: List font properties in addition to font names.
+-ll: Similar to "-l", but provides more detailed information.
+-lll: Similar to "-ll", but provides even more detailed information.
+-m: When used with "-l", lists the upper and lower bounds of font size as well.
+-n <columns>: Set the number of columns to display per line.
+-o: List the font inventory in OpenFont format.
+-u: Do not sort the font list by name.
+-w <characters_per_line>: Set the maximum number of characters per line.
+```

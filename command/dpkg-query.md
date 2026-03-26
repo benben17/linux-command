@@ -1,70 +1,68 @@
 dpkg-query
 ===
 
-Debian Linux中软件包的查询工具
+A tool to query the dpkg database.
 
-## 补充说明
+## Description
 
-**dpkg-query命令** 是Debian Linux中软件包的查询工具，它从dpkg软件包数据库中查询并辨识软件包的信息。
+The **dpkg-query** command is a tool for querying information about packages from the `dpkg` package database.
 
-###  语法
-
-```shell
-dpkg-query(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--l：列出符合匹配模式的软件包；
--s：查询软件包的状态信息；
--L：显示软件包所安装的文件列表；
--S：从安装的软件包中查询文件；
--w：显示软件包信息；
--c：显示软件包的控制文件路径；
--p：显示软件包的细节。
+dpkg-query (options) (parameters)
 ```
 
-###  参数
+### Options
 
-软件包名称：指定需要查询的软件包。
+```shell
+-l    List packages matching the given pattern.
+-s    Report status of the specified package.
+-L    List files installed to your system from the specified package.
+-S    Search for a file name in installed packages.
+-w    Display information about the specified package(s).
+-c    Display the path to the package's control file.
+-p    Display details about the specified package.
+```
 
-###  实例
+### Parameters
 
-查找文件file1在哪个包里安装：
+Package Name: Specifies the package to query.
+
+### Examples
+
+Find which package installed a specific file (`file1`):
 
 ```shell
 dpkg-query -S file1
 ```
 
-列出ubuntu下所安装软件列表：
+List installed packages and their versions on Ubuntu:
 
 ```shell
 dpkg-query -W --showformat='${Package} ${Version}\n' > filename
 ```
 
-查看软件包详细信息：
+View detailed information about a package (`capistrano`):
 
 ```shell
 dpkg-query -s capistrano
 ```
 
-查看软件包安装时安装到系统的文件列表：
+List files installed by a specific package:
 
 ```shell
 dpkg-query -L capistrano
 ```
 
-列出所有安装的包：
+List all installed packages:
 
 ```shell
 dpkg-query -l
 ```
 
-查看软件包的确切状态（是否安装）以及版本号：
+Check the exact status (e.g., whether it is installed) and version of a package:
 
 ```shell
 dpkg-query -W -f='${Status} ${Version}\n' apache-perl
 ```
-
-

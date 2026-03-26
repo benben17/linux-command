@@ -1,91 +1,88 @@
 cd
 ===
 
-切换用户当前工作目录。
+Change the shell working directory.
 
-## 概要
+## Synopsis
 
 ```shell
 cd [-L|[-P [-e]]] [dir]
 ```
 
-## 主要用途
+## Main Purpose
 
-- 切换工作目录至`dir`。其中`dir`的表示法可以是绝对路径或相对路径。
-- 若参数`dir`省略，则默认为使用者的shell变量`HOME`。
-- 如果`dir`指定为`~`时表示为使用者的shell变量`HOME`，`.`表示当前目录，`..`表示当前目录的上一级目录。
-- 环境变量`CDPATH`是由冒号分割的一到多个目录，你可以将常去的目录的上一级加入到`CDPATH`以便方便访问它们；如果`dir`以`/`开头那么`CDPATH`不会被使用。
-- 当`shopt`选项`cdable_vars`打开时，如果`dir`在`CDPATH`及当前目录下均不存在，那么会把它当作变量，读取它的值作为要进入的目录。
+- Change the current working directory to `dir`. The `dir` can be an absolute or relative path.
+- If the `dir` argument is omitted, it defaults to the value of the `HOME` shell variable.
+- If `dir` is specified as `~`, it represents the user's `HOME` directory; `.` represents the current directory, and `..` represents the parent directory.
+- The `CDPATH` environment variable is a colon-separated list of directories. You can add the parent directories of frequently visited locations to `CDPATH` for easier access; if `dir` starts with `/`, `CDPATH` is not used.
+- When the `shopt` option `cdable_vars` is enabled, if `dir` does not exist in `CDPATH` or the current directory, it will be treated as a variable, and its value will be used as the destination directory.
 
-## 参数
+## Parameters
 
-dir（可选）：指定要切换到的目录。
+dir (optional): Specify the directory to switch to.
 
-## 选项
-
-```shell
--L （默认值）如果要切换到的目标目录是一个符号连接，那么切换到符号连接的目录。
--P 如果要切换到的目标目录是一个符号连接，那么切换到它指向的物理位置目录。
--  当前工作目录将被切换到环境变量OLDPWD所表示的目录，也就是前一个工作目录。
-```
-
-## 返回值
-
-返回状态为成功除非无法进入指定的目录。
-
-## 例子
+## Options
 
 ```shell
-cd    # 进入用户主目录；
-cd /  # 进入根目录
-cd ~  # 进入用户主目录；
-cd ..  # 返回上级目录（若当前目录为“/“，则执行完后还在“/"；".."为上级目录的意思）；
-cd ../..  # 返回上两级目录；
-cd !$  # 把上个命令的参数作为cd参数使用。
+-L (default) If the target directory is a symbolic link, follow the link.
+-P If the target directory is a symbolic link, use the physical directory structure instead of following symbolic links.
+-  Switch the current working directory to the directory represented by the OLDPWD environment variable, which is the previous working directory.
 ```
 
-关于切换到上一个工作目录的说明
+## Return Value
+
+Returns success unless the specified directory cannot be entered.
+
+## Examples
+
+```shell
+cd    # Enter the user's home directory.
+cd /  # Enter the root directory.
+cd ~  # Enter the user's home directory.
+cd ..  # Return to the parent directory (if the current directory is "/", it remains at "/").
+cd ../..  # Return two levels up.
+cd !$  # Use the argument of the last command as the argument for cd.
+```
+
+Note on switching to the previous working directory:
 
 ```shell
 cd -
-# 命令会首先显示要切换到的目标目录，然后再进入。
+# This command first displays the target directory before entering it.
 cd ${OLDPWD}
-# 命令会直接切换到上一个工作目录。
+# This command switches directly to the previous working directory.
 ```
 
-关于`CDPATH`
+About `CDPATH`:
 
 ```shell
-# 设置桌面文件夹作为CDPATH的值。
+# Set the Desktop folder as the value for CDPATH.
 CDPATH='~/Desktop'
-# 假设我们接下来要演示涉及到的路径~和~/Desktop下没有test3文件夹，现在新建它们。
+# Assume there is no test3 folder in ~ or ~/Desktop for this demonstration; create them now.
 mkdir ~/test3
 mkdir ~/Desktop/test3
-# 进入~目录。
+# Enter the ~ directory.
 cd ~
-# 进入test3目录。
+# Enter the test3 directory.
 cd test3
-# 执行后显示~/Desktop/test3并进入该目录，而不是~目录的test3目录。
-# 如果CDPATH存在值，那么优先在CDPATH中查找并进入第一个匹配成功的，如果全部失败那么最后尝试当前目录。
+# After execution, ~/Desktop/test3 is displayed and entered, rather than the test3 directory under ~.
+# If CDPATH has a value, it prioritizes searching CDPATH and enters the first successful match. If all fail, it finally tries the current directory.
 ```
 
-关于`cdable_vars`
+About `cdable_vars`:
 
 ```shell
-# 打开选项。
+# Enable the option.
 shopt -s cdable_vars
-# 假设当前路径以及CDPATH没有名为new_var的目录。
+# Assume there is no directory named new_var in the current path or CDPATH.
 new_var='~/Desktop'
-# 尝试进入。
+# Attempt to enter.
 cd new_var
-# 关闭选项。
+# Disable the option.
 shopt -u cdable_vars
 ```
 
-### 注意
+### Notes
 
-1. 该命令是bash内建命令，相关的帮助信息请查看`help`命令。
-
-2. 建议您在编写脚本的过程中如有必要使用`cd`命令时，请增加必要的注释以用于提醒阅读者当前工作目录，以免出现诸如`找不到文件`这类问题的发生。
-
-
+1. This command is a bash built-in; for related help information, please use the `help` command.
+2. It is recommended to add necessary comments when using the `cd` command in scripts to remind readers of the current working directory and avoid issues like "file not found."

@@ -1,28 +1,28 @@
 atq
 ===
 
-列出当前用户的at任务列表
+List the current user's at task list
 
-## 补充说明
+## Additional Information
 
-**atq命令** 显示系统中待执行的任务列表，也就是列出当前用户的at任务列表。
+The **atq command** displays the list of pending tasks in the system, which is the list of at tasks for the current user.
 
-### 语法
-
-```shell
-atq [-V] [-q 队列] [-v]
-```
-
-### 选项
+### Syntax
 
 ```shell
--V：显示版本号；
--q：查询指定队列的任务。
+atq [-V] [-q queue] [-v]
 ```
 
-### 示例
+### Options
 
-创建一个在10分钟后执行的任务，并列出当前用户的任务列表：
+```shell
+-V: Display version number.
+-q: Query tasks in a specified queue.
+```
+
+### Examples
+
+Create a task to be executed in 10 minutes and list the current user's task list:
 
 ```shell
 [root@localhost ~]# at now + 10 minutes
@@ -31,14 +31,14 @@ at> <EOT>
 job 3 at Fri Apr 26 12:56:00 2013
 ```
 
-使用`atq`命令查看当前用户的任务列表：
+Use the `atq` command to view the current user's task list:
 
 ```shell
 [root@localhost ~]# atq
 3       Fri Apr 26 12:56:00 2013 a root
 ```
 
-查询指定队列的任务：
+Query tasks in a specified queue:
 
 ```shell
 [root@localhost ~]# at -q a now + 10 minutes
@@ -47,14 +47,14 @@ at> <EOT>
 job 4 at Fri Apr 26 13:06:00 2013
 ```
 
-使用`atq`命令查看队列`a`中的任务：
+Use the `atq` command to view tasks in queue `a`:
 
 ```shell
 [root@localhost ~]# atq -q a
 4       Fri Apr 26 13:06:00 2013 a root
 ```
 
-显示`atq`命令的版本号：
+Display the version number of the `atq` command:
 
 ```shell
 [root@localhost ~]# atq -V

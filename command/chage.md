@@ -1,33 +1,33 @@
 chage
 ===
 
-修改帐号和密码的有效期限
+Change user password expiry information.
 
-## 补充说明
+## Description
 
-**chage命令** 是用来修改帐号和密码的有效期限。
+The **chage command** is used to modify the expiration dates of accounts and passwords.
 
-###  语法
-
-```shell
-chage [选项] 用户名
-```
-
-###  选项
+### Syntax
 
 ```shell
--m：密码可更改的最小天数。为零时代表任何时候都可以更改密码。
--M：密码保持有效的最大天数。
--w：用户密码到期前，提前收到警告信息的天数。
--E：帐号到期的日期。过了这天，此帐号将不可用。
--d：上一次更改的日期。
--I：停滞时期。如果一个密码已过期这些天，那么此帐号将不可用。
--l：例出当前的设置。由非特权用户来确定他们的密码或帐号何时过期。
+chage [options] username
 ```
 
-###  实例
+### Options
 
-可以编辑`/etc/login.defs`来设定几个参数，以后设置口令默认就按照参数设定为准：
+```shell
+-m: The minimum number of days between password changes. A value of zero means the password can be changed at any time.
+-M: The maximum number of days a password remains valid.
+-w: The number of days before a password expires that a user will receive a warning message.
+-E: The date on which the account will expire. After this date, the account will be unavailable.
+-d: The date of the last password change.
+-I: The inactivity period. If a password has been expired for this many days, the account will be unavailable.
+-l: List the current settings. Used by non-privileged users to determine when their password or account expires.
+```
+
+### Examples
+
+You can edit `/etc/login.defs` to set several parameters, and subsequent password settings will default to these values:
 
 ```shell
 PASS_MAX_DAYS   99999
@@ -36,7 +36,7 @@ PASS_MIN_LEN    5
 PASS_WARN_AGE   7
 ```
 
-当然在`/etc/default/useradd`可以找到如下2个参数进行设置：
+Alternatively, you can find the following two parameters in `/etc/default/useradd` to configure:
 
 ```shell
 # useradd defaults file
@@ -49,52 +49,50 @@ SKEL=/etc/skel
 CREATE_MAIL_SPOOL=yes
 ```
 
-通过修改配置文件，能对之后新建用户起作用，而目前系统已经存在的用户，则直接用chage来配置。
+Modifying the configuration file affects newly created users, while for existing users, you should use `chage` directly.
 
-我的服务器root帐户密码策略信息如下：
+Password policy information for the root account on my server:
 
 ```shell
 chage -l root
 
-最近一次密码修改时间                  ： 3月 12, 2013
-密码过期时间                         ：从不
-密码失效时间                         ：从不
-帐户过期时间                         ：从不
-两次改变密码之间相距的最小天数          ：0
-两次改变密码之间相距的最大天数          ：99999
-在密码过期之前警告的天数               ：7
+Last password change					: Mar 12, 2013
+Password expires					: never
+Password inactive					: never
+Account expires						: never
+Minimum number of days between password change		: 0
+Maximum number of days between password change		: 99999
+Number of days of warning before password expires	: 7
 ```
 
-我可以通过如下命令修改我的密码过期时间：
+I can modify my password expiration time using the following command:
 
 ```shell
 chage -M 60 root
 chage -l root
 
-最近一次密码修改时间                  ： 3月 12, 2013
-密码过期时间                         ： 5月 11, 2013
-密码失效时间                         ：从不
-帐户过期时间                         ：从不
-两次改变密码之间相距的最小天数          ：0
-两次改变密码之间相距的最大天数          ：60
-在密码过期之前警告的天数               ：9
+Last password change					: Mar 12, 2013
+Password expires					: May 11, 2013
+Password inactive					: never
+Account expires						: never
+Minimum number of days between password change		: 0
+Maximum number of days between password change		: 60
+Number of days of warning before password expires	: 9
 ```
 
-然后通过如下命令设置密码失效时间：
+Then, set the password inactivity period using the following command:
 
 ```shell
 chage -I 5 root
 chage -l root
 
-最近一次密码修改时间                  ： 3月 12, 2013
-密码过期时间                         ： 5月 11, 2013
-密码失效时间                         ： 5月 16, 2013
-帐户过期时间                         ：从不
-两次改变密码之间相距的最小天数          ：0
-两次改变密码之间相距的最大天数          ：60
-在密码过期之前警告的天数               ：9
+Last password change					: Mar 12, 2013
+Password expires					: May 11, 2013
+Password inactive					: May 16, 2013
+Account expires						: never
+Minimum number of days between password change		: 0
+Maximum number of days between password change		: 60
+Number of days of warning before password expires	: 9
 ```
 
-从上述命令可以看到，在密码过期后5天，密码自动失效，这个用户将无法登陆系统了。
-
-
+As seen from the above command, the password automatically becomes inactive 5 days after it expires, and the user will no longer be able to log in to the system.

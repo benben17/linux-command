@@ -1,51 +1,51 @@
 touch
 ===
 
-创建新的空文件
+Create new empty files
 
-## 补充说明
+## Description
 
-**touch命令** 有两个功能：一是用于把已存在文件的时间标签更新为系统当前的时间（默认方式），它们的数据将原封不动地保留下来；二是用来创建新的空文件。
+The **touch command** has two main functions: first, to update the timestamps of existing files to the current system time (default behavior), leaving their data intact; second, to create new empty files.
 
-###  语法
-
-```shell
-touch(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--a：或--time=atime或--time=access或--time=use  只更改存取时间；
--c：或--no-create  不建立任何文件；
--d：<时间日期> 使用指定的日期时间，而非现在的时间；
--f：此参数将忽略不予处理，仅负责解决BSD版本touch指令的兼容性问题；
--m：或--time=mtime或--time=modify  只更改变动时间；
--r：<参考文件或目录>  把指定文件或目录的日期时间，统统设成和参考文件或目录的日期时间相同；
--t：<日期时间>  使用指定的日期时间，而非现在的时间；
---help：在线帮助；
---version：显示版本信息。
+touch [options] [parameters]
 ```
 
-###  参数
+### Options
 
-文件：指定要设置时间属性的文件列表。
+```shell
+-a: or --time=atime, --time=access, --time=use. Only change the access time;
+-c: or --no-create. Do not create any files;
+-d: <date/time>. Use the specified date and time instead of the current time;
+-f: Ignored; provided only for compatibility with BSD versions of touch;
+-m: or --time=mtime, --time=modify. Only change the modification time;
+-r: <reference file or directory>. Set the date and time of the specified file or directory to match those of the reference;
+-t: <date/time>. Use the specified date and time (format: [[CC]YY]MMDDhhmm[.ss]) instead of the current time;
+--help: Display online help;
+--version: Display version information.
+```
 
-###  实例
+### Parameters
+
+File: Specifies the list of files whose time attributes are to be set.
+
+### Examples
 
 ```shell
 touch ex2
 ```
 
-在当前目录下建立一个空文件ex2，然后，利用`ls -l`命令可以发现文件ex2的大小为0，表示它是空文件。
+Creates an empty file named `ex2` in the current directory. You can use the `ls -l` command to verify that the size of `ex2` is 0, indicating it is an empty file.
 
-批量创建文件
+Create multiple files at once:
 
 ```shell
 touch file{1..5}.txt
 ```
 
-创建 `job1.md` 文件，并写入 `job 1`
+Create a `job1.md` file and write `job 1` into it:
 
 ```shell
 echo "job 1" > job1.md

@@ -1,72 +1,72 @@
 nl
 ===
 
-为每一个文件添加行号。
+Number lines of files
 
-## 概要
+## Synopsis
 
 ```shell
 nl [OPTION]... [FILE]...
 ```
 
-## 主要用途
+## Description
 
-- 将每一个输入的文件添加行号后发送到标准输出。
-- 当没有文件或文件为`-`时，读取标准输入
-- 处理逻辑页（logical page）。
+- Write each FILE to standard output, with line numbers added.
+- With no FILE, or when FILE is `-`, read standard input.
+- Handles logical pages.
 
-## 选项
+## Options
 
 ```shell
--b, --body-numbering=STYLE           使用STYLE 为body部分的行附加行号。
--d, --section-delimiter=CC           使用CC作为logical page的分隔符。
--f, --footer-numbering=STYLE         使用STYLE 为footer部分的行附加行号。
--h, --header-numbering=STYLE         使用STYLE 为header部分的行附加行号。
--i, --line-increment=NUMBER          行号递增间隔为NUMBER。
--l, --join-blank-lines=NUMBER        连续NUMBER行的空行作为一行处理。
--n, --number-format=FORMAT           根据FORMAT插入行号。
--p, --no-renumber                    不要在每个部分重置行号。
--s, --number-separator=STRING        在行号后添加字符串STRING。
--v, --starting-line-number=NUMBER    每部分的起始行号。
--w, --number-width=NUMBER            行号宽度为NUMBER。
---help                               显示帮助信息并退出。
---version                            显示版本信息并退出。
+-b, --body-numbering=STYLE           Use STYLE for numbering body lines.
+-d, --section-delimiter=CC           Use CC for separating logical pages.
+-f, --footer-numbering=STYLE         Use STYLE for numbering footer lines.
+-h, --header-numbering=STYLE         Use STYLE for numbering header lines.
+-i, --line-increment=NUMBER          Line number increment at each line.
+-l, --join-blank-lines=NUMBER        Group of NUMBER empty lines counted as one.
+-n, --number-format=FORMAT           Insert line numbers according to FORMAT.
+-p, --no-renumber                    Do not reset line numbers at logical pages.
+-s, --number-separator=STRING        Add STRING after the line number.
+-v, --starting-line-number=NUMBER    First line number on each logical page.
+-w, --number-width=NUMBER            Use NUMBER columns for line numbers.
+--help                               Display help message and exit.
+--version                            Display version information and exit.
 
 
-默认选项为：-bt -d'\:' -fn -hn -i1 -l1 -nrn -sTAB -v1 -w6
+Default options are: -bt -d'\:' -fn -hn -i1 -l1 -nrn -sTAB -v1 -w6
 
-CC是由两个字符组成的，默认为\: ,第二个字符如果缺失则默认为:
+CC consists of two characters; default is \: . If the second character is missing, it defaults to :.
 
-STYLE可以为下列可用值之一：
+STYLE can be one of:
 
-a       所有行标记行号。
-t       仅为非空行标记行号。
-n       不标记行号。
-pBRE    符合基础正则表达式（BRE）的行会标记行号。
+a       Number all lines.
+t       Number only non-empty lines.
+n       Do not number lines.
+pBRE    Number only lines that match the basic regular expression (BRE).
 
-FORMAT可以为下列可用值之一：
+FORMAT can be one of:
 
-ln    左对齐，不会在开始部分补充0以满足宽度。
-rn    右对齐，不会在开始部分补充0以满足宽度。
-rz    右对齐，会在开始部分补充0以满足宽度。
+ln    Left justified, no leading zeros.
+rn    Right justified, no leading zeros.
+rz    Right justified, leading zeros.
 
-logical page
-三部分组成（header， body， footer）
-起始标记（header \:\:\:， body \:\:， footer \:）
+Logical Page Structure:
+Consists of three sections: header, body, and footer.
+Delimiters: header \:\:\:, body \:\:, footer \:
 ```
 
-## 参数
+## Parameters
 
-FILE（可选）：要处理的文件，可以为一或多个。
+FILE (optional): One or more files to be processed.
 
-## 返回值
+## Return Value
 
-返回0表示成功，返回非0值表示失败。
+Returns 0 on success, non-zero on failure.
 
-## 例子
+## Examples
 
 ```shell
-nl_logicalpage.txt：该文件用于说明nl命令处理逻辑页，内容如下：
+nl_logicalpage.txt: This file is used to demonstrate logical page handling.
 \:\:\:
 header_1
 \:\:
@@ -126,7 +126,7 @@ footer_2
 ```
 
 ```shell
-nl_normal.txt：该文件用于说明nl命令处理普通文件，内容如下：
+nl_normal.txt: Example of a normal file.
 ZhuangZhu-74
 2019-11-21
 127.0.0.1
@@ -149,8 +149,6 @@ ZhuangZhu-74
        127.0.0.1
 ```
 
-### 注意
+### Notes
 
-1. 该命令是`GNU coreutils`包中的命令，相关的帮助信息请查看`man -s 1 nl`，`info coreutils 'nl invocation'`。
-
-
+1. This command is part of the `GNU coreutils` package. For more information, see `man -s 1 nl` or `info coreutils 'nl invocation'`.

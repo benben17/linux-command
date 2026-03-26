@@ -1,53 +1,50 @@
 chgrp
 ===
 
-用来变更文件或目录的所属群组
+Used to change the group ownership of files or directories
 
-## 补充说明
+## Description
 
-**chgrp命令** 用来改变文件或目录所属的用户组。该命令用来改变指定文件所属的用户组。其中，组名可以是用户组的id，也可以是用户组的组名。文件名可以 是由空格分开的要改变属组的文件列表，也可以是由通配符描述的文件集合。如果用户不是该文件的文件主或超级用户(root)，则不能改变该文件的组。
+The **chgrp command** is used to change the group that a file or directory belongs to. The group name can be the group ID or the group name. The file name can be a space-separated list of files or a collection of files described by wildcards. If the user is not the owner of the file or the superuser (root), they cannot change the group of the file.
 
-在UNIX系统家族里，文件或目录权限的掌控以拥有者及所属群组来管理。您可以使用chgrp指令去变更文件与目录的所属群组，设置方式采用群组名称或群组识别码皆可。
+In the UNIX family of systems, file or directory permissions are managed by the owner and the group. You can use the `chgrp` command to change the group ownership of files and directories, using either the group name or the group ID.
 
-###  语法 
-
-```shell
-chgrp [选项][组群][文件|目录]
-```
-
-###  选项 
+### Syntax
 
 ```shell
--R 递归式地改变指定目录及其下的所有子目录和文件的所属的组
--c或——changes：效果类似“-v”参数，但仅回报更改的部分；
--f或--quiet或——silent：不显示错误信息；
--h或--no-dereference：只对符号连接的文件作修改，而不是该其他任何相关文件；
--H如果命令行参数是一个通到目录的符号链接，则遍历符号链接
--R或——recursive：递归处理，将指令目录下的所有文件及子目录一并处理；
--L遍历每一个遇到的通到目录的符号链接
--P不遍历任何符号链接（默认）
--v或——verbose：显示指令执行过程；
---reference=<参考文件或目录>：把指定文件或目录的所属群组全部设成和参考文件或目录的所属群组相同；
+chgrp [options] [group] [file|directory]
 ```
 
-###  参数 
+### Options
 
-*   组：指定新工作名称；
-*   文件：指定要改变所属组的文件列表。多个文件或者目录之间使用空格隔开。
+```shell
+-R Recursively change the group of the specified directory and all its subdirectories and files.
+-c or --changes: Similar to "-v", but only reports when a change is made.
+-f or --quiet or --silent: Do not display error messages.
+-h or --no-dereference: Affect symbolic links instead of any referenced file.
+-H If a command line argument is a symbolic link to a directory, traverse it.
+-R or --recursive: Recursive processing, processing all files and subdirectories under the specified directory.
+-L Traverse every symbolic link to a directory encountered.
+-P Do not traverse any symbolic links (default).
+-v or --verbose: Output a diagnostic for every file processed.
+--reference=<reference_file_or_directory>: Set the group of the specified file or directory to match that of the reference file or directory.
+```
 
-###  实例 
+### Arguments
 
-将`/usr/meng`及其子目录下的所有文件的用户组改为mengxin
+* Group: Specify the new group name.
+* File: Specify the list of files to change the group ownership for. Multiple files or directories are separated by spaces.
+
+### Examples
+
+Change the group of all files in `/usr/meng` and its subdirectories to `mengxin`:
 
 ```shell
 chgrp -R mengxin /usr/meng
 ```
 
-更改文件ah的组群所有者为 `newuser`
+Change the group owner of file `ah` to `newuser`:
 
 ```shell
 [root@rhel ~]# chgrp newuser ah
 ```
-
-
-

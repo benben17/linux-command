@@ -1,64 +1,64 @@
 column
 ===
 
-按列格式化输出文件
+Formats output into columns
 
-## 概要
+## Synopsis
 
 ```shell
 column [options] [file ...]
 ```
 
-## 主要用途
+## Main Purpose
 
-- 将单列数据整理为多列显示，每行宽度可以指定，超出的部分自动换行。
-- 将多列数据进行快速整理，对齐每列的字符。
+- Format single-column data into multiple columns, with a specified line width and automatic wrapping.
+- Quickly organize multi-column data by aligning characters in each column.
 
-## 参数
+## Arguments
 
-file（可选），当没有指定文件时，默认会从标准输入读取，因此可以配合管道符使用。
+file (optional): If no file is specified, it reads from standard input, making it compatible with pipes.
 
-## 选项
+## Options
 
 ```shell
--c, --columns <width>           输出宽度（以字符数表示）
--t, --table                     创建一个表格（每列字符会对齐）
--s, --separator <string>        指定识别表格的分隔符
--o, --output-separator <string> 输出表格的列分隔符，默认为两个空格
--x, --fillrows                  在列之前填充行
--N, --table-columns <names>     添加列名（逗号分隔）
--J  --json                      格式化为JSON输出（需要配合-N/--table-columns使用）
--h, --help                      显示此帮助
--V, --version                   输出版本信息
+-c, --columns <width>           Output width in characters.
+-t, --table                     Create a table (aligning characters in each column).
+-s, --separator <string>        Specify the delimiter for table recognition.
+-o, --output-separator <string> Specify the column separator for the output table (default is two spaces).
+-x, --fillrows                  Fill rows before columns.
+-N, --table-columns <names>     Add column names (comma-separated).
+-J  --json                      Format output as JSON (requires -N/--table-columns).
+-h, --help                      Display help.
+-V, --version                   Output version information.
 ```
 
-## 返回值
+## Return Value
 
-格式化排列后的字符串。
+The formatted string.
 
-## 示例
+## Examples
 
-- 整理单列数据
+- Organizing single-column data:
 
 ```shell
-# 生成 26 个英文字母， 每列一个
+# Generate 26 English letters, one per line.
 $ for a in {a..z}; do echo $a; done > test
 
-# 每行最大 60 个字符
+# Maximum 60 characters per line.
 $ cat test | column -c 60
 a       e       i       m       q       u       y
 b       f       j       n       r       v       z
 c       g       k       o       s       w
 d       h       l       p       t       x
 
-# 在上面的基础上，进一步整理，每列之间宽度默认两个空白符
+# Further organize with a default column width separator of two spaces.
 $ cat test | column -c 60 | column -t
 a  e  i  m  q  u  y
 b  f  j  n  r  v  z
 c  g  k  o  s  w
 d  h  l  p  t  x
 
-# 指定每列之间用 ', ' 拼接
+# Specify ', ' as the column separator.
 $ cat test | column -c 60 | column -t -o ', '
 a, e, i, m, q, u, y
 b, f, j, n, r, v, z
@@ -66,10 +66,10 @@ c, g, k, o, s, w
 d, h, l, p, t, x
 ```
 
-- 整理多列数据
+- Organizing multi-column data:
 
 ```shell
-# 现有如下内容较为凌乱的文本文件 test
+# A disorganized text file named 'test'.
 $ cat test
 Address[0] Metal3,pin 133.175:159.92
 Address[1] Metal3,pin 112.38:159.92
@@ -87,7 +87,7 @@ MemReq Metal3,pin 108.215:159.92
 RdWrBar Metal3,pin 87.415:159.92
 clock Metal3,pin 74.935:159.92
 
-# 列对齐
+# Align columns.
 $ cat test | column -t
 Address[0]  Metal3,pin  133.175:159.92
 Address[1]  Metal3,pin  112.38:159.92
@@ -105,7 +105,7 @@ MemReq      Metal3,pin  108.215:159.92
 RdWrBar     Metal3,pin  87.415:159.92
 clock       Metal3,pin  74.935:159.92
 
-# 将 ',' 和 ':' 也识别为分隔符
+# Recognize ',' and ':' as separators as well.
 $ cat test | column -t -s ',: '
 Address[0]  Metal3  pin  133.175  159.92
 Address[1]  Metal3  pin  112.38   159.92
@@ -124,7 +124,7 @@ RdWrBar     Metal3  pin  87.415   159.92
 clock       Metal3  pin  74.935   159.92
 ```
 
-- 添加列名并以JSON格式输出
+- Add column names and output in JSON format:
 
 ```shell
 $ column -J -s ":" -N "Username,Password,UID,GID,Gecos,HomeDirectory,Shell" /etc/passwd

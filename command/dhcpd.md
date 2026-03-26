@@ -1,57 +1,55 @@
 dhcpd
 ===
 
-运行DHCP服务器
+Dynamic Host Configuration Protocol (DHCP) server.
 
-###  语法
-
-```shell
-dhcpd [选项] [网络接口]
-```
-
-###  选项
+### Syntax
 
 ```shell
--p <端口> 指定dhcpd监听的端口
--f 作为前台进程运行dhcpd
--d 启用调试模式
--q 在启动时不显示版权信息
--t 简单地测试配置文件的语法是否正确的，但不会尝试执行任何网络操作
--T 可以用来测试租约数据库文件
--4 运行DHCP服务器
--6 运行DHCPv6服务器
--s <服务器> 指定发送回复的服务器
--cf <配置文件> 指定配置文件
--lf <租约文件> 指定租约文件
--pf <PID文件> 指定PID文件
--tf <跟踪输出文件> 指定文件记录DHCP服务器的整个启动状态
+dhcpd [options] [network_interface]
 ```
 
-### 例子
+### Options
 
-对DHCP服务器进行排错。
+```shell
+-p <port>         Specify the port on which dhcpd listens.
+-f                Run dhcpd as a foreground process.
+-d                Enable debug mode.
+-q                Do not display copyright information on startup.
+-t                Test the configuration file for syntax errors only.
+-T                Test the lease database file.
+-4                Run as a DHCPv4 server.
+-6                Run as a DHCPv6 server.
+-s <server>       Specify the server to send replies to.
+-cf <config_file> Specify the configuration file.
+-lf <lease_file>  Specify the lease file.
+-pf <pid_file>    Specify the PID file.
+-tf <trace_file>  Specify a file to record the entire startup state of the DHCP server.
+```
+
+### Examples
+
+Troubleshooting the DHCP server.
 
 ```shell
 [root@localhost ~]# dhcpd
-InternetSystems Consortium DHCP Server 4.1.1-P1
-Copyright2004-2010 Internet Systems Consortium.
-All rightsreserved.
-For info,please visit https://www.isc.org/software/dhcp/
-Not searchingLDAP since ldap-server, ldap-port and ldap-base-dn were not specified in theconfig file
-Wrote 0deleted host decls to leases file.
-Wrote 0 newdynamic host decls to leases file.
-Wrote 1leases to leases file.
-Listening onLPF/eth0/00:0c:29:fc:2f:e5/192.168.0.0/24
-Sendingon  LPF/eth0/00:0c:29:fc:2f:e5/192.168.0.0/24
-Sendingon   Socket/fallback/fallback-net
-[root@rhel~]# There's already a DHCP server running.
+Internet Systems Consortium DHCP Server 4.1.1-P1
+Copyright 2004-2010 Internet Systems Consortium.
+All rights reserved.
+For info, please visit https://www.isc.org/software/dhcp/
+Not searching LDAP since ldap-server, ldap-port and ldap-base-dn were not specified in the config file
+Wrote 0 deleted host decls to leases file.
+Wrote 0 new dynamic host decls to leases file.
+Wrote 1 leases to leases file.
+Listening on LPF/eth0/00:0c:29:fc:2f:e5/192.168.0.0/24
+Sending on   LPF/eth0/00:0c:29:fc:2f:e5/192.168.0.0/24
+Sending on   Socket/fallback/fallback-net
+[root@rhel ~]# There's already a DHCP server running.
  
-This versionof ISC DHCP is based on the release available
-onftp.isc.org.  Features have been addedand other changes
-have beenmade to the base software release in order to make
-it workbetter with this distribution.
+This version of ISC DHCP is based on the release available
+on ftp.isc.org. Features have been added and other changes
+have been made to the base software release in order to make
+it work better with this distribution.
  
 exiting.
 ```
-
-

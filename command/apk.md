@@ -1,131 +1,144 @@
 apk
 ===
 
-Alpine Linux 下的包管理工具
+The package management tool for Alpine Linux.
 
-## 使用实例
+
+## Usage Examples
 
 ```shell
-apk install xxx
-apk search xxx # 支持正则
-apk info xxx # 查看包的详细信息
-apk show # list local package
-# 卸载并删除 包
-apk del openssh openntp vim
+apk add xxx           # Install a package
+apk search xxx        # Search for a package (supports regex)
+apk info xxx          # View detailed information about a package
+apk show              # List local packages
+apk del openssh openntp vim  # Uninstall and remove packages
 ```
 
-### 升级
+### Upgrade
 
-upgrade命令升级系统已安装的所以软件包（一般包括内核），当然也可指定仅升级部分软件包（通过-u或–upgrade选择指定）。
+The `upgrade` command upgrades all installed packages in the system (typically including the kernel). You can also specify certain packages to be upgraded only.
 
 ```shell
-apk update # 更新最新本地镜像源
-apk upgrade # 升级软件
-apk add --upgrade busybox # 指定升级部分软件包
+apk update            # Update the local index of available packages
+apk upgrade           # Upgrade all installed packages
+apk add --upgrade busybox  # Upgrade a specific package
 ```
 
-### 搜索
+### Search
 
 ```shell
-apk search # 查找所以可用软件包
-apk search -v # 查找所以可用软件包及其描述内容
-apk search -v 'acf*' # 通过软件包名称查找软件包
-apk search -v -d 'docker' # 通过描述文件查找特定的软件包
+apk search            # Search for all available packages
+apk search -v         # Search for available packages and their descriptions
+apk search -v 'acf*'  # Search for packages by name
+apk search -v -d 'docker'  # Search for packages by their descriptions
 ```
 
-### 查看包信息
+### View Package Information
 
-info命令用于显示软件包的信息。
+The `info` command is used to display information about packages.
 
 ```shell
-apk info # 列出所有已安装的软件包
-apk info -a zlib # 显示完整的软件包信息
-apk info --who-owns /sbin/lbu # 显示指定文件属于的包
+apk info              # List all installed packages
+apk info -a zlib      # Show complete package information for 'zlib'
+apk info --who-owns /sbin/lbu  # Show which package a specific file belongs to
 ```
 
-## 笔记
 
-还是蛮喜欢 alpine 的，简单纯粹
+## Notes
+
+Alpine is quite nice—simple and pure.
 
 ```shell
-apk add iproute2 # ss vs netstat
+apk add iproute2      # Provides 'ss' command (modern alternative to netstat)
 ss -ptl
-apk add drill # drill vs nslookup&dig
+apk add drill         # Modern alternative to nslookup & dig
 
-crond # 开启 cron 服务
-crontab -l -e
+crond                 # Start the cron service
+crontab -l -e         # List or edit cron jobs
 
 apk add xxx
 apk search -v xxx
 apk info -a xxx
 apk info
+
+# Change repositories (example for Aliyun mirrors)
 echo -e "http://mirrors.aliyun.com/alpine/v3.6/main\nhttp://mirrors.aliyun.com/alpine/v3.6/community" > /etc/apk/repositories
 apk update
 
-# storage
-ibu # alpine local backup
+# Storage
+lbu                   # Alpine Local Backup tool
 
-# network
+# Network
 echo "shortname" > /etc/hostname
 hostname -F /etc/hostname
 /etc/hosts
-/etc/resolv.conf # conig DNS
-modprobe ipv6 # enable ipv6
+/etc/resolv.conf      # Configure DNS
+modprobe ipv6         # Enable IPv6
 echo "ipv6" >> /etc/modules
-iface # config interface
+iface                 # Configure interfaces (check /etc/network/interfaces)
 apk add iptables ip6tables iptables-doc
-/etc/init.d/networking restart # activate change
-apke add iputils # IPv6 traceroute
+/etc/init.d/networking restart  # Activate network changes
+
+apk add iputils       # Provides IPv6 traceroute
 traceroute6 ipv6.google.com
-awall # alpine wall
-# setup a openvpn server
+awall                 # Alpine Wall (firewall manager)
 
-# post-install
+# Post-install & Advanced usage
 /etc/apk/repositories
+# Install from a specific repository
 apk add cherokee --update-cache --repository http://dl-3.alpinelinux.org/alpine/edge/testing/ --allow-untrusted
-apk search -v --description 'NTP' # show description and search from description
+
+apk search -v --description 'NTP'  # Search descriptions
 apk info -a zlib
-apk info -vv|sort
-apk info -r -R # require / depency
-apk version -v -l '<' # show available updates
-apk upgrade -U -a
-apk add -u xxx # update xxx
+apk info -vv | sort
+apk info -r -R        # Show reverse dependencies / requirements
+apk version -v -l '<' # Show available updates
+apk upgrade -U -a     # Upgrade with repository update
+apk add -u xxx        # Update specific package
 
-/etc/runlevels # runlevel
-apk add openrc # use openrc for init system
-rc-update add xxx # set to start on
-rc-service xxx start # equal -> /etc/init.d/xxx start
-rc-status
+# Runlevels & Services
+/etc/runlevels        # View runlevels
+apk add openrc        # Install OpenRC init system
+rc-update add xxx boot # Set service to start at boot
+rc-service xxx start  # Start a service (same as /etc/init.d/xxx start)
+rc-status             # Check status of services
 
+# User management
 adduser xxx
 passwd xxx
 
-apk add ansible # server
+# Configuration Management (Ansible example)
+apk add ansible       # Server side
 ssh-keygen
 /etc/ansible/hosts
-apk add python # node
+apk add python        # Node side
 ssh-copy-id
 
+# Documentation & Shell
 apk add man man-pages mdocml-apropos less less-doc
 export PAGER=less
-/etc/rc.conf # /etc/rc.conf -> funny character
-apk add bash bash-doc bash-completion # bash
-apk add util-linux pciutils usbutils coreutils binutils findutils grep # grep / awk
-apk add build-base gcc abuild binutils binutils-doc gcc-doc # compile
+apk add bash bash-doc bash-completion  # Install Bash
+
+# Core utilities
+apk add util-linux pciutils usbutils coreutils binutils findutils grep
+
+# Development & Compilation
+apk add build-base gcc abuild binutils binutils-doc gcc-doc
 apk add cmake cmake-doc extra-cmake-modules extra-cmake-modules-doc
 apk add ccache ccache-doc
 
-apk add docker # docker
+# Docker
+apk add docker
 rc-update add docker boot
 rc-service docker start
 apk add py-pip
 pip install docker-compose
 ln -s /usr/bin/docker-compose /usr/bin/doc
 
-# application
-apk add openssh # ssh
+# Applications
+apk add openssh       # SSH server/client
 rc-update add sshd
 /etc/init.d/sshd start
 /etc/sshd_config
-apk add dropbear # another openssh implementation
+apk add dropbear      # Alternative lightweight SSH implementation
 ```

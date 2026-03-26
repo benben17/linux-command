@@ -1,27 +1,25 @@
 unprotoize
 ===
 
-删除C语言源代码文件中的函数原型
+Remove function prototypes from C source code files.
 
-## 补充说明
+## Description
 
-**unprotoize命令** 属于gcc套件，用于删除C语言源代码文件中的函数原型。
+The **unprotoize command** is part of the GCC suite and is used to remove function prototypes from C language source code files.
 
-###  语法
-
-```shell
-unprotoize(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--d：设置需要转换代码的目录；
--x：转换代码时排除的文件。
+unprotoize (option) (parameter)
 ```
 
-###  参数
+### Options
 
-文件：需要转换代码的C语言源文件。
+```shell
+-d: Set the directory where code needs to be converted;
+-x: Files to exclude when converting code.
+```
 
+### Parameters
 
+File: C source files that need code conversion.

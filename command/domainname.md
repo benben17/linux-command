@@ -1,30 +1,30 @@
 domainname
 ===
 
-显示和设置系统的NIS域名
+Display or set the system's NIS/YP domain name.
 
-## 补充说明
+## Description
 
-**domainname命令** 用于显示和设置系统的NIS域名。
+The **domainname** command is used to display and set the NIS (Network Information Service) domain name of the system.
 
-###  语法
-
-```shell
-domainname(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--v：详细信息模式；
--F：指定读取域名信息的文件。
+domainname (options) (parameters)
 ```
 
-###  参数
+### Options
 
-NIS域名：指定要设置的NIS域名。
+```shell
+-v    Verbose mode.
+-F    Read the domain name from a specified file.
+```
 
-###  实例
+### Parameters
+
+NIS Domain Name: Specifies the NIS domain name to be set.
+
+### Examples
 
 ```shell
 [root@AY1307311912260196fcZ ~]# domainname -v
@@ -37,5 +37,3 @@ www.jsdig.com
 getdomainname()=`www.jsdig.com'
 www.jsdig.com
 ```
-
-

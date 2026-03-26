@@ -1,33 +1,30 @@
-reboot
-===
+# reboot
 
-重新启动正在运行的Linux操作系统
+Restart the running Linux operating system.
 
-## 补充说明
+## Description
 
-**reboot命令** 用来重新启动正在运行的Linux操作系统。
+The **reboot** command is used to restart the currently running Linux operating system.
 
-### 语法
-
-```shell
-reboot(选项)
-```
-
-### 选项
+### Syntax
 
 ```shell
--d：重新开机时不把数据写入记录文件/var/tmp/wtmp。本参数具有“-n”参数效果；
--f：强制重新开机，不调用shutdown指令的功能；
--i：在重开机之前，先关闭所有网络界面；
--n：重开机之前不检查是否有未结束的程序；
--w：仅做测试，并不真正将系统重新开机，只会把重开机的数据写入/var/log目录下的wtmp记录文件。
+reboot [options]
 ```
 
-### 实例
+### Options
 
 ```shell
-reboot        //重开机。
-reboot -w     //做个重开机的模拟（只有纪录并不会真的重开机）。
+-d: Reboot without writing data to the record file /var/log/wtmp. This implies the '-n' option.
+-f: Force reboot without calling the shutdown command.
+-i: Shut down all network interfaces before rebooting.
+-n: Do not check for unclosed processes before rebooting.
+-w: Test only; do not actually reboot the system. Only write the reboot record to the /var/log/wtmp file.
 ```
 
+### Examples
 
+```shell
+reboot        # Reboot the system
+reboot -w     # Simulate a reboot (writes a record only, does not actually reboot)
+```

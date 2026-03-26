@@ -1,42 +1,40 @@
 users
 ===
 
-打印当前主机所有登陆用户的名称。
+Print the user names of users currently logged in to the current host.
 
-## 概要
+## Synopsis
 
 ```shell
 users [OPTION]... [FILE]
 ```
 
-## 主要用途
+## Main Uses
 
-- 每个显示的用户名对应一个登录会话；如果一个用户有不止一个登录会话，那他的用户名将显示相同的次数。
+- Each displayed username corresponds to a login session; if a user has more than one login session, their username will be displayed the same number of times.
 
-## 选项
+## Options
 
 ```shell
---help       显示帮助信息并退出。
---version    显示版本信息并退出。
+--help       Display help information and exit.
+--version    Display version information and exit.
 ```
 
-## 参数
+## Parameters
 
-FILE（可选）：记录用户当前登录情况的文件；默认使用 `/var/run/utmp` 、`/var/log/wtmp`。
+FILE (optional): The file that records current user logins; defaults to `/var/run/utmp` and `/var/log/wtmp`.
 
-## 返回值
+## Return Value
 
-返回0表示成功，返回非0值表示失败。
+Returns 0 on success, and a non-zero value on failure.
 
-## 例子
+## Examples
 
 ```shell
 [root@localhost ~]# users
 root root
 ```
 
-### 注意
+### Note
 
-1. 该命令是`GNU coreutils`包中的命令，相关的帮助信息请查看`man -s 1 users`，`info coreutils 'users invocation'`。
-
-
+1. This command is part of the `GNU coreutils` package. For related help information, please see `man -s 1 users` or `info coreutils 'users invocation'`.

@@ -1,40 +1,40 @@
 dig
 ===
 
-域名查询工具
+Domain Information Groper.
 
-## 补充说明
+## Description
 
-**dig命令** 是常用的域名查询工具，可以用来测试域名系统工作是否正常。
+The **dig** command is a flexible tool for interrogating DNS name servers. It can be used to test if the Domain Name System is working correctly.
 
-###  语法
-
-```shell
-dig(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
-@<服务器地址>：指定进行域名解析的域名服务器；
--b<ip地址>：当主机具有多个IP地址，指定使用本机的哪个IP地址向域名服务器发送域名查询请求；
--f<文件名称>：指定dig以批处理的方式运行，指定的文件中保存着需要批处理查询的DNS任务信息；
--P：指定域名服务器所使用端口号；
--t<类型>：指定要查询的DNS数据类型；
--x<IP地址>：执行逆向域名查询；
--4：使用IPv4；
--6：使用IPv6；
--h：显示指令帮助信息。
+dig (options) (parameters)
 ```
 
-###  参数
+### Options
 
-*   主机：指定要查询域名主机；
-*   查询类型：指定DNS查询的类型；
-*   查询类：指定查询DNS的class；
-*   查询选项：指定查询选项。
+```shell
+@<server_address>   Specify the name server to query.
+-b <ip_address>     Specify which local IP address to use when the host has multiple IP addresses.
+-f <filename>       Batch mode: read a list of query tasks from the specified file.
+-p <port>           Specify the port number of the name server.
+-t <type>           Specify the resource record type to query.
+-x <ip_address>     Reverse lookup (IP to name).
+-4                  Use IPv4 only.
+-6                  Use IPv6 only.
+-h                  Display help information.
+```
 
-###  实例
+### Parameters
+
+* Host: The domain name or host to query.
+* Query Type: The type of DNS record (e.g., A, MX, NS).
+* Query Class: The class of DNS record (e.g., IN).
+* Query Options: Additional query options.
+
+### Examples
 
 ```shell
 [root@localhost ~]# dig www.baidu.com
@@ -60,5 +60,3 @@ www.a.shifen.com.	63	IN	A	180.101.50.188
 ;; WHEN: Wed May 10 16:16:36 CST 2023
 ;; MSG SIZE  rcvd: 101
 ```
-
-

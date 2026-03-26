@@ -1,26 +1,24 @@
 uuto
 ===
 
-将文件传送到远端的UUCP主机
+Send files to a remote UUCP host.
 
-## 补充说明
+## Description
 
-**uuto命令** 为script文件，它实际上会执行uucp，用来将文件传送到远端UUCP主机，并在完成工作后，以邮件通知远端主机上的用户。
+The **uuto command** is a script file that actually executes uucp to send files to a remote UUCP host and notifies the user on the remote host via email once the task is complete.
 
-###  语法
-
-```shell
-uuto [文件][目的]
-```
-
-
-### 例子
-
-将文件传送到远程 UUCP 主机 localhost 的 tmp 目录，在命令提示符中直接输入如下命令：
+### Syntax
 
 ```shell
-uuto./testfile localhost/tmp # 将文件传送到远程UUCP 主机localhost的tmp目录 
+uuto [file] [destination]
 ```
 
-该命令通常没有输出。
+### Examples
 
+Send a file to the `tmp` directory of the remote UUCP host `localhost`. Enter the following command directly at the command prompt:
+
+```shell
+uuto ./testfile localhost/tmp # Send file to the tmp directory of remote UUCP host localhost
+```
+
+Note: This command typically produces no output.

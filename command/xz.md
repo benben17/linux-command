@@ -1,52 +1,52 @@
 xz
 ===
 
-POSIX 平台开发具有高压缩率的工具
+High compression ratio utility for POSIX platforms.
 
-## 补充说明
+## Supplemental Information
 
-**xz命令** XZ Utils 是为 POSIX 平台开发具有高压缩率的工具。它使用 LZMA2 压缩算法，生成的压缩文件比 POSIX 平台传统使用的 gzip、bzip2 生成的压缩文件更小，而且解压缩速度也很快。最初 XZ Utils 的是基于 LZMA-SDK 开发，但是 LZMA-SDK 包含了一些 WINDOWS 平台的特性，所以 XZ Utils 为以适应 POSIX 平台作了大幅的修改。XZ Utils 的出现也是为了取代 POSIX 系统中旧的 LZMA Utils。
+**xz** is part of XZ Utils, a set of free lossless data compression software for POSIX-like operating systems. It uses the LZMA2 compression algorithm, producing smaller compressed files than traditional gzip or bzip2 while maintaining fast decompression speeds. Initially based on the LZMA-SDK, XZ Utils was heavily modified to better suit POSIX platforms and eventually replace the older LZMA Utils.
 
-### 语法
+### Syntax
 
 ```shell
-xz(选项)(参数)
+xz (options) (parameters)
 xz [OPTION]... [FILE]...
 ```
 
-### 选项
+### Options
 
 ```shell
--z, --compress    # 强制压缩
+-z, --compress    # Force compression
 -d, --decompress, --uncompress
-                  # force decompression
--t, --test        # 测试压缩文件的完整性
--l, --list        # 列出有关.xz文件的信息
--k, --keep        # 保留（不要删除）输入文件
--f, --force       # 强制覆盖输出文件和（解）压缩链接
+                  # Force decompression
+-t, --test        # Test the integrity of compressed files
+-l, --list        # List information about .xz files
+-k, --keep        # Keep (do not delete) input files
+-f, --force       # Force overwrite of output files and (de)compress links
 -c, --stdout, --to-stdout
-                  # 写入标准输出，不要删除输入文件
--0 ... -9         # 压缩预设; 默认为6; 取压缩机*和*
-                  # 使用7-9之前解压缩内存使用量考虑在内！
--e, --extreme     # 尝试通过使用更多的CPU时间来提高压缩比;
-                  # 要求不影响解压缩存储器
--T, --threads=NUM # 最多使用NUM个线程; 默认值为1;  set to 0
-                  # 设置为0，使用与处理器内核一样多的线程
--q, --quiet       # 抑制警告; 指定两次以抑制错误
--v, --verbose     # 冗长; 指定两次更详细
--h, --help        # 显示这个简洁的帮助并退出
--H, --long-help   # 显示更多帮助（还列出了高级选项）
--V, --version     # 显示版本号并退出
+                  # Write to standard output, do not delete input files
+-0 ... -9         # Compression presets; default is 6
+                  # Consider memory usage for decompression before using 7-9!
+-e, --extreme     # Try to improve compression ratio by using more CPU time;
+                  # Does not affect decompression memory requirements
+-T, --threads=NUM # Use at most NUM threads; default is 1;
+                  # Set to 0 to use as many threads as there are processor cores
+-q, --quiet       # Suppress warnings; specify twice to suppress errors
+-v, --verbose     # Verbose; specify twice for even more detail
+-h, --help        # Display summary help and exit
+-H, --long-help   # Display long help (includes advanced options)
+-V, --version     # Display version information and exit
 ```
 
-### 参数
+### Parameters
 
-* 源文件：指定连接的源文件。
-* 目标文件：指定源文件的目标连接文件。
+* Source file: The file to be compressed or decompressed.
+* Target file: The resulting file after the operation.
 
-### 实例
+### Examples
 
-压缩一个文件 test.txt，压缩成功后生成 test.txt.xz, 原文件会被删除。
+Compress a file `test.txt`. Upon success, `test.txt.xz` is created and the original file is deleted.
 
 ```shell
 $ xz test.txt
@@ -55,7 +55,7 @@ $ ls test.txt*
 test.txt.xz
 ```
 
-解压 test.txt.xz 文件，并使用参数 -k 保持原文件不被删除
+Decompress `test.txt.xz` and use the `-k` option to keep the original compressed file.
 
 ```shell
 $ xz -d -k test.txt.xz
@@ -64,7 +64,7 @@ $ ls test.txt*
 test.txt.xz test.txt
 ```
 
-使用参数 -l 显示 .xz 文件的基本信息。基本信息包括压缩率、数据完整性验证方式等。也可以和参数 -v 或 -vv 配合显示更详尽的信息。
+Use the `-l` option to display basic information about a `.xz` file, including compression ratio and integrity check method. Can be combined with `-v` or `-vv` for more details.
 
 ```shell
 xz -l index.txt.xz
@@ -72,22 +72,22 @@ xz -l index.txt.xz
 #    1       1        768 B      1,240 B  0.619  CRC64   index.txt.
 ```
 
-使用参数 -0, -1, -2, … -6, … -9 或参数 --fast, --best 设定压缩率。xz 命令的默认为 -6 ，对于大多数系统来说，甚至是一些较旧的系统，-4 … -6 压缩率预设值都不错的表现。
+Set the compression level using `-0`, `-1`, ... `-9` or `--fast`, `--best`. The default for `xz` is `-6`, which offers a good balance for most systems.
 
 ```shell
 $ xz -k7 xz_pipe_decomp_mini.c
 $ xz -k --fast xz_pipe_decomp_mini.c
 ```
 
-使用参数 -H 显示 xz 命令所有 options. 参数 -H 比使用参数 --help 显示的内容更详细。
+Use `-H` to display all `xz` options in detail (more comprehensive than `--help`).
 
 ```shell
-$ xz -H  | more
+$ xz -H | more
 ```
 
-借助 xargs 命令并行压缩多文件。下面的命令行可以将 /var/log 目录下所有的扩展名为 .log 的文件压缩。通过 xargs 命令同时运行多个 xz 进行压缩。
+Compress multiple files in parallel using `xargs`. The following command compresses all `.log` files in `/var/log` by running multiple `xz` processes simultaneously.
 
 ```shell
-# 运行此命令须有 root 权限。
+# Root privileges required.
 find /var/log -type f -iname "*.log" -print0 | xargs -P4 -n16 xz -T1
 ```

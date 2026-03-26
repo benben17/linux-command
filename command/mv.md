@@ -1,116 +1,114 @@
 mv
 ===
 
-用来对文件或目录重新命名
+Used to rename or move files or directories
 
-## 补充说明
+## Description
 
-**mv命令** 用来对文件或目录重新命名，或者将文件从一个目录移到另一个目录中。source表示源文件或目录，target表示目标文件或目录。如果将一个文件移到一个已经存在的目标文件中，则目标文件的内容将被覆盖。
+The **mv command** is used to rename files or directories, or to move files from one directory to another. `source` represents the source file or directory, and `target` represents the destination file or directory. If a file is moved to an existing destination file, the content of the destination file will be overwritten.
 
-mv命令可以用来将源文件移至一个目标文件中，或将一组文件移至一个目标目录中。源文件被移至目标文件有两种不同的结果：
+The `mv` command can be used to move a source file to a destination file, or a set of files to a destination directory. Moving a source file to a destination file has two different outcomes:
 
-1.  如果目标文件是到某一目录文件的路径，源文件会被移到此目录下，且文件名不变。
-2.  如果目标文件不是目录文件，则源文件名（只能有一个）会变为此目标文件名，并覆盖己存在的同名文件。如果源文件和目标文件在同一个目录下，mv的作用就是改文件名。当目标文件是目录文件时，源文件或目录参数可以有多个，则所有的源文件都会被移至目标文件中。所有移到该目录下的文件都将保留以前的文件名。
+1.  If the destination is a path to a directory, the source file is moved into that directory with its filename unchanged.
+2.  If the destination is not a directory, the source filename (only one source file is allowed in this case) is changed to the destination filename, overwriting any existing file with the same name. If the source and destination are in the same directory, `mv` effectively renames the file. When the destination is a directory, multiple source files or directories can be specified, and all will be moved into the destination directory, retaining their original names.
 
-注意事项：mv与cp的结果不同，mv好像文件“搬家”，文件个数并未增加。而cp对文件进行复制，文件个数增加了。
+Note: Unlike `cp`, `mv` is like "moving house"; it doesn't increase the total number of files. `cp` creates a copy, so the number of files increases.
 
-###  语法 
-
-```shell
-mv(选项)(参数)
-```
-
-###  选项 
+### Syntax
 
 ```shell
---backup=<备份模式>：若需覆盖文件，则覆盖前先行备份；
--b：当文件存在时，覆盖前，为其创建一个备份；
--f：若目标文件或目录与现有的文件或目录重复，则直接覆盖现有的文件或目录；
--i：交互式操作，覆盖前先行询问用户，如果源文件与目标文件或目标目录中的文件同名，则询问用户是否覆盖目标文件。用户输入”y”，表示将覆盖目标文件；输入”n”，表示取消对源文件的移动。这样可以避免误将文件覆盖。
---strip-trailing-slashes：删除源文件中的斜杠“/”；
--S<后缀>：为备份文件指定后缀，而不使用默认的后缀；
---target-directory=<目录>：指定源文件要移动到目标目录；
--u：当源文件比目标文件新或者目标文件不存在时，才执行移动操作。
+mv [options] source target
 ```
 
-###  参数 
+### Options
 
-*   源文件：源文件列表。
-*   目标文件：如果“目标文件”是文件名则在移动文件的同时，将其改名为“目标文件”；如果“目标文件”是目录名则将源文件移动到“目标文件”下。
+```shell
+--backup=<mode>: Back up files before overwriting.
+-b: Create a backup before overwriting if the file exists.
+-f: Force overwrite: directly overwrite existing files or directories without prompting.
+-i: Interactive mode: prompt before overwriting an existing file. Enter "y" to overwrite or "n" to cancel. This helps prevent accidental data loss.
+--strip-trailing-slashes: Remove trailing slashes from source arguments.
+-S <suffix>: Use the specified suffix for backup files instead of the default.
+--target-directory=<directory>: Specify the destination directory to move source files into.
+-u: Update: only move files that are newer than the destination or if the destination doesn't exist.
+```
 
-###  实例 
+### Parameters
 
-将目录`/usr/men`中的所有文件移到当前目录（用`.`表示）中：
+*   Source file: A list of source files or directories.
+*   Target file: If "target" is a filename, the source is moved and renamed to it. If "target" is a directory name, the source is moved into that directory.
+
+### Examples
+
+Move all files from `/usr/men` to the current directory (`.`):
 
 ```shell
 mv /usr/men/* .
 ```
 
-移动文件
+Move a file:
 
 ```shell
 mv file_1.txt /home/office/
 ```
 
-移动多个文件
+Move multiple files:
 
 ```shell
 mv file_2.txt file_3.txt file_4.txt /home/office/
 mv *.txt /home/office/
 ```
 
-移动目录
+Move a directory:
 
 ```shell
 mv directory_1/ /home/office/
 ```
 
-重命名文件或目录
+Rename a file or directory:
 
 ```shell
-mv file_1.txt file_2.txt # 将文件file_1.txt改名为file_2.txt
+mv file_1.txt file_2.txt # Rename file_1.txt to file_2.txt
 ```
 
-重命名目录
+Rename a directory:
 
 ```shell
 mv directory_1/ directory_2/
 ```
 
-打印移动信息
+Print move information (verbose):
 
 ```shell
 mv -v *.txt /home/office
 ```
 
-提示是否覆盖文件
+Prompt before overwriting:
 
 ```shell
 mv -i file_1.txt /home/office
 ```
 
-源文件比目标文件新时才执行更新
+Update only when source is newer than destination:
 
 ```shell
 mv -uv *.txt /home/office
 ```
 
-不要覆盖任何已存在的文件
+Do not overwrite any existing files:
 
 ```shell
 mv -vn *.txt /home/office
 ```
 
-复制时创建备份
+Create backup when moving:
 
 ```shell
 mv -bv *.txt /home/office
 ```
 
-无条件覆盖已经存在的文件
+Unconditionally overwrite existing files:
 
 ```shell
 mv -f *.txt /home/office
 ```
-
-

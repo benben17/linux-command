@@ -1,22 +1,20 @@
 bzip2recover
 ===
 
-恢复被破坏的.bz2压缩包中的文件
+Recovers data from damaged .bz2 files.
 
-## 补充说明
+## Description
 
-**bzip2recover命令** 可用于恢复被破坏的“.bz2”压缩包中的文件。
+The **bzip2recover command** can be used to recover files from damaged `.bz2` compressed packages.
 
-bzip2是以区块的方式来压缩文件，每个区块视为独立的单位。因此，当某一区块损坏时，便可利用bzip2recover，试着将文件中的区块隔开来，以便解压缩正常的区块。通常只适用在压缩文件很大的情况。
+`bzip2` compresses files in blocks, with each block treated as an independent unit. Therefore, when a certain block is damaged, `bzip2recover` can be used to try and separate the blocks in the file so that the normal blocks can be decompressed. This is usually only applicable when the compressed file is very large.
 
-###  语法
+### Syntax
 
 ```shell
-bzip2recover(参数)
+bzip2recover [parameters]
 ```
 
-###  参数
+### Parameters
 
-文件：指定要恢复数据的.bz2压缩包。
-
-
+File: Specify the `.bz2` compressed package from which data is to be recovered.

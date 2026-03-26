@@ -1,16 +1,14 @@
 sftp-server
 ===
 
-sftp协议的服务器端程序
+Server-side program for the SFTP protocol.
 
-## 补充说明
+## Description
 
-**sftp-server命令** 是一个“sftp”协议的服务器端程序，它使用加密的方式进行文件传输。
+The **sftp-server command** is a server-side program for the "sftp" protocol, providing secure, encrypted file transfers.
 
-###  语法
+### Syntax
 
 ```shell
 sftp-server
 ```
-
-

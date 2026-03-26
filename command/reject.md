@@ -1,29 +1,27 @@
 reject
 ===
 
-指示打印系统拒绝发往指定目标打印机的打印任务
+Instructs the printing system to reject print jobs sent to the specified destination printer.
 
-## 补充说明
+## Description
 
-**reject命令** 属于CUPS套件，用于指示打印系统拒绝发往指定目标打印机的打印任务。
+The **reject command** is part of the CUPS suite and is used to instruct the printing system to reject print jobs sent to the specified destination printer.
 
-###  语法
-
-```shell
-reject(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--E：当连接到服务器时强制使用加密；
--U：指定连接服务器时使用的用户名；
--h：指定连接服务器名和端口号；
--r：指定拒绝打印任务的原因。
+reject(options)(parameters)
 ```
 
-###  参数
+### Options
 
-目标：指定目标打印机。
+```shell
+-E: Force encryption when connecting to the server;
+-U: Specify the username to use when connecting to the server;
+-h: Specify the connection server name and port number;
+-r: Specify the reason for rejecting the print job.
+```
 
+### Parameters
 
+Destination: Specifies the target printer.

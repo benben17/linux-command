@@ -1,23 +1,23 @@
 rev
 ===
 
-将文件内容以字符为单位反序输出
+Output the file content in reverse character order.
 
-## 补充说明
+## Description
 
-**rev命令** 将文件中的每行内容以字符为单位反序输出，即第一个字符最后输出，最后一个字符最先输出，依次类推。
+The **rev command** outputs each line of a file in reverse character order, meaning the first character is output last, and the last character is output first, and so on.
 
-###  语法
+### Syntax
 
 ```shell
-rev(参数)
+rev(parameter)
 ```
 
-###  参数
+### Parameters
 
-文件：指定要反序显示内容的文件。
+File: Specifies the file whose content is to be displayed in reverse order.
 
-###  实例
+### Examples
 
 ```shell
 [root@localhost ~]# cat iptables.bak
@@ -50,5 +50,3 @@ retlif*
 TIMMOC
 3102 51:52:12 62 ceD uhT no detelpmoC #
 ```
-
-

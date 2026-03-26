@@ -1,26 +1,24 @@
 gzexe
 ===
 
-用来压缩可执行文件
+Compress executable files.
 
-## 补充说明
+## Supplemental Information
 
-**gzexe命令** 用来压缩可执行文件，压缩后的文件仍然为可执行文件，在执行时进行自动解压缩。当您去执行被压缩过的执行文件时，该文件会自动解压然后继续执行，和使用一般的执行文件相同。这个命令也可以看成是gunzip命令的一个扩展。
+The **gzexe command** is used to compress executable files. The resulting files remain executable and automatically decompress when run. When you execute a compressed file, it decompresses itself and then continues execution, behaving identically to a normal executable. This command can be thought of as an extension to the `gunzip` utility.
 
-###  语法
-
-```shell
-gzexe(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--d：解压缩被gzexe压缩过的可执行文件。
+gzexe (options) (parameters)
 ```
 
-###  参数
+### Options
 
-文件：指定需要压缩的可执行文件。
+```shell
+-d: Decompress an executable file previously compressed with gzexe.
+```
 
+### Parameters
 
+File: Specifies the executable file to be compressed.

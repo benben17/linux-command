@@ -1,37 +1,37 @@
 csplit
 ===
 
-将一个大文件分割成小的碎片文件
+Split a large file into smaller pieces based on context
 
-## 补充说明
+## Description
 
-**csplit命令** 用于将一个大文件分割成小的碎片，并且将分割后的每个碎片保存成一个文件。碎片文件的命名类似“xx00”，“xx01”。csplit命令是split的一个变体，split只能够根据文件大小或行数来分割，但csplit能够根据文件本身特点来分割文件。
+The **csplit command** is used to split a large file into smaller fragments and save each fragment as a separate file. The fragment files are named "xx00", "xx01", etc., by default. `csplit` is a variant of the `split` command; while `split` can only split files based on size or line count, `csplit` can split files based on specific patterns or context within the file.
 
-###  语法
-
-```shell
-csplit(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--b<输出格式>或--suffix-format=<输出格式>：预设的输出格式其文件名称为xx00，xx01等，用户可以通过改变<输出格式>来改变输出的文件名；
--f<输出字首字符串>或--prefix=<输出字首字符串>：预设的输出字首字符串其文件名为xx00，xx01等，如果制定输出字首字符串为“hello”，则输出的文件名称会变成hello00，hello、01......
--k或--keep-files：保留文件，就算发生错误或中断执行，与不能删除已经输出保存的文件；
--n<输出文件名位数>或--digits=<输出文件名位数>：预设的输出文件名位数其文件名称为xx00，xx01......如果用户指定输出文件名位数为“3”，则输出的文件名称会变成xx000，xx001等；
--q或-s或--quiet或——silent：不显示指令执行过程；
--z或--elide-empty-files：删除长度为0 Byte文件。
+csplit [options] [arguments]
 ```
 
-###  参数
+### Options
 
-*   文件：指定要分割的原文件；
-*   模式：指定要分割文件时的匹配模式。
+```shell
+-b <format> or --suffix-format=<format>: Specify the format for the filename suffix (default is %02d).
+-f <prefix> or --prefix=<prefix>: Specify the prefix for the output filenames (default is "xx").
+-k or --keep-files: Do not remove output files even if an error occurs.
+-n <digits> or --digits=<digits>: Specify the number of digits in the filename suffix.
+-q, -s, --quiet, --silent: Do not print the size of the output files.
+-z or --elide-empty-files: Remove output files that are zero bytes in length.
+```
 
-###  实例
+### Arguments
 
-示例测试文件 server.log
+*   File: The source file to be split.
+*   Patterns: The matching patterns used to determine where to split the file.
+
+### Examples
+
+Example source file `server.log`:
 
 ```shell
 cat server.log
@@ -52,7 +52,7 @@ SERVER-3
 [con] 10.10.10.12 suc
 ```
 
-需要将server.log分割成server1.log、server2.log、server3.log，这些文件的内容分别取自原文件中不同的SERVER部分：
+To split `server.log` into `server01.log`, `server02.log`, and `server03.log` based on the `SERVER` sections:
 
 ```shell
 [root@localhost split]# csplit server.log /SERVER/ -n2 -s {*} -f server -b "%02d.log"; rm server00.log
@@ -60,16 +60,15 @@ SERVER-3
 server01.log  server02.log  server03.log  server.log
 ```
 
- **命令详细说明：** 
+**Command Explanation:**
 
 ```shell
-/[正则表达式]/   #匹配文本样式，比如/SERVER/，从第一行到包含SERVER的匹配行。
-{*}     #表示根据匹配重复执行分割，直到文件尾停止，使用{整数}的形式指定分割执行的次数。
--s      #静默模式，不打印其他信息。
--n      #指定分割后的文件名后缀的数字个数。比如01、02、03等。
--f      #指定分割后的文件名前缀。
--b      #指定后缀格式。比如%02d.log，类似于C语言中的printf参数格式。
-rm server00.log    #是删除第一个文件，因为分割后的的第一个文件没有内容，匹配的单词就位于文件的第一行中。
+/[regex]/   # Matches a pattern, e.g., /SERVER/. Splits from the current line to the line matching the pattern.
+{*}         # Repeat the split until the end of the file. You can also specify an integer for the number of splits.
+-s          # Silent mode; do not print file sizes.
+-n          # Number of digits for the suffix (e.g., 01, 02, 03).
+-f          # Prefix for the output filenames.
+-b          # Suffix format (e.g., %02d.log, similar to printf format in C).
+rm server00.log    # Deletes the first file, which is empty because the first match occurs on the first line.
 ```
-
-
+观察

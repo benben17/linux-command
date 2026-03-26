@@ -1,53 +1,53 @@
 umount
 ===
 
-用于卸载已经加载的文件系统
+Unmount a filesystem
 
-## 补充说明
+## Description
 
-**umount命令** 用于卸载已经加载的文件系统。利用设备名或挂载点都能umount文件系统，不过最好还是通过挂载点卸载，以免使用绑定挂载（一个设备，多个挂载点）时产生混乱。
+The **umount command** is used to unmount a filesystem that has already been mounted. You can unmount a filesystem using either its device name or its mount point; however, unmounting by mount point is recommended to avoid confusion when using bind mounts (where one device has multiple mount points).
 
-###  语法
-
-```shell
-umount(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--a：卸除/etc/mtab中记录的所有文件系统；
--h：显示帮助；
--n：卸除时不要将信息存入/etc/mtab文件中；
--r：若无法成功卸除，则尝试以只读的方式重新挂入文件系统；
--t<文件系统类型>：仅卸除选项中所指定的文件系统；
--v：执行时显示详细的信息；
--V：显示版本信息。
+umount [options] [parameters]
 ```
 
-###  参数
+### Options
 
-文件系统：指定要卸载的文件系统或者其对应的设备文件名。
+```shell
+-a: Unmount all filesystems listed in /etc/mtab;
+-h: Display help;
+-n: Do not record the unmounting in /etc/mtab;
+-r: If unmounting fails, attempt to remount the filesystem as read-only;
+-t <fstype>: Unmount only the filesystems of the specified type;
+-v: Verbose mode, displaying detailed information during execution;
+-V: Display version information.
+```
 
-###  实例
+### Parameters
 
-下面两条命令分别通过设备名和挂载点卸载文件系统，同时输出详细信息：
+Filesystem: Specifies the filesystem to be unmounted or its corresponding device filename.
 
-通过设备名卸载
+### Examples
+
+The following two commands unmount a filesystem using the device name and the mount point, respectively, while providing detailed output:
+
+Unmount by device name:
 
 ```shell
 umount -v /dev/sda1
-/dev/sda1 umounted
+/dev/sda1 unmounted
 ```
 
-通过挂载点卸载
+Unmount by mount point:
 
 ```shell
 umount -v /mnt/mymount/
-/tmp/diskboot.img umounted
+/tmp/diskboot.img unmounted
 ```
 
-如果设备正忙，卸载即告失败。卸载失败的常见原因是，某个打开的shell当前目录为挂载点里的某个目录：
+If the device is busy, the unmounting will fail. A common reason for failure is an open shell whose current directory is within the mount point:
 
 ```shell
 umount -v /mnt/mymount/
@@ -55,25 +55,23 @@ umount: /mnt/mymount: device is busy
 umount: /mnt/mymount: device is busy
 ```
 
-有时，导致设备忙的原因并不好找。碰到这种情况时，可以用lsof列出已打开文件，然后搜索列表查找待卸载的挂载点：
+Sometimes it's difficult to find the reason why a device is busy. In such cases, you can use `lsof` to list open files and search the list for the mount point you're trying to unmount:
 
 ```shell
-lsof | grep mymount         查找mymount分区里打开的文件
+lsof | grep mymount         # Find open files in the mymount partition
 bash   9341  francois  cwd   DIR   8,1   1024    2 /mnt/mymount
 ```
 
-从上面的输出可知，mymount分区无法卸载的原因在于，francois运行的PID为9341的bash进程。
+The output above shows that the `mymount` partition cannot be unmounted because a bash process with PID 9341, run by user `francois`, is using it.
 
-对付系统文件正忙的另一种方法是执行延迟卸载：
-
-```shell
-umount -vl /mnt/mymount/     执行延迟卸载
-```
-
-延迟卸载（lazy unmount）会立即卸载目录树里的文件系统，等到设备不再繁忙时才清理所有相关资源。卸载可移动存储介质还可以用eject命令。下面这条命令会卸载cd并弹出CD：
+Another way to handle a busy system file is to perform a lazy unmount:
 
 ```shell
-eject /dev/cdrom      卸载并弹出CD 
+umount -vl /mnt/mymount/     # Perform lazy unmount
 ```
 
+A lazy unmount immediately detaches the filesystem from the directory tree and cleans up all associated resources as soon as the device is no longer busy. To unmount and eject removable storage media, use the `eject` command:
 
+```shell
+eject /dev/cdrom      # Unmount and eject CD
+```

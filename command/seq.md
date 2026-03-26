@@ -1,52 +1,55 @@
 seq
 ===
 
-以指定增量从首数开始打印数字到尾数
+Print numbers from a starting number to an ending number with a specified increment.
 
-## 补充说明
+## Description
 
-**seq命令** 用于产生从某个数到另外一个数之间的所有整数。
+The **seq command** is used to generate all integers (or numbers) between one number and another.
 
-###  语法
+### Syntax
 
 ```shell
-seq [选项]... 尾数
-seq [选项]... 首数 尾数
-seq [选项]... 首数 增量 尾数
+seq [options]... last
+seq [options]... first last
+seq [options]... first increment last
 ```
 
-###  选项
+### Options
 
 ```shell
--f, --format=格式        使用printf 样式的浮点格式
--s, --separator=字符串   使用指定字符串分隔数字（默认使用：\n）
--w, --equal-width        在列前添加0 使得宽度相同
+-f, --format=FORMAT      Use a printf-style floating-point format.
+-s, --separator=STRING   Use the specified string to separate numbers (default: \n).
+-w, --equal-width        Pad with leading zeros to make all numbers the same width.
 ```
 
-###  实例
+### Examples
 
- **-f选项：指定格式** 
+**-f option: Specify format**
 
 ```shell
-#seq -f"%3g" 9 11
-9
-10
-11
+# seq -f"%3g" 9 11
+  9
+ 10
+ 11
 ```
 
-`%`后面指定数字的位数 默认是`%g`，`%3g`那么数字位数不足部分是空格。
+Specified with `%` followed by the number of digits. The default is `%g`. With `%3g`, the part where the number of digits is insufficient is padded with spaces.
 
 ```shell
-#sed -f"%03g" 9 11
-#seq -f"str%03g" 9 11
+# seq -f"%03g" 9 11
+009
+010
+011
+# seq -f"str%03g" 9 11
 str009
 str010
 str011
 ```
 
-这样的话数字位数不足部分是0，`%`前面制定字符串。
+In this case, the part where the number of digits is insufficient is padded with 0. A string can be specified before `%`.
 
- **-w选项：指定输出数字同宽** 
+**-w option: Specify equal width for output numbers**
 
 ```shell
 seq -w 98 101
@@ -56,28 +59,26 @@ seq -w 98 101
 101
 ```
 
-不能和`-f`一起用，输出是同宽的。
+Cannot be used with `-f`; the output is equal-width.
 
- **-s选项：指定分隔符（默认是回车）** 
+**-s option: Specify separator (default is newline)**
 
 ```shell
 seq -s" " -f"str%03g" 9 11
 str009 str010 str011
 ```
 
-要指定`/t`做为分隔符号：
+To specify `\t` as the separator:
 
 ```shell
-seq -s"`echo -e "/t"`" 9 11
+seq -s"`echo -e "\t"`" 9 11
 ```
 
-指定`\n`作为分隔符号：
+Specifying `\n` as the separator:
 
 ```shell
 seq -s"`echo -e "\n"`" 9 11
 19293949596979899910911
 ```
 
-得到的是个错误结果，不过一般也没有这个必要，它默认的就是回车作为分隔符。
-
-
+This yields an incorrect result. Generally, there is no need for this as it defaults to a newline as the separator.

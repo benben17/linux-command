@@ -1,36 +1,34 @@
 nproc
 ===
 
-打印可用的处理器单元数量。
+Print the number of processing units available
 
-## 概要
+## Synopsis
 
 ```shell
 nproc [OPTION]...
 ```
 
-## 主要用途
+## Description
 
-- 打印可用的处理器单元数量。
+- Print the number of processing units available to the current process.
 
-## 选项
+## Options
 
 ```shell
---all         打印已安装处理器的数量。
---ignore=N    如果可以的情况下，排除 N 个处理单元。
---help        显示帮助信息并退出。
---version     显示版本信息并退出。
+--all         Print the number of installed processors.
+--ignore=N    If possible, exclude N processing units.
+--help        Display help message and exit.
+--version     Display version information and exit.
 ```
 
-## 例子
+## Example
 
 ```shell
 [root@localhost ~]# nproc
 8
 ```
 
-### 注意
+### Notes
 
-1. 该命令是`GNU coreutils`包中的命令，相关的帮助信息请查看`man -s 1 nproc`，`info coreutils 'nproc invocation'`。
-
-
+1. This command is part of the `GNU coreutils` package. For more information, see `man -s 1 nproc` or `info coreutils 'nproc invocation'`.

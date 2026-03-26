@@ -1,28 +1,26 @@
 lpq
 ===
 
-显示打印队列中的打印任务的状态信息
+Show the status of print jobs in the print queue
 
-## 补充说明
+## Description
 
-**lpq命令** 用于显示打印队列中的打印任务的状态信息。
+The **lpq** command is used to display the status information of print jobs in the print queue.
 
-### 语法
-
-```shell
-lpq(选项)
-```
-
-### 选项
+### Syntax
 
 ```shell
--E：强制使用加密方式与服务器连接；
--P：显示中的打印机上的打印队列状态；；
--U：自动可选的用户名；
--a：报告所有打印机的定义任务；
--h：指定打印服务器信息；
--l：使用长格式输出；
-+：指定显示状态的间隔时间。
+lpq (options)
 ```
 
+### Options
 
+```shell
+-E: Force encryption when connecting to the server;
+-P <printer>: Specify the printer whose queue status is to be displayed;
+-U <username>: Specify an optional username;
+-a: Report jobs for all printers;
+-h <server>: Specify the print server information;
+-l: Use long format for output;
++: Specify the interval for updating the status display.
+```

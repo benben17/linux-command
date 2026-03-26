@@ -1,28 +1,27 @@
 mktemp
 ===
 
-创建临时文件供shell脚本使用
+Create a temporary file or directory
 
-## 补充说明
+## Description
 
-**mktemp命令** 被用来创建临时文件供shell脚本使用。
+The **mktemp command** is used to create a temporary file or directory, typically for use within shell scripts to ensure unique and secure naming.
 
-###  语法
-
-```shell
-mktemp(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--q：执行时若发生错误，不会显示任何信息；
--u：暂存文件会在mktemp结束前先行删除；
--d：创建一个目录而非文件。
+mktemp [OPTION]... [TEMPLATE]
 ```
 
-###  参数
+### Options
 
-文件：指定创建的临时文件。
+```shell
+-q：Quiet execution; suppress error messages.
+-u：Dry run; the temporary file name is generated but the file is not created.
+-d：Create a directory instead of a file.
+--tmpdir[=DIR]：Interpret TEMPLATE relative to DIR. If DIR is not specified, use $TMPDIR if set, else /tmp.
+```
 
+### Parameters
 
+Template: A template for the filename, which must include at least three 'X's in the last component (e.g., `tmp.XXXXXX`). If omitted, the default is `tmp.XXXXXXXXXX`.

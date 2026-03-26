@@ -1,17 +1,17 @@
 xargs
 ===
 
-给其他命令传递参数的一个过滤器
+Build and execute command lines from standard input
 
-## 补充说明
+## Description
 
-**xargs 命令** 是给其他命令传递参数的一个过滤器，也是组合多个命令的一个工具。它擅长将标准输入数据转换成命令行参数，xargs 能够处理管道或者 stdin 并将其转换成特定命令的命令参数。xargs 也可以将单行或多行文本输入转换为其他格式，例如多行变单行，单行变多行。xargs 的默认命令是 echo，空格是默认定界符。这意味着通过管道传递给 xargs 的输入将会包含换行和空白，不过通过 xargs 的处理，换行和空白将被空格取代。xargs 是构建单行命令的重要组件之一。
+The **xargs command** is a filter for passing arguments to other commands and a tool for combining multiple commands. It excels at converting standard input data into command-line arguments. `xargs` can process data from a pipe or stdin and convert it into arguments for a specific command. It can also reformat single-line or multi-line text input, such as converting multiple lines into a single line or vice versa. The default command for `xargs` is `echo`, and the default delimiter is whitespace. This means that input passed to `xargs` via a pipe will contain newlines and spaces, but through `xargs` processing, these will be replaced by spaces. `xargs` is a crucial component for building powerful one-liner commands.
 
-### xargs 命令用法
+### Basic Usage
 
-xargs 用作替换工具，读取输入数据重新格式化后输出。
+`xargs` is often used as a formatting tool to read input data, reformat it, and output it.
 
-定义一个测试文件，内有多行文本数据：
+Consider a test file `test.txt` with multi-line text:
 
 ```shell
 cat test.txt
@@ -23,7 +23,7 @@ r s t
 u v w x y z
 ```
 
-多行输入单行输出：
+Convert multi-line input to a single line:
 
 ```shell
 cat test.txt | xargs
@@ -31,8 +31,8 @@ cat test.txt | xargs
 a b c d e f g h i j k l m n o p q r s t u v w x y z
 ```
 
-#### 使用 -n 进行多行输出
-**-n 选项** 多行输出：
+#### Multi-line output with -n
+The **-n option** specifies the maximum number of arguments per command line:
 
 ```shell
 cat test.txt | xargs -n3
@@ -48,8 +48,8 @@ v w x
 y z
 ```
 
-#### 使用 -d 分割输入
-**-d 选项** 可以自定义一个定界符：
+#### Custom delimiter with -d
+The **-d option** allows you to define a custom delimiter:
 
 ```shell
 echo "nameXnameXnameXname" | xargs -dX
@@ -57,7 +57,7 @@ echo "nameXnameXnameXname" | xargs -dX
 name name name name
 ```
 
-结合 **-n 选项** 使用：
+Combined with the **-n option**:
 
 ```shell
 echo "nameXnameXnameXname" | xargs -dX -n2
@@ -66,19 +66,18 @@ name name
 name name
 ```
 
-#### 读取 stdin
-**读取 stdin，将格式化后的参数传递给命令**
+#### Reading from stdin
+**Read from stdin and pass formatted arguments to a command**
 
-假设一个命令为 sk.sh 和一个保存参数的文件 arg.txt：
+Assume a script `sk.sh` and a file `arg.txt` containing arguments:
 
 ```shell
 #!/bin/bash
-#sk.sh 命令内容，打印出所有参数。
-
+# sk.sh content: print all arguments
 echo $*
 ```
 
-arg.txt 文件内容：
+`arg.txt` content:
 
 ```shell
 cat arg.txt
@@ -88,8 +87,8 @@ bbb
 ccc
 ```
 
-#### 结合 -I 选项
-xargs 的一个 **选项 -I** ，使用 -I 指定一个替换字符串{}，这个字符串在 xargs 扩展时会被替换掉，当 -I 与 xargs 结合使用，每一个参数命令都会被执行一次：
+#### Using the -I option
+The **-I option** specifies a replacement string (e.g., `{}`). This string will be replaced by the actual argument when `xargs` expands the command. When used with `xargs`, the command is executed once for each argument:
 
 ```shell
 cat arg.txt | xargs -I {} ./sk.sh -p {} -l
@@ -99,106 +98,91 @@ cat arg.txt | xargs -I {} ./sk.sh -p {} -l
 -p ccc -l
 ```
 
-复制所有图片文件到 /data/images 目录下：
+Copy all image files to the `/data/images` directory:
 
 ```shell
 ls *.jpg | xargs -n1 -I{} cp {} /data/images
 ```
 
-#### 结合 find 命令使用
-**xargs 结合 find 使用**
+#### Combined with the find command
+**Using xargs with find**
 
-用 rm 删除太多的文件时候，可能得到一个错误信息：`/bin/rm Argument list too long`. 用 `xargs` 去避免这个问题：
+When deleting too many files with `rm`, you might encounter the error: `/bin/rm: Argument list too long`. Use `xargs` to avoid this:
 
 ```shell
 find . -type f -name "*.log" -print0 | xargs -0 rm -f
 ```
 
-xargs -0 将 `\0` 作为定界符。
+The `-0` option tells `xargs` to use the null character (`\0`) as a delimiter.
 
-统计一个源代码目录中所有 php 文件的行数：
+Count the total lines of all `.php` files in a source code directory:
 
 ```shell
 find . -type f -name "*.php" -print0 | xargs -0 wc -l
 ```
 
-查找所有的 jpg 文件，并且压缩它们：
+Find all `.jpg` files and compress them into an archive:
 
 ```shell
 find . -type f -name "*.jpg" -print | xargs tar -czvf images.tar.gz
 ```
 
-#### 打印出执行的命令
-结合 `-t` 选项可以打印出 `xargs` 执行的命令
+#### Print the command being executed
+Use the `-t` option to print the command before executing it:
 
-    ls | xargs -t -I{} echo {}
+```shell
+ls | xargs -t -I{} echo {}
+```
 
-会输出当前目录下的文件列表和执行的 echo 命令
+This will display the file list and the corresponding `echo` commands being run.
 
-#### 使用 -p 选项确认执行的命令
-`-p` 选项会在执行每一个命令时弹出确认，当你需要非常准确的确认每一次操作时可以使用 `-p` 参数，比如，查找当前目录下 `.log` 文件，每一次删除都需要确认：
+#### Confirm execution with -p
+The `-p` option prompts for confirmation before running each command. Use this when you need to be very precise:
 
-    find . -maxdepth 1 -name "*.log" | xargs -p -I{} rm {}
+```shell
+find . -maxdepth 1 -name "*.log" | xargs -p -I{} rm {}
+```
 
-#### 执行多个命令
-使用 `-I` 选项可以让 `xargs` 执行多个命令
+#### Execute multiple commands
+Use the `-I` option to let `xargs` run multiple commands (via `sh -c`):
 
-    cat foo.txt
-    one
-    two
-    three
+```shell
+cat foo.txt | xargs -I % sh -c 'echo %; mkdir %'
+```
 
-    cat foo.txt | xargs -I % sh -c 'echo %; mkdir %'
-    one
-    two
-    three
-
-    ls
-    one two three
-
-
-#### 其他应用
-**xargs 其他应用**
-
-假如你有一个文件包含了很多你希望下载的 URL，你能够使用 xargs 下载所有链接：
+#### Other Applications
+If you have a file containing many URLs you want to download:
 
 ```shell
 cat url-list.txt | xargs wget -c
 ```
 
-### 子 Shell（Subshells）
+### Subshells
 
-运行一个 shell 脚本时会启动另一个命令解释器.，就好像你的命令是在命令行提示下被解释的一样，类似于批处理文件里的一系列命令。每个 shell 脚本有效地运行在父 shell(parent shell) 的一个子进程里。这个父 shell 是指在一个控制终端或在一个 xterm 窗口中给你命令指示符的进程。
+When running a shell script, another command interpreter is started, similar to how commands are interpreted at the command prompt. Each shell script effectively runs in a child process of the parent shell.
 
 ```shell
 cmd1 | ( cmd2; cmd3; cmd4 ) | cmd5
 ```
 
-如果 cmd2 是 cd /，那么就会改变子 Shell 的工作目录，这种改变只是局限于子 shell 内部，cmd5 则完全不知道工作目录发生的变化。子 shell 是嵌在圆括号 () 内部的命令序列，子 Shell 内部定义的变量为局部变量。
+If `cmd2` is `cd /`, it only changes the working directory within the subshell. `cmd5` remains unaffected by this change. Commands within parentheses `()` are executed in a subshell, and variables defined there are local to that subshell.
 
-子 shell 可用于为一组命令设定临时的环境变量：
+Subshells can be used to set temporary environment variables for a group of commands:
 
 ```shell
 COMMAND1
 COMMAND2
-COMMAND3
 (
   IFS=:
   PATH=/bin
   unset TERMINFO
-  set -C
-  shift 5
   COMMAND4
   COMMAND5
-  exit 3 # 只是从子 shell 退出。
+  exit 3 # Exits only from the subshell
 )
-# 父 shell 不受影响，变量值没有更改。
 COMMAND6
-COMMAND7
 ```
 
-## reference
+## References
 
-- <https://shapeshed.com/unix-xargs/>
-
-<!-- Linux 命令行搜索引擎：https://jaywcjlove.github.io/linux-command/ -->
+- [Unix xargs command](https://shapeshed.com/unix-xargs/)

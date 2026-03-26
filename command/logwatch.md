@@ -1,70 +1,64 @@
 logwatch
 ===
 
-可定制和可插入式的日志监视系统
+A customizable and pluggable log monitoring system
 
-## 补充说明
+## Description
 
-**logwatch命令** 是一个可定制和可插入式的日志监视系统，它通过遍历给定时间范围内的系统日志文件而产生日志报告。logwatch默认每天执行一次，可以从`/etc/cron.daily`里看到。
+The **logwatch** command is a customizable and pluggable log monitoring system that generates reports by analyzing system log files over a given time range. By default, `logwatch` runs once a day via `/etc/cron.daily`.
 
-###  语法
-
-```shell
-logwatch(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
---detail<报告详细程度>：指定日志报告的详细程度；
---logfile<日志文件>：仅处理指定的日志文件；
---service<服务名>：仅处理指定服务的日志文件；
---print：打印结果到标准输出；
---mailto<邮件地址>：将结果发送到指定邮箱；
---range<日期范围>：指定处理日志的日期范围；
---archives：处理归档日志文件；
---debug<调试等级>：调试模式；
---save<文件名>：将结果保存到指定文件中，而不显示或者发送到指定邮箱；
---logdir<目录>：指定查找日志文件的目录，而不使用默认的日志目录；
---hostname<主机名>：指定在日志报告中使用的主机名，不使用系统默认的主机名；
---numeric：在报告中显示ip地址而不是主机名；
---help：显示指令的帮助信息。
+logwatch (options)
 ```
 
-###  实例
+### Options
 
-检查你的主机上是否已经存在Logwatch（Redhat默认已经安装了Logwatch，不过版本比较旧）：
+```shell
+--detail <level>: Specify the level of detail for the report (e.g., Low, Medium, High);
+--logfile <file>: Process only the specified log file;
+--service <name>: Process only logs for the specified service;
+--print: Print the report to standard output;
+--mailto <address>: Send the report to the specified email address;
+--range <range>: Specify the date range for logs (e.g., Yesterday, Today, All);
+--archives: Process archived log files as well;
+--debug <level>: Enable debug mode with a specific level;
+--save <filename>: Save the report to a file instead of displaying or emailing it;
+--logdir <dir>: Specify the directory to search for logs (overrides default);
+--hostname <name>: Use the specified hostname in the report;
+--numeric: Display IP addresses instead of hostnames in the report;
+--help: Display help information.
+```
+
+### Examples
+
+Check if Logwatch is installed (Red Hat usually has it pre-installed, though it might be an older version):
 
 ```shell
 rpm -qa logwatch
 ```
 
-如果主机上没有logwatch，则执行：
+If it's not installed:
 
 ```shell
-rpm -Ivh logwatch***.rpm
+rpm -ivh logwatch***.rpm
 ```
 
-如果有老版本的logwatch，则执行：
+To update an existing version:
 
 ```shell
 rpm -Uvh logwatch***.rpm
 ```
 
-安装完毕后，开始配置：
+**Configuration:**
 
-可以修改和添加它的logfiles、services和其他配置，但默认已经有很多脚本了，只要在1）里设置`Detail = High`就可以了。
-
-*   可以添加新的配置到`/etc/logwatch/conf/logwatch.conf`
-*   也可以修改`/usr/share/logwatch/default.conf/logwatch.conf`
-
-`/etc/logwatch/conf/`会自动覆盖`/usr/share/logwatch/default.conf/`下的同名文件。
-
-如果没有设置logwatch.conf也没关系，可以直接在命令行下设置。
+You can customize Logwatch by adding configurations to `/etc/logwatch/conf/logwatch.conf` (which overrides `/usr/share/logwatch/default.conf/logwatch.conf`). You can also specify settings directly on the command line.
 
 ```shell
-logwatch --detail High --Service All --range All --print    基本就可以显示出所有日志的情况了
-logwatch --service sshd --detail High                       只看sshd的日志情况
+# Display a high-detail report for all services and ranges
+logwatch --detail High --Service All --range All --print
+
+# View logs specifically for the sshd service with high detail
+logwatch --service sshd --detail High
 ```
-
-

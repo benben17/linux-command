@@ -1,23 +1,21 @@
 ip6tables-restore
 ===
 
-还原ip6tables表
+Restore ip6tables tables.
 
-## 补充说明
+## Description
 
-**ip6tables-restore命令** 用来还原ip6tables表。
+The `ip6tables-restore` command is used to restore IPv6 firewall tables from data specified on STDIN.
 
-###  语法
-
-```shell
-ip6tables-restore(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
--c：指定在还原iptables表时，还原当前的数据包计数器和字节计数器值；
--t：指定要还原的表的名称。
+ip6tables-restore [options]
 ```
 
+### Options
 
+```shell
+-c : Restore the values of all packet and byte counters during the restoration.
+-t : Specify the name of the table to restore.
+```

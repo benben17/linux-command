@@ -1,62 +1,59 @@
 tee
 ===
 
-从标准输入读取数据并重定向到标准输出和文件。
+Read from standard input and write to standard output and files
 
-## 概要
+## Summary
 
 ```shell
 tee [OPTION]... [FILE]...
 ```
 
-## 主要用途
+## Description
 
-- 需要同时查看数据内容并输出到文件时使用。
+- Use `tee` when you need to view data content on the screen while simultaneously outputting it to a file.
 
-## 参数
+### Parameters
 
-FILE（可选）：要输出的文件，可以为一或多个。
+FILE (optional): One or more files to write the output to.
 
-## 选项 
-
-```shell
-长选项与短选项等价
-
--a, --append               追加到文件中而不是覆盖。
--i, --ignore-interrupts    忽略中断信号（Ctrl+c中断操作无效）。
--p                         诊断写入非管道的错误。
---output-error[=MODE]      设置写错误时的行为，请查看下方的MODE部分。
---help                     显示帮助信息并退出。
---version                  显示版本信息并退出。
-
-MODE决定了当出现写错误时的输出行为，可用的MODE如下：
-
-'warn'           当写入到任何输出报错时诊断。
-'warn-nopipe'    当写入到任何输出（而不是管道）报错时诊断。
-'exit'           当写入到任何输出报错时退出。
-'exit-nopipe'    当写入到任何输出（而不是管道）报错时退出。
-
--p选项的指定的默认MODE为'warn-nopipe'。
-当'--output-error'没有在选项中时，默认的操作是当写入到管道报错时立刻退出，诊断错误信息并写入到非管道输出。
-```
-
-## 返回值
-
-返回状态为成功除非给出了非法选项或非法参数。
-
-## 例子 
+### Options 
 
 ```shell
-# 将进程信息通过管道输出到标准输出（终端）并覆盖写入到文件中。
-ps -ef |tee info_a.log info_b.log
+-a, --append               Append to the given FILEs, do not overwrite.
+-i, --ignore-interrupts    Ignore interrupt signals (Ctrl+c has no effect).
+-p                         Diagnose errors writing to non-pipes.
+--output-error[=MODE]      Set behavior on write error. See MODE below.
+--help                     Display help and exit.
+--version                  Display version information and exit.
 
-# 将进程信息通过管道输出到标准输出（终端）并追加写入到文件中。
-ps -ef |tee -a info_a.log info_b.log
+MODE determines behavior when a write error occurs:
+
+'warn'           Diagnose errors writing to any output.
+'warn-nopipe'    Diagnose errors writing to any output except pipes.
+'exit'           Exit on error writing to any output.
+'exit-nopipe'    Exit on error writing to any output except pipes.
+
+The default MODE for the -p option is 'warn-nopipe'.
+If '--output-error' is not specified, the default behavior is to exit immediately on error writing to a pipe and to diagnose errors writing to non-pipe outputs.
 ```
 
-### 注意
+## Return Value
 
-1. 该命令是`GNU coreutils`包中的命令，相关的帮助信息请查看`man -s 1 tee`或`info coreutils 'tee invocation'`。
-2. 存在缓存机制，每1024个字节将输出一次。若从管道接收输入数据，应该是缓冲区满，才将数据转存到指定的文件中。若文件内容不到1024个字节，则接收从标准输入设备读入的数据后，将刷新一次缓冲区，并转存数据到指定文件。
+Returns success unless invalid options or parameters are provided.
 
+## Examples 
 
+```shell
+# Pipe process information to stdout and overwrite into files.
+ps -ef | tee info_a.log info_b.log
+
+# Pipe process information to stdout and append into files.
+ps -ef | tee -a info_a.log info_b.log
+```
+
+### Notes
+
+1. This command is part of the `GNU coreutils` package. See `man -s 1 tee` or `info coreutils 'tee invocation'`.
+2. `tee` uses a caching mechanism, typically outputting every 1024 bytes. If input is received from a pipe, data is transferred to the file only when the buffer is full. If the file content is less than 1024 bytes, the buffer is flushed once the standard input is closed.
+吐

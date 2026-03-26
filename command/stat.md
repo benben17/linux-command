@@ -1,33 +1,33 @@
 stat
 ===
 
-用于显示文件的状态信息
+Displays file or file system status
 
-## 补充说明
+## Description
 
-**stat命令** 用于显示文件的状态信息。stat命令的输出信息比ls命令的输出信息要更详细。
+The **stat command** is used to display status information about files. The output of the `stat` command is more detailed than that of the `ls` command.
 
-### 语法
-
-```shell
-stat(选项)(参数)
-```
-
-### 选项
+### Syntax
 
 ```shell
--L：支持符号连接；
--f：显示文件系统状态而非文件状态；
--t：以简洁方式输出信息；
---help：显示指令的帮助信息；
---version：显示指令的版本信息。
+stat (options) (parameters)
 ```
 
-### 参数
+### Options
 
-文件：指定要显示信息的普通文件或者文件系统对应的设备文件名。
+```shell
+-L: Support symbolic links;
+-f: Display file system status instead of file status;
+-t: Output information in a concise format;
+--help: Display help information for the command;
+--version: Display version information for the command.
+```
 
-### 实例
+### Parameters
+
+File: Specify the regular file or device file corresponding to the file system to display information for.
+
+### Examples
 
 ```shell
 [root@localhost ~]# ls -l myfile
@@ -35,7 +35,7 @@ stat(选项)(参数)
 
 [root@localhost ~]# stat myfile
 file: “myfile”
-Size: 0               Blocks: 8          IO Block: 4096   一般空文件
+Size: 0               Blocks: 8          IO Block: 4096   Regular empty file
 Device: fd00h/64768d    Inode: 194805815   Links: 1
 Access: (0644/-rw-r--r--)  Uid: (    0/    root)   Gid: (    0/    root)
 Access: 2010-12-12 12:22:35.000000000 +0800
@@ -52,5 +52,3 @@ Inodes: Total: 249364480  Free: 249139691
 [root@localhost ~]# stat -t myfile
 myfile 0 8 81a4 0 0 fd00 194805815 1 0 0 1292127755 1286628261 1286628261 4096
 ```
-
-

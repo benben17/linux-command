@@ -1,34 +1,35 @@
 which
 ===
 
-查找并显示给定命令的绝对路径
+Locate a command and display its absolute path
 
-## 补充说明
+## Description
 
-**which命令** 用于查找并显示给定命令的绝对路径，环境变量PATH中保存了查找命令时需要遍历的目录。which指令会在环境变量$PATH设置的目录里查找符合条件的文件。也就是说，使用which命令，就可以看到某个系统命令是否存在，以及执行的到底是哪一个位置的命令。
+The **which command** is used to find and display the absolute path of a given command. It searches for executable files in the directories specified by the `PATH` environment variable. By using `which`, you can check if a certain system command exists and exactly which file will be executed when you type the command.
 
-###  语法 
-
-```shell
-which(选项)(参数)
-```
-
-###  选项 
+### Syntax
 
 ```shell
--n<文件名长度>：制定文件名长度，指定的长度必须大于或等于所有文件中最长的文件名；
--p<文件名长度>：与-n参数相同，但此处的<文件名长度>包含了文件的路径；
--w：指定输出时栏位的宽度；
--V：显示版本信息。
+which [options] [command]
 ```
 
-###  参数 
+### Options
 
-指令名：指令名列表。
+```shell
+-a  Print all matching executables in PATH, not just the first one.
+-n <length>  Specify the minimum filename length.
+-p <length>  Same as -n, but includes the path.
+-w  Specify the width of the output columns.
+-V  Display version information.
+```
 
-###  实例 
+### Parameters
 
-查找文件、显示命令路径：
+command: A list of command names to locate.
+
+### Examples
+
+Find the path of a command:
 
 ```shell
 [root@localhost ~]# which pwd
@@ -38,14 +39,13 @@ which(选项)(参数)
 /usr/sbin/adduser
 ```
 
-说明：which是根据使用者所配置的 PATH 变量内的目录去搜寻可运行档的！所以，不同的 PATH 配置内容所找到的命令当然不一样的！
+Note: `which` searches based on the `PATH` variable. Different `PATH` settings will yield different results.
 
-用 which 去找出 cd
+Try to find `cd`:
 
 ```shell
 [root@localhost ~]# which cd
 cd: shell built-in command
 ```
-cd 这个常用的命令竟然找不到啊！为什么呢？这是因为 cd 是bash 内建的命令！ 但是 which 默认是找 PATH 内所规范的目录，所以当然一定找不到的！
 
-
+In some systems, `which` might not find `cd` because it's a shell builtin and not a standalone executable file in `PATH`.

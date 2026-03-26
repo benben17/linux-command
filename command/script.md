@@ -1,51 +1,49 @@
 script
 ===
 
-记录终端会话的所有操作
+Record all operations of a terminal session.
 
-## 补充说明
+## Description
 
-**script** 用于在终端会话中，记录用户的所有操作和命令的输出信息。简而言之，记录终端会话发生的一切信息，如同一台终端录像机。例如，用户在输入某条命令时，字符的键入和删除也都会被记录。用户在终端的所有操作、终端的回显等信息会被以 `raw` 格式存储在日志文件，称为终端数据文件。命令的时间信息会被单独以另一种结构储存为日志文件，称为时间日志文件。使用命令`exit`或者快捷键`Ctrl + D`停止记录。
+The **script** command is used to record all user operations and command outputs in a terminal session. In short, it records everything that happens in the terminal, functioning like a terminal video recorder. For example, when a user enters a command, character typing and deletions are also recorded. All operations and terminal echoes are stored in a log file in `raw` format, known as the terminal data file. Timing information is stored separately in another log file, known as the timing log file. Use the `exit` command or the shortcut `Ctrl + D` to stop recording.
 
-
-###  语法
-
-```shell
-script(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--a, --append              # 对终端会话的操作信息，以追加方式写入文件（保留原文件内容）
--c, --command command     # 只运行 command 命令而不打开交互终端。相当于开启 script ，执行 command ，再退出 script
-                          # command 可以是任意能够在终端会话执行的命令
--e, --return              # 返回子进程的退出状态码
--f, --flush               # 每次终端的内容发生变动，立马写入日志文件
---force                   # 允许默认输出终端数据文件为符号链接
--o, --output-limit size   # 限制终端数据文件和时间日志文件的大小，当文件大小达到此限制就会退出子进程
-                          # size 的单位可以设置为：KiB(=1024)、KB(=1000)、MiB(1024*1024)、MB(=1000*1000)
-                          # 同理还支持 GiB TiB PiB EiB ZiB YiB GB TB PB EB ZB YB
--q, --quiet               # 安静模式。启动和退出script命令不显示任何提示
--t[file], --timing[=file] # 输出时间日志信息到标准错误(stderr)或者文件
--V, --version             # 显示版本信息并退出
--h, --help                # 显示帮助文本并退出
+script(options)(parameters)
 ```
 
-###  参数
-
-* 终端数据文件：设置存储终端数据信息的文件名称
-
-###  实例
+### Options
 
 ```shell
-script                             # 开启记录，默认会在当前目录创建名称为 typescript 的文件来保存终端数据文件
-script command.log                 # 开启记录，在当前目录创建名称为 command.log 的文件来保存终端数据文件
-script -t 2>time.file command.log  # 开启记录，在当前目录创建名称为 command.log 的文件来保存终端数据文件
-                                   # 在当前目录创建名称为 time.file 的文件来保存时间日志文件
+-a, --append              # Append the terminal session information to the file (preserves original content).
+-c, --command command     # Runs the command instead of an interactive shell. This starts script, runs the command, and then exits.
+                          # The command can be any command executable in a terminal session.
+-e, --return              # Return the exit status of the child process.
+-f, --flush               # Write content to the log file immediately whenever the terminal content changes.
+--force                   # Allow the default terminal data output file to be a symbolic link.
+-o, --output-limit size   # Limit the size of the terminal data file and timing log file. The child process exits when this limit is reached.
+                          # Units can be: KiB(=1024), KB(=1000), MiB(1024*1024), MB(=1000*1000), etc.
+                          # Also supports GiB, TiB, PiB, EiB, ZiB, YiB, GB, TB, PB, EB, ZB, YB.
+-q, --quiet               # Quiet mode. Does not show start and exit prompts for the script command.
+-t[file], --timing[=file] # Output timing information to standard error (stderr) or a file.
+-V, --version             # Display version information and exit.
+-h, --help                # Display help text and exit.
 ```
 
- **以追加模式记录终端信息** 
+### Parameters
+
+* Terminal data file: Sets the filename for storing terminal data information.
+
+### Examples
+
+```shell
+script                             # Starts recording; by default, creates a file named 'typescript' in the current directory.
+script command.log                 # Starts recording; creates a file named 'command.log' in the current directory.
+script -t 2>time.file command.log  # Starts recording; creates 'command.log' for terminal data and 'time.file' for timing logs.
+```
+
+**Record terminal information in append mode:**
 
 ```shell
 zfb@localhost:~$ script -t 2>time.file -a -f command.log
@@ -69,7 +67,7 @@ Script done, file is command.log
 zfb@localhost:~$
 ```
 
-然后，用户可以查看终端数据文件，使用方法如下  
+Then, the user can view the terminal data file:
 
 ```shell
 zfb@localhost:~$ cat command.log
@@ -94,11 +92,11 @@ Script done on 2020-12-23 20:49:04+08:00 [COMMAND_EXIT_CODE="0"]
 zfb@localhost:~$
 ```
 
-其中，只有命令`cat command.log`是用户输入，其他均为自动呈现。通过查看上面输出的时间`2020-12-23 20:48:46`，可以证明，这是重现的记录，而非重新执行一遍命令。也就是说，可以把`time.file`和`command.log`文件移动到任意一台机器上，都可以重现命令输入与终端回显。
+Only the `cat command.log` command was entered by the user; everything else is automatically presented. The timestamp `2020-12-23 20:48:46` proves this is a reproduction of the record, not a re-execution of the commands. This means `time.file` and `command.log` can be moved to any machine to reproduce the command input and terminal echoes.
 
- **记录服务器用户会话操作** 
+**Record server user session operations:**
 
-以`root`身份编辑文件`/etc/profile`，在文件末尾追加以下内容
+Edit `/etc/profile` as `root` and append the following to the end of the file:
 
 ```bash
 if [ $UID -ge 0 ]
@@ -107,14 +105,11 @@ then
 fi
 ```
 
-然后再以`root`身份创建文件夹用于存储服务器上的各个用户在终端的所有操作信息
+Then create a directory as `root` to store the terminal operation information for all users on the server:
 
 ```bash
 sudo mkdir -p /var/log/script-records/
 sudo chmod 733 /var/log/script-records/
 ```
 
-最后，执行命令`source /etc/profile`即可。任意用户（`UID ≥ 0`）在终端执行的所有操作都会被安静地记录下来，以天为单位存储。
-
-
-
+Finally, execute `source /etc/profile`. All operations performed by any user (`UID ≥ 0`) in the terminal will be recorded silently and stored on a daily basis.

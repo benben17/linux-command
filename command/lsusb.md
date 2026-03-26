@@ -1,33 +1,31 @@
 lsusb
 ===
 
-显示本机的USB设备列表信息
+List USB devices
 
-## 补充说明
+## Description
 
-**lsusb命令** 用于显示本机的USB设备列表，以及USB设备的详细信息。
+The **lsusb command** is used to display information about USB buses in the system and the devices connected to them. It is a helpful tool for USB driver development and identifying USB devices.
 
-lsusb命令是一个学习USB驱动开发，认识USB设备的助手，推荐大家使用，如果您的开发板中或者产品中没有lsusb命令可以自己移植一个，放到文件系统里面。
-
-###  语法
+### Syntax
 
 ```shell
-lsusb(选项)
+lsusb [OPTION]...
 ```
 
-###  选项
+### Options
 
 ```shell
--v：显示USB设备的详细信息；
--s<总线：设备号>仅显示指定的总线和（或）设备号的设备；
--d<厂商：产品>：仅显示指定厂商和产品编号的设备；
--t：以树状结构显示无理USB设备的层次；
--V：显示命令的版本信息。
+-v：Display detailed information about USB devices.
+-s [[bus]:][devnum]：Show only devices on a specified bus and/or with a specified device number.
+-d [vendor]:[product]：Show only devices with the specified vendor and product ID.
+-t：Dump the physical USB device hierarchy as a tree.
+-V：Display version information.
 ```
 
-###  实例
+### Examples
 
-插入usb鼠标后执行lsusb的输出内容如下:
+Example output after inserting a USB mouse:
 
 ```shell
 Bus 005 Device 001: id 0000:0000 
@@ -38,37 +36,19 @@ Bus 002 Device 006: ID 15d9:0a37
 Bus 002 Device 001: ID 0000:0000 
 ```
 
-解释：
+**Explanation:**
 
- **Bus 005** 
+*   **Bus 005**: Represents the 5th USB host controller (you can check all controllers using `lspci | grep USB`).
+*   **Device 006**: The device number (devnum) assigned by the system to the USB mouse. In this example, it is connected to the 2nd USB host controller.
+    *   Corresponding sysfs path: `/sys/devices/pci0000:00/0000:00:1d.1/usb2/2-2/devnum`
+*   **ID 15d9:0a37**: The USB device ID (vendor:product). This ID is set by the chip manufacturer and uniquely identifies the device type.
+    *   Vendor ID (15d9): `usb_device_descriptor.idVendor`
+    *   Product ID (0a37): `usb_device_descriptor.idProduct`
+    *   Sysfs paths: `/sys/devices/pci0000:00/0000:00:1d.1/usb2/2-2/idVendor` and `idProduct`
 
-表示第五个usb主控制器(机器上总共有5个usb主控制器 -- 可以通过命令lspci | grep USB查看)
+**Bus 002 Device 006: ID 15d9:0a37**
+**Bus 002 Device 001: ID 0000:0000**
 
- **Device 006** 
-
-表示系统给usb鼠标分配的设备号(devnum)，同时也可以看到该鼠标是插入到了第二个usb主控制器
-
-```shell
-006        usb_device.devnum
-/sys/devices/pci0000:00/0000:00:1d.1/usb2/2-2/devnum
-```
-
- **ID 15d9:0a37** 
-
-表示usb设备的ID（这个ID由芯片制造商设置，可以唯一表示该设备）
-
-```shell
-15d9    usb_device_descriptor.idVendor
-0a37    usb_device_descriptor.idProduct
-/sys/devices/pci0000:00/0000:00:1d.1/usb2/2-2/idVendor
-```
-
-**Bus 002 Device 006: ID 15d9:0a37  
-Bus 002 Device 001: ID 0000:0000**
-
-表示002号usb主控制器上接入了两个设备:
-
-* 一个是usb根Hub -- 001 
-* 一个是usb鼠标  -- 006
-
-
+This indicates two devices on USB bus 002:
+*   A USB root hub (Device 001).
+*   A USB mouse (Device 006).

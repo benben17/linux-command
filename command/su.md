@@ -1,52 +1,50 @@
 su
 ===
 
-用于切换当前用户身份到其他用户身份
+Used to switch the current user identity to another user identity
 
-## 补充说明
+## Description
 
-**su命令** 用于切换当前用户身份到其他用户身份，变更时须输入所要变更的用户帐号与密码。
+The **su command** (short for "substitute user" or "switch user") is used to switch the current user identity to another user identity. When switching, the password of the target user account must be entered.
 
-###  语法
-
-```shell
-su(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--c<指令>或--command=<指令>：执行完指定的指令后，即恢复原来的身份；
--f或——fast：适用于csh与tsch，使shell不用去读取启动文件；
--l或——login：改变身份时，也同时变更工作目录，以及HOME,SHELL,USER,logname。此外，也会变更PATH变量；
--m,-p或--preserve-environment：变更身份时，不要变更环境变量；
--s<shell>或--shell=<shell>：指定要执行的shell；
---help：显示帮助；
---version；显示版本信息。
+su (options) (parameters)
 ```
 
-###  参数
+### Options
 
-用户：指定要切换身份的目标用户。
+```shell
+-c <command>, --command=<command>: Execute the specified command and then return to the original identity.
+-f, --fast: Applicable to csh and tcsh; prevents the shell from reading startup files.
+-l, --login: When changing identity, also change the working directory, as well as HOME, SHELL, USER, and logname. Additionally, the PATH variable will be updated.
+-m, -p, --preserve-environment: Do not change environment variables when changing identity.
+-s <shell>, --shell=<shell>: Specify the shell to be executed.
+--help: Display help.
+--version: Display version information.
+```
 
-###  实例
+### Parameters
 
-变更帐号为root并在执行ls指令后退出变回原使用者：
+User: Specify the target user account to switch to.
+
+### Examples
+
+Switch to root, execute the `ls` command, and then return to the original user:
 
 ```shell
 su -c ls root
 ```
 
-变更帐号为root并传入`-f`选项给新执行的shell：
+Switch to root and pass the `-f` option to the new shell:
 
 ```shell
 su root -f
 ```
 
-变更帐号为test并改变工作目录至test的家目录：
+Switch to test and change the working directory to test's home directory:
 
 ```shell
 su - test
 ```
-
-

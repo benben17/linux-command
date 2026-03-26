@@ -1,93 +1,93 @@
 pwd
 ===
 
-显示当前工作目录的绝对路径。
+Display the absolute path of the current working directory.
 
-## 补充说明
+## Description
 
-pwd（英文全拼：print working directory） 命令用于显示用户当前所在的工作目录（以绝对路径显示）。
+The **pwd command** (print working directory) is used to display the current working directory of the user as an absolute path.
 
-## 内建命令
+## Builtin Command
 
-#### 概要
+#### Synopsis
 
 ```shell
 pwd [-LP]
 ```
 
-#### 选项
+#### Options
 
 ```shell
--L （默认值）打印环境变量"$PWD"的值，可能为符号链接。
--P 打印当前工作目录的物理位置。
+-L (default) Print the value of the environment variable "$PWD", which may contain symbolic links.
+-P Print the physical location of the current working directory.
 ```
 
-#### 返回值
+#### Return Value
 
-返回状态为成功除非给出了非法选项或是当前目录无法读取。
+Returns success unless an invalid option is provided or the current directory cannot be read.
 
-#### 注意
+#### Note
 
-1. 该命令是bash内建命令，相关的帮助信息请查看`help`命令。
+1. This command is a bash builtin; use the `help` command for related help information.
 
 
-## 外部命令
+## External Command
 
-#### 概要
+#### Synopsis
 
 ```shell
 pwd [OPTION]...
 ```
 
-#### 主要用途
+#### Main Usage
 
-- 显示当前工作目录。
+- Display the current working directory.
 
 
-#### 选项
+#### Options
 
 ```shell
--L, --logical 打印环境变量"$PWD"的值，可能为符号链接。
--P, --physical （默认值）打印当前工作目录的物理位置。
---help 显示帮助信息并退出。
---version 显示版本信息并退出。
+-L, --logical Print the value of the environment variable "$PWD", which may contain symbolic links.
+-P, --physical (default) Print the physical location of the current working directory.
+--help Display help information and exit.
+--version Display version information and exit.
 ```
 
-#### 返回值
+#### Return Value
 
-返回状态为成功除非给出了非法选项或是当前目录无法读取。
+Returns success unless an invalid option is provided or the current directory cannot be read.
 
-#### 注意
+#### Note
 
-1. 该命令是`GNU coreutils`包中的命令，相关的帮助信息请查看`man pwd`或`info coreutils 'pwd invocation'`。
-2. 启动或关闭内建命令请查看`enable`命令，关于同名优先级的问题请查看`builtin`命令的例子部分的相关讨论。
-3. 在不禁用内建且当前环境没有定义`pwd`函数的情况下，使用`/usr/bin/pwd`指向`coreutils`的`pwd`，使用`pwd`指向bash内建的`pwd`。
+1. This command is part of the `GNU coreutils` package; use `man pwd` or `info coreutils 'pwd invocation'` for help.
+2. To enable or disable builtin commands, use the `enable` command. For priority issues with same-named commands, see the `builtin` command examples.
+3. If the builtin is not disabled and no `pwd` function is defined, `pwd` refers to the bash builtin, while `/usr/bin/pwd` refers to the `coreutils` version.
 
 
-## 例子
+## Example
 
-查看当前所在路径
+View the current path:
 
 ```shell
 [root@localhost var]# pwd
 /var
 ```
 
-显示软连接文件最终指向的文件路径
+Display the final target path of a symbolic link:
 
 ```shell
-[root@localhost ~]# cd /var/   # 进入/var目录，该目录下有个 mail 软连接文件
+[root@localhost ~]# cd /var/   # Enter /var directory; there is a "mail" symbolic link here
 [root@localhost var]# ls -al
 total 164
 ...
 lrwxrwxrwx  1 root root   10 Oct 17  2015 mail -> spool/mail
 
-[root@localhost var]# cd mail/   # 进入 mail 目录，mail 为连接文件。
-[root@localhost mail]# pwd       # 默认，使用连接文件，直接显示连接文件全路径。
+[root@localhost var]# cd mail/   # Enter the mail directory; mail is a symbolic link.
+[root@localhost mail]# pwd       # By default, shows the logical path.
 /var/mail
 ```
 
-使用 `-P` 参数，显示的不是逻辑路径，而是连接(软连接)文件最终指向的文件
+Use the `-P` parameter to display the physical path instead of the logical one:
 
 ```shell
 [root@localhost mail]# pwd -P    

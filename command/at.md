@@ -1,37 +1,37 @@
 at
 ===
 
-在指定时间执行一个任务
+Execute a task at a specified time
 
-## 补充说明
+## Additional Information
 
-**at命令** 用于在指定时间执行命令。at允许使用一套相当复杂的指定时间的方法。它能够接受在当天的hh:mm（小时:分钟）式的时间指定。假如该时间已过去，那么就放在第二天执行。当然也能够使用midnight（深夜），noon（中午），teatime（饮茶时间，一般是下午4点）等比较模糊的词语来指定时间。用户还能够采用12小时计时制，即在时间后面加上AM（上午）或PM（下午）来说明是上午还是下午。也能够指定命令执行的具体日期，指定格式为month day（月 日）或mm/dd/yy（月/日/年）或dd.mm.yy（日.月.年）。指定的日期必须跟在指定时间的后面。
+The **at command** is used to execute commands at a specified time. `at` allows for a fairly complex set of time specification methods. It can accept time in the `hh:mm` (hour:minute) format for the current day. If that time has already passed, it will be executed the next day. You can also use vague terms like `midnight`, `noon`, or `teatime` (usually 4 PM) to specify the time. Users can also use 12-hour format, adding `AM` or `PM` after the time. Specific dates for command execution can also be specified in formats like `month day`, `mm/dd/yy`, or `dd.mm.yy`. The specified date must follow the specified time.
 
-上面介绍的都是绝对计时法，其实还能够使用相对计时法，这对于安排不久就要执行的命令是很有好处的。指定格式为：`now + count time-units`，now就是当前时间，time-units是时间单位，这里能够是minutes（分钟）、hours（小时）、days（天）、weeks（星期）。count是时间的数量，究竟是几天，还是几小时，等等。更有一种计时方法就是直接使用today（今天）、tomorrow（明天）来指定完成命令的时间。
+The above are all absolute timing methods; relative timing can also be used, which is useful for scheduling commands to be executed soon. The format is: `now + count time-units`, where `now` is the current time and `time-units` are units of time such as `minutes`, `hours`, `days`, or `weeks`. `count` is the quantity of time. Another timing method is directly using `today` or `tomorrow` to specify the completion time for the command.
 
-### 语法
-
-```shell
-at [-V] [-q 队列] [-f 文件] [-mldbv] 时间 at -c 作业 [作业...]
-```
-
-### 选项
+### Syntax
 
 ```shell
--f：指定包含具体指令的任务文件；
--q：指定新任务的队列名称；
--l：显示待执行任务的列表；
--d：删除指定的待执行任务；
--m：任务执行完成后向用户发送E-mail。
+at [-V] [-q queue] [-f file] [-mldbv] time at -c job [job...]
 ```
 
-### 参数
+### Options
 
-日期时间：指定任务执行的日期时间。
+```shell
+-f: Specify a task file containing specific instructions.
+-q: Specify the queue name for the new task.
+-l: Display a list of pending tasks.
+-d: Delete the specified pending task.
+-m: Send an email to the user after the task is completed.
+```
 
-### 示例
+### Parameters
 
-三天后的下午 5 点钟执行`/bin/ls`：
+Date/Time: Specifies the date and time for task execution.
+
+### Examples
+
+Execute `/bin/ls` at 5 PM three days from now:
 
 ```shell
 [root@localhost ~]# at 5pm+3 days
@@ -40,7 +40,7 @@ at> <EOT>
 job 7 at 2013-01-08 17:00
 ```
 
-明天17点钟，输出时间到指定文件内：
+Tomorrow at 5:20 PM, output the date to a specified file:
 
 ```shell
 [root@localhost ~]# at 17:20 tomorrow
@@ -49,7 +49,7 @@ at> <EOT>
 job 8 at 2013-01-06 17:20
 ```
 
-计划任务设定后，在没有执行之前我们可以用atq命令来查看系统没有执行工作任务：
+After scheduled tasks are set, you can use the `atq` command to view tasks that have not yet been executed:
 
 ```shell
 [root@localhost ~]# atq
@@ -57,7 +57,7 @@ job 8 at 2013-01-06 17:20
 7       2013-01-08 17:00 a root
 ```
 
-删除已经设置的任务：
+Delete a set task:
 
 ```shell
 [root@localhost ~]# atrm 7
@@ -65,18 +65,18 @@ job 8 at 2013-01-06 17:20
 8       2013-01-06 17:20 a root
 ```
 
-显示已经设置的任务内容：
+Display the content of a set task:
 
 ```shell
 [root@localhost ~]# at -c 8
 #!/bin/sh
 # atrun uid=0 gid=0
 # mail     root 0
-umask 22此处省略n个字符
+umask 22
 date >/root/2013.log
 ```
 
-使用任务文件执行任务：
+Execute a task using a task file:
 
 ```shell
 [root@localhost ~]# echo "/bin/ls" > mytask.txt
@@ -84,7 +84,7 @@ date >/root/2013.log
 job 9 at 2013-01-08 17:00
 ```
 
-指定任务队列执行任务：
+Execute a task specifying a task queue:
 
 ```shell
 [root@localhost ~]# at -q b 5pm+3 days
@@ -93,7 +93,7 @@ at> <EOT>
 job 10 at 2013-01-08 17:00
 ```
 
-任务执行完成后发送E-mail通知：
+Send an email notification after the task is completed:
 
 ```shell
 [root@localhost ~]# at -m 5pm+3 days

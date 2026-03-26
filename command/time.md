@@ -1,29 +1,29 @@
 time
 ===
 
-统计给定命令所花费的总时间
+Calculate the total time spent by a given command
 
-## 补充说明
+## Description
 
-`time` 命令是用来确定一个给定的命令需要运行多长时间。它对于测试你的脚本和命令的性能很有用。
+The `time` command is used to determine how long a given command takes to run. It is useful for testing the performance of your scripts and commands.
 
-例如，如果你有两个不同的脚本在做同样的工作，你想知道哪一个表现得更好，你可以用 Linux 的时间命令来确定每个脚本的执行时间。
+For example, if you have two different scripts doing the same job and you want to know which one performs better, you can use the Linux time command to determine the execution time of each script.
 
-该指令是 shell 内指令，也是一个软件包，**对于软件包的说明在这篇文档靠下的部分**
+This instruction covers both the shell built-in command and the standalone package. **Information about the standalone package is at the bottom of this document.**
 
-## 语法
+## Syntax
 
 ```shell
-time <指令>
+time <command>
 ```
 
-## 参数
+## Parameters
 
-指令：指定需要运行的额指令及其参数。
+Command: Specifies the command and its parameters to be run.
 
-## 实例
+## Examples
 
-当测试一个程序或比较不同算法时，执行时间是非常重要的，一个好的算法应该是用时最短的。所有类UNIX系统都包含time命令，使用这个命令可以统计时间消耗。例如：
+Execution time is crucial when testing a program or comparing different algorithms; a good algorithm should take the least time. All UNIX-like systems include the `time` command to calculate time consumption. For example:
 
 ```shell
 $ time ls
@@ -34,7 +34,7 @@ user    0m0.002s
 sys     0m0.007s
 ```
 
-这里的输出会因为使用的发行版本不同而导致展示的结果不同，比如：
+The output format may vary depending on the distribution or shell:
 
 ```shell
 # Bash
@@ -50,78 +50,78 @@ sys 0m0.940s
 0inputs+201456outputs (0major+315minor)pagefaults 0swaps
 ```
 
-`real` 或者 `total` 或者 `elapsed`（挂钟时间）是指从调用开始到结束的时间。它是指从你按下回车键的那一刻开始，到命令完成的那一刻为止的时间。
-user - 在用户模式下花费的CPU时间。
-system 或 sys - 在内核模式下花费的CPU时间。
+`real`, `total`, or `elapsed` (wall clock time) refers to the time from the start of the call to its end. It is the time from the moment you press Enter until the command completes.
+`user` - CPU time spent in user mode.
+`system` or `sys` - CPU time spent in kernel mode.
 
-## 软件包
+## Package
 
-接下来的部分是关于 `time` 软件包提供的 `/usr/bin/time` 二进制可执行程序，而不是 shell 内建的 time 命令。
+The following section is about the `/usr/bin/time` binary executable provided by the `time` package, rather than the shell built-in `time` command.
 
-### 软件包的语法
+### Package Syntax
 
-一些 shells（例如 `bash` ）有一个内置的 `time` 命令，提供类似的关于时间和可能的其他资源的使用信息。
+Some shells (such as `bash`) have a built-in `time` command that provides similar information about time and potentially other resource usage.
 
-要访问真正的命令，可能需要指定其路径名（类似于`/usr/bin/time`）。
+To access the actual command, you may need to specify its path (e.g., `/usr/bin/time`).
 
 ```shell
 time [options] command [arguments...]
 ```
 
-### 软件包指令参数
+### Package Options
 
 -f format, --format=format
-指定输出格式，可能覆盖环境变量TIME中指定的格式。
+    Specify the output format, potentially overriding the format specified in the TIME environment variable.
 -p, --portability
-    使用可移植的输出格式。
+    Use the portable output format.
 -o file, --output=file
-    不将结果发送到stderr，而是覆盖指定的文件。
+    Do not send results to stderr, but overwrite the specified file instead.
 -a, --append
-    (与-o一起使用。)不覆盖而是附加。
+    (Used with -o) Append instead of overwrite.
 -v, --verbose
-    对程序知道的所有信息进行非常详细的输出。
+    Provide very detailed output about all information the program knows.
 -q, --quiet
-    不报告异常的程序终止（当命令被信号终止时）或非零退出状态。
+    Do not report abnormal program termination (when the command is terminated by a signal) or non-zero exit status.
 
-### 软件包实例
+### Package Examples
 
-使用`-o`选项将执行时间写入到文件中：
+Use the `-o` option to write execution time to a file:
 
 ```shell
 /usr/bin/time -o outfile.txt ls
 ```
 
-使用`-a`选项追加信息：
+Use the `-a` option to append information:
 
 ```shell
 /usr/bin/time -a -o outfile.txt ls
 ```
 
-使用`-f`选项格式化时间输出：
+Use the `-f` option to format the time output:
 
 ```shell
 /usr/bin/time -f "time: %U" ls
 ```
 
-`-f`选项后的参数：
+Parameters for the `-f` option:
 
-参数 | 描述
+Parameter | Description
 --- | ---
-`%E` | real时间，显示格式为[小时:]分钟:秒
-`%U` | user时间。
-`%S` | sys时间。
-`%C` | 进行计时的命令名称和命令行参数。
-`%D` | 进程非共享数据区域，以KB为单位。
-`%x` | 命令退出状态。
-`%k` | 进程接收到的信号数量。
-`%w` | 进程被交换出主存的次数。
-`%Z` | 系统的页面大小，这是一个系统常量，不用系统中常量值也不同。
-`%P` | 进程所获取的CPU时间百分百，这个值等于 `user+system` 时间除以总共的运行时间。
-`%K` | 进程的平均总内存使用量（data+stack+text），单位是 `KB`。
-`%w` | 进程主动进行上下文切换的次数，例如等待I/O操作完成。
-`%c` | 进程被迫进行上下文切换的次数（由于时间片到期）。
+`%E` | Real time, format: [hours:]minutes:seconds
+`%U` | User time.
+`%S` | Sys time.
+`%C` | Command name and command-line arguments.
+`%D` | Process's non-shared data area, in KB.
+`%x` | Command exit status.
+`%k` | Number of signals received by the process.
+`%w` | Number of times the process was swapped out of main memory.
+`%Z` | System page size (a system constant, varies by system).
+`%P` | Percentage of CPU time obtained by the process, equals `(user + system) / total execution time`.
+`%K` | Average total memory usage of the process (data+stack+text), in `KB`.
+`%w` | Number of voluntary context switches, e.g., waiting for I/O completion.
+`%c` | Number of involuntary context switches (due to time slice expiration).
 
-## 参考资料
+## References
 
 - Linux Time Command | Linuxize <https://linuxize.com/post/linux-time-command/>
 - time(1) — Arch manual pages <https://man.archlinux.org/man/time.1>

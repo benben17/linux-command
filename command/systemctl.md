@@ -1,55 +1,51 @@
 systemctl
 ===
 
-系统服务管理器指令
+Control the systemd system and service manager
 
-## 补充说明
+## Description
 
-**systemctl命令** 是系统服务管理器指令，它实际上将 service 和 chkconfig 这两个命令组合到一起。
+The **systemctl command** is a utility for controlling the systemd system and service manager. It essentially combines the functionalities of the older `service` and `chkconfig` commands.
 
-| 任务 | 旧指令 | 新指令 |
+| Task | Old Command | New Command |
 | ---- | ---- | ---- |
-| 使某服务自动启动 | chkconfig --level 3 httpd on | systemctl enable httpd.service |
-| 使某服务不自动启动 | chkconfig --level 3 httpd off | systemctl disable httpd.service |
-| 检查服务状态 | service httpd status | systemctl status httpd.service （服务详细信息） systemctl is-active httpd.service （仅显示是否 Active) |
-| 显示所有已启动的服务 | chkconfig --list | systemctl list-units --type=service |
-| 启动服务 | service httpd start | systemctl start httpd.service |
-| 停止服务 | service httpd stop | systemctl stop httpd.service |
-| 重启服务 | service httpd restart | systemctl restart httpd.service |
-| 重载服务 | service httpd reload | systemctl reload httpd.service |
+| Enable a service at boot | chkconfig --level 3 httpd on | systemctl enable httpd.service |
+| Disable a service at boot | chkconfig --level 3 httpd off | systemctl disable httpd.service |
+| Check service status | service httpd status | systemctl status httpd.service (Detailed) <br> systemctl is-active httpd.service (Active status only) |
+| List all enabled services | chkconfig --list | systemctl list-units --type=service |
+| Start a service | service httpd start | systemctl start httpd.service |
+| Stop a service | service httpd stop | systemctl stop httpd.service |
+| Restart a service | service httpd restart | systemctl restart httpd.service |
+| Reload a service | service httpd reload | systemctl reload httpd.service |
 
-### 实例
-
-```shell
-systemctl start nfs-server.service . # 启动nfs服务
-systemctl enable nfs-server.service # 设置开机自启动
-systemctl enable nfs-server.service --now # 设置开机自启动，并立刻启动
-systemctl disable nfs-server.service # 停止开机自启动
-systemctl disable nfs-server.service --now # 停止开机自启动，并立刻停止
-systemctl status nfs-server.service # 查看服务当前状态
-systemctl restart nfs-server.service # 重新启动某服务
-systemctl list-units --type=service # 查看所有已启动的服务
-```
-
-开启防火墙22端口
+### Examples
 
 ```shell
-iptables -I INPUT -p tcp --dport 22 -j accept
+systemctl start nfs-server.service   # Start NFS service
+systemctl enable nfs-server.service  # Enable service at boot
+systemctl enable nfs-server.service --now # Enable at boot and start immediately
+systemctl disable nfs-server.service # Disable service at boot
+systemctl disable nfs-server.service --now # Disable at boot and stop immediately
+systemctl status nfs-server.service  # Check current service status
+systemctl restart nfs-server.service # Restart a service
+systemctl list-units --type=service  # List all active services
 ```
 
-如果仍然有问题，就可能是SELinux导致的
-
-关闭SElinux：
-
-修改`/etc/selinux/config`文件中的`SELINUX=""`为disabled，然后重启。
-
-彻底关闭防火墙：
+Open port 22 in the firewall:
 
 ```shell
-sudo systemctl status firewalld.service
-sudo systemctl stop firewalld.service          
-sudo systemctl disable firewalld.service
+iptables -I INPUT -p tcp --dport 22 -j accept
 ```
 
+If issues persist, check SELinux:
 
+Disable SELinux:
+Change `SELINUX=""` to `disabled` in `/etc/selinux/config` and reboot.
 
+Completely disable firewall:
+
+```shell
+sudo systemctl status firewalld.service
+sudo systemctl stop firewalld.service          
+sudo systemctl disable firewalld.service
+```

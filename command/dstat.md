@@ -1,34 +1,34 @@
 dstat
 ===
 
-通用的系统资源统计工具
+Versatile tool for generating system resource statistics.
 
-## 补充说明
+## Description
 
-**dstat命令** 是一个用来替换vmstat、iostat、netstat、nfsstat和ifstat这些命令的工具，是一个全能系统信息统计工具。与sysstat相比，dstat拥有一个彩色的界面，在手动观察性能状况时，数据比较显眼容易观察；而且dstat支持即时刷新，譬如输入`dstat 3`即每三秒收集一次，但最新的数据都会每秒刷新显示。和sysstat相同的是，dstat也可以收集指定的性能资源，譬如`dstat -c`即显示CPU的使用情况。
+The **dstat** command is a versatile tool designed to replace `vmstat`, `iostat`, `netstat`, `nfsstat`, and `ifstat`. It is a comprehensive system information statistics tool. Compared to `sysstat`, `dstat` features a colorful interface, making performance data easier to observe manually. `dstat` also supports real-time updates; for example, `dstat 3` collects data every three seconds, with the latest data refreshed every second. Like `sysstat`, `dstat` can collect specific performance resources, such as `dstat -c` for CPU usage.
 
-###  下载安装
+### Installation
 
- **方法一** 
+ **Method 1** 
 
 ```shell
 yum install -y dstat
 ```
 
- **方法二** 
+ **Method 2** 
 
-官网下载地址：http://dag.wieers.com/rpm/packages/dstat
+Download from official website: http://dag.wieers.com/rpm/packages/dstat
 
 ```shell
 wget http://dag.wieers.com/rpm/packages/dstat/dstat-0.6.7-1.rh7.rf.noarch.rpm
 rpm -ivh dstat-0.6.7-1.rh7.rf.noarch.rpm
 ```
 
-###  使用说明
+### Usage Instructions
 
-安装完后就可以使用了，dstat非常强大，可以实时的监控cpu、磁盘、网络、IO、内存等使用情况。
+Once installed, `dstat` can be used for real-time monitoring of CPU, disk, network, IO, memory, etc.
 
-直接使用dstat，默认使用的是`-cdngy`参数，分别显示cpu、disk、net、page、system信息，默认是1s显示一条信息。可以在最后指定显示一条信息的时间间隔，如`dstat 5`是没5s显示一条，`dstat 5 10`表示没5s显示一条，一共显示10条。
+Invoking `dstat` without arguments is equivalent to using the `-cdngy` parameters, which display CPU, disk, network, paging, and system information, with a 1-second interval by default. You can specify a time interval and an optional count at the end. For example, `dstat 5` displays data every 5 seconds, and `dstat 5 10` displays data every 5 seconds for a total of 10 times.
 
 ```shell
 [root@iZ23uulau1tZ ~]# dstat
@@ -42,48 +42,48 @@ usr sys idl wai hiq siq| read  writ| recv  send|  in   out | int   csw
   1   0  99   0   0   0|   0     0 |5080B  346B|   0     0 | 208   242
 ```
 
-下面对显示出来的部分信息作一些说明：
+Explanation of some displayed information:
 
-1.  cpu：hiq、siq分别为硬中断和软中断次数。
-2.  system：int、csw分别为系统的中断次数（interrupt）和上下文切换（context switch）。
+1.  CPU: `hiq` and `siq` are the number of hardware and software interrupts, respectively.
+2.  System: `int` and `csw` are the number of system interrupts and context switches, respectively.
 
-其他的都很好理解。
+Other metrics are straightforward.
 
-###  语法
+### Syntax
 
 ```shell
 dstat [-afv] [options..] [delay [count]]
 ```
 
-###  常用选项
+### Common Options
 
 ```shell
--c：显示CPU系统占用，用户占用，空闲，等待，中断，软件中断等信息。
--C：当有多个CPU时候，此参数可按需分别显示cpu状态，例：-C 0,1 是显示cpu0和cpu1的信息。
--d：显示磁盘读写数据大小。
--D hda,total：include hda and total。
--n：显示网络状态。
--N eth1,total：有多块网卡时，指定要显示的网卡。
--l：显示系统负载情况。
--m：显示内存使用情况。
--g：显示页面使用情况。
--p：显示进程状态。
--s：显示交换分区使用情况。
--S：类似D/N。
--r：I/O请求情况。
--y：系统状态。
---ipc：显示ipc消息队列，信号等信息。
---socket：用来显示tcp udp端口状态。
--a：此为默认选项，等同于-cdngy。
--v：等同于 -pmgdsc -D total。
---output 文件：此选项也比较有用，可以把状态信息以csv的格式重定向到指定的文件中，以便日后查看。例：dstat --output /root/dstat.csv & 此时让程序默默的在后台运行并把结果输出到/root/dstat.csv文件中。
+-c          Display CPU stats (system, user, idle, wait, hardware interrupt, software interrupt).
+-C 0,1      Display stats for specific CPUs (e.g., cpu0 and cpu1).
+-d          Display disk stats (read, write).
+-D hda,total Include specific disk and total.
+-n          Display network stats (receive, send).
+-N eth1,total Include specific network interface and total.
+-l          Display system load stats.
+-m          Display memory stats (used, buffers, cache, free).
+-g          Display paging stats.
+-p          Display process stats (runnable, uninterruptible, new).
+-s          Display swap stats.
+-S          Similar to -D/-N for swap.
+-r          Display I/O request stats.
+-y          Display system stats (interrupts, context switches).
+--ipc       Display IPC message queue and semaphore stats.
+--socket    Display network socket stats (tcp, udp, raw, ip-fragments).
+-a          Default option, equivalent to -cdngy.
+-v          Equivalent to -pmgdsc -D total.
+--output file Redirect output to a CSV file. Example: dstat --output /root/dstat.csv &
 ```
 
-当然dstat还有很多更高级的用法，常用的基本这些选项，更高级的用法可以结合man文档。
+`dstat` has many advanced features. Refer to the `man` page for more details.
 
-###  实例
+### Examples
 
-如想监控swap，process，sockets，filesystem并显示监控的时间：
+Monitor swap, processes, sockets, and filesystem with timestamps:
 
 ```shell
 [root@iZ23uulau1tZ ~]# dstat -tsp --socket --fs
@@ -97,7 +97,7 @@ dstat [-afv] [options..] [delay [count]]
 26-07 09:23:53|   0     0 |  0   0   0|104   8   5   0   0|  704   6489
 ```
 
-若要将结果输出到文件可以加`--output filename`：
+Output results to a file:
 
 ```shell
 [root@iZ23uulau1tZ ~]# dstat -tsp --socket --fs --output /tmp/ds.csv
@@ -111,11 +111,7 @@ dstat [-afv] [options..] [delay [count]]
 26-07 09:25:36|   0     0 |  0   0   0|104   8   5   0   0|  736   6494
 ```
 
-这样生成的csv文件可以用excel打开，然后生成图表。
-
-通过`dstat --list`可以查看dstat能使用的所有参数，其中上面internal是dstat本身自带的一些监控参数，下面`/usr/share/dstat`中是dstat的插件，这些插件可以扩展dstat的功能，如可以监控电源（battery）、mysql等。
-
-下面这些插件并不是都可以直接使用的，有的还依赖其他包，如想监控mysql，必须要装python连接mysql的一些包。
+List all available `dstat` parameters and plugins:
 
 ```shell
 [root@iZ23uulau1tZ ~]# dstat --list
@@ -126,7 +122,3 @@ internal:
         net-packets, nfs3, nfs3-ops, nfsd3, nfsd3-ops, ntp, postfix, power, proc-count, rpc, rpcd, sendmail, snooze, thermal, top-bio, top-cpu, top-cputime, top-cputime-avg, top-io, top-latency, top-latency-avg, top-mem, top-oom, utmp,
         vm-memctl, vmk-hba, vmk-int, vmk-nic, vz-cpu, vz-io, vz-ubc, wifi
 ```
-
-dstat命令的基本用法就说到这里，更多用法有待摸索，如果您需要补充内容请给我们发邮件，谢谢！
-
-

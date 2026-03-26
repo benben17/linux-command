@@ -1,31 +1,28 @@
 pathchk
 ===
 
-检查文件中不可移植的部分
+Checks whether file names are valid or portable.
 
-## 补充说明
+## Description
 
-**pathchk命令** 用来检查文件中不可移植的部分。
+The **pathchk command** is used to check whether one or more file names are valid (i.e., can be created on the current system) or portable to other POSIX systems.
 
-###  语法
-
-```shell
-pathchk(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--p：检查大多数的POSIX系统；
--P：检查空名字和“-”开头的文件；
---portability：检查所有的POSIX系统，等同于“-P-p”选项；
---help：显示帮助；
---wersion：显示版本号。
+pathchk [options] [file...]
 ```
 
-###  参数
+### Options
 
-*   文件：带路径信息的文件；
-*   后缀：可选参数，指定要去除的文件后缀字符串。
+```shell
+-p: Check for portability to most POSIX systems.
+-P: Check for empty names and names starting with "-".
+--portability: Check for portability to all POSIX systems (equivalent to -p -P).
+--help: Display help information.
+--version: Display version information.
+```
 
+### Parameters
 
+*   File: The file path(s) to check.

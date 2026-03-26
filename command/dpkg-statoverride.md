@@ -1,45 +1,43 @@
 dpkg-statoverride
 ===
 
-Debian Linux中覆盖文件的所有权和模式
+Override ownership and mode of files in Debian.
 
-## 补充说明
+## Description
 
-**dpkg-statoverride命令** 用于Debian Linux中覆盖文件的所有权和模式，让dpkg于包安装时使得文件所有权与模式失效。
+The **dpkg-statoverride** command is used in Debian Linux to override the ownership and mode of files. It tells `dpkg` to use a different owner or mode for a path when a package is installed.
 
-###  语法
-
-```shell
-dpkg-statoverride(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
--add：为文件添加一个改写；
---remove：为文件删除一个改写；
---list：显示所有改写列表；
---update：如果文件存在，则立刻执行改写操作。
+dpkg-statoverride (options)
 ```
 
-###  实例
+### Options
 
-修改文件夹的权限属性：
+```shell
+--add       Add a new override.
+--remove    Remove an override.
+--list      List all current overrides.
+--update    Immediately update the file's ownership and mode if the file exists.
+```
+
+### Examples
+
+Change the permission attributes of a folder:
 
 ```shell
 sudo dpkg-statoverride --update --add nagios nagios 751 /var/lib/nagios3
 ```
 
-强制修改文件夹的权限属性：
+Force change the permission attributes of a folder:
 
 ```shell
 sudo dpkg-statoverride --force --update --add root sasl 755 /var/spool/postfix/var/run/saslauthd
 ```
 
-将文件从数据库中删除：
+Remove a file's override from the database:
 
 ```shell
 sudo dpkg-statoverride --remove /usr/bin/wall
 ```
-
-

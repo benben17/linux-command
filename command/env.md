@@ -1,33 +1,33 @@
 env
 ===
 
-显示系统中已存在的环境变量
+Display existing environment variables.
 
-## 补充说明
+## Description
 
-**env命令** 用于显示系统中已存在的环境变量，以及在定义的环境中执行指令。该命令只使用"-"作为参数选项时，隐藏了选项"-i"的功能。若没有设置任何选项和参数时，则直接显示当前的环境变量。
+The **env** command is used to display the existing environment variables in the system and to execute commands in a modified environment. When the "-" option is used alone, it functions like "-i". If no options or parameters are provided, it simply displays the current environment variables.
 
-如果使用env命令在新环境中执行指令时，会因为没有定义环境变量"PATH"而提示错误信息"such file or directory"。此时，用户可以重新定义一个新的"PATH"或者使用绝对路径。
+If you use `env` to execute a command in a new environment, you might encounter a "no such file or directory" error because the `PATH` environment variable is not defined in the new environment. In such cases, you should redefine `PATH` or use absolute paths for the command.
 
-###  语法
-
-```shell
-env(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--i：开始一个新的空的环境；
--u<变量名>：从当前环境中删除指定的变量。
+env [options] [parameters]
 ```
 
-###  参数
+### Options
 
-*   变量定义：定义在新的环境中变量，定义多个变量定义用空格隔开。格式为“变量名=值”；
-*   指定：指定要执行的指令和参数。
+```shell
+-i: Start with an empty environment (ignore inherited environment).
+-u <name>: Remove variable <name> from the current environment.
+```
 
-###  实例
+### Parameters
+
+*   Variable Definitions: Define variables for the new environment, separated by spaces. Format: `NAME=VALUE`.
+*   Command: Specify the command and its arguments to be executed.
+
+### Examples
 
 ```shell
 [root@localhost ~]# env
@@ -52,5 +52,3 @@ LESSOPEN=|/usr/bin/lesspipe.sh %s
 G_BROKEN_FILENAMES=1
 _=/bin/env
 ```
-
-

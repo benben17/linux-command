@@ -1,70 +1,61 @@
 mkdir
 ===
 
-用来创建目录
+Create directories
 
-## 补充说明
+## Description
 
-**mkdir命令** 用来创建目录。该命令创建由dirname命名的目录。如果在目录名的前面没有加任何路径名，则在当前目录下创建由dirname指定的目录；如果给出了一个已经存在的路径，将会在该目录下创建一个指定的目录。在创建目录时，应保证新建的目录与它所在目录下的文件没有重名。 
+The **mkdir command** is used to create one or more directories. If no path is provided, the directory is created in the current working directory. If an existing path is specified, the directory is created within that path. When creating a directory, ensure that its name does not conflict with existing files or directories in the same location.
 
-注意：在创建文件时，不要把所有的文件都存放在主目录中，可以创建子目录，通过它们来更有效地组织文件。最好采用前后一致的命名方式来区分文件和目录。例如，目录名可以以大写字母开头，这样，在目录列表中目录名就出现在前面。
+Organizing files into subdirectories (e.g., by type or purpose) is a best practice for effective file management.
 
-在一个子目录中应包含类型相似或用途相近的文件。例如，应建立一个子目录，它包含所有的数据库文件，另有一个子目录应包含电子表格文件，还有一个子目录应包含文字处理文档，等等。目录也是文件，它们和普通文件一样遵循相同的命名规则，并且利用全路径可以唯一地指定一个目录。
-
-###  语法
+### Syntax
 
 ```shell
-mkdir (选项)(参数)
+mkdir [OPTION]... DIRECTORY...
 ```
 
-###  选项
+### Options
 
 ```shell
--Z：设置安全上下文，当使用SELinux时有效；
--m<目标属性>或--mode<目标属性>建立目录的同时设置目录的权限；
--p或--parents 若所要建立目录的上层目录目前尚未建立，则会一并建立上层目录；
---version 显示版本信息。
+-Z: Set the SELinux security context.
+-m, --mode <MODE>: Set the file mode (permissions) for the new directory.
+-p, --parents: Create parent directories as needed. No error if they already exist.
+--version: Display version information.
 ```
 
-###  参数
+### Parameters
 
-目录：指定要创建的目录列表，多个目录之间用空格隔开。
+Directory: A space-separated list of directories to be created.
 
-###  实例
+### Examples
 
-在目录`/usr/meng`下建立子目录test，并且只有文件主有读、写和执行权限，其他人无权访问
+Create a subdirectory named `test` in `/usr/meng` with permissions set to 700 (read, write, and execute for the owner only):
 
 ```shell
 mkdir -m 700 /usr/meng/test
 ```
 
-在当前目录中建立bin和bin下的os_1目录，权限设置为文件主可读、写、执行，同组用户可读和执行，其他用户无权访问
+Create a directory `bin` and its subdirectory `os_1` in the current directory, with permissions set to 750 (owner: rwx, group: r-x, others: none):
 
 ```shell
-mkdir -p-m 750 bin/os_1
+mkdir -p -m 750 bin/os_1
 ```
 
-### 补充
+### Permissions Reference
 
--m ：配置文件的权限
+The `-m` option configures directory permissions using a three-digit numeric code:
 
-  如：755
+-   **First digit**: Owner's (user) permissions.
+-   **Second digit**: Group's permissions.
+-   **Third digit**: Others' permissions.
 
-  每个数字代表不同的权限集合，分别为：
+Each digit is a sum of:
+-   4: Read (r)
+-   2: Write (w)
+-   1: Execute (x)
 
-  - 第一个数字`7`：所有者（user）的权限
-  - 第二个数字`5`：所属组（group）的权限
-  - 第三个数字`5`：其他用户（others）的权限
-
-  每个数字是以下权限的组合：
-  - 读权限 (read) - 4
-  - 写权限 (write) - 2
-  - 执行权限 (execute) - 1
-
-  因此，`755`的具体权限为：
-
-  - `7`（所有者）= 4 (读) + 2 (写) + 1 (执行) = 7
-  - `5`（所属组）= 4 (读) + 1 (执行) = 5
-  - `5`（其他用户）= 4 (读) + 1 (执行) = 5
-
-  
+For example, `755` corresponds to:
+-   `7` (Owner) = 4 + 2 + 1 = `rwx`
+-   `5` (Group) = 4 + 1 = `r-x`
+-   `5` (Others) = 4 + 1 = `r-x`

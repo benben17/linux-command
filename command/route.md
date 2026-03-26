@@ -1,47 +1,47 @@
 route
 ===
 
-显示并设置Linux中静态路由表
+Display and set static routing tables in Linux.
 
-## 补充说明
+## Description
 
-**route命令** 用来显示并设置Linux内核中的网络路由表，route命令设置的路由主要是静态路由。要实现两个不同的子网之间的通信，需要一台连接两个网络的路由器，或者同时位于两个网络的网关来实现。
+The **route command** is used to display and set the network routing table in the Linux kernel. The routes set by the `route` command are primarily static routes. To achieve communication between two different subnets, a router connecting the two networks or a gateway located in both networks is required.
 
-在Linux系统中设置路由通常是为了解决以下问题：该Linux系统在一个局域网中，局域网中有一个网关，能够让机器访问Internet，那么就需要将这台机器的ip地址设置为Linux机器的默认路由。要注意的是，直接在命令行下执行route命令来添加路由，不会永久保存，当网卡重启或者机器重启之后，该路由就失效了；可以在`/etc/rc.local`中添加route命令来保证该路由设置永久有效。
+Setting routes in a Linux system is usually to solve the following problem: if the Linux system is in a local area network (LAN) with a gateway that allows access to the Internet, the IP address of this gateway needs to be set as the default route for the Linux machine. Note that adding a route directly from the command line using the `route` command will not be saved permanently; the route will be lost after the network card or the machine restarts. You can add the `route` command to `/etc/rc.local` to ensure the route setting remains valid permanently.
 
-###  语法
-
-```shell
-route(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--A：设置地址类型；
--C：打印将Linux核心的路由缓存；
--v：详细信息模式；
--n：不执行DNS反向查找，直接显示数字形式的IP地址；
--e：netstat格式显示路由表；
--net：到一个网络的路由表；
--host：到一个主机的路由表。
+route(options)(parameters)
 ```
 
-###  参数
+### Options
 
 ```shell
-add：增加指定的路由记录；
-del：删除指定的路由记录；
-target：目的网络或目的主机；
-gw：设置默认网关；
-mss：设置TCP的最大区块长度（MSS），单位MB；
-window：指定通过路由表的TCP连接的TCP窗口大小；
-dev：路由记录所表示的网络接口。
+-A: Sets the address type.
+-C: Prints the routing cache of the Linux kernel.
+-v: Verbose mode.
+-n: Do not perform DNS reverse lookups; display IP addresses directly in numerical form.
+-e: Displays the routing table in netstat format.
+-net: Routing table to a network.
+-host: Routing table to a host.
 ```
 
-###  实例
+### Parameters
 
- **显示当前路由：** 
+```shell
+add: Adds the specified routing record.
+del: Deletes the specified routing record.
+target: Destination network or host.
+gw: Sets the default gateway.
+mss: Sets the TCP Maximum Segment Size (MSS) in bytes.
+window: Specifies the TCP window size for TCP connections through the routing table.
+dev: The network interface represented by the routing record.
+```
+
+### Examples
+
+**Display the current routing table:**
 
 ```shell
 [root@localhost ~]# route
@@ -65,40 +65,38 @@ Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
 0.0.0.0         112.124.15.247  0.0.0.0         UG    0      0        0 eth1
 ```
 
-其中Flags为路由标志，标记当前网络节点的状态，Flags标志说明：
+The Flags column explains the status of the network node:
 
-*   U Up表示此路由当前为启动状态。
-*   H Host，表示此网关为一主机。
-*   G Gateway，表示此网关为一路由器。
-*   R Reinstate Route，使用动态路由重新初始化的路由。
-*   D Dynamically,此路由是动态性地写入。
-*   M Modified，此路由是由路由守护程序或导向器动态修改。
-*   ! 表示此路由当前为关闭状态。
+*   U (Up): The route is active.
+*   H (Host): The destination is a single host.
+*   G (Gateway): Use a gateway.
+*   R (Reinstate Route): Reinstate route for dynamic routing.
+*   D (Dynamically): Dynamically installed by daemon or redirect.
+*   M (Modified): Modified from routing daemon or redirect.
+*   !: The route is currently closed.
 
- **添加网关/设置网关：** 
-
-```shell
-route add -net 224.0.0.0 netmask 240.0.0.0 dev eth0    #增加一条到达224.0.0.0的路由。
-```
-
- **屏蔽一条路由：** 
+**Add a network route/Set a gateway:**
 
 ```shell
-route add -net 224.0.0.0 netmask 240.0.0.0 reject     #增加一条屏蔽的路由，目的地址为224.x.x.x将被拒绝。
+route add -net 224.0.0.0 netmask 240.0.0.0 dev eth0    # Add a route to 224.0.0.0.
 ```
 
- **删除路由记录：** 
+**Block a route:**
+
+```shell
+route add -net 224.0.0.0 netmask 240.0.0.0 reject     # Add a blocked route; destination 224.x.x.x will be rejected.
+```
+
+**Delete a routing record:**
 
 ```shell
 route del -net 224.0.0.0 netmask 240.0.0.0
 route del -net 224.0.0.0 netmask 240.0.0.0 reject
 ```
 
- **删除和添加设置默认网关：** 
+**Delete and add a default gateway:**
 
 ```shell
 route del default gw 192.168.120.240
 route add default gw 192.168.120.240
 ```
-
-

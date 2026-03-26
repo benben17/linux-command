@@ -1,45 +1,42 @@
 lha
 ===
 
-压缩或解压缩lzh格式文件
+Compress or decompress LZH format files
 
-## 补充说明
+## Description
 
-**lha命令** 是从lharc演变而来的压缩程序，文件经它压缩后，会另外产生具有`.lzh`扩展名的压缩文件。
+The **lha** command is a compression program evolved from `lharc`. Files compressed with it will have the `.lzh` extension.
 
-###  选项
-
-```shell
--a或a：压缩文件，并加入到压缩文件内。
--a<0/1/2>/u</0/1/2>   压缩文件时，采用不同的文件头。
--c或c：压缩文件，重新建构新的压缩文件后，再将其加入。
--d或d：从压缩文件内删除指定的文件。
--<a/c/u>d或<a/c/u>d：压缩文件，然后将其加入，重新建构，更新压缩文件或，删除原始文件，也就是把文件移到压缩文件中。
--e或e：解开压缩文件。
--f或f：强制执行lha命令，在解压时会直接覆盖已有的文件而不加以询问。
--g或g：使用通用的压缩格式，便于解决兼容性的问题。
--<e/x>i或<e/x>i：解开压缩文件时，忽略保存在压缩文件内的文件路径，直接将其解压后存放在现行目录下或是指定的目录中。
--l或l：列出压缩文件的相关信息。
--m或m：此选项的效果和同时指定"-ad"选项相同。
--n或n：不执行指令，仅列出实际执行会进行的动作。
--<a/u>o或<a/u>o：采用lharc兼容格式，将压缩后的文件加入，更新压缩文件。
--p或p：从压缩文件内输出到标准输出设备。
--q或q：不显示指令执行过程。
--t或t：检查备份文件内的每个文件是否正确无误。
--u或u：更换较新的文件到压缩文件内。
--u</0/1/2>或u</0/1/2>：在文件压缩时采用不同的文件头，然后更新到压缩文件内。
--v或v：详细列出压缩文件的相关信息。
--<e/x>w=<目的目录>或<e/x>w=<目的目录>：指定解压缩的目录。
--x或x：解开压缩文件。
--<a/u>z或<a/u>z：不压缩文件，直接把它加入，更新压缩文件。
-```
-
-###  实例
+### Options
 
 ```shell
-lha -a abc.lhz a.b         #压缩a.b文件，压缩后生成 abc.lhz 文件
-lha -a abc2 /home/hnlinux  #压缩目录
-lha -xiw=agis abc          #解压文件abc，到当前目录
+-a or a: Compress files and add them to the archive.
+-a<0/1/2>/u</0/1/2>: Use different header levels when compressing.
+-c or c: Re-create the archive and add the compressed files.
+-d or d: Delete specified files from the archive.
+-<a/c/u>d or <a/c/u>d: Compress and add files, then delete the original files (move to archive).
+-e or e: Extract files from the archive.
+-f or f: Force execution; overwrite existing files during extraction without prompting.
+-g or g: Use generic format for compatibility.
+-<e/x>i or <e/x>i: Ignore the stored paths when extracting; extract files to the current or specified directory.
+-l or l: List the contents of the archive.
+-m or m: Same as the "-ad" option (move to archive).
+-n or n: No action; only list what would be performed.
+-<a/u>o or <a/u>o: Use lharc compatible format when adding or updating files.
+-p or p: Extract files to standard output.
+-q or q: Quiet mode; do not display the execution process.
+-t or t: Test the integrity of each file in the backup/archive.
+-u or u: Update the archive with newer versions of files.
+-v or v: List the contents of the archive with detailed information.
+-<e/x>w=<dir> or <e/x>w=<dir>: Specify the destination directory for extraction.
+-x or x: Extract files from the archive.
+-<a/u>z or <a/u>z: Add or update files in the archive without compression.
 ```
 
+### Examples
 
+```shell
+lha -a abc.lhz a.b         # Compress file a.b into abc.lhz
+lha -a abc2 /home/hnlinux  # Compress a directory
+lha -xiw=agis abc          # Extract file abc to the current directory
+```

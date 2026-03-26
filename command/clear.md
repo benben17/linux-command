@@ -1,20 +1,18 @@
 clear
 ===
 
-清除当前屏幕终端上的任何信息
+Clear the terminal screen
 
-## 补充说明
+## Description
 
-**clear命令** 用于清除当前屏幕终端上的任何信息。
+The **clear command** is used to clear all information from the current terminal screen.
 
-###  语法
+### Syntax
 
 ```shell
 clear
 ```
 
-###  实例
+### Examples
 
-直接输入clear命令当前终端上的任何信息就可被清除。
-
-
+Simply typing the `clear` command will clear any information on the current terminal.

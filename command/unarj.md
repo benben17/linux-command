@@ -1,29 +1,27 @@
 unarj
 ===
 
-解压缩由arj命令创建的压缩包
+Decompress archives created by the arj command.
 
-## 补充说明
+## Description
 
-**unarj命令** 用来解压缩由arj命令创建的压缩包。
+The **unarj command** is used to decompress archives created by the arj command.
 
-###  语法
-
-```shell
-unarj(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
-e：解压缩.arj文件；
-l：显示压缩文件内所包含的文件；
-t：检查压缩文件是否正确；
-x：解压缩时保留原有的路径。
+unarj (option) (parameter)
 ```
 
-###  参数
+### Options
 
-.arj压缩包：指定要解压缩的.arj压缩包。
+```shell
+e: Decompress .arj files;
+l: Display the files contained within the compressed file;
+t: Check if the compressed file is correct;
+x: Retain the original path during decompression.
+```
 
+### Parameters
 
+.arj archive: Specifies the .arj archive to be decompressed.

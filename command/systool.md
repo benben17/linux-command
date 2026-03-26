@@ -1,39 +1,39 @@
 systool
 ===
 
-显示基于总线、类和拓扑显示系统中设备的信息
+View system device information by bus, class, and topology
 
-## 补充说明
+## Description
 
-**systool命令** 指令显示基于总线、类和拓扑显示系统中设备的信息。
+The **systool command** is a utility to view system device information based on bus, class, and topology.
 
-###  语法
-
-```shell
-systool(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--a：显示被请求资源的属性；
--b<总线>：显示指定总线的信息；
--c<class>：显示指定类的信息；
--d：仅显示设备；
--h：显示指令的用法；
--m<模块名称>：显示指定模块的信息；
--p：显示资源的“sysfs”绝对路径；
--v：显示所有属性；
--A<属性>：显示请求资源的属性值；
--D：仅显示驱动程序信息；
--P：显示设备的父类。
+systool (options) (parameters)
 ```
 
-###  参数
+### Options
 
-设备：指定要查看信息的设备名称。
+```shell
+-a: Show attributes of the requested resource.
+-b <bus>: Show information for the specified bus.
+-c <class>: Show information for the specified class.
+-d: Show only devices.
+-h: Show usage information.
+-m <module>: Show information for the specified module.
+-p: Show the absolute "sysfs" path to the resource.
+-v: Show all attributes.
+-A <attribute>: Show the value of the requested attribute.
+-D: Show only driver information.
+-P: Show the parent of the device.
+```
 
-###  实例
+### Parameters
+
+Device: Specify the name of the device to view.
+
+### Examples
 
 ```shell
 [root@localhost ~]# systool
@@ -200,5 +200,3 @@ Supported sysfs modules:
         xt_tcpudp
         yenta_socket
 ```
-
-

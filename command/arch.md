@@ -1,36 +1,34 @@
 arch
 ===
 
-显示当前主机的硬件架构类型
+Display the hardware architecture type of the current host
 
-## 概要
+## Summary
 
 ```shell
 arch [OPTION]...
 ```
 
-## 主要用途
+## Main Purpose
 
-- 打印机器架构信息；`arch` 命令输出结果有：i386、i486、i586、alpha、sparc、arm、m68k、mips、ppc、i686等。
+- Print machine architecture information; output of the `arch` command includes: i386, i486, i586, alpha, sparc, arm, m68k, mips, ppc, i686, etc.
 
-## 选项
+## Options
 
 ```shell
---help       显示帮助信息并退出。
---version    显示版本信息并退出。
+--help       Display help information and exit.
+--version    Display version information and exit.
 ```
 
-## 例子
+## Examples
 
 ```shell
 [root@localhost ~]# arch
 x86_64
 ```
 
-### 注意
+### Note
 
-1. 该命令等价于 `uname -m`。
+1. This command is equivalent to `uname -m`.
 
-2. 该命令是`GNU coreutils`包中的命令，相关的帮助信息请查看`man -s 1 arch`，`info coreutils 'arch invocation'`。
-
-
+2. This command is part of the `GNU coreutils` package. For related help information, please refer to `man -s 1 arch` or `info coreutils 'arch invocation'`.

@@ -1,26 +1,24 @@
 ifup
 ===
 
-激活指定的网络接口
+Activate a specified network interface.
 
-## 补充说明
+## Description
 
-**ifup命令** 用于激活指定的网络接口。
+The `ifup` command is used to bring a network interface up, allowing it to transmit and receive data.
 
-###  语法
-
-```shell
-ifup(参数)
-```
-
-###  参数
-
-网络接口：要激活的网络接口。
-
-###  实例
+### Syntax
 
 ```shell
-ifup eth0   #激活eth0
+ifup [interface]
 ```
 
+### Parameters
 
+interface: The name of the network interface to activate.
+
+### Examples
+
+```shell
+ifup eth0   # Activate eth0
+```

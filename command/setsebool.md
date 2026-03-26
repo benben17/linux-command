@@ -1,154 +1,152 @@
 setsebool
 ===
 
-修改SElinux策略内各项规则的布尔值
+Modify the boolean values of rules within the SELinux policy.
 
-## 补充说明
+## Description
 
-**setsebool命令** 是用来修改SElinux策略内各项规则的布尔值。setsebool命令和getsebool命令是SELinux修改和查询布尔值的一套工具组。SELinux的策略与规则管理相关命令：seinfo命令、sesearch命令、getsebool命令、setsebool命令、semanage命令。
+The **setsebool command** is used to modify the boolean values of various rules within the SELinux policy. The `setsebool` and `getsebool` commands form a set of tools for modifying and querying SELinux boolean values. Commands related to SELinux policy and rule management include: `seinfo`, `sesearch`, `getsebool`, `setsebool`, and `semanage`.
 
-###  语法
-
-```shell
-setsebool [-P] 布尔值=[0|1]
-```
-
-###  选项
+### Syntax
 
 ```shell
--P:直接将设置值写入配置文件，该设置数据将来会生效的。
+setsebool [-P] boolean=[0|1]
 ```
 
-###  实例
+### Options
 
-允许vsftp匿名用户写入权限：
+```shell
+-P: Write the setting directly to the configuration file, making the change persistent across reboots.
+```
+
+### Examples
+
+Allow vsftpd anonymous users write permissions:
 
 ```shell
 setsebool -P allow_ftpd_anon_write=1
 ```
 
-如果你希望你的ftp用户可以访问自己的家目录的话，需要开启：
+If you want your FTP users to be able to access their own home directories, you need to enable:
 
 ```shell
 setsebool -P ftp_home_dir 1
 ```
 
-如果你希望将vsftpd以daemon的方式运行的话，需要开启：
+If you want to run vsftpd as a daemon, you need to enable:
 
 ```shell
 setsebool -P ftpd_is_daemon 1
 ```
 
-你可以让SElinux停止保护vsftpd的daemon方式动行：
+You can stop SELinux from protecting the vsftpd daemon:
 
 ```shell
 setsebool -P ftpd_disable_trans 1 
 ```
 
-HTTP被设置允许cgi的设置：
+Enable HTTP to allow CGI settings:
 
 ```shell
 setsebool -P httpd_enable_cgi 1
 ```
 
-允许用户HHTP访问其家目录，该设定限仅于用户的家目录主页：
+Allow HTTP access to user home directories (limited to the user's home page):
 
 ```shell
 setsebool -P httpd_enable_homedirs 1
 chcon -R -t httpd_sys_content_t ~user/public_html
 ```
 
-允许httpd访问终端：
+Allow httpd to communicate with the terminal:
 
 ```shell
 setsebool -P httpd_tty_comm 1
 ```
 
-关闭Selinux的关于httpd进程守护的保护：
+Disable SELinux protection for the httpd daemon:
 
 ```shell
 setsebool -P httpd_disable_trans 1
 service httpd restart
 ```
 
-关于named、master更新selinux设定：
+Update SELinux settings regarding named master zones:
 
 ```shell
 setsebool -P named_write_master_zones 1
 ```
 
-关闭named的进程守护保护：
+Disable daemon protection for named:
 
 ```shell
 setsebool -P named_disable_trans 1
 service named restart
 ```
 
-Selinux将本机的NFS共享设置成只读：
+Set local NFS shares to read-only in SELinux:
 
 ```shell
 setsebool -P nfs_export_all_ro 1
 ```
 
-SElinux将本机的NFS共享设置成可读可写：
+Set local NFS shares to read-write in SELinux:
 
 ```shell
 setsebool -P nfs_export_all_rw 1
 ```
 
-如果你想要将远程NFS的家目录共享到本机，需要开启：
+If you want to mount a remote NFS home directory locally, you need to enable:
 
 ```shell
 setsebool -P use_nfs_home_dirs 1
 ```
 
-如果samba服务器共享目录给多个域，则需要：
+If the Samba server shares directories across multiple domains:
 
 ```shell
 setsebool -P allow_smbd_anon_write=1
 ```
 
-samba服务器要共享家目录时：
+To share home directories via Samba:
 
 ```shell
 setsebool -P samba_enable_home_dirs 1
 ```
 
-如果你需在本机上使用远程samba服务器的家目录：
+If you need to use a remote Samba server's home directory locally:
 
 ```shell
 setsebool -P use_samba_home_dirs 1
 ```
 
-关闭selinux关于samba的进程守护的保护：
+Disable SELinux protection for the Samba daemon:
 
 ```shell
 setsebool -P smbd_disable_trans 1
 service smb restart
 ```
 
-允许rsync其他用户写入时：
+Allow other users to write via rsync:
 
 ```shell
 setsebool -P allow_rsync_anon_write=1
 ```
 
-停止rsync的进程保护
+Stop process protection for rsync:
 
 ```shell
 setsebool -P rsync_disable_trans 1
 ```
 
-允许系统使用kerberos：
+Allow the system to use Kerberos:
 
 ```shell
 setsebool -P allow_kerberos 1
 ```
 
-系统工作在nis环境时：
+When the system operates in a NIS environment:
 
 ```shell
 setsebool -P allow_ypbind 1
 ```
-
-

@@ -1,33 +1,33 @@
 ncftp
 ===
 
-是增强的的FTP工具
+An enhanced FTP client
 
-## 补充说明
+## Description
 
-**ncftp命令** 是增强的的ftp工具，比传统的FTP指令更加强大。FTP让用户得以下载存放于服务器主机的文件，也能将文件上传到远端主机放置。ncftp是文字模式FTP程序的佼佼者，它具备多样特色，包括显示传输速率，下载进度，自动续传，标住书签，可通过防火墙和代理服务器等。
+The **ncftp command** is an enhanced FTP client that is significantly more powerful than traditional FTP commands. `ncftp` is a standout among text-mode FTP programs, featuring transfer rate display, download progress, automatic resume, bookmarks, and support for firewalls and proxy servers.
 
-###  语法
-
-```shell
-ncftp(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--u：指定登录FTP服务器时使用的用户名；
--p：指定登录FTP服务器时使用的密码；
--P：如果FTP服务器没有使用默认的TCP协议的21端口，则使用此选项指定FTP服务器的端口号。
--m：在传之前尝试在目录位置创建目录(用于传目录的情况)
--R：递规传子目录
+ncftp [options] [ftp_server]
 ```
 
-###  参数
+### Options
 
-FTP服务器：指定远程FTP服务器的ip地址或主机名。
+```shell
+-u: Specify the username for logging into the FTP server.
+-p: Specify the password for logging into the FTP server.
+-P: Specify a non-standard TCP port for the FTP server (default is 21).
+-m: Attempt to create the destination directory before transferring (useful for directory transfers).
+-R: Recursively transfer subdirectories.
+```
 
-###  安装
+### Parameters
+
+FTP Server: Specifies the hostname or IP address of the remote FTP server.
+
+### Installation
 
 ```shell
 wget ftp://ftp.ncftp.com/ncftp/ncftp-3.2.3-src.tar.gz
@@ -37,27 +37,26 @@ cd ncftp-3.2.3/
 make && make install
 ```
 
-###  实例
+### Examples
 
-将本地/etc/目录内的所有文件和目录，上传到FTP服务器的flv/games/目录内(如果不存在flv/games/目录则自动创建)。
+Upload all files and directories from the local `/etc/` directory to the `flv/games/` directory on the FTP server (the directory will be created if it does not exist).
 
 ```shell
-/usr/local/ncftp/bin/ncftpput -u koumm -p koumm -P 21 -m -R 192.168.162.137  flv/games/ /etc/*
+/usr/local/ncftp/bin/ncftpput -u username -p password -P 21 -m -R 192.168.162.137 flv/games/ /etc/*
 ```
 
- **指令说明** 
+**Usage Notes**
 
-ncftp的基本命令和普通ftp一样，可以输入help获得命令列表。对于所有的命令，都可以使用help <命令>的格式获得详细帮助。l开头的就是对本地执行的命令，其它的就是对登入的ftp服务目录的操作命令。
+Basic commands in `ncftp` are similar to standard FTP. Type `help` for a list of commands. Use `help <command>` for detailed help on a specific command. Commands starting with `l` are executed locally, while others operate on the remote FTP server.
 
-增加的本地文件系统的操作命令：
+Additional local file system commands:
 
-*   lls: 列出本地当前目录文件；
-*   lmkdir : 本地建立目录；
-*   lrename: 本地文件改名；
-*   lpwd: 显示当前本地路 径；
-*   lchmod: 改变本地文件权限；
-*   lpage: 显示本地文件内容；
-*   lrm: 删除本地文件；
-*   lrmdir: 删除本地目录。
-
-
+*   `lls`: List files in the local current directory.
+*   `lmkdir`: Create a local directory.
+*   `lrename`: Rename a local file.
+*   `lpwd`: Display the current local path.
+*   `lchmod`: Change local file permissions.
+*   `lpage`: Display local file content.
+*   `lrm`: Delete a local file.
+*   `lrmdir`: Delete a local directory.
+```

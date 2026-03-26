@@ -1,79 +1,79 @@
 awk
 ===
 
-文本和数据进行处理的编程语言
+A programming language for processing text and data
 
-## 补充说明
+## Additional Information
 
-**awk** 是一种编程语言，用于在linux/unix下对文本和数据进行处理。数据可以来自标准输入(stdin)、一个或多个文件，或其它命令的输出。它支持用户自定义函数和动态正则表达式等先进功能，是linux/unix下的一个强大编程工具。它在命令行中使用，但更多是作为脚本来使用。awk有很多内建的功能，比如数组、函数等，这是它和C语言的相同之处，灵活性是awk最大的优势。
+**awk** is a programming language used for processing text and data under Linux/Unix. Data can come from standard input (stdin), one or more files, or the output of other commands. It supports advanced features such as user-defined functions and dynamic regular expressions, making it a powerful programming tool for Linux/Unix. It is used on the command line but even more frequently as a script. awk has many built-in features, such as arrays and functions, which it shares with the C language. Its flexibility is its greatest advantage.
 
-## awk命令格式和选项  
+## awk Command Format and Options
 
-**语法形式** 
+**Syntax**
 
 ```shell
 awk [options] 'script' var=value file(s)
 awk [options] -f scriptfile var=value file(s)
 ```
 
-**常用命令选项** 
+**Common Command Options**
 
-*  **-F fs** fs指定输入分隔符，fs可以是字符串或正则表达式，如-F:，默认的分隔符是连续的空格或制表符
-*  **-v var=value** 赋值一个用户定义变量，将外部变量传递给awk
-*  **-f scripfile** 从脚本文件中读取awk命令
-*  **-m[fr] val** 对val值设置内在限制，-mf选项限制分配给val的最大块数目；-mr选项限制记录的最大数目。这两个功能是Bell实验室版awk的扩展功能，在标准awk中不适用。
+* **-F fs**: Specifies the input field separator. `fs` can be a string or a regular expression, such as `-F:`. The default separator is consecutive spaces or tabs.
+* **-v var=value**: Assigns a value to a user-defined variable, passing external variables to awk.
+* **-f scriptfile**: Reads awk commands from a script file.
+* **-m[fr] val**: Sets internal limits on `val`. The `-mf` option limits the maximum number of blocks allocated to `val`; the `-mr` option limits the maximum number of records. These two features are extensions from the Bell Labs version of awk and are not applicable in standard awk.
 
-## awk模式和操作  
+## awk Patterns and Actions
 
-awk脚本是由模式和操作组成的。
+An awk script consists of patterns and actions.
 
-###  模式 
+### Pattern
 
-模式可以是以下任意一个：
+A pattern can be any of the following:
 
-* /正则表达式/：使用通配符的扩展集。
-* 关系表达式：使用运算符进行操作，可以是字符串或数字的比较测试。
-* 模式匹配表达式：用运算符`~`（匹配）和`!~`（不匹配）。
-* BEGIN语句块、pattern语句块、END语句块：参见awk的工作原理
+* `/regular expression/`: Uses an extended set of wildcards.
+* Relational expression: Uses operators for operations, which can be string or numeric comparison tests.
+* Pattern matching expression: Uses operators `~` (match) and `!~` (no match).
+* BEGIN block, pattern block, END block: See "How awk works".
 
-###  操作 
+### Action
 
-操作由一个或多个命令、函数、表达式组成，之间由换行符或分号隔开，并位于大括号内，主要部分是：
+An action consists of one or more commands, functions, or expressions separated by newlines or semicolons and enclosed in curly braces. Key components include:
 
-* 变量或数组赋值
-* 输出命令
-* 内置函数
-* 控制流语句
+* Variable or array assignment
+* Output commands
+* Built-in functions
+* Control flow statements
 
-## awk脚本基本结构  
+## Basic Structure of an awk Script
 
 ```shell
 awk 'BEGIN{ print "start" } pattern{ commands } END{ print "end" }' file
 ```
 
-一个awk脚本通常由：BEGIN语句块、能够使用模式匹配的通用语句块、END语句块3部分组成，这三个部分是可选的。任意一个部分都可以不出现在脚本中，脚本通常是被 **单引号** 中，例如：
+An awk script typically consists of three parts: a BEGIN block, a general block that can use pattern matching, and an END block. These three parts are optional. Any part can be omitted from the script. The script is usually enclosed in **single quotes**, for example:
 
 ```shell
 awk 'BEGIN{ i=0 } { i++ } END{ print i }' filename
 ```
 
-###  awk的工作原理 
+### How awk works
 
 ```shell
 awk 'BEGIN{ commands } pattern{ commands } END{ commands }'
 ```
 
-*   第一步：执行`BEGIN{ commands }`语句块中的语句；
-*   第二步：从文件或标准输入(stdin)读取一行，然后执行`pattern{ commands }`语句块，它逐行扫描文件，从第一行到最后一行重复这个过程，直到文件全部被读取完毕。
-*   第三步：当读至输入流末尾时，执行`END{ commands }`语句块。
+* **Step 1**: Execute the statements in the `BEGIN{ commands }` block.
+* **Step 2**: Read a line from the file or standard input (stdin), then execute the `pattern{ commands }` block. It scans the file line by line, repeating this process from the first line to the last until the entire file has been read.
+* **Step 3**: When the end of the input stream is reached, execute the `END{ commands }` block.
 
- **BEGIN语句块** 在awk开始从输入流中读取行 **之前** 被执行，这是一个可选的语句块，比如变量初始化、打印输出表格的表头等语句通常可以写在BEGIN语句块中。
+The **BEGIN block** is executed **before** awk begins reading lines from the input stream. This is an optional block; statements such as variable initialization and printing table headers are typically written here.
 
- **END语句块** 在awk从输入流中读取完所有的行 **之后** 即被执行，比如打印所有行的分析结果这类信息汇总都是在END语句块中完成，它也是一个可选语句块。
+The **END block** is executed **after** awk has finished reading all lines from the input stream. Tasks such as printing analysis results of all lines or information summaries are completed in the END block. It is also an optional block.
 
- **pattern语句块** 中的通用命令是最重要的部分，它也是可选的。如果没有提供pattern语句块，则默认执行`{ print }`，即打印每一个读取到的行，awk读取的每一行都会执行该语句块。
+The general commands in the **pattern block** are the most important part and are also optional. If no pattern block is provided, `{ print }` is executed by default, which prints every line read. This block is executed for every line read by awk.
 
- **示例** 
+**Example**
 
 ```shell
 echo -e "A line 1\nA line 2" | awk 'BEGIN{ print "Start" } { print } END{ print "End" }'
@@ -83,64 +83,64 @@ A line 2
 End
 ```
 
-当使用不带参数的`print`时，它就打印当前行，当`print`的参数是以逗号进行分隔时，打印时则以空格作为定界符。在awk的print语句块中双引号是被当作拼接符使用，例如：
+When `print` is used without parameters, it prints the current line. When parameters for `print` are separated by commas, they are printed with a space as the delimiter. In awk's print block, double quotes are used as concatenation operators, for example:
 
 ```shell
 echo | awk '{ var1="v1"; var2="v2"; var3="v3"; print var1,var2,var3; }' 
 v1 v2 v3
 ```
 
-双引号拼接使用：
+Concatenation using double quotes:
 
 ```shell
 echo | awk '{ var1="v1"; var2="v2"; var3="v3"; print var1"="var2"="var3; }'
 v1=v2=v3
 ```
 
-{ }类似一个循环体，会对文件中的每一行进行迭代，通常变量初始化语句（如：i=0）以及打印文件头部的语句放入BEGIN语句块中，将打印的结果等语句放在END语句块中。
+`{ }` acts like a loop body that iterates over every line in the file. Typically, variable initialization statements (e.g., `i=0`) and statements for printing the file header are placed in the BEGIN block, while statements for printing results are placed in the END block.
 
-## awk内置变量（预定义变量）  
+## awk Built-in Variables (Predefined Variables)
 
-说明：[A][N][P][G]表示第一个支持变量的工具，[A]=awk、[N]=nawk、[P]=POSIXawk、[G]=gawk
+Note: [A][N][P][G] indicates the first tool to support the variable: [A]=awk, [N]=nawk, [P]=POSIX awk, [G]=gawk.
 
 ```shell
- **$n**  当前记录的第n个字段，比如n为1表示第一个字段，n为2表示第二个字段。 
- **$0**  这个变量包含执行过程中当前行的文本内容。
-[N]  **ARGC**  命令行参数的数目。
-[G]  **ARGIND**  命令行中当前文件的位置（从0开始算）。
-[N]  **ARGV**  包含命令行参数的数组。
-[G]  **CONVFMT**  数字转换格式（默认值为%.6g）。
-[P]  **ENVIRON**  环境变量关联数组。
-[N]  **ERRNO**  最后一个系统错误的描述。
-[G]  **FIELDWIDTHS**  字段宽度列表（用空格键分隔）。
-[A]  **FILENAME**  当前输入文件的名。
-[P]  **FNR**  同NR，但相对于当前文件。
-[A]  **FS**  字段分隔符（默认是任何空格）。
-[G]  **IGNORECASE**  如果为真，则进行忽略大小写的匹配。
-[A]  **NF**  表示字段数，在执行过程中对应于当前的字段数。
-[A]  **NR**  表示记录数，在执行过程中对应于当前的行号。
-[A]  **OFMT**  数字的输出格式（默认值是%.6g）。
-[A]  **OFS**  输出字段分隔符（默认值是一个空格）。
-[A]  **ORS**  输出记录分隔符（默认值是一个换行符）。
-[A]  **RS**  记录分隔符（默认是一个换行符）。
-[N]  **RSTART**  由match函数所匹配的字符串的第一个位置。
-[N]  **RLENGTH**  由match函数所匹配的字符串的长度。
-[N]  **SUBSEP**  数组下标分隔符（默认值是34）。
+ **$n**  The nth field of the current record. For example, n=1 represents the first field, n=2 represents the second field. 
+ **$0**  This variable contains the text content of the current line during execution.
+[N]  **ARGC**  Number of command-line arguments.
+[G]  **ARGIND**  Position of the current file in the command line (starting from 0).
+[N]  **ARGV**  Array containing command-line arguments.
+[G]  **CONVFMT**  Number conversion format (default value is %.6g).
+[P]  **ENVIRON**  Associative array of environment variables.
+[N]  **ERRNO**  Description of the last system error.
+[G]  **FIELDWIDTHS**  List of field widths (separated by spaces).
+[A]  **FILENAME**  Name of the current input file.
+[P]  **FNR**  Similar to NR, but relative to the current file.
+[A]  **FS**  Field separator (default is any whitespace).
+[G]  **IGNORECASE**  If true, performs case-insensitive matching.
+[A]  **NF**  Number of fields in the current record during execution.
+[A]  **NR**  Number of records (line number) during execution.
+[A]  **OFMT**  Output format for numbers (default value is %.6g).
+[A]  **OFS**  Output field separator (default value is a space).
+[A]  **ORS**  Output record separator (default value is a newline).
+[A]  **RS**  Record separator (default value is a newline).
+[N]  **RSTART**  First position of the string matched by the match function.
+[N]  **RLENGTH**  Length of the string matched by the match function.
+[N]  **SUBSEP**  Array subscript separator (default value is \034).
 ```
 
-转义序列
+Escape Sequences
 
 ```
-\\ \自身
-\$ 转义$
-\t 制表符
-\b 退格符
-\r 回车符
-\n 换行符
-\c 取消换行
+\\ \ itself
+\$ Escaped $
+\t Tab
+\b Backspace
+\r Carriage return
+\n Newline
+\c Cancel newline
 ```
 
-**示例** 
+**Example**
 
 ```shell
 echo -e "line1 f2 f3\nline2 f4 f5\nline3 f6 f7" | awk '{print "Line No:"NR", No of fields:"NF, "$0="$0, "$1="$1, "$2="$2, "$3="$3}' 
@@ -149,7 +149,7 @@ Line No:2, No of fields:3 $0=line2 f4 f5 $1=line2 $2=f4 $3=f5
 Line No:3, No of fields:3 $0=line3 f6 f7 $1=line3 $2=f6 $3=f7
 ```
 
-使用`print $NF`可以打印出一行中的最后一个字段，使用`$(NF-1)`则是打印倒数第二个字段，其他以此类推：
+Use `print $NF` to print the last field in a line, `$(NF-1)` to print the second to last field, and so on:
 
 ```shell
 echo -e "line1 f2 f3\n line2 f4 f5" | awk '{print $NF}'
@@ -161,47 +161,46 @@ f5
 echo -e "line1 f2 f3\n line2 f4 f5" | awk '{print $(NF-1)}'
 f2
 f4
-
 ```
 
-打印每一行的第二和第三个字段：
+Print the second and third fields of every line:
 
 ```shell
 awk '{ print $2,$3 }' filename
 ```
 
-统计文件中的行数：
+Count the number of lines in a file:
 
 ```shell
 awk 'END{ print NR }' filename
 ```
 
-以上命令只使用了END语句块，在读入每一行的时，awk会将NR更新为对应的行号，当到达最后一行NR的值就是最后一行的行号，所以END语句块中的NR就是文件的行数。
+The above command uses only the END block. As each line is read, awk updates `NR` to the corresponding line number. When the last line is reached, the value of `NR` is the total number of lines, so `NR` in the END block represents the line count of the file.
 
-一个每一行中第一个字段值累加的例子：
+An example of summing the values of the first field in every line:
 
 ```shell
-seq 5 | awk 'BEGIN{ sum=0; print "总和：" } { print $1"+"; sum+=$1 } END{ print "等于"; print sum }' 
-总和：
+seq 5 | awk 'BEGIN{ sum=0; print "Total sum:" } { print $1"+"; sum+=$1 } END{ print "equals"; print sum }' 
+Total sum:
 1+
 2+
 3+
 4+
 5+
-等于
+equals
 15
 ```
 
-## 将外部变量值传递给awk  
+## Passing External Variables to awk
 
-借助 **`-v`选项** ，可以将外部值（并非来自stdin）传递给awk：
+With the **`-v` option**, you can pass external values (not from stdin) to awk:
 
 ```shell
 VAR=10000
 echo | awk -v VARIABLE=$VAR '{ print VARIABLE }'
 ```
 
-另一种传递外部变量方法：
+Another method to pass external variables:
 
 ```shell
 var1="aaa"
@@ -209,126 +208,126 @@ var2="bbb"
 echo | awk '{ print v1,v2 }' v1=$var1 v2=$var2
 ```
 
-当输入来自于文件时使用：
+When input comes from a file:
 
 ```shell
 awk '{ print v1,v2 }' v1=$var1 v2=$var2 filename
 ```
 
-以上方法中，变量之间用空格分隔作为awk的命令行参数跟随在BEGIN、{}和END语句块之后。
+In the above method, variables are separated by spaces as command-line arguments to awk, following the BEGIN, {}, and END blocks.
 
-## 查找进程pid
+## Finding Process PID
 
 ```shell
 netstat -antup | grep 7770 | awk '{ print $NF NR}' | awk '{ print $1}'
 ```
 
-## awk运算与判断  
+## awk Operations and Logic
 
-作为一种程序设计语言所应具有的特点之一，awk支持多种运算，这些运算与C语言提供的基本相同。awk还提供了一系列内置的运算函数（如log、sqr、cos、sin等）和一些用于对字符串进行操作（运算）的函数（如length、substr等等）。这些函数的引用大大的提高了awk的运算功能。作为对条件转移指令的一部分，关系判断是每种程序设计语言都具备的功能，awk也不例外，awk中允许进行多种测试，作为样式匹配，还提供了模式匹配表达式~（匹配）和!~（不匹配）。作为对测试的一种扩充，awk也支持用逻辑运算符。
+As a feature of a programming language, awk supports multiple operations, which are essentially the same as those in C. awk also provides a series of built-in arithmetic functions (such as `log`, `sqrt`, `cos`, `sin`, etc.) and string functions (such as `length`, `substr`, etc.). Referencing these functions greatly enhances awk's computing capabilities. Relational judgment is a standard feature in every programming language, and awk is no exception. awk allows for various tests, including pattern matching expressions `~` (match) and `!~` (no match). As an extension to testing, awk also supports logical operators.
 
-###  算术运算符 
+### Arithmetic Operators
 
-| 运算符 | 描述 |
+| Operator | Description |
 | ----- | ---- |
-| + - | 加，减 |
-| * / & | 乘，除与求余 |
-| + - ! | 一元加，减和逻辑非 |
-| ^ *** | 求幂 |
-| ++ -- | 增加或减少，作为前缀或后缀 |
+| + - | Addition, Subtraction |
+| * / % | Multiplication, Division, and Modulo |
+| + - ! | Unary plus, minus, and logical NOT |
+| ^ ** | Exponentiation |
+| ++ -- | Increment or Decrement, as prefix or suffix |
 
-例：
+Example:
 
 ```shell
 awk 'BEGIN{a="b";print a++,++a;}'
 0 2
 ```
 
-注意：所有用作算术运算符进行操作，操作数自动转为数值，所有非数值都变为0
+Note: All arithmetic operations automatically convert operands to numeric values; non-numeric values become 0.
 
-###  赋值运算符 
+### Assignment Operators
 
-| 运算符 | 描述 |
+| Operator | Description |
 | ----- | ---- |
-| = += -= *= /= %= ^= **= | 赋值语句 |
+| = += -= *= /= %= ^= **= | Assignment statements |
 
-例：
+Example:
 
 ```shell
-a+=5; 等价于：a=a+5; 其它同类
+a+=5; is equivalent to: a=a+5; and so on for others.
 ```
 
-###  逻辑运算符 
+### Logical Operators
 
-| 运算符 | 描述 |
+| Operator | Description |
 | ----- | ---- |
-| `\|\|` | 逻辑或 |
-| && | 逻辑与 |
+| `||` | Logical OR |
+| && | Logical AND |
 
-例：
+Example:
 
 ```shell
 awk 'BEGIN{a=1;b=2;print (a>5 && b<=2),(a>5 || b<=2);}'
 0 1
 ```
 
-###  正则运算符 
+### Regular Expression Operators
 
-| 运算符 | 描述 |
+| Operator | Description |
 | ----- | ---- |
-| ~ !~ | 匹配正则表达式和不匹配正则表达式 |
+| ~ !~ | Match regular expression and Do not match regular expression |
 
 ```
-^ 行首
-$ 行尾
-. 除了换行符以外的任意单个字符
-* 前导字符的零个或多个
-.* 所有字符
-[] 字符组内的任一字符
-[^]对字符组内的每个字符取反(不匹配字符组内的每个字符)
-^[^] 非字符组内的字符开头的行
-[a-z] 小写字母
-[A-Z] 大写字母
-[a-Z] 小写和大写字母
-[0-9] 数字
-\< 单词头单词一般以空格或特殊字符做分隔,连续的字符串被当做单词
-\> 单词尾
+^ Beginning of line
+$ End of line
+. Any single character except newline
+* Zero or more of the preceding character
+.* All characters
+[] Any one character in the character set
+[^] Negate each character in the character set (does not match any character in the set)
+^[^] Lines starting with characters not in the set
+[a-z] Lowercase letters
+[A-Z] Uppercase letters
+[a-Z] Lowercase and uppercase letters
+[0-9] Numbers
+\< Beginning of word (words are generally separated by spaces or special characters; consecutive strings are treated as words)
+\> End of word
 ```
 
-> 正则需要用 /正则/ 包围住
+> Regular expressions need to be enclosed in `/regex/`.
 
-例：
+Example:
 
 ```shell
 awk 'BEGIN{a="100testa";if(a ~ /^100*/){print "ok";}}'
 ok
 ```
 
-###  关系运算符 
+### Relational Operators
 
-| 运算符 | 描述 |
+| Operator | Description |
 | ----- | ---- |
-| < <= > >= != == | 关系运算符 |
+| < <= > >= != == | Relational operators |
 
-例：
+Example:
 
 ```shell
 awk 'BEGIN{a=11;if(a >= 9){print "ok";}}'
 ok
 ```
 
-注意：> < 可以作为字符串比较，也可以用作数值比较，关键看操作数如果是字符串就会转换为字符串比较。两个都为数字才转为数值比较。字符串比较：按照ASCII码顺序比较。
+Note: `>` and `<` can be used for string comparison as well as numeric comparison. If operands are strings, they will be compared as strings. Numeric comparison occurs only if both are numbers. String comparison follows ASCII order.
 
-###  其它运算符 
+### Other Operators
 
-| 运算符 | 描述 |
+| Operator | Description |
 | ----- | ---- |
-| $ | 字段引用 |
-| 空格 | 字符串连接符 |
-| ?: | C条件表达式 |
-| in | 数组中是否存在某键值 |
+| $ | Field reference |
+| (space) | String concatenation |
+| ?: | C-style conditional expression |
+| in | Whether a key exists in an array |
 
-例：
+Example:
 
 ```shell
 awk 'BEGIN{a="b";print a=="b"?"ok":"err";}'
@@ -340,21 +339,20 @@ awk 'BEGIN{a="b";arr[0]="b";arr[1]="c";print (a in arr);}'
 0
 ```
 
-```
+```shell
 awk 'BEGIN{a="b";arr[0]="b";arr["b"]="c";print (a in arr);}'
 1
 ```
 
-###  运算级优先级表 
+### Operator Precedence Table
 
-!级别越高越优先  
-级别越高越优先
+Higher level indicates higher precedence.
 
-## awk高级输入输出  
+## Advanced I/O in awk
 
-###  读取下一条记录 
+### Reading the Next Record
 
-awk中`next`语句使用：在循环逐行匹配，如果遇到next，就会跳过当前行，直接忽略下面语句。而进行下一行匹配。next语句一般用于多行合并：
+Use of the `next` statement in awk: During line-by-line matching, if `next` is encountered, the current line is skipped, the following statements are ignored, and matching for the next line begins. The `next` statement is commonly used for merging multiple lines:
 
 ```shell
 cat text.txt
@@ -369,9 +367,9 @@ awk 'NR%2==1{next}{print NR,$0;}' text.txt
 4 d
 ```
 
-当记录行号除以2余1，就跳过当前行。下面的`print NR,$0`也不会执行。下一行开始，程序有开始判断`NR%2`值。这个时候记录行号是`：2` ，就会执行下面语句块：`'print NR,$0'`
+When the remainder of the line number divided by 2 is 1, skip the current line. The following `print NR,$0` will not be executed. Starting from the next line, the program re-evaluates `NR%2`. Since the line number is 2, the statement block `{print NR,$0}` will be executed.
 
-跳过以“web”为首的行，再将该行内容分别与下面不以“web”为首的行合并打印，使用一个“：”和一个制表符连接：
+Skip lines starting with "web", and then merge the content of those lines with the following lines that do not start with "web", connecting them with a ":" and a tab:
 
 ```shell
 cat text.txt
@@ -385,7 +383,7 @@ postfix               ok
 web03[192.168.2.102]
 mysqld            ok
 httpd               ok
-0
+
 awk '/^web/{T=$0;next;}{print T":\t"$0;}' text.txt
 web01[192.168.2.100]:   httpd            ok
 web01[192.168.2.100]:   tomcat               ok
@@ -396,94 +394,94 @@ web03[192.168.2.102]:   mysqld            ok
 web03[192.168.2.102]:   httpd               ok
 ```
 
-###  简单地读取一条记录 
+### Reading a Record Simply
 
-`awk getline`用法：输出重定向需用到`getline函数`。getline从标准输入、管道或者当前正在处理的文件之外的其他输入文件获得输入。它负责从输入获得下一行的内容，并给NF,NR和FNR等内建变量赋值。如果得到一条记录，getline函数返回1，如果到达文件的末尾就返回0，如果出现错误，例如打开文件失败，就返回-1。
+Use of `awk getline`: Output redirection requires the `getline` function. `getline` obtains input from standard input, pipes, or input files other than the one currently being processed. it is responsible for obtaining the next line from the input and assigning values to built-in variables like `NF`, `NR`, and `FNR`. If a record is obtained, the `getline` function returns 1; if it reaches the end of the file, it returns 0; if an error occurs (such as failing to open a file), it returns -1.
 
-getline语法：getline var，变量var包含了特定行的内容。
+`getline` syntax: `getline var`, where the variable `var` contains the content of a specific line.
 
-awk getline从整体上来说，用法说明：
+Overall usage of `awk getline`:
 
-* **当其左右无重定向符`|`或`<`时：** getline作用于当前文件，读入当前文件的第一行给其后跟的变量`var`或`$0`（无变量），应该注意到，由于awk在处理getline之前已经读入了一行，所以getline得到的返回结果是隔行的。
-* **当其左右有重定向符`|`或`<`时：** getline则作用于定向输入文件，由于该文件是刚打开，并没有被awk读入一行，只是getline读入，那么getline返回的是该文件的第一行，而不是隔行。
+* **When there are no redirection operators `|` or `<` on either side:** `getline` acts on the current file, reading the first line of the current file into the following variable `var` or `$0` (if no variable). Note that since awk has already read a line before processing `getline`, the result returned by `getline` is from every other line.
+* **When there are redirection operators `|` or `<` on either side:** `getline` acts on the redirected input file. Since this file has just been opened and has not been read by awk yet, but only by `getline`, `getline` returns the first line of that file, not every other line.
 
-**示例：** 
+**Examples:**
 
-执行linux的`date`命令，并通过管道输出给`getline`，然后再把输出赋值给自定义变量out，并打印它：
+Execute the Linux `date` command and pipe the output to `getline`, then assign the output to a custom variable `out` and print it:
 
 ```shell
 awk 'BEGIN{ "date" | getline out; print out }' test
 ```
 
-执行shell的date命令，并通过管道输出给getline，然后getline从管道中读取并将输入赋值给out，split函数把变量out转化成数组mon，然后打印数组mon的第二个元素：
+Execute the shell `date` command, pipe the output to `getline`, then `getline` reads from the pipe and assigns the input to `out`. The `split` function converts the variable `out` into the array `mon`, and then the second element of the array `mon` is printed:
 
 ```shell
 awk 'BEGIN{ "date" | getline out; split(out,mon); print mon[2] }' test
 ```
 
-命令ls的输出传递给geline作为输入，循环使getline从ls的输出中读取一行，并把它打印到屏幕。这里没有输入文件，因为BEGIN块在打开输入文件前执行，所以可以忽略输入文件。
+The output of the `ls` command is passed to `getline` as input. A loop causes `getline` to read one line from the `ls` output and print it to the screen. There is no input file here because the BEGIN block is executed before opening the input file, so the input file can be ignored.
 
 ```shell
 awk 'BEGIN{ while( "ls" | getline) print }'
 ```
 
-###  关闭文件 
+### Closing Files
 
-awk中允许在程序中关闭一个输入或输出文件，方法是使用awk的close语句。
+awk allows closing an input or output file within the program using the `close` statement.
 
 ```shell
 close("filename")
 ```
 
-filename可以是getline打开的文件，也可以是stdin，包含文件名的变量或者getline使用的确切命令。或一个输出文件，可以是stdout，包含文件名的变量或使用管道的确切命令。
+`filename` can be a file opened by `getline`, `stdin`, a variable containing the filename, or the exact command used by `getline`. It can also be an output file, `stdout`, a variable containing the filename, or the exact command using a pipe.
 
-###  输出到一个文件 
+### Output to a File
 
-awk中允许用如下方式将结果输出到一个文件：
+awk allows outputting results to a file in the following ways:
 
 ```shell
-echo | awk '{printf("hello word!n") > "datafile"}'
-# 或
-echo | awk '{printf("hello word!n") >> "datafile"}'
+echo | awk '{printf("hello world!\n") > "datafile"}'
+# OR
+echo | awk '{printf("hello world!\n") >> "datafile"}'
 ```
 
-## 设置字段定界符  
+## Setting Field Delimiters
 
-默认的字段定界符是空格，可以使用`-F "定界符"`  明确指定一个定界符：
+The default field delimiter is space. You can use `-F "delimiter"` to explicitly specify a delimiter:
 
 ```shell
 awk -F: '{ print $NF }' /etc/passwd
-# 或
+# OR
 awk 'BEGIN{ FS=":" } { print $NF }' /etc/passwd
 ```
 
-在`BEGIN语句块`中则可以用`OFS=“定界符”`设置输出字段的定界符。
+In the **BEGIN block**, you can use `OFS="delimiter"` to set the delimiter for output fields.
 
-## 流程控制语句  
+## Flow Control Statements
 
-在linux awk的while、do-while和for语句中允许使用break,continue语句来控制流程走向，也允许使用exit这样的语句来退出。break中断当前正在执行的循环并跳到循环外执行下一条语句。if 是流程选择用法。awk中，流程控制语句，语法结构，与c语言类型。有了这些语句，其实很多shell程序都可以交给awk，而且性能是非常快的。下面是各个语句用法。
+In Linux awk's `while`, `do-while`, and `for` statements, `break` and `continue` statements are allowed to control the flow, and `exit` can be used to exit. `break` interrupts the currently executing loop and jumps to the next statement outside the loop. `if` is used for conditional selection. The syntax of flow control statements in awk is similar to C. With these statements, many shell programs can be handled by awk, and the performance is very fast. Below are the usages of each statement.
 
-###  条件判断语句 
-
-```shell
-if(表达式)
-  语句1
-else
-  语句2
-```
-
-格式中语句1可以是多个语句，为了方便判断和阅读，最好将多个语句用{}括起来。awk分枝结构允许嵌套，其格式为：
+### Conditional Statements
 
 ```shell
-if(表达式)
-  {语句1}
-else if(表达式)
-  {语句2}
+if(expression)
+  statement1
 else
-  {语句3}
+  statement2
 ```
 
-示例：
+In this format, `statement1` can be multiple statements. For convenience and readability, it's best to enclose multiple statements in `{}`. awk branch structures allow nesting, formatted as:
+
+```shell
+if(expression)
+  {statement1}
+else if(expression)
+  {statement2}
+else
+  {statement3}
+```
+
+Example:
 
 ```shell
 awk 'BEGIN{
@@ -502,18 +500,18 @@ if(test>90){
 very good
 ```
 
-每条命令语句后面可以用`;` **分号** 结尾。
+Each command statement can end with a `;` **semicolon**.
 
-###  循环语句 
+### Loop Statements
 
-### # while语句 
+#### while statement
 
 ```shell
-while(表达式)
-  {语句}
+while(expression)
+  {statement}
 ```
 
-示例：
+Example:
 
 ```shell
 awk 'BEGIN{
@@ -528,46 +526,45 @@ print total;
 5050
 ```
 
-### # for循环 
+#### for loop
 
-for循环有两种格式：
+There are two formats for the `for` loop:
 
-格式1：
+Format 1:
 
 ```shell
-for(变量 in 数组)
-  {语句}
+for(variable in array)
+  {statement}
 ```
 
-示例：
+Example:
 
 ```shell
 awk 'BEGIN{
 for(k in ENVIRON){
   print k"="ENVIRON[k];
 }
-
 }'
 TERM=linux
 G_BROKEN_FILENAMES=1
 SHLVL=1
-pwd=/root/text
+PWD=/root/text
 ...
-logname=root
+LOGNAME=root
 HOME=/root
 SSH_CLIENT=192.168.1.21 53087 22
 ```
 
-注：ENVIRON是awk常量，是子典型数组。
+Note: `ENVIRON` is an awk constant and is an associative array.
 
-格式2：
+Format 2:
 
 ```shell
-for(变量;条件;表达式)
-  {语句}
+for(variable; condition; expression)
+  {statement}
 ```
 
-示例：
+Example:
 
 ```shell
 awk 'BEGIN{
@@ -580,14 +577,14 @@ print total;
 5050
 ```
 
-### # do循环 
+#### do loop
 
 ```shell
 do
-{语句} while(条件)
+{statement} while(condition)
 ```
 
-例子：
+Example:
 
 ```shell
 awk 'BEGIN{ 
@@ -599,27 +596,27 @@ do {total+=i;i++;} while(i<=100)
 5050
 ```
 
-###  其他语句 
+### Other Statements
 
-* **break**  当 break 语句用于 while 或 for 语句时，导致退出程序循环。
-* **continue**  当 continue 语句用于 while 或 for 语句时，使程序循环移动到下一个迭代。
-* **next**  能能够导致读入下一个输入行，并返回到脚本的顶部。这可以避免对当前输入行执行其他的操作过程。
-* **exit**  语句使主输入循环退出并将控制转移到END,如果END存在的话。如果没有定义END规则，或在END中应用exit语句，则终止脚本的执行。
+* **break**: When the `break` statement is used in a `while` or `for` statement, it causes the program to exit the loop.
+* **continue**: When the `continue` statement is used in a `while` or `for` statement, it causes the program to move to the next iteration of the loop.
+* **next**: Can cause the reading of the next input line and return to the top of the script. This avoids executing other operations on the current input line.
+* **exit**: Causes the main input loop to exit and transfers control to `END`, if `END` exists. If no `END` rule is defined, or if the `exit` statement is used within `END`, script execution terminates.
 
-## 数组应用  
+## Array Application
 
-数组是awk的灵魂，处理文本中最不能少的就是它的数组处理。因为数组索引（下标）可以是数字和字符串在awk中数组叫做关联数组(associative arrays)。awk 中的数组不必提前声明，也不必声明大小。数组元素用0或空字符串来初始化，这根据上下文而定。
+Arrays are the soul of awk; array processing is indispensable when dealing with text. Because array indices (subscripts) can be numbers or strings, arrays in awk are called associative arrays. Arrays in awk do not need to be declared in advance, nor do their sizes need to be declared. Array elements are initialized with 0 or an empty string, depending on the context.
 
-###  数组的定义 
+### Array Definition
 
-数字做数组索引（下标）：
+Using numbers as array indices (subscripts):
 
 ```shell
 Array[1]="sun"
 Array[2]="kai"
 ```
 
-字符串做数组索引（下标）：
+Using strings as array indices (subscripts):
 
 ```shell
 Array["first"]="www"
@@ -627,34 +624,34 @@ Array["last"]="name"
 Array["birth"]="1987"
 ```
 
-使用中`print Array[1]`会打印出sun；使用`print Array[2]`会打印出kai；使用`print["birth"]`会得到1987。
+In use, `print Array[1]` will print `sun`; `print Array[2]` will print `kai`; `print Array["birth"]` will give `1987`.
 
- **读取数组的值** 
+**Reading Array Values**
 
 ```shell
-{ for(item in array) {print array[item]}; }       #输出的顺序是随机的
-{ for(i=1;i<=len;i++) {print array[i]}; }         #Len是数组的长度
+{ for(item in array) {print array[item]}; }       # The output order is random
+{ for(i=1;i<=len;i++) {print array[i]}; }         # Len is the length of the array
 ```
 
-###  数组相关函数 
+### Array-Related Functions
 
-**得到数组长度：** 
+**Get array length:**
 
 ```shell
 awk 'BEGIN{info="it is a test";lens=split(info,tA," ");print length(tA),lens;}'
 4 4
 ```
 
-length返回字符串以及数组长度，split进行分割字符串为数组，也会返回分割得到数组长度。
+`length` returns the length of a string or array. `split` splits a string into an array and also returns the length of the resulting array.
 
 ```shell
 awk 'BEGIN{info="it is a test";split(info,tA," ");print asort(tA);}'
 4
 ```
 
-asort对数组进行排序，返回数组长度。
+`asort` sorts the array and returns the array length.
 
-**输出数组内容（无序，有序输出）：** 
+**Output array content (unordered, ordered output):**
 
 ```shell
 awk 'BEGIN{info="it is a test";split(info,tA," ");for(k in tA){print k,tA[k];}}'
@@ -664,7 +661,7 @@ awk 'BEGIN{info="it is a test";split(info,tA," ");for(k in tA){print k,tA[k];}}'
 3 a 
 ```
 
-`for…in`输出，因为数组是关联数组，默认是无序的。所以通过`for…in`得到是无序的数组。如果需要得到有序数组，需要通过下标获得。
+`for…in` output is unordered by default because awk arrays are associative arrays. If you need ordered output, you must use subscripts.
 
 ```shell
 awk 'BEGIN{info="it is a test";tlen=split(info,tA," ");for(k=1;k<=tlen;k++){print k,tA[k];}}'
@@ -674,43 +671,43 @@ awk 'BEGIN{info="it is a test";tlen=split(info,tA," ");for(k=1;k<=tlen;k++){prin
 4 test
 ```
 
-注意：数组下标是从1开始，与C数组不一样。
+Note: Array subscripts start from 1, unlike C arrays.
 
-**判断键值存在以及删除键值：** 
+**Checking for key existence and deleting keys:**
 
 ```shell
-# 错误的判断方法：
-awk 'BEGIN{tB["a"]="a1";tB["b"]="b1";if(tB["c"]!="1"){print "no found";};for(k in tB){print k,tB[k];}}' 
-no found
+# Incorrect way to check:
+awk 'BEGIN{tB["a"]="a1";tB["b"]="b1";if(tB["c"]!="1"){print "not found";};for(k in tB){print k,tB[k];}}' 
+not found
 a a1
 b b1
 c
 ```
 
-以上出现奇怪问题，`tB[“c”]`没有定义，但是循环时候，发现已经存在该键值，它的值为空，这里需要注意，awk数组是关联数组，只要通过数组引用它的key，就会自动创建改序列。
+A strange issue occurs: `tB["c"]` was not defined, but during the loop, it's found to exist with an empty value. Note that awk arrays are associative; simply referencing a key via an array will automatically create that entry.
 
 ```shell
-# 正确判断方法：
+# Correct way to check:
 awk 'BEGIN{tB["a"]="a1";tB["b"]="b1";if( "c" in tB){print "ok";};for(k in tB){print k,tB[k];}}'  
 a a1
 b b1
 ```
 
-`if(key in array)`通过这种方法判断数组中是否包含`key`键值。
+Use `if(key in array)` to check if an array contains the key.
 
 ```shell
-#删除键值：
+# Deleting a key:
 awk 'BEGIN{tB["a"]="a1";tB["b"]="b1";delete tB["a"];for(k in tB){print k,tB[k];}}'                     
 b b1
 ```
 
-`delete array[key]`可以删除，对应数组`key`的，序列值。
+`delete array[key]` can delete the entry corresponding to the `key` in the array.
 
-###  二维、多维数组使用 
+### Using Two-Dimensional and Multi-Dimensional Arrays
 
-awk的多维数组在本质上是一维数组，更确切一点，awk在存储上并不支持多维数组。awk提供了逻辑上模拟二维数组的访问方式。例如，`array[2,4]=1`这样的访问是允许的。awk使用一个特殊的字符串`SUBSEP(\034)`作为分割字段，在上面的例子中，关联数组array存储的键值实际上是2\0344。
+Multi-dimensional arrays in awk are essentially one-dimensional arrays; more precisely, awk does not support multi-dimensional arrays for storage. awk provides a way to logically simulate multi-dimensional array access. For example, access like `array[2,4]=1` is allowed. awk uses a special string `SUBSEP (\034)` as a separator. In the example above, the key stored in the associative array `array` is actually `2\0344`.
 
-类似一维数组的成员测试，多维数组可以使用`if ( (i,j) in array)`这样的语法，但是下标必须放置在圆括号中。类似一维数组的循环访问，多维数组使用`for ( item in array )`这样的语法遍历数组。与一维数组不同的是，多维数组必须使用`split()`函数来访问单独的下标分量。
+Similar to testing members of a one-dimensional array, multi-dimensional arrays can use syntax like `if ( (i,j) in array )`, but subscripts must be placed in parentheses. Similar to looping through a one-dimensional array, multi-dimensional arrays use `for ( item in array )` syntax to traverse the array. Unlike one-dimensional arrays, multi-dimensional arrays must use the `split()` function to access individual subscript components.
 
 ```shell
 awk 'BEGIN{
@@ -723,19 +720,13 @@ for(i=1;i<=9;i++){
 1 * 1 = 1
 1 * 2 = 2
 1 * 3 = 3
-1 * 4 = 4
-1 * 5 = 5
-1 * 6 = 6 
 ...
-9 * 6 = 54
-9 * 7 = 63
-9 * 8 = 72
 9 * 9 = 81
 ```
 
-可以通过`array[k,k2]`引用获得数组内容。
+Array content can be retrieved by referencing `array[k,k2]`.
 
-另一种方法：
+Another method:
 
 ```shell
 awk 'BEGIN{
@@ -750,36 +741,34 @@ for(m in tarr){
 }'
 ```
 
-## 内置函数  
+## Built-in Functions
 
-awk内置函数，主要分以下3种类似：算数函数、字符串函数、其它一般函数、时间函数。
+Built-in functions in awk are mainly of four types: arithmetic, string, other general functions, and time functions.
 
-###  算术函数 
+### Arithmetic Functions
 
-| 格式 | 描述 |
+| Format | Description |
 | ---- | ---- |
-| atan2( y, x ) | 返回 y/x 的反正切。 |
-| cos( x ) | 返回 x 的余弦；x 是弧度。 |
-| sin( x ) | 返回 x 的正弦；x 是弧度。 |
-| exp( x ) | 返回 x 幂函数。 |
-| log( x ) | 返回 x 的自然对数。 |
-| sqrt( x ) | 返回 x 平方根。 |
-| int( x ) | 返回 x 的截断至整数的值。 |
-| rand( ) | 返回任意数字 n，其中 0 <= n < 1。 |
-| srand( [expr] ) | 将 rand 函数的种子值设置为 Expr 参数的值，或如果省略 Expr 参数则使用某天的时间。返回先前的种子值。 |
+| atan2( y, x ) | Returns the arctangent of y/x. |
+| cos( x ) | Returns the cosine of x; x is in radians. |
+| sin( x ) | Returns the sine of x; x is in radians. |
+| exp( x ) | Returns the exponential function of x. |
+| log( x ) | Returns the natural logarithm of x. |
+| sqrt( x ) | Returns the square root of x. |
+| int( x ) | Returns the truncated integer value of x. |
+| rand( ) | Returns a random number n, where 0 <= n < 1. |
+| srand( [expr] ) | Sets the seed value for the `rand` function to the value of the `expr` parameter, or uses the time of day if `expr` is omitted. Returns the previous seed value. |
 
-
-举例说明：
+Example:
 
 ```shell
 awk 'BEGIN{OFMT="%.3f";fs=sin(1);fe=exp(10);fl=log(10);fi=int(3.1415);print fs,fe,fl,fi;}'
 0.841 22026.466 2.303 3
-
 ```
 
-OFMT 设置输出数据格式是保留3位小数。
+`OFMT` sets the output data format to 3 decimal places.
 
-获得随机数：
+Obtain random numbers:
 
 ```shell
 awk 'BEGIN{srand();fr=int(100*rand());print fr;}'
@@ -790,60 +779,59 @@ awk 'BEGIN{srand();fr=int(100*rand());print fr;}'
 41 
 ```
 
-###  字符串函数 
+### String Functions
 
-| 格式 | 描述 |
+| Format | Description |
 | ---- | ---- |
-| gsub( Ere, Repl, [ In ] ) | 除了正则表达式所有具体值被替代这点，它和 sub 函数完全一样地执行。 |
-| sub( Ere, Repl, [ In ] ) | 用 Repl 参数指定的字符串替换 In 参数指定的字符串中的由 Ere 参数指定的扩展正则表达式的第一个具体值。sub 函数返回替换的数量。出现在 Repl 参数指定的字符串中的 &（和符号）由 In 参数指定的与 Ere 参数的指定的扩展正则表达式匹配的字符串替换。如果未指定 In 参数，缺省值是整个记录（$0 记录变量）。 |
-| index( String1, String2 ) | 在由 String1 参数指定的字符串（其中有出现 String2 指定的参数）中，返回位置，从 1 开始编号。如果 String2 参数不在 String1 参数中出现，则返回 0（零）。 |
-| length [(String)] | 返回 String 参数指定的字符串的长度（字符形式）。如果未给出 String 参数，则返回整个记录的长度（$0 记录变量）。 |
-| blength [(String)] | 返回 String 参数指定的字符串的长度（以字节为单位）。如果未给出 String 参数，则返回整个记录的长度（$0 记录变量）。 |
-| substr( String, M, [ N ] ) | 返回具有 N 参数指定的字符数量子串。子串从 String 参数指定的字符串取得，其字符以 M 参数指定的位置开始。M 参数指定为将 String 参数中的第一个字符作为编号 1。如果未指定 N 参数，则子串的长度将是 M 参数指定的位置到 String 参数的末尾 的长度。 |
-| match( String, Ere ) | 在 String 参数指定的字符串（Ere 参数指定的扩展正则表达式出现在其中）中返回位置（字符形式），从 1 开始编号，或如果 Ere 参数不出现，则返回 0（零）。RSTART 特殊变量设置为返回值。RLENGTH 特殊变量设置为匹配的字符串的长度，或如果未找到任何匹配，则设置为 -1（负一）。|
-| split( String, A, [Ere] ) | 将 String 参数指定的参数分割为数组元素 A[1], A[2], . . ., A[n]，并返回 n 变量的值。此分隔可以通过 Ere 参数指定的扩展正则表达式进行，或用当前字段分隔符（FS 特殊变量）来进行（如果没有给出 Ere 参数）。除非上下文指明特定的元素还应具有一个数字值，否则 A 数组中的元素用字符串值来创建。 |
-| tolower( String ) | 返回 String 参数指定的字符串，字符串中每个大写字符将更改为小写。大写和小写的映射由当前语言环境的 LC_CTYPE 范畴定义。 |
-| toupper( String ) | 返回 String 参数指定的字符串，字符串中每个小写字符将更改为大写。大写和小写的映射由当前语言环境的 LC_CTYPE 范畴定义。 |
-| sprintf(Format, Expr, Expr, . . . ) | 根据 Format 参数指定的 printf 子例程格式字符串来格式化 Expr 参数指定的表达式并返回最后生成的字符串。 |
+| gsub( Ere, Repl, [ In ] ) | Exactly like the `sub` function, except that all occurrences of the regular expression are replaced. |
+| sub( Ere, Repl, [ In ] ) | Replaces the first occurrence of the extended regular expression specified by the `Ere` parameter in the string specified by the `In` parameter with the string specified by the `Repl` parameter. The `sub` function returns the number of replacements. `&` (ampersand) in the `Repl` string is replaced by the string matching the `Ere` regular expression. If `In` is not specified, the default is the entire record ($0). |
+| index( String1, String2 ) | Returns the position (starting from 1) where `String2` first occurs in `String1`. Returns 0 if `String2` is not found. |
+| length [(String)] | Returns the length (in characters) of the specified string. If `String` is not given, returns the length of the entire record ($0). |
+| blength [(String)] | Returns the length (in bytes) of the specified string. If `String` is not given, returns the length of the entire record ($0). |
+| substr( String, M, [ N ] ) | Returns a substring of length `N` starting at position `M` (the first character is position 1). If `N` is omitted, the substring continues to the end of `String`. |
+| match( String, Ere ) | Returns the position (starting from 1) where the extended regular expression `Ere` first matches in `String`. Returns 0 if no match is found. Sets the special variable `RSTART` to the return value and `RLENGTH` to the length of the matched string (or -1 if no match). |
+| split( String, A, [Ere] ) | Splits `String` into array elements `A[1], A[2], ..., A[n]` and returns the value of `n`. Splitting can be done via the regular expression `Ere` or the current field separator (`FS`). Elements in the `A` array are created as string values unless the context indicates they should also have numeric values. |
+| tolower( String ) | Returns the specified string with all uppercase characters converted to lowercase. |
+| toupper( String ) | Returns the specified string with all lowercase characters converted to uppercase. |
+| sprintf(Format, Expression, Expression, ...) | Formats the expressions according to the `printf` subroutine format string and returns the resulting string. |
 
+Note: `Ere` can be a regular expression.
 
-注：Ere都可以是正则表达式。
-
-**gsub,sub使用** 
+**Using gsub and sub**
 
 ```shell
 awk 'BEGIN{info="this is a test2010test!";gsub(/[0-9]+/,"!",info);print info}'
 this is a test!test!
 ```
 
-在 info中查找满足正则表达式，`/[0-9]+/` 用`””`替换，并且替换后的值，赋值给info 未给info值，默认是`$0`
+Finds occurrences matching `/[0-9]+/` in `info`, replaces them with `!`, and assigns the result back to `info`.
 
- **查找字符串（index使用）** 
+**Finding a string (using index)**
 
 ```shell
-awk 'BEGIN{info="this is a test2010test!";print index(info,"test")?"ok":"no found";}'
+awk 'BEGIN{info="this is a test2010test!";print index(info,"test")?"ok":"not found";}'
 ok
 ```
 
-未找到，返回0
+Returns 0 if not found.
 
-**正则表达式匹配查找(match使用）** 
+**Regular expression matching (using match)**
 
-```
-awk 'BEGIN{info="this is a test2010test!";print match(info,/[0-9]+/)?"ok":"no found";}'
+```shell
+awk 'BEGIN{info="this is a test2010test!";print match(info,/[0-9]+/)?"ok":"not found";}'
 ok
 ```
 
-**截取字符串(substr使用）** 
+**Extracting a substring (using substr)**
 
 ```shell
-[wangsl@centos5 ~]$ awk 'BEGIN{info="this is a test2010test!";print substr(info,4,10);}'
+awk 'BEGIN{info="this is a test2010test!";print substr(info,4,10);}'
 s is a tes
 ```
 
-从第 4个 字符开始，截取10个长度字符串
+Extracts a 10-character string starting from the 4th character.
 
-**字符串分割（split使用）** 
+**Splitting a string (using split)**
 
 ```shell
 awk 'BEGIN{info="this is a test";split(info,tA," ");print length(tA);for(k in tA){print k,tA[k];}}'
@@ -854,39 +842,36 @@ awk 'BEGIN{info="this is a test";split(info,tA," ");print length(tA);for(k in tA
 3 a
 ```
 
-分割info，动态创建数组tA，这里比较有意思，`awk for …in`循环，是一个无序的循环。 并不是从数组下标1…n ，因此使用时候需要注意。
+Splits `info` and dynamically creates array `tA`. Note that the `for…in` loop is unordered.
 
-**格式化字符串输出（sprintf使用）** 
+**Formatted string output (using sprintf)**
 
-格式化字符串格式：
+The format string includes normal characters (output as-is) and format specifications starting with `%`.
 
-其中格式化字符串包括两部分内容：一部分是正常字符，这些字符将按原样输出; 另一部分是格式化规定字符，以`"%"`开始，后跟一个或几个规定字符,用来确定输出内容格式。
-
-| 格式 | 描述 | 格式 | 描述 |
+| Format | Description | Format | Description |
 | ---- | ---- | ---- | ---- |
-| %d | 十进制有符号整数 | %u | 十进制无符号整数 |
-| %f | 浮点数 | %s | 字符串 |
-| %c | 单个字符 | %p | 指针的值 |
-| %e | 指数形式的浮点数 | %x | %X 无符号以十六进制表示的整数 |
-| %o | 无符号以八进制表示的整数 | %g | 自动选择合适的表示法 |
-
+| %d | Signed decimal integer | %u | Unsigned decimal integer |
+| %f | Floating-point number | %s | String |
+| %c | Single character | %p | Pointer value |
+| %e | Exponential floating-point | %x | %X Unsigned hexadecimal integer |
+| %o | Unsigned octal integer | %g | Automatically choose best format |
 
 ```shell
-awk 'BEGIN{n1=124.113;n2=-1.224;n3=1.2345; printf("%.2f,%.2u,%.2g,%X,%on",n1,n2,n3,n1,n1);}'
+awk 'BEGIN{n1=124.113;n2=-1.224;n3=1.2345; printf("%.2f,%.2u,%.2g,%X,%o\n",n1,n2,n3,n1,n1);}'
 124.11,18446744073709551615,1.2,7C,174
 ```
 
-###  一般函数 
+### General Functions
 
-| 格式 | 描述  |
+| Format | Description |
 | ---- | ---- |
-| close( Expression ) | 用同一个带字符串值的 Expression 参数来关闭由 print 或 printf 语句打开的或调用 getline 函数打开的文件或管道。如果文件或管道成功关闭，则返回 0；其它情况下返回非零值。如果打算写一个文件，并稍后在同一个程序中读取文件，则 close 语句是必需的。 |
-| system(command ) | 执行 Command 参数指定的命令，并返回退出状态。等同于 system 子例程。|
-| Expression `\|` getline [ Variable ] | 从来自 Expression 参数指定的命令的输出中通过管道传送的流中读取一个输入记录，并将该记录的值指定给 Variable 参数指定的变量。如果当前未打开将 Expression 参数的值作为其命令名称的流，则创建流。创建的流等同于调用 popen 子例程，此时 Command 参数取 Expression 参数的值且 Mode 参数设置为一个是 r 的值。只要流保留打开且 Expression 参数求得同一个字符串，则对 getline 函数的每次后续调用读取另一个记录。如果未指定 Variable 参数，则 $0 记录变量和 NF 特殊变量设置为从流读取的记录。|
-| getline [ Variable ] < Expression | 从 Expression 参数指定的文件读取输入的下一个记录，并将 Variable 参数指定的变量设置为该记录的值。只要流保留打开且 Expression 参数对同一个字符串求值，则对 getline 函数的每次后续调用读取另一个记录。如果未指定 Variable 参数，则 $0 记录变量和 NF 特殊变量设置为从流读取的记录。 |
-| getline [ Variable ] | 将 Variable 参数指定的变量设置为从当前输入文件读取的下一个输入记录。如果未指定 Variable 参数，则 $0 记录变量设置为该记录的值，还将设置 NF、NR 和 FNR 特殊变量。 |
+| close( Expression ) | Closes a file or pipe opened by `print`, `printf`, or `getline` with the same string value `Expression`. Returns 0 if successful, non-zero otherwise. `close` is necessary if you intend to write a file and then read it later in the same program. |
+| system(command) | Executes the specified command and returns the exit status. Equivalent to the `system` subroutine. |
+| Expression `|` getline [ Variable ] | Reads an input record from the output of the command specified by `Expression` via a pipe, and assigns the record's value to `Variable`. If the stream is not yet open, it is created. If `Variable` is omitted, `$0` and `NF` are set. |
+| getline [ Variable ] < Expression | Reads the next input record from the file specified by `Expression` and assigns it to `Variable`. If `Variable` is omitted, `$0` and `NF` are set. |
+| getline [ Variable ] | Reads the next input record from the current input file and assigns it to `Variable`. If `Variable` is omitted, `$0`, `NF`, `NR`, and `FNR` are set. |
 
-**打开外部文件（close用法）** 
+**Opening an external file (using close)**
 
 ```shell
 awk 'BEGIN{while("cat /etc/passwd"|getline){print $0;};close("/etc/passwd");}'
@@ -895,7 +880,7 @@ bin:x:1:1:bin:/bin:/sbin/nologin
 daemon:x:2:2:daemon:/sbin:/sbin/nologin
 ```
 
-**逐行读取外部文件(getline使用方法）** 
+**Reading an external file line by line (using getline)**
 
 ```shell
 awk 'BEGIN{while(getline < "/etc/passwd"){print $0;};close("/etc/passwd");}'
@@ -911,7 +896,7 @@ chengmo
 chengmo
 ```
 
-**调用外部应用程序(system使用方法）** 
+**Calling an external application (using system)**
 
 ```shell
 awk 'BEGIN{b=system("ls -al");print b;}'
@@ -920,22 +905,21 @@ drwxr-xr-x 14 chengmo chengmo     4096 09-30 17:47 .
 drwxr-xr-x 95 root   root       4096 10-08 14:01 ..
 ```
 
-b返回值，是执行结果。
+The value of `b` is the exit status of the execution.
 
-###  时间函数 
+### Time Functions
 
-| 格式 | 描述  |
+| Format | Description |
 | ---- | ---- |
-| 函数名 | 说明 |
-| mktime( YYYY MM dd HH MM ss[ DST]) | 生成时间格式 |
-| strftime([format [, timestamp]]) | 格式化时间输出，将时间戳转为时间字符串具体格式，见下表。 |
-| systime() | 得到时间戳，返回从1970年1月1日开始到当前时间(不计闰年)的整秒数 |
+| mktime( YYYY MM dd HH MM ss[ DST]) | Generates a time format. |
+| strftime([format [, timestamp]]) | Formats time output, converting a timestamp to a formatted time string. |
+| systime() | Returns the current timestamp (seconds since January 1, 1970). |
 
-**建指定时间(mktime使用）** 
+**Creating a specific time (using mktime)**
 
 ```shell
 awk 'BEGIN{tstamp=mktime("2001 01 01 12 12 12");print strftime("%c",tstamp);}'
-2001年01月01日 星期一 12时12分12秒
+Mon Jan  1 12:12:12 2001
 ```
 
 ```shell
@@ -943,39 +927,37 @@ awk 'BEGIN{tstamp1=mktime("2001 01 01 12 12 12");tstamp2=mktime("2001 02 01 0 0 
 2634468
 ```
 
-求2个时间段中间时间差，介绍了strftime使用方法
+Calculates the time difference between two time points.
 
 ```shell
 awk 'BEGIN{tstamp1=mktime("2001 01 01 12 12 12");tstamp2=systime();print tstamp2-tstamp1;}' 
 308201392
 ```
 
-**strftime日期和时间格式说明符** 
+**strftime Date and Time Format Specifiers**
 
-| 格式 | 描述  |
+| Format | Description |
 | ---- | ---- |
-| %a | 星期几的缩写(Sun) |
-| %A | 星期几的完整写法(Sunday) |
-| %b | 月名的缩写(Oct) |
-| %B | 月名的完整写法(October) |
-| %c | 本地日期和时间 |
-| %d | 十进制日期 |
-| %D | 日期 08/20/99 |
-| %e | 日期，如果只有一位会补上一个空格 |
-| %H | 用十进制表示24小时格式的小时 |
-| %I | 用十进制表示12小时格式的小时 |
-| %j | 从1月1日起一年中的第几天 |
-| %m | 十进制表示的月份 |
-| %M | 十进制表示的分钟 |
-| %p | 12小时表示法(AM/PM) |
-| %S | 十进制表示的秒 |
-| %U | 十进制表示的一年中的第几个星期(星期天作为一个星期的开始) |
-| %w | 十进制表示的星期几(星期天是0) |
-| %W | 十进制表示的一年中的第几个星期(星期一作为一个星期的开始) |
-| %x | 重新设置本地日期(08/20/99) |
-| %X | 重新设置本地时间(12:00:00) |
-| %y | 两位数字表示的年(99) |
-| %Y | 当前月份 |
-| %% | 百分号(%) |
-
-
+| %a | Abbreviated weekday name (Sun) |
+| %A | Full weekday name (Sunday) |
+| %b | Abbreviated month name (Oct) |
+| %B | Full month name (October) |
+| %c | Local date and time |
+| %d | Decimal date (01-31) |
+| %D | Date (08/20/99) |
+| %e | Date, padded with a space if single digit |
+| %H | Hour in 24-hour format |
+| %I | Hour in 12-hour format |
+| %j | Day of the year (001-366) |
+| %m | Month (01-12) |
+| %M | Minute (00-59) |
+| %p | 12-hour notation (AM/PM) |
+| %S | Second (00-59) |
+| %U | Week number of the year (Sunday as first day of week) |
+| %w | Weekday (Sunday is 0) |
+| %W | Week number of the year (Monday as first day of week) |
+| %x | Local date (08/20/99) |
+| %X | Local time (12:00:00) |
+| %y | Two-digit year (99) |
+| %Y | Full year |
+| %% | Percent sign (%) |

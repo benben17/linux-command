@@ -1,31 +1,30 @@
 ssh-keygen
 ===
 
-为ssh生成、管理和转换认证密钥
+Authentication key generation, management, and conversion for SSH
 
-## 补充说明
+## Description
 
-**ssh-keygen命令** 用于为“ssh”生成、管理和转换认证密钥，它支持RSA和DSA两种认证密钥。
+The **ssh-keygen command** is used to generate, manage, and convert authentication keys for `ssh`. It supports both RSA and DSA authentication keys.
 
-###  语法
-
-```shell
-ssh-keygen(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
--b：指定密钥长度；
--e：读取openssh的私钥或者公钥文件；
--C：添加注释；
--f：指定用来保存密钥的文件名；
--i：读取未加密的ssh-v2兼容的私钥/公钥文件，然后在标准输出设备上显示openssh兼容的私钥/公钥；
--l：显示公钥文件的指纹数据；
--N：提供一个新密语；
--P：提供（旧）密语；
--q：静默模式；
--t：指定要创建的密钥类型。
--y: 读取私钥输出公钥。
+ssh-keygen [option]
 ```
 
+### Options
+
+```shell
+-b: Specify the number of bits in the key to create.
+-e: Read an OpenSSH private or public key file and print it in a specified format.
+-C: Provide a new comment.
+-f: Specify the filename of the key file.
+-i: Read an unencrypted SSH-v2 compatible private or public key file and display an OpenSSH compatible key on stdout.
+-l: Show the fingerprint of the specified public key file.
+-N: Provide a new passphrase.
+-P: Provide the (old) passphrase.
+-q: Silence ssh-keygen.
+-t: Specify the type of key to create.
+-y: Read a private OpenSSH format file and print an OpenSSH public key to stdout.
+```

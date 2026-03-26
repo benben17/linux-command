@@ -1,31 +1,29 @@
 iptraf
 ===
 
-实时地监视网卡流量
+Real-time network statistics viewer.
 
-## 补充说明
+## Description
 
-**iptraf命令** 可以实时地监视网卡流量，可以生成网络协议数据包信息、以太网信息、网络节点状态和ip校验和错误等信息。
+The `iptraf` command is an ncurses-based IP LAN monitor that generates various network statistics including TCP info, UDP counts, ICMP and OSPF information, Ethernet load info, node stats, IP checksum errors, and others.
 
-###  语法
-
-```shell
-iptraf(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
--i网络接口：立即在指定网络接口上开启IP流量监视；
--g：立即开始生成网络接口的概要状态信息；
--d网络接口：在指定网络接口上立即开始监视明细的网络流量信息；
--s网络接口：在指定网络接口上立即开始监视TCP和UDP网络流量信息；
--z网络接口：在指定网络接口上显示包计数；
--l网络接口：在指定网络接口上立即开始监视局域网工作站信息；
--t时间：指定iptraf指令监视的时间；
--B；将标注输出重新定向到“/dev/null”，关闭标注输入，将程序作为后台进程运行；
--f：清空所有计数器；
--h：显示帮助信息。
+iptraf [options]
 ```
 
+### Options
 
+```shell
+-i interface : Start the IP traffic monitor on a specific interface immediately.
+-g : Start the general interface statistics immediately.
+-d interface : Start the detailed statistics on a specific interface immediately.
+-s interface : Start the TCP and UDP monitor on a specific interface immediately.
+-z interface : Show packet counts for a specific interface.
+-l interface : Start the LAN station monitor on a specific interface immediately.
+-t timeout : Specify the length of time iptraf should run.
+-B : Run the program in the background (redirects output to /dev/null).
+-f : Clear all counters.
+-h : Display help information.
+```

@@ -1,51 +1,51 @@
 cp
 ===
 
-将源文件或目录复制到目标文件或目录中
+Copy files and directories
 
-## 补充说明
+## Description
 
-**cp命令** 用来将一个或多个源文件或者目录复制到指定的目的文件或目录。它可以将单个源文件复制成一个指定文件名的具体的文件或一个已经存在的目录下。cp命令还支持同时复制多个文件，当一次复制多个文件时，目标文件参数必须是一个已经存在的目录，否则将出现错误。
+The **cp command** is used to copy one or more source files or directories to a specified destination file or directory. It can copy a single source file to a specific filename or into an existing directory. The `cp` command also supports copying multiple files at once; in this case, the destination must be an existing directory, otherwise an error will occur.
 
-###  语法 
-
-```shell
-cp(选项)(参数)
-```
-
-###  选项 
+### Syntax
 
 ```shell
--a：此参数的效果和同时指定"-dpR"参数相同；
--d：当复制符号连接时，把目标文件或目录也建立为符号连接，并指向与源文件或目录连接的原始文件或目录；
--f：强行复制文件或目录，不论目标文件或目录是否已存在；
--i：覆盖既有文件之前先询问用户；
--l：对源文件建立硬连接，而非复制文件；
--p：保留源文件或目录的属性；
--R/r：递归处理，将指定目录下的所有文件与子目录一并处理；
--s：对源文件建立符号连接，而非复制文件；
--u：使用这项参数后只会在源文件的更改时间较目标文件更新时或是名称相互对应的目标文件并不存在时，才复制文件；
--S：在备份文件时，用指定的后缀“SUFFIX”代替文件的默认后缀；
--b：覆盖已存在的文件目标前将目标文件备份；
--v：详细显示命令执行的操作。
+cp [options] [arguments]
 ```
 
-###  参数 
+### Options
 
-*   源文件：制定源文件列表。默认情况下，cp命令不能复制目录，如果要复制目录，则必须使用`-R`选项；
-*   目标文件：指定目标文件。当“源文件”为多个文件时，要求“目标文件”为指定的目录。
+```shell
+-a: Archive mode; same as -dpR.
+-d: When copying symbolic links, create a symbolic link in the destination instead of copying the file it points to.
+-f: Force copy files or directories, even if the destination exists.
+-i: Prompt before overwriting existing files.
+-l: Create hard links instead of copying files.
+-p: Preserve file attributes (owner, group, permissions, timestamps).
+-R/r: Recursive copy; process all files and subdirectories.
+-s: Create symbolic links instead of copying files.
+-u: Update mode; copy only when the source is newer than the destination or the destination does not exist.
+-S: Use a specified "SUFFIX" for backup files.
+-b: Make a backup of each existing destination file before overwriting.
+-v: Verbose; explain what is being done.
+```
 
-###  实例 
+### Arguments
 
-下面的第一行中是 cp 命令和具体的参数（-r 是“递归”， -u 是“更新”，-v 是“详细”）。接下来的三行显示被复制文件的信息，最后一行显示命令行提示符。这样，只拷贝新的文件到我的存储设备上，我就使用 cp 的“更新”和“详细”选项。
+*   Source: List of source files or directories. By default, `cp` cannot copy directories unless the `-R` or `-r` option is used.
+*   Destination: The target file or directory. If multiple source files are specified, the destination must be a directory.
 
-通常来说，参数 `-r` 也可用更详细的风格 `--recursive`。但是以简短的方式，也可以这么连用 `-ruv`。
+### Examples
+
+The first example uses `cp` with multiple options (`-r` for recursive, `-u` for update, and `-v` for verbose). This is useful for copying only new files to a storage device.
+
+Note that `-r` can also be written as `--recursive`. Short options can be combined, such as `-ruv`.
 
 ```shell
 cp -r -u -v /usr/men/tmp ~/men/tmp
 ```
 
-版本备份 `--backup=numbered` 参数意思为“我要做个备份，而且是带编号的连续备份”。所以一个备份就是 1 号，第二个就是 2 号，等等。
+Use the `--backup=numbered` option to create numbered backups. For example, the first backup will be `.1`, the second `.2`, and so on.
 
 ```shell
 $ cp --force --backup=numbered test1.py test1.py
@@ -53,69 +53,69 @@ $ ls
 test1.py test1.py.~1~ test1.py.~2~
 ```
 
-如果把一个文件复制到一个目标文件中，而目标文件已经存在，那么，该目标文件的内容将被破坏。此命令中所有参数既可以是绝对路径名，也可以是相对路径名。通常会用到点`.`或点点`..`的形式。例如，下面的命令将指定文件复制到当前目录下：
+If you copy a file to a destination that already exists, the content of the target file will be overwritten. Both absolute and relative paths (including `.` and `..`) can be used. For example, to copy a file to the current directory:
 
 ```shell
 cp ../mary/homework/assign .
 ```
 
-所有目标文件指定的目录必须是己经存在的，cp命令不能创建目录。如果没有文件复制的权限，则系统会显示出错信息。
+The destination directory must already exist; `cp` cannot create directories. If you do not have permission to copy a file, an error message will be displayed.
 
-将文件file复制到目录`/usr/men/tmp`下，并改名为file1
+Copy `file` to `/usr/men/tmp` and rename it to `file1`:
 
 ```shell
 cp file /usr/men/tmp/file1
 ```
 
-将目录`/usr/men`下的所有文件及其子目录复制到目录`/usr/zh`中
+Copy all files and subdirectories from `/usr/men` to `/usr/zh`:
 
 ```shell
 cp -r /usr/men /usr/zh
 ```
 
-交互式地将目录`/usr/men`中的以m打头的所有.c文件复制到目录`/usr/zh`中
+Interactively copy all `.c` files starting with `m` from `/usr/men` to `/usr/zh`:
 
 ```shell
-cp -i /usr/men m*.c /usr/zh
+cp -i /usr/men/m*.c /usr/zh
 ```
 
-我们在Linux下使用cp命令复制文件时候，有时候会需要覆盖一些同名文件，覆盖文件的时候都会有提示：需要不停的按Y来确定执行覆盖。文件数量不多还好，但是要是几百个估计按Y都要吐血了，于是折腾来半天总结了一个方法：
+When copying files in Linux, you might want to overwrite existing files without being prompted for confirmation. If there are many files, pressing `Y` repeatedly is inefficient. Here are some ways to handle this:
 
 ```shell
 cp aaa/* /bbb
-# 复制目录aaa下所有到/bbb目录下，这时如果/bbb目录下有和aaa同名的文件，需要按Y来确认并且会略过aaa目录下的子目录。
+# Copy everything from aaa to /bbb. If /bbb has files with the same name, you must press Y to confirm. Subdirectories in aaa are skipped.
 
 cp -r aaa/* /bbb
-# 这次依然需要按Y来确认操作，但是没有忽略子目录。
+# Still requires confirmation, but subdirectories are not skipped.
 
 cp -r -a aaa/* /bbb
-# 依然需要按Y来确认操作，并且把aaa目录以及子目录和文件属性也传递到了/bbb。
+# Still requires confirmation; preserves directory, subdirectory, and file attributes.
 
 \cp -r -a aaa/* /bbb
-# 成功，没有提示按Y、传递了目录属性、没有略过目录。
+# Success! No confirmation prompts, attributes are preserved, and subdirectories are included.
 ```
 
-递归强制复制目录到指定目录中覆盖已存在文件
+Recursive force copy to overwrite existing files:
 
 ```shell
 cp -rfb ./* ../backup
-# 将当前目录下所有文件，复制到当前目录的兄弟目录 backup 文件夹中
+# Copy all files in the current directory to the sibling directory "backup".
 ```
 
-拷贝目录下的隐藏文件如 `.babelrc`
+Copy hidden files (e.g., `.babelrc`):
 
 ```shell
 cp -r aaa/.* ./bbb
-# 将 aaa 目录下的，所有`.`开头的文件，复制到 bbb 目录中。
+# Copy all hidden files starting with "." from aaa to bbb.
 
 cp -a aaa ./bbb/ 
-# 记住后面目录最好的'/' 带上 `-a` 参数
+# Use the -a option; it's recommended to include the trailing "/" for the destination directory.
 ```
 
-复制到当前目录
+Copy to the current directory:
 
 ```shell
 cp aaa.conf ./
-# 将 aaa.conf 复制到当前目录
+# Copy aaa.conf to the current directory.
 ```
-
+观察

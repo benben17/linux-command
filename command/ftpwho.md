@@ -1,23 +1,21 @@
 ftpwho
 ===
 
-显示当前每个ftp会话信息
+Display information for each current FTP session.
 
-## 补充说明
+## Description
 
-**ftpwho命令** ftp服务器套件proftpd的工作指令，用于显示当前每个ftp会话信息。
+The **ftpwho command** is a utility for the ProFTPD server suite used to display information about each current FTP session.
 
-###  语法
-
-```shell
-ftpwho(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
--h：显示帮助信息；
--v：详细模式，输出更多信息。
+ftpwho (options)
 ```
 
+### Options
 
+```shell
+-h: Display help information.
+-v: Verbose mode; output more detailed information.
+```

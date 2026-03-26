@@ -1,38 +1,36 @@
 atrm
 ===
 
-删除待执行任务队列中的指定任务
+Delete specified tasks from the pending task queue
 
-## 补充说明
+## Additional Information
 
-**atrm命令** 用于删除待执行任务队列中的指定任务。
+The **atrm command** is used to delete specified tasks from the pending task queue.
 
-###  语法
+### Syntax
 
 ```shell
-atrm(选项)(参数)
+atrm (options) (parameters)
 ```
 
-###  选项
+### Options
 
 ```shell
--V：显示版本号。
+-V: Display version number.
 ```
 
-###  参数
+### Parameters
 
-任务号：指定待执行队列中要删除的任务。
+Job number: Specifies the task to be deleted from the pending queue.
 
-###  实例
+### Examples
 
-删除已经排队的任务
+Delete already queued tasks:
 
 ```shell
-atq        # 显示当前已经设置的任务
+atq        # Display currently set tasks
 2 Mon May 17 08:00:00 2010 a root
 1 Sat May 15 17:00:00 2010 a root
 
-atrm 2     # 删除任务2
+atrm 2     # Delete task 2
 ```
-
-

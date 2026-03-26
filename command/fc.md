@@ -1,53 +1,53 @@
 fc
 ===
 
-显示历史列表中的命令或修改指定的历史命令并执行。
+Display commands from the history list or modify and execute specified history commands.
 
-## 概要
+## Synopsis
 
 ```shell
 fc [-e ename] [-lnr] [first] [last]
 fc -s [pat=rep] [command]
 ```
 
-## 主要用途
+## Main Purpose
 
-- 显示历史列表中的命令。
+- Display commands from the history list.
 
-- 编辑并重新执行历史列表的命令。
+- Edit and re-execute commands from the history list.
 
-## 选项
+## Options
 
 ```shell
--e ename                  选择使用的编辑器，默认调用次序为环境变量`FCEDIT`、环境变量`EDITOR`、`vi`。
--l                        列出而不是编辑。
--n                        列出时不输出行号（需配合-l选项）。
--r                        倒序列出命令，最近执行的先列出（需配合-l选项）。
--s [pat=rep] [command]    command（未指定时为最后执行的命令）将在pat替换为rep后重新执行。
+-e ename                  Select the editor to use. The default calling order is the environment variable `FCEDIT`, then `EDITOR`, and finally `vi`.
+-l                        List the commands instead of editing them.
+-n                        Do not output line numbers when listing (must be used with the -l option).
+-r                        List commands in reverse order, with the most recently executed first (must be used with the -l option).
+-s [pat=rep] [command]    The command (defaults to the last executed command if not specified) will be re-executed after replacing `pat` with `rep`.
 ```
 
-## 参数
+## Parameters
 
-first：可选；可以是字符串（以该字符串开头的最新命令）、数字（历史列表索引，负数代表当前命令号的偏移）；未指定时设置为前一个命令并且偏移量为-16（最近的16条命令）。
+first: Optional; can be a string (the most recent command starting with that string), a number (index in the history list, negative numbers represent an offset from the current command number). If not specified, it defaults to the previous command with an offset of -16 (the 16 most recent commands).
 
-last：可选；可以是字符串（以该字符串开头的最新命令）、数字（历史列表索引，负数代表当前命令号的偏移）；未指定时设置为参数first。
+last: Optional; can be a string (the most recent command starting with that string), a number (index in the history list, negative numbers represent an offset from the current command number). If not specified, it defaults to the value of the `first` parameter.
 
-## 返回值
+## Return Value
 
-返回成功或执行命令的状态，当错误出现时返回非0值。
+Returns success or the status of the executed command. Returns a non-zero value when an error occurs.
 
-## 例子
+## Examples
 
-替换命令参数:
+Replace command parameters:
 
 ```shell
-# 列出 ~ 目录
+# List the ~ directory
 ls ~
-# 替换 ~ 为 / ，替换后列出根目录， 
+# Replace ~ with /; after replacement, list the root directory.
 fc -s ~=/
 ```
 
-显示最近使用的10条历史命令：
+Display the 10 most recently used history commands:
 
 ```shell
 [root@localhost ~]# fc -l -10
@@ -63,18 +63,14 @@ fc -s ~=/
 1048     showkey -a
 ```
 
-编辑第1040条历史命令：
+Edit history command number 1040:
 
 ```shell
 [root@localhost ~]# fc 1040
 ```
 
+### Note
 
-### 注意
-
-1. 关闭终端后，历史列表将被写入历史文件`~/.bash_history`。
-2. 环境变量`FCEDIT`的值为`fc`默认的编辑器。
-3. 该命令是bash内建命令，相关的帮助信息请查看`help`命令。
-
-
-
+1. After closing the terminal, the history list will be written to the history file `~/.bash_history`.
+2. The value of the environment variable `FCEDIT` is the default editor for `fc`.
+3. This command is a bash built-in; for related help information, please refer to the `help` command.

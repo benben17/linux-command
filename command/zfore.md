@@ -1,20 +1,18 @@
-zfore
+zforce
 ===
 
-强制为gzip格式的压缩文件添加.gz后缀
+Force a .gz extension on all gzip files
 
-## 补充说明
+## Description
 
-**zfore命令** 强制为gzip格式的压缩文件添加“.gz”后缀。
+The **zforce** command forces a ".gz" extension on all gzip files.
 
-###  语法
+### Syntax
 
 ```shell
-zfore(参数)
+zforce [parameters]
 ```
 
-###  参数
+### Parameters
 
-文件列表：指定要添加“.gz”后缀的gzip压缩文件。
-
-
+File list: Specifies the gzip compressed files to which the ".gz" extension should be added.

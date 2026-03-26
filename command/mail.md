@@ -1,89 +1,83 @@
 mail
 ===
 
-命令行下发送和接收电子邮件
+Send and receive emails from the command line
 
-## 补充说明
+## Description
 
-**mail命令** 是命令行的电子邮件发送和接收工具。操作的界面不像elm或pine那么容易使用，但功能非常完整。
+The **mail command** is a utility for sending and receiving emails via the command line. While its interface may not be as user-friendly as `elm` or `pine`, it provides comprehensive functionality.
 
-###  语法
-
-```shell
-mail(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--b<地址>：指定密件副本的收信人地址；
--c<地址>：指定副本的收信人地址；
--f<邮件文件>：读取指定邮件文件中的邮件；
--i：不显示终端发出的信息；
--I：使用互动模式；
--n：程序使用时，不使用mail.rc文件中的设置；
--N：阅读邮件时，不显示邮件的标题；
--s<邮件主题>：指定邮件的主题；
--u<用户帐号>：读取指定用户的邮件；
--v：执行时，显示详细的信息。
+mail [OPTION]... [ADDRESS]
 ```
 
-###  参数
-
-邮件地址：收信人的电子邮箱地址。
-
-###  实例
-
- **直接使用shell当编辑器** 
+### Options
 
 ```shell
-mail -s "Hello from jsdig.com by shell" admin@jsdig.com
-hello,this is the content of mail.
-welcome to www.jsdig.com
+-b <address>: Specify blind carbon copy (BCC) recipient.
+-c <address>: Specify carbon copy (CC) recipient.
+-f <mailbox>: Read emails from the specified mailbox file.
+-i: Ignore terminal interrupt signals.
+-I: Enable interactive mode.
+-n: Do not read the system-wide mail.rc file.
+-N: Do not display message headers when reading mail.
+-s <subject>: Specify the subject of the email.
+-u <user>: Read the mailbox of the specified user.
+-v: Enable verbose mode to display detailed delivery information.
 ```
 
-第一行是输入的命令，`-s`表示邮件的主题，后面的`admin@jsdig.com`则是邮件的接收人，输入完这行命令后回车，会进入邮件正文的编写，我们可以输入任何文字，比如上面的两行。当邮件正文输入完成后，需要按 **CTRL+D** 结束输入，此时会提示你输入Cc地址，即邮件抄送地址，没有直接回车就完成了邮件的发送。
+### Parameters
 
- **使用管道进行邮件发送** 
+Email Address: The recipient's email address.
+
+### Examples
+
+**Using the Shell as an Editor**
 
 ```shell
-echo "hello,this is the content of mail.welcome to www.jsdig.com" | mail -s "Hello from jsdig.com by pipe" admin@jsdig.com
+mail -s "Hello from shell" admin@example.com
+This is the content of the mail.
+Welcome to example.com.
 ```
 
-使用管道直接敲入这行命令即可完成邮件的发送，其中echo后的是邮件正文。
+The first line is the command, where `-s` specifies the subject. After pressing Enter, you can type the body of the email. Press **CTRL+D** to finish and send. You will be prompted for a "Cc" address; press Enter to skip.
 
- **使用文件进行邮件发送** 
+**Using a Pipe to Send Mail**
 
 ```shell
-mail -s "Hello from jsdig.com by file" admin@jsdig.com < mail.txt
+echo "This is the content of the mail." | mail -s "Hello via pipe" admin@example.com
 ```
 
-使用上面的命令后，我们就可以把mail.txt文件的内容作为邮件的内容发送给admin@jsdig.com了。
+This completes the email sending in a single line using a pipe.
 
-使用上述三种方式都可以给外部邮箱进行邮件发送，但因为前面2中都是直接在shell中敲入邮件内容，因此无法输入中文，即使我们使用粘贴的方式输入了中文，那么收到的邮件也是乱码的。但第3种方式，我们可以在window下编辑好邮件内容后，放到linux下，再进行发送，这样就可以正常发送中文了。不过目前邮件的中文标题暂时没有找到解决办法。
-
-因为mail程序本身就是调用sendmail来进行邮件发送的，因此我们可以在mail命令中使用sendmail的参数进行配置，比如我想使用特定的发件人发送邮件，可以使用如下命令：
+**Sending a File as the Email Body**
 
 ```shell
-mail -s "Hello from jsdig.com with sender" admin@jsdig.com -- -f user@jsdig.com<mail.txt
+mail -s "Hello via file" admin@example.com < mail.txt
 ```
 
-上面的命令中，我们使用了– -f user@jsdig.com这样的参数，这是sendmail的选项，其中-f表示邮件的发送人邮件地址。
+This sends the content of `mail.txt` as the body of the email.
 
-很多情况下，我们也需要使用邮件来发送附件，在linux下使用mail命令发送附件也很简单，不过首先需要安装uuencode软件包，这个程序是对二进制文件进行编码使其适合通过邮件进行发送，在CentOS上安装该软件包如下：
+**Configuring Sender via Sendmail Options**
+
+Since `mail` typically calls `sendmail` for delivery, you can pass parameters to `sendmail`. For example, to specify a sender:
 
 ```shell
-yum install sharutils
+mail -s "Hello with sender" admin@example.com -- -f user@example.com < mail.txt
 ```
 
-安装完成后我们就可以来进行附件的发送了，使用如下命令：
+The `--` separates `mail` options from `sendmail` options, where `-f` sets the envelope sender address.
+
+**Sending Attachments**
+
+To send attachments, you typically use `uuencode` (part of the `sharutils` package) to encode binary files for transmission:
 
 ```shell
-uuencode test.txt test | mail -s "hello,see the attachement" admin@jsdig.com<mail.txt
+uuencode test.txt test.txt | mail -s "See the attachment" admin@example.com < mail.txt
 ```
 
-完成后就可以把text.txt文件作为邮件的附件发送出去了。uuencode有两个参数，第一个是要发送的文件，第二个是显示的文件名称。
+This sends `test.txt` as an attachment. The first argument to `uuencode` is the source file, and the second is the filename as it will appear in the email.
 
-这里我主要介绍的是在CentOS下使用mail发送电子邮件的一些使用方法，需要的要求是你的linux必须安装了sendmail并开启了，同时保证可以连接外网。另外，文章中提到的命令本人都经过亲自测试，保证完全可用，不过你需要将命令中的电子邮件地址换成自己的电子邮件地址。
-
-
+Note: Ensure that `sendmail` or an equivalent MTA is installed and configured on your system for `mail` to function correctly.

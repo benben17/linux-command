@@ -1,54 +1,54 @@
 restore
 ===
 
-所进行的操作和dump指令相反
+The reverse operation of the `dump` command.
 
-## 补充说明
+## Description
 
-**restore命令** 是dump命令的逆过程，用于还原dump命令生成的备份文件。倾倒操作可用来备份文件，而还原操作则是写回这些已备份的文件。
+The **restore command** is the inverse of the `dump` command, used to restore backup files created by the `dump` command. While dumping is used for backing up files, restoration is the process of writing these backed-up files back to the system.
 
-###  语法
-
-```shell
-restore(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
--b<区块大小>：设置区块大小，单位为Byte；
--c：不检查倾倒操作的备份格式，仅准许读取使用旧格式的备份文件；
--C：使用对比模式，将备份的文件与现行的文件相互对比；
--D<文件系统>：允许用户指定文件系统的名称；
--f<备份文件>：从指定的文件中读取备份数据，进行还原操作；
--h：仅解除目录而不包括与该目录相关的所有文件；
--i：使用互动模式，在进行还原操作时，restore指令将依序询问用户；
--m：解开符合指定的inode编号的文件或目录而非用文件名称指定；
--r：进行还原操作；
--R：全面还原文件系统时，检查应从何处开始进行；
--s<文件编号>：当备份数据超过一卷磁带时，用户可以指定备份文件的编号；
--t：指定文件名称，若该文件已存在备份文件中，则列出它们的名称；
--v：显示指令执行过程；
--x：设置文件名称，且从指定的存储媒体里读入它们，若该文件已存在在备份文件中，则将其还原到文件系统内；
--y：不询问任何问题，一律以同意回答并继续执行指令。
+restore(options)
 ```
 
-###  实例
+### Options
+
+```shell
+-b<block_size>: Sets the block size in bytes.
+-c: Does not check the dump format; only allows reading backup files in the old format.
+-C: Comparison mode; compares the backup files with the current files.
+-D<filesystem>: Allows the user to specify the name of the filesystem.
+-f<backup_file>: Reads backup data from the specified file for restoration.
+-h: Extracts only the directory itself, excluding all files related to that directory.
+-i: Interactive mode; the restore command will prompt the user sequentially during restoration.
+-m: Extracts files or directories matching specified inode numbers instead of filenames.
+-r: Performs the restoration operation.
+-R: When restoring the entire filesystem, checks where the restoration should begin.
+-s<file_number>: When backup data spans multiple tapes, specifies the backup file number.
+-t: Lists the names of the specified files if they exist in the backup.
+-v: Displays detailed information during command execution.
+-x: Extracts specified files from the storage medium and restores them to the filesystem if they exist in the backup.
+-y: Does not prompt for confirmation; assumes "yes" to all questions and continues.
+```
+
+### Examples
+
+Create a backup using the `dump` command:
 
 ```shell
 dump -9 -u -f /dev/hda3 /home/frank/
 ```
 
-用restore命令来恢复备份：
+Restore the backup using the `restore` command:
 
 ```shell
 restore rf /dev/hda3 /home/frank
 ```
 
-用restore命令来查看备份文件里的文件列表：
+View the list of files in the backup using the `restore` command:
 
 ```shell
 restore ft /dev/hda3
 ```
-
-

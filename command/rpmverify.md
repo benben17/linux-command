@@ -1,24 +1,22 @@
 rpmverify
 ===
 
-验证已安装的RPM软件包的正确性
+Verify the integrity of installed RPM packages.
 
-## 补充说明
+## Description
 
-**rpmverify命令** 用来验证已安装的rpm软件包的正确性。
+The **rpmverify command** is used to verify the correctness of installed RPM packages.
 
-###  语法
-
-```shell
-rpmverify(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
--Va：验证所有软件包；
--V<软件包>f：验证指定软件包；
---nomd5：不验证软件包的md5摘要。
+rpmverify(options)
 ```
 
+### Options
 
+```shell
+-Va: Verify all packages.
+-V<package>f: Verify the specified package.
+--nomd5: Do not verify the MD5 digest of the package.
+```

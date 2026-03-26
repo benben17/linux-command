@@ -1,85 +1,85 @@
 test
 ===
 
-执行条件表达式。
+Evaluate conditional expressions.
 
-## 概要
+## Synopsis
 
 ```shell
 test [expr]
 ```
 
-## 主要用途
+## Main Purpose
 
-- 执行条件表达式。
+- Evaluate conditional expressions.
 
-## 参数
+## Parameters
 
-### 文件操作符：
+### File Operators:
 
 ```shell
--a FILE    如果文件存在，则为true。
--b FILE    如果文件是块特殊的，则为true。
--c FILE    如果文件是特殊字符，则为true。
--d FILE    如果文件是目录，则为true。
--e FILE    如果文件存在，则为true。
--f FILE    如果文件存在并且是常规文件，则为true。
--g FILE    如果文件是set-group-id，则为true。
--h FILE    如果文件是符号链接，则为true。
--L FILE    如果文件是符号链接，则为true。
--k FILE    如果文件的粘滞位（sticky）设置了，则为true。
--p FILE    如果文件是命名管道，则为true。
--r FILE    如果您可以读取文件，则为true。
--s FILE    如果文件存在且不为空，则为true。
--S FILE    如果文件是套接字，则为true。
--t FD      如果在终端上打开FD，则为True。
--u FILE    如果文件是set-user-id，则为true。
--w FILE    如果文件可写，则为true。
--x FILE    如果您可以执行文件，则为true。
--O FILE    如果文件有效地归您所有，则为true。
--G FILE    如果文件有效地归您的组所有，则为true。
--N FILE    如果文件自上次读取以来已被修改，则为true。
+-a FILE    True if file exists.
+-b FILE    True if file is block special.
+-c FILE    True if file is character special.
+-d FILE    True if file is a directory.
+-e FILE    True if file exists.
+-f FILE    True if file exists and is a regular file.
+-g FILE    True if file is set-group-id.
+-h FILE    True if file is a symbolic link.
+-L FILE    True if file is a symbolic link.
+-k FILE    True if file has its sticky bit set.
+-p FILE    True if file is a named pipe.
+-r FILE    True if you can read the file.
+-s FILE    True if file exists and is not empty.
+-S FILE    True if file is a socket.
+-t FD      True if FD is opened on a terminal.
+-u FILE    True if file is set-user-id.
+-w FILE    True if file is writable.
+-x FILE    True if you can execute the file.
+-O FILE    True if file is effectively owned by you.
+-G FILE    True if file is effectively owned by your group.
+-N FILE    True if file has been modified since it was last read.
     
-FILE1 -nt FILE2    根据修改日期，如果 file1 比 file2 新，则为true。
-FILE1 -ot FILE2    根据修改日期，如果 file1 比 file2 旧，则为true。
-FILE1 -ef FILE2    如果 file1 为 file2 的硬链接，则为true。
+FILE1 -nt FILE2    True if file1 is newer than file2 (according to modification date).
+FILE1 -ot FILE2    True if file1 is older than file2 (according to modification date).
+FILE1 -ef FILE2    True if file1 is a hard link to file2.
 ```    
-### 字符串运算符：
+### String Operators:
 
 ```shell
--z STRING              如果字符串为空，则为true。
--n STRING              如果字符串不为空，则为true。
-STRING                 如果字符串不为空，则为true。
-STRING1 = STRING2      如果字符串相等，则为true。
-STRING1 ！= STRING2    如果字符串不相等，则为true。
-STRING1 < STRING2      如果 STRING1 的字典排序在 STRING2 之前，则为true。
-STRING1 > STRING2      如果 STRING1 在字典排序在 STRING2 之后，则为true。
+-z STRING              True if string is empty.
+-n STRING              True if string is not empty.
+STRING                 True if string is not empty.
+STRING1 = STRING2      True if the strings are equal.
+STRING1 != STRING2     True if the strings are not equal.
+STRING1 < STRING2      True if STRING1 sorts before STRING2 lexicographically.
+STRING1 > STRING2      True if STRING1 sorts after STRING2 lexicographically.
 ```
 
-### 其他运算符：
+### Other Operators:
 
 ```shell
--o OPTION         如果启用了shell选项OPTION，则为true。
--v VAR            如果设置了shell变量VAR，则为true。
--R VAR            如果设置了shell变量VAR并且是变量引用，则为true。
-！EXPR            如果expr为假，则为true。
-EXPR1 -a EXPR2    如果expr1和expr2都为true，则为true。
-EXPR1 -o EXPR2    如果expr1或expr2为true，则为true。
-arg1 OP arg2      算术表达式测试； OP是 -eq，-ne，-lt，-le，-gt，-ge 中的一个；算术表达式为真时返回true。
+-o OPTION         True if shell option OPTION is enabled.
+-v VAR            True if shell variable VAR is set.
+-R VAR            True if shell variable VAR is set and is a name reference.
+! EXPR            True if expr is false.
+EXPR1 -a EXPR2    True if both expr1 and expr2 are true.
+EXPR1 -o EXPR2    True if either expr1 or expr2 is true.
+arg1 OP arg2      Arithmetic expression test; OP is one of -eq, -ne, -lt, -le, -gt, -ge; returns true if the arithmetic expression is true.
 ```
 
-## 返回值
+## Return Value
 
-如果表达式执行结果为成功时返回0，当表达式执行结果为失败或给出非法参数时返回1。
+Returns 0 if the expression evaluates to success, and returns 1 if the expression evaluates to failure or if invalid parameters are given.
 
-## 例子
+## Examples
 
 ```shell
-# 执行条件表达式并显示返回值。
+# Execute a conditional expression and show the return value.
 [root@pc root]$ test ! "abc" == 123; echo $?
 0
 
-# 等价形式，注意：方括号 [ 后面的空格以及方括号 ] 前面的空格。
+# Equivalent form, note: space after the opening bracket [ and before the closing bracket ].
 [root@pc root]$ [ ! "abc" == 123 ]; echo $?
 0
 
@@ -88,14 +88,11 @@ arg1 OP arg2      算术表达式测试； OP是 -eq，-ne，-lt，-le，-gt，-
 ```
 
 
-### 注意
+### Notes
 
-1. 该命令等价于 `[`。
-2. 编写 bash 条件表达式可用内建命令 `test`， `[` ，组合命令 `[[`；
-  > - 关于条件表达式可以查看[这里](http://www.gnu.org/software/bash/manual/html_node/Bash-Conditional-Expressions.html#Bash-Conditional-Expressions)；
-  > - 关于内建命令的索引可以查看[这里](http://www.gnu.org/software/bash/manual/html_node/Builtin-Index.html#Builtin-Index)；
-  > - 关于组合命令的索引可以查看[这里](http://www.gnu.org/software/bash/manual/html_node/Reserved-Word-Index.html#Reserved-Word-Index)
-3. 该命令是bash内建命令，相关的帮助信息请查看`help`命令。
-
-
-
+1. This command is equivalent to `[`.
+2. To write bash conditional expressions, you can use the built-in command `test`, `[`, or the compound command `[[`.
+  > - For conditional expressions, see [here](http://www.gnu.org/software/bash/manual/html_node/Bash-Conditional-Expressions.html#Bash-Conditional-Expressions).
+  > - For an index of built-in commands, see [here](http://www.gnu.org/software/bash/manual/html_node/Builtin-Index.html#Builtin-Index).
+  > - For an index of compound commands, see [here](http://www.gnu.org/software/bash/manual/html_node/Reserved-Word-Index.html#Reserved-Word-Index).
+3. This command is a bash built-in; see the `help` command for related help information.

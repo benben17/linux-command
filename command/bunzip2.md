@@ -1,47 +1,44 @@
 bunzip2
 ===
 
-可解压缩.bz2格式的压缩文件。 
+Decompress files in .bz2 format.
 
-## 补充说明
+## Description
 
-bzip2可以对文件进行压缩与解压缩。此命令类似于“gzip/gunzip”命令，只能对文件进行压缩。对于目录只能压缩目录下的所有文件，压缩完成后，在目录下生成以“.bz2”为后缀的压缩包。**bunzip2其实是bzip2的符号链接**，即软链接，因此解压都可以通过bzip2 -d实现。
+`bzip2` can compress and decompress files. This command is similar to the `gzip/gunzip` commands and can only compress files. For directories, it can only compress all files within the directory. Once compressed, a package with the `.bz2` suffix is generated in the directory. **bunzip2 is actually a symbolic link to bzip2**, meaning it is a soft link; therefore, decompression can always be achieved via `bzip2 -d`.
 
-###  语法
-
-```shell
-bunzip2(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--f或--force：解压缩时，若输出的文件与现有文件同名时，预设不会覆盖现有的文件；
--k或——keep：在解压缩后，预设会删除原来的压缩文件。若要保留压缩文件，请使用此参数；
--s或——small：降低程序执行时，内存的使用量；
--v或——verbose：解压缩文件时，显示详细的信息；
--l，--license，-V或——version：显示版本信息。
+bunzip2 [options] [parameters]
 ```
 
-###  参数
+### Options
 
-.bz2压缩包：指定需要解压缩的.bz2压缩包。
+```shell
+-f or --force: Force overwrite of existing files with the same name during decompression.
+-k or --keep: By default, the original compressed file is deleted after decompression. Use this parameter to keep the compressed file.
+-s or --small: Reduce memory usage during program execution.
+-v or --verbose: Show detailed information during file decompression.
+-l, --license, -V or --version: Display version information.
+```
 
-###  实例
+### Parameters
 
-将`/opt`目录下的etc.zip、var.zip和backup.zip进行压缩，设置压缩率为最高，同时在压缩完毕后不删除原始文件，显示压缩过程的详细信息。
+.bz2 compressed package: Specify the `.bz2` package that needs to be decompressed.
+
+### Examples
+
+Compress `etc.zip`, `var.zip`, and `backup.zip` in the `/opt` directory, set the compression rate to maximum, do not delete original files after compression, and show detailed information about the compression process.
 
 ```shell
 bzip2 -9vk /opt/etc.zip /opt/var.zip /opt/backup.zip
 ```
 
-压缩完毕后，在`/opt`下就会生成相应的etc.zip.bz2、var.zip.bz2和backup.zip.bz2文件。
+After compression, corresponding `etc.zip.bz2`, `var.zip.bz2`, and `backup.zip.bz2` files will be generated in `/opt`.
 
-解压缩：
-
+Decompress:
 
 ```bash
 bunzip2 -v /opt/etc.zip.bz2
 ```
-
-

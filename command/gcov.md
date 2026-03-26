@@ -1,29 +1,27 @@
 gcov
 ===
 
-测试程序的代码覆盖率的工具
+A tool for testing program code coverage.
 
-## 补充说明
+## Supplemental Information
 
-**gcov命令** 是一款测试程序的代码覆盖率的工具。
+The **gcov command** is a tool used to test the code coverage of a program.
 
-###  语法
-
-```shell
-gcov(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--h：显示帮助信息；
--v：显示版本信息；
--a：输出所有的基本块的执行计数；
--n：并创建输出文件。
+gcov (options) (parameters)
 ```
 
-###  参数
+### Options
 
-V语言文件：C语言源代码文件。
+```shell
+-h: Display help information;
+-v: Display version information;
+-a: Output execution counts for all basic blocks;
+-n: Create output files.
+```
 
+### Parameters
 
+C source file: C language source code file.

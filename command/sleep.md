@@ -1,31 +1,31 @@
 sleep
 ===
 
-将目前动作延迟一段时间
+Delay for a specified amount of time.
 
-## 补充说明
+## Description
 
-**sleep命令** 暂停指定的时间。
+The **sleep command** pauses the execution for a specified duration.
 
-###  语法
+### Syntax
 
 ```shell
-sleep(参数)
+sleep(parameter)
 ```
 
-###  参数
+### Parameters
 
-时间：指定要暂停时间的长度, 包括如下: 
+Time: Specifies the length of time to pause, including:
 
-* `2s`: 2秒
-* `2m`: 2分钟
-* `2h`: 2小时
-* `2d`: 2天
-* `infinity`: 永久
+* `2s`: 2 seconds
+* `2m`: 2 minutes
+* `2h`: 2 hours
+* `2d`: 2 days
+* `infinity`: Permanently
 
-###  实例
+### Example
 
-有时在写一些以循环方式运行的监控脚本，设置时间间隔是必不可少的，下面是一个Shell进度条的脚本演示在脚本中生成延时。
+When writing monitoring scripts that run in a loop, setting a time interval is essential. Below is a demonstration of a Shell progress bar script that generates delays.
 
 ```shell
 #!/bin/bash
@@ -39,4 +39,3 @@ for ((i=0;$i<=100;i++))
  done
 echo
 ```
-

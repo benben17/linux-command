@@ -1,26 +1,24 @@
 gpm
 ===
 
-提供文字模式下的滑鼠事件处理
+Provide mouse event handling in text mode.
 
-## 补充说明
+## Supplemental Information
 
-**gpm命令** 是Linux的虚拟控制台下的鼠标服务器，用于在虚拟控制台下实现鼠标复制和粘贴文本的功能。
+The **gpm command** (General Purpose Mouse) is a mouse server for the Linux virtual console. It is used to enable mouse support, such as copying and pasting text, within the virtual console environment.
 
-###  语法
-
-```shell
-gpm(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
--a：设置加速值；
--b：设置波特率；
--B：设置鼠标按键次序；
--m：指定鼠标设备文件；
--t：设置鼠标类型。
+gpm (options)
 ```
 
+### Options
 
+```shell
+-a: Set the acceleration value;
+-b: Set the baud rate;
+-B: Set the mouse button sequence;
+-m: Specify the mouse device file;
+-t: Set the mouse type.
+```

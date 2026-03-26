@@ -1,30 +1,28 @@
 cancel
 ===
 
-取消已存在的打印任务
+Cancel an existing print job.
 
-## 补充说明
+## Description
 
-**cancel命令** 用于取消已存在的打印任务。
+The **cancel command** is used to cancel an existing print job.
 
-###  语法
-
-```shell
-cancel(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--a：取消所有打印任务；
--E：当连接到服务器时强制使用加密；
--U：指定连接服务器时使用的用户名；
--u：指定打印任务所属的用户；
--h：指定连接的服务器名和端口号。
+cancel [options] [parameters]
 ```
 
-###  参数
+### Options
 
-打印任务号：指定要取消的打印任务编号。
+```shell
+-a: Cancel all print jobs.
+-E: Force encryption when connecting to the server.
+-U: Specify the username to use when connecting to the server.
+-u: Specify the user to whom the print jobs belong.
+-h: Specify the server name and port number to connect to.
+```
 
+### Parameters
 
+Print Job ID: Specify the ID of the print job to be canceled.

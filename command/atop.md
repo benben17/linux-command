@@ -1,114 +1,114 @@
 atop
 ===
 
-监控Linux系统资源与进程的工具
+Tool for monitoring Linux system resources and processes
 
-## 补充说明
+## Additional Information
 
-**atop命令** 是一款开源的系统监控工具，它以一定的频率记录系统的运行状态，采集的数据包含系统资源(CPU、内存、磁盘和网络)使用情况和进程运行情况，并能以日志文件的方式保存在磁盘中。服务器出现问题后，我们可获取相应的atop日志文件进行分析。atop是一款开源软件，我们可以从这里获得其[源码](https://github.com/Atoptool/atop)和[rpm安装包](https://pkgs.org/download/atop)。
+The **atop command** is an open-source system monitoring tool that records the operating status of the system at a certain frequency. The collected data includes system resource usage (CPU, memory, disk, and network) and process operation status, and can be saved to the disk in the form of log files. When a problem occurs on the server, we can obtain the corresponding atop log files for analysis. atop is open-source software, and you can get its [source code](https://github.com/Atoptool/atop) and [RPM installation packages](https://pkgs.org/download/atop) from their respective links.
 
-## 语法
+## Syntax
 
 ```shell
-atop [选项] [参数]
+atop [options] [parameters]
 ```
 
-## 说明
+## Description
 
-### ATOP列
+### ATOP Column
 
-该列显示了主机名、信息采样日期和时间点。
+This column shows the hostname, sampling date, and time.
 
-### PRC列
+### PRC Column
 
-该列显示进程整体运行情况：
+This column shows the overall running status of processes:
 
-- sys、usr字段分别指示进程在内核态和用户态的运行时间
-- `#proc` 字段指示进程总数
-- `#zombie` 字段指示僵尸进程的数量
-- `#exit` 字段指示atop采样周期期间退出的进程数量
+- `sys` and `usr` fields indicate the running time of processes in kernel mode and user mode, respectively.
+- `#proc` field indicates the total number of processes.
+- `#zombie` field indicates the number of zombie processes.
+- `#exit` field indicates the number of processes that exited during the atop sampling period.
 
-### CPU列
+### CPU Column
 
-该列显示CPU整体(即多核CPU作为一个整体CPU资源)的使用情况：
+This column shows the overall usage of the CPU (i.e., multi-core CPU as a whole CPU resource):
 
-- sys、usr字段指示CPU被用于处理进程时，进程在内核态、用户态所占CPU的时间比例
-- irq字段指示CPU被用于处理中断的时间比例
-- idle字段指示CPU处在完全空闲状态的时间比例
-- wait字段指示CPU处在“进程等待磁盘IO导致CPU空闲”状态的时间比例
+- `sys` and `usr` fields indicate the proportion of CPU time used for processing processes in kernel mode and user mode.
+- `irq` field indicates the proportion of CPU time used for handling interrupts.
+- `idle` field indicates the proportion of time the CPU is completely idle.
+- `wait` field indicates the proportion of time the CPU is idle because processes are waiting for disk I/O.
 
-CPU列各个字段指示值相加结果为N00%，其中N为cpu核数。
+The sum of the values in the CPU column is N00%, where N is the number of CPU cores.
 
-### cpu列
+### cpu Column
 
-该列显示某一核cpu的使用情况，各字段含义可参照CPU列，各字段值相加结果为100%。
+This column shows the usage of a specific CPU core. The meaning of each field is the same as in the CPU column, and the sum of the fields is 100%.
 
-### CPL列
+### CPL Column
 
-该列显示CPU负载情况：
+This column shows the CPU load status:
 
-- avg1、avg5和avg15字段：过去1分钟、5分钟和15分钟内运行队列中的平均进程数量
-- csw字段指示上下文交换次数
-- intr字段指示中断发生次数
+- `avg1`, `avg5`, and `avg15` fields: The average number of processes in the run queue over the past 1, 5, and 15 minutes.
+- `csw` field indicates the number of context switches.
+- `intr` field indicates the number of interrupts.
 
-### MEM列
+### MEM Column
 
-该列指示内存的使用情况：
+This column indicates memory usage:
 
-- tot字段指示物理内存总量
-- free字段指示空闲内存的大小
-- cache字段指示用于页缓存的内存大小
-- buff字段指示用于文件缓存的内存大小
-- slab字段指示系统内核占用的内存大小
+- `tot` field indicates the total amount of physical memory.
+- `free` field indicates the amount of free memory.
+- `cache` field indicates the amount of memory used for page cache.
+- `buff` field indicates the amount of memory used for file cache.
+- `slab` field indicates the amount of memory occupied by the system kernel.
 
-### SWP列
+### SWP Column
 
-该列指示交换空间的使用情况：
+This column indicates swap space usage:
 
-- tot字段指示交换区总量
-- free字段指示空闲交换空间大小
+- `tot` field indicates the total amount of swap space.
+- `free` field indicates the amount of free swap space.
 
-### PAG列
+### PAG Column
 
-该列指示虚拟内存分页情况：
+This column indicates virtual memory paging status:
 
-- swin、swout字段：换入和换出内存页数
+- `swin` and `swout` fields: The number of memory pages swapped in and out.
 
-### DSK列
+### DSK Column
 
-该列指示磁盘使用情况，每一个磁盘设备对应一列，如果有sdb设备，那么增多一列DSK信息：
+This column indicates disk usage. Each disk device corresponds to a column. If there is an `sdb` device, an additional DSK column is added:
 
-- sda字段：磁盘设备标识
-- busy字段：磁盘忙时比例
-- read、write字段：读、写请求数量
+- `sda` field: Disk device identifier.
+- `busy` field: Proportion of time the disk is busy.
+- `read` and `write` fields: The number of read and write requests.
 
-### NET列
+### NET Column
 
-多列NET展示了网络状况，包括传输层(TCP和UDP)、IP层以及各活动的网口信息：
+Multiple NET columns show network status, including the transport layer (TCP and UDP), IP layer, and information for each active network interface:
 
-- XXXi字段指示各层或活动网口收包数目
-- XXXo字段指示各层或活动网口发包数目
+- `XXXi` field indicates the number of received packets for each layer or active network interface.
+- `XXXo` field indicates the number of sent packets for each layer or active network interface.
 
-## atop日志
+## atop Logs
 
-每个时间点采样页面组合起来就形成了一个atop日志文件，我们可以使用`atop -r XXX`命令对日志文件进行查看。日志文件的保存方式如下：
+A series of sampled pages over time forms an atop log file. We can use the `atop -r XXX` command to view the log file. Log files are saved as follows:
 
-- 每天保存一个atop日志文件，该日志文件记录当天信息
-- 日志文件以`atop_YYYYMMDD`的方式命名
-- 设定日志失效期限，自动删除一段时间前的日志文件
+- One atop log file is saved every day, recording information for that day.
+- Log files are named in the format `atop_YYYYMMDD`.
+- A log expiration period is set to automatically delete log files from a certain time ago.
 
-atop开发者提供了以上日志保存方式，相应的`atop.daily`脚本可以在源码目录下找到。在`atop.daily`脚本中，我们可以通过修改`INTERVAL`变量改变atop信息采样周期(默认为10分钟)；通过修改以下命令中的数值改变日志保存天数(默认为28天)：
+The atop developers provide the above log saving methods, and the corresponding `atop.daily` script can be found in the source directory. In the `atop.daily` script, we can change the atop sampling period (default is 10 minutes) by modifying the `INTERVAL` variable; we can change the log retention period (default is 28 days) by modifying the numerical value in the following command:
 
 ```shell
 (sleep 3; find $LOGPATH -name 'atop_*' -mtime +28 -exec rm {} \; )& 
 ```
 
-最后，我们修改cron文件，每天凌晨执行`atop.daily`脚本：
+Finally, we can modify the cron file to execute the `atop.daily` script every day at midnight:
 
 ```shell
 0 0 * * * root /etc/cron.daily/atop.daily
 ```
 
-## 相关资料
+## Related Resources
 
-- [官方手册](http://www.atoptool.nl/download/man_atop-1.pdf)
+- [Official Manual](http://www.atoptool.nl/download/man_atop-1.pdf)

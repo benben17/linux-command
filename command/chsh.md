@@ -1,36 +1,36 @@
 chsh
 ===
 
-用来更换登录系统时使用的shell
+Used to change the login shell
 
-## 补充说明
+## Description
 
-**chsh命令** 用来更换登录系统时使用的shell。若不指定任何参数与用户名称，则chsh会以应答的方式进行设置。
+The **chsh command** is used to change the login shell for the system. If no parameters or username are specified, `chsh` will proceed in an interactive mode.
 
-###  语法
-
-```shell
-chsh(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--s<shell 名称>或--shell<shell 名称>：更改系统预设的shell环境。；
--l或--list-shells：列出目前系统可用的shell清单；
--u或--help：在线帮助；
--v或-version：显示版本信息。
+chsh [options] [arguments]
 ```
 
-###  参数
+### Options
 
-用户名：要改变默认shell的用户。
+```shell
+-s <shell_name> or --shell <shell_name>: Change the default shell environment for the system;
+-l or --list-shells: List the shells currently available on the system;
+-u or --help: Online help;
+-v or --version: Display version information.
+```
 
-###  实例
+### Arguments
 
- **查看系统安装了哪些shell的两种方法：** 
+Username: The user whose default shell is to be changed.
 
-第一种：
+### Examples
+
+**Two methods to check which shells are installed on the system:**
+
+Method 1:
 
 ```shell
 [rocrocket@localhost ~]$ chsh -l
@@ -40,7 +40,7 @@ chsh(选项)(参数)
 /bin/zsh
 ```
 
-第二种：
+Method 2:
 
 ```shell
 [rocrocket@localhost ~]$ cat /etc/shells
@@ -50,18 +50,18 @@ chsh(选项)(参数)
 /bin/zsh
 ```
 
-其实`chsh -l`也是来查看这个文件。
+In fact, `chsh -l` simply reads this file.
 
- **查看当前正在使用的shell：** 
+**Check the shell currently in use:**
 
 ```shell
 [rocrocket@localhost ~]$ echo $SHELL
 /bin/bash
 ```
 
-注意SHELL一定要是大写。可以看到，目前使用的shell是`/bin/bash`
+Note that `SHELL` must be in uppercase. You can see that the current shell is `/bin/bash`.
 
- **把我的shell改成zsh：** 
+**Change my shell to zsh:**
 
 ```shell
 [rocrocket@localhost ~]$ chsh -s /bin/zsh
@@ -71,16 +71,16 @@ Shell changed.
 [rocrocket@localhost ~]$
 ```
 
-使用chsh加选项`-s`就可以修改登录的shell了！你会发现你现在执行`echo $SHELL`后仍然输出为`/bin/bash`，这是因为你需要重启你的shell才完全投入到zsh怀抱中去。`chsh -s`其实修改的就是`/etc/passwd`文件里和你的用户名相对应的那一行。现在来查看下：
+Use `chsh` with the `-s` option to change the login shell. You might notice that `echo $SHELL` still outputs `/bin/bash` because you need to restart your shell for the change to take full effect. `chsh -s` actually modifies the line corresponding to your username in the `/etc/passwd` file. Let's check it:
 
 ```shell
-[rocrocket@localhost ~]$ cat /etc/passwd|grep ^rocrocket
-rocrocket:x:500:500:rocrocket,China:/rocrocket/PSB/home:/bin/zsh
+[rocrocket@localhost ~]$ cat /etc/passwd | grep ^rocrocket
+rocrocket:x:500:500:rocrocket,China:/home/rocrocket:/bin/zsh
 ```
 
-你可以发现输出内容的最后部分已经变成了`/bin/zsh`了，下次重启的时候，linux就会读取这一命令来启动shell了！
+You can see that the last part of the output has changed to `/bin/zsh`. The next time you log in, Linux will read this command to start the shell.
 
- **把shell修改回/bin/bash：** 
+**Change the shell back to /bin/bash:**
 
 ```shell
 [rocrocket@localhost ~]$ chsh -s /bin/bash
@@ -88,5 +88,3 @@ Changing shell for rocrocket.
 Password:
 Shell changed.
 ```
-
-

@@ -1,60 +1,60 @@
 nmap
 ===
 
-网络探测和安全审核
+Network exploration and security auditing tool
 
-## 补充说明
+## Description
 
-**nmap命令** 是一款开放源代码的网络探测和安全审核工具，它的设计目标是快速地扫描大型网络。
+The **nmap command** is an open-source tool for network exploration and security auditing. It is designed to rapidly scan large networks.
 
-###  语法 
-
-```shell
-nmap(选项)(参数)
-```
-
-###  选项 
+### Syntax
 
 ```shell
--O：激活操作探测；
--P0：值进行扫描，不ping主机；
--PT：是同TCP的ping；
--sV：探测服务版本信息；
--sP：ping扫描，仅发现目标主机是否存活；
--ps：发送同步（SYN）报文；
--PU：发送udp ping；
--PE：强制执行直接的ICMPping；
--PB：默认模式，可以使用ICMPping和TCPping；
--6：使用IPv6地址；
--v：得到更多选项信息；
--d：增加调试信息地输出；
--oN：以人们可阅读的格式输出；
--oX：以xml格式向指定文件输出信息；
--oM：以机器可阅读的格式输出；
--A：使用所有高级扫描选项；
---resume：继续上次执行完的扫描；
--P：指定要扫描的端口，可以是一个单独的端口，用逗号隔开多个端口，使用“-”表示端口范围；
--e：在多网络接口Linux系统中，指定扫描使用的网络接口；
--g：将指定的端口作为源端口进行扫描；
---ttl：指定发送的扫描报文的生存期；
---packet-trace：显示扫描过程中收发报文统计；
---scanflags：设置在扫描报文中的TCP标志。
---send-eth/--send-ip 使用原始以太网发送/构造指定IP发送
+nmap [options] [parameters]
 ```
 
-###  参数 
+### Options
 
-ip地址：指定待扫描报文中的TCP地址。
+```shell
+-O: Enable OS detection.
+-P0: Treat all hosts as online (skip host discovery).
+-PT: TCP ping.
+-sV: Probe open ports to determine service/version info.
+-sP: Ping scan: only determine if hosts are up.
+-ps: TCP SYN ping.
+-PU: UDP ping.
+-PE: ICMP echo discovery.
+-PB: Default discovery: use ICMP echo and TCP ping.
+-6: Enable IPv6 scanning.
+-v: Increase verbosity.
+-d: Increase debugging level.
+-oN: Output scan results in normal format to the specified file.
+-oX: Output scan results in XML format to the specified file.
+-oM: Output in machine-readable format.
+-A: Enable aggressive scan options (OS detection, version detection, script scanning, and traceroute).
+--resume: Resume an aborted scan.
+-p: Specify ports to scan. Can be a single port, a comma-separated list, or a range using "-".
+-e: Specify the network interface to use.
+-g: Use a specific port as the source port for scanning.
+--ttl: Set the IPv4 time-to-live field.
+--packet-trace: Show all packets sent and received.
+--scanflags: Customize TCP scan flags.
+--send-eth/--send-ip: Send using raw ethernet frames or raw IP packets.
+```
 
-###  实例 
+### Parameters
 
- **安装nmap** 
+Target: Specifies the IP addresses or hostnames to scan.
+
+### Examples
+
+**Install nmap**
 
 ```shell
 yum install nmap
 ```
 
- **使用nmap扫描scanme.nmap.org的开放端口** 
+**Scan for open ports on scanme.nmap.org**
 
 ```shell
 [root@localhost ~]# nmap scanme.nmap.org
@@ -76,7 +76,3 @@ PORT      STATE    SERVICE
 
 Nmap done: 1 IP address (1 host up) scanned in 60.36 seconds
 ```
-
-
-
-

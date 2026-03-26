@@ -1,20 +1,19 @@
 bye
 ===
 
-命令用于中断FTP连线并结束程序
+Terminate the FTP connection and exit the program.
 
-## 补充说明
+## Description
 
-**bye命令** 在ftp模式下，输入bye即可中断目前的连线作业，并结束ftp的执行。
+The **bye command** is used in FTP mode; typing `bye` will interrupt the current connection task and terminate the FTP session.
 
-
-###  语法
+### Syntax
 
 ```shell
 bye
 ```
 
-### 实例
+### Examples
 
 ```shell
 bye

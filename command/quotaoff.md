@@ -1,29 +1,26 @@
-quotaoff
-===
+# quotaoff
 
-关闭Linux内核中指定文件系统的磁盘配额功能
+Disable the disk quota function for the specified file systems in the Linux kernel.
 
-## 补充说明
+## Description
 
-**quotaoff命令** 用于关闭Linux内核中指定文件系统的磁盘配额功能。
+The **quotaoff** command is used to disable the disk quota function for specified file systems in the Linux kernel.
 
-###  语法
-
-```shell
-quotaoff(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--a：关闭在/etc/fstab文件里，有加入quota设置的分区的空间限制；
--g：关闭群组的磁盘空间限制；
--u：关闭用户的磁盘空间限制；
--v：显示指令执行过程。
+quotaoff [options] [parameters]
 ```
 
-###  参数
+### Options
 
-文件系统：指定要关闭磁盘配额功能的文件系统。
+```shell
+-a: Disable space limits for all partitions in /etc/fstab that have quota settings enabled.
+-g: Disable group disk space limits.
+-u: Disable user disk space limits.
+-v: Show the process of command execution (verbose mode).
+```
 
+### Parameters
 
+File system: Specifies the file system for which the disk quota functionality should be disabled.

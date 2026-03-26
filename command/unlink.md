@@ -1,27 +1,25 @@
 unlink
 ===
 
-系统调用函数unlink去删除指定的文件
+Call the system function unlink to delete specified files.
 
-## 补充说明
+## Description
 
-**unlink命令** 用于系统调用函数unlink去删除指定的文件。和rm命令作用一样，都是删除文件。
+The **unlink command** is used to call the system function unlink to delete specified files. It performs the same function as the rm command, which is to delete files.
 
-###  语法
-
-```shell
-unlink(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
---help：显示帮助；
---version：显示版本号。
+unlink (option) (parameter)
 ```
 
-###  参数
+### Options
 
-文件：指定要删除的文件。
+```shell
+--help: Display help information;
+--version: Display version information.
+```
 
+### Parameters
 
+File: Specifies the file to be deleted.

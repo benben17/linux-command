@@ -1,43 +1,43 @@
 depmod
 ===
 
-分析可载入模块的相依性
+Analyze loadable module dependencies.
 
-## 补充说明
+## Description
 
-**depmod命令** 可产生模块依赖的映射文件，在构建嵌入式系统时，需要由这个命令来生成相应的文件，由modprobe使用。
+The **depmod** command generates a module dependency map file. When building an embedded system, this command is needed to generate the corresponding files used by `modprobe`.
 
-###  语法
-
-```shell
-depmod(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
--a或--all：分析所有可用的模块；
--d或debug：执行排错模式；
--e：输出无法参照的符号；
--i：不检查符号表的版本；
--m<文件>或system-map<文件>：使用指定的符号表文件；
--s或--system-log：在系统记录中记录错误；
--v或--verbose：执行时显示详细的信息；
--V或--version：显示版本信息；
---help：显示帮助。
+depmod (options)
 ```
 
-###  实例
+### Options
+
+```shell
+-a, --all            Analyze all available modules.
+-d, --debug          Execute in debug mode.
+-e                   Output symbols that cannot be referenced.
+-i                   Do not check the version of the symbol table.
+-m <file>, --system-map <file> Use the specified symbol table file.
+-s, --system-log     Log errors in the system log (syslog).
+-v, --verbose        Show detailed information during execution.
+-V, --version        Display version information.
+--help               Display help.
+```
+
+### Examples
 
 ```shell
 depmod -b /home/windsome/EMMA3PF-KernelSource-20080626/install_pos -e -F ./boot/System.map -v 2.6.18_pro500-bcm91250-mips2_fp_be -A -a
 ```
 
-*   `/home/windsome/EMMA3PF-KernelSource-20080626/install_pos`是我`make mod_install`后，所有模块的存放路径。
-*   `./boot/System.map`是`make linux`后生成，我拷贝到此目录的。
-*   `2.6.18_pro500-bcm91250-mips2_fp_be`是我build的linux的版本。
+*   `/home/windsome/EMMA3PF-KernelSource-20080626/install_pos` is the storage path for all modules after I ran `make mod_install`.
+*   `./boot/System.map` was generated after `make linux` and copied to this directory.
+*   `2.6.18_pro500-bcm91250-mips2_fp_be` is the version of the Linux kernel I built.
 
-编译linux过程及执行depmod的例子：
+Example of the Linux compilation process and executing depmod:
 
 ```shell
 genkernel.sh (at linux-2.6.18_pro500)
@@ -54,10 +54,8 @@ cd /home/windsome/EMMA3PF-KernelSource-20080626/install_pos
 depmod -b /home/windsome/EMMA3PF-KernelSource-20080626/install_pos -e -F ./boot/System.map -v 2.6.18_pro500-bcm91250-mips2_fp_be -A -a
 ```
 
-其他用法：
+Other usages:
 
-在linux桌面系统中，当你编译了新的驱动，为了能够用`modprobe ***`加载模块, 你需要先将模块拷贝到`/lib/modules /2.6.31-20-generic`目录下，然后运行`sudo depmod -a`将模块信息写入modules.dep、modules.dep.bin、modules.alias.bin、modules.alias和modules.pcimap文件中。
+In a Linux desktop system, when you have compiled a new driver, in order to load the module with `modprobe ***`, you first need to copy the module to the `/lib/modules/2.6.31-20-generic` directory, then run `sudo depmod -a` to write the module information into `modules.dep`, `modules.dep.bin`, `modules.alias.bin`, `modules.alias`, and `modules.pcimap` files.
 
-如，我编译了一个新的wifi驱动r8192se_pci.ko，将其拷贝到`/lib/modules/2.6.31-20-generic/wireless`下，然后到`/lib/modules/2.6.31-20-generic`运行`depmod -a`，之后可以在任意目录运行modprobe r8192se_pci。
-
-
+For example, if I compiled a new WiFi driver `r8192se_pci.ko`, I copy it to `/lib/modules/2.6.31-20-generic/wireless`, then go to `/lib/modules/2.6.31-20-generic` and run `depmod -a`. After that, I can run `modprobe r8192se_pci` from any directory.

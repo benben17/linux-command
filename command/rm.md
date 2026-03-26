@@ -1,139 +1,136 @@
 rm
 ===
 
-用于删除给定的文件和目录
+Used to delete given files and directories.
 
-## 补充说明
+## Description
 
-**rm**  **命令** 可以删除一个目录中的一个或多个文件或目录，也可以将某个目录及其下属的所有文件及其子目录均删除掉。对于链接文件，只是删除整个链接文件，而原有文件保持不变。
+The **rm command** can delete one or more files or directories from a directory, and it can also delete a directory along with all its files and subdirectories. For symbolic links, only the link file is deleted, while the original file remains unchanged.
 
-注意：使用rm命令要格外小心。因为一旦删除了一个文件，就无法再恢复它。所以，在删除文件之前，最好再看一下文件的内容，确定是否真要删除。rm命令可以用-i选项，这个选项在使用文件扩展名字符删除多个文件时特别有用。使用这个选项，系统会要求你逐一确定是否要删除。这时，必须输入y并按Enter键，才能删除文件。如果仅按Enter键或其他字符，文件不会被删除。
+Note: Use the `rm` command with extreme caution. Once a file is deleted, it cannot be recovered. Therefore, before deleting a file, it is best to check its content to ensure you really want to delete it. The `rm` command can use the `-i` option, which is particularly useful when deleting multiple files using wildcards. With this option, the system will ask you to confirm each deletion. You must enter `y` and press Enter to delete the file. If you just press Enter or any other character, the file will not be deleted.
 
-### 语法
-
-```shell
-rm (选项)(参数)
-```
-
-### 选项
+### Syntax
 
 ```shell
--d：直接把欲删除的目录的硬连接数据删除成0，删除该目录；
--f：强制删除文件或目录；
--i：删除已有文件或目录之前先询问用户；
--r或-R：递归处理，将指定目录下的所有文件与子目录一并处理；
---preserve-root：不对根目录进行递归操作；
--v：显示指令的详细执行过程。
+rm (options)(parameters)
 ```
 
-### 参数
+### Options
 
-文件：指定被删除的文件列表，如果参数中含有目录，则必须加上`-r`或者`-R`选项。
+```shell
+-d: Directly deletes the hard link data of the directory to be deleted to 0, thereby deleting the directory.
+-f: Forcibly deletes files or directories.
+-i: Prompts the user for confirmation before deleting existing files or directories.
+-r or -R: Recursive processing; handles all files and subdirectories within the specified directory.
+--preserve-root: Do not perform recursive operations on the root directory.
+-v: Displays detailed information during command execution.
+```
 
-### 实例
+### Parameters
 
-交互式删除当前目录下的文件test和example
+File: Specifies the list of files to be deleted. If the parameters include a directory, the `-r` or `-R` option must be used.
+
+### Examples
+
+Interactively delete files `test` and `example` in the current directory:
 
 ```shell
 rm -i test example
-Remove test ?n（不删除文件test)
-Remove example ?y（删除文件example)
+Remove test ?n (do not delete file test)
+Remove example ?y (delete file example)
 ```
 
-删除当前目录下除隐含文件外的所有文件和子目录
+Delete all files and subdirectories in the current directory except hidden files:
 
 ```shell
 # rm -r *
 ```
 
-应注意，这样做是非常危险的!
+Note: This is very dangerous!
 
-**删除当前目录下的 package-lock.json 文件**
+**Delete the `package-lock.json` file in the current directory:**
 
 ```shell
-find .  -name "package-lock.json" -exec rm -rf {} \;
+find . -name "package-lock.json" -exec rm -rf {} \;
 ```
 
-**查找 *.html 结尾的文件并删除**
+**Find files ending in `.html` and delete them:**
 
 ```shell
 find ./docs -name "*.html" -exec rm -rf {} \;
 ```
 
-**删除当前项目下 *.html 结尾的文件**
+**Delete files ending in `.html` in the current project:**
 
 ```shell
 rm -rf *.html
 ```
 
-**删除当前目录下的 node_modules 目录**
+**Delete the `node_modules` directory in the current directory:**
 
 ```shell
 find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +
 ```
 
-**删除文件**
+**Delete files:**
 
 ```shell
-# rm 文件1 文件2 ...
+# rm file1 file2 ...
 rm testfile.txt
 ```
 
-**删除目录**
+**Delete directories:**
 
-> rm -r [目录名称]
-> -r 表示递归地删除目录下的所有文件和目录。
-> -f 表示强制删除
+> rm -r [directory_name]
+> -r means recursively delete all files and directories within the directory.
+> -f means force delete.
 
 ```shell
 rm -rf testdir
 rm -r testdir
 ```
 
-**删除操作前有确认提示**
+**Confirmation prompt before deletion:**
 
-> rm -i [文件/目录]
+> rm -i [file/directory]
 
 ```shell
 rm -r -i testdir
 ```
 
-**批量删除 `icons` 文件夹中的子文件夹中的 data 文件夹**
+**Batch delete `data` folders within subfolders of the `icons` folder:**
 
 ```shell
 rm -rf icons/**/data
 ```
 
-**rm 忽略不存在的文件或目录**
+**rm ignores non-existent files or directories:**
 
-> -f 选项（LCTT 译注：即 “force”）让此次操作强制执行，忽略错误提示
+> The `-f` option (force) ensures the operation is executed, ignoring error prompts.
 
 ```shell
-rm -f [文件...]
+rm -f [file...]
 ```
 
-**仅在某些场景下确认删除**
+**Confirm deletion only in certain scenarios:**
 
-> 选项 -I，可保证在删除超过 3 个文件时或递归删除时（LCTT 译注： 如删除目录）仅提示一次确认。
-
+> The `-I` option ensures a confirmation prompt is shown only when deleting more than 3 files or when deleting recursively (e.g., deleting a directory).
 
 ```shell
 rm -I file1 file2 file3
 ```
 
-**删除根目录**
+**Delete the root directory:**
 
-> 当然，删除根目录（/）是 Linux 用户最不想要的操作，这也就是为什么默认 rm 命令不支持在根目录上执行递归删除操作。
-> 然而，如果你非得完成这个操作，你需要使用 --no-preserve-root 选项。当提供此选项，rm 就不会特殊处理根目录（/）了。
-
-```shell
-不给示例了，操作系统都被你删除了，你太坏了😆
-```
-
-**rm 显示当前删除操作的详情**
+> Deleting the root directory (`/`) is an operation Linux users most want to avoid, which is why the `rm` command does not support recursive deletion on the root directory by default.
+> However, if you must perform this operation, you need the `--no-preserve-root` option. When this option is provided, `rm` does not treat the root directory (`/`) specially.
 
 ```shell
-rm -v [文件/目录]
+No example provided; deleting the operating system is not recommended! 😆
 ```
 
+**rm displays details of the current deletion operation:**
 
+```shell
+rm -v [file/directory]
+```

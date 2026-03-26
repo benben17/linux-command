@@ -1,54 +1,52 @@
 chattr
 ===
 
-用来改变文件属性
+Change file attributes on a Linux file system.
 
-## 补充说明
+## Description
 
-**chattr命令** 用来改变文件属性。这项指令可改变存放在ext2文件系统上的文件或目录属性，这些属性共有以下8种模式：
+The **chattr command** is used to change file attributes. This command can modify the attributes of files or directories stored on an ext2/ext3/ext4 file system. There are 8 main modes for these attributes:
 
-###  语法
-
-```shell
-chattr(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
-a：让文件或目录仅供附加用途；
-b：不更新文件或目录的最后存取时间；
-c：将文件或目录压缩后存放；
-d：将文件或目录排除在倾倒操作之外；
-i：不得任意更动文件或目录；
-s：保密性删除文件或目录；
-S：即时更新文件或目录；
-u：预防意外删除。
+chattr [options]
+```
+
+### Options
+
+```shell
+a: Append only - the file can only be opened in append mode for writing.
+b: Do not update the last access time of the file or directory.
+c: Compressed - the file or directory is stored in a compressed format.
+d: No dump - the file or directory is excluded from backup operations.
+i: Immutable - the file or directory cannot be modified in any way.
+s: Secure deletion - the file or directory is securely deleted.
+S: Synchronous updates - the file or directory is updated immediately.
+u: Undeletable - prevents accidental deletion.
 ```
 
 ```shell
--R：递归处理，将指令目录下的所有文件及子目录一并处理；
--v<版本编号>：设置文件或目录版本；
--V：显示指令执行过程；
-+<属性>：开启文件或目录的该项属性；
--<属性>：关闭文件或目录的该项属性；
-=<属性>：指定文件或目录的该项属性。
+-R: Recursively process all files and subdirectories within the specified directory.
+-v <version_number>: Set the file or directory version.
+-V: Display the execution process of the command.
++ <attribute>: Enable the specified attribute for the file or directory.
+- <attribute>: Disable the specified attribute for the file or directory.
+= <attribute>: Set the specified attribute for the file or directory.
 ```
 
-###  实例
+### Examples
 
-用chattr命令防止系统中某个关键文件被修改：
+Use the `chattr` command to prevent a critical system file from being modified:
 
 ```shell
 chattr +i /etc/fstab
 ```
 
-然后试一下rm、mv、rename等命令操作于该文件，都是得到Operation not permitted的结果。
+Attempts to use `rm`, `mv`, or `rename` on this file will result in an "Operation not permitted" error.
 
-让某个文件只能往里面追加内容，不能删除，一些日志文件适用于这种操作：
+Make a file append-only, so it can be added to but not deleted (useful for some log files):
 
 ```shell
 chattr +a /data1/user_act.log
 ```
-
-

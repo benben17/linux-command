@@ -1,26 +1,24 @@
 expand
 ===
 
-将文件的制表符转换为空白字符
+Convert tabs to spaces in a file.
 
-## 补充说明
+## Description
 
-**expand命令** 用于将文件的制表符（TAB）转换为空白字符（space），将结果显示到标准输出设备。
+The **expand** command is used to convert tabs (TAB) in a file into spaces and display the result to standard output.
 
-###  语法
-
-```shell
-expand(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--t<数字>：指定制表符所代表的空白字符的个数，而不使用默认的8。
+expand [options] [parameters]
 ```
 
-###  参数
+### Options
 
-文件：指定要转换制表符为空白的文件。
+```shell
+-t <number>: Specify the number of spaces for each tab instead of the default 8.
+```
 
+### Parameters
 
+File: Specify the file to be converted.

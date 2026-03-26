@@ -1,23 +1,21 @@
 xlsatoms
 ===
 
-列出X服务器内部所有定义的原子成分
+List all defined atom names on the X server.
 
-## 补充说明
+## Supplemental Information
 
-**xlsatoms命令** 用于列出X服务器内部所有定义的原子成分，每个原子成分都有自身的编号。可利用参数设置列表范围，或直接指定欲查询的成分名称。
+The **xlsatoms command** is used to list all defined atom names on the X server, each with its own ID. You can use options to set the list range or directly specify the name of the atom to query.
 
-###  语法
+### Syntax
 
 ```shell
-xlsatoms(选项)
+xlsatoms(options)
 ```
 
-###  选项
+### Options
 
-* -display<显示器编号>：指定X Server连接的显示器编号，该编号由"0"开始计算，依序递增；
-* -format<输出格式>：设置成分清单的列表格式，您可使用控制字符改变显示样式；
-* -name<成分名称>：列出指定的成分；
-* -range<列表范围>：设置成分清单的列表范围。
-
-
+* -display <display_id>: Specify the display number for connecting to the X Server, starting from "0" and incrementing sequentially.
+* -format <output_format>: Set the format for the atom list; you can use control characters to change the display style.
+* -name <atom_name>: List a specific atom.
+* -range <list_range>: Set the list range for the atom list.

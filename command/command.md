@@ -1,34 +1,32 @@
 command
 ===
 
-调用并执行指定的命令
+Call and execute a specified command
 
-## 补充说明
+## Description
 
-**command命令** 调用指定的指令并执行，命令执行时不查询shell函数。command命令只能够执行shell内部的命令。
+The **command command** calls and executes a specified instruction. When the command is executed, shell functions are not searched. The `command` command can only execute shell built-in commands or external commands, bypassing functions with the same name.
 
-###  语法
-
-```shell
-command(参数)
-```
-
-###  参数
-
-指令：需要调用的指令及参数。
-
-###  实例
-
-使用command命令调用执行`echo Linux`，输入如下命令：
+### Syntax
 
 ```shell
-command echo Linux            #调用执行shell内部指令
+command [arguments]
 ```
 
-上面的命令执行后，将调用执行命令`echo Linux`，其执行结果如下：
+### Arguments
+
+Instruction: The command and its arguments to be called.
+
+### Examples
+
+Use the `command` command to call and execute `echo Linux`:
+
+```shell
+command echo Linux            # Call and execute a shell built-in instruction
+```
+
+After executing the above command, `echo Linux` will be called and executed, with the following result:
 
 ```shell
 Linux
 ```
-
-

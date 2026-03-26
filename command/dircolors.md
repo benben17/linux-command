@@ -1,33 +1,33 @@
 dircolors
 ===
 
-置ls命令在显示目录或文件时所用的色彩
+Set the colors for the `ls` command when displaying directories or files.
 
-## 补充说明
+## Description
 
-**dircolors命令** 设置ls命令在显示目录或文件时所用的色彩。dircolors可根据[色彩配置文件]来设置LS_COLORS环境变量或是显示设置LS_COLORS环境变量的命令。
+The **dircolors** command sets the colors used by the `ls` command to display directories or files. It can set the `LS_COLORS` environment variable based on a configuration file or display the commands to set it.
 
-###  语法
-
-```shell
-dircolors(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--b或--sh或--bourne-shell：显示在Boume shell中，将LS_COLORS设为目前预设置的shell指令；
--c或--csh或--c-shell：显示在C shell中，将LS_COLORS设为目前预设置的shell指令；
--p或--print-database：显示预设置；
--help：显示帮助；
--version：显示版本信息。
+dircolors (options) (parameters)
 ```
 
-###  参数
+### Options
 
-文件：指定用来设置颜色的文件。
+```shell
+-b, --sh, --bourne-shell    Output Bourne shell commands to set LS_COLORS.
+-c, --csh, --c-shell       Output C shell commands to set LS_COLORS.
+-p, --print-database       Display the default color database.
+--help                     Display help.
+--version                  Display version information.
+```
 
-###  实例
+### Parameters
+
+File: Specifies the file used to set colors.
+
+### Examples
 
 ```shell
 [root@localhost ~]# dircolors -p
@@ -140,5 +140,3 @@ exec 01;32
 .ogg 01;35
 .wav 01;35
 ```
-
-

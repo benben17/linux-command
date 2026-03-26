@@ -1,50 +1,50 @@
 lastb
 ===
 
-列出登入系统失败的用户相关信息
+List information about users who failed to log into the system
 
-## 补充说明
+## Description
 
-**lastb命令** 用于显示用户错误的登录列表，此指令可以发现系统的登录异常。单独执行lastb命令，它会读取位于`/var/log`目录下，名称为btmp的文件，并把该文件内容记录的登入失败的用户名单，全部显示出来。
+The **lastb** command is used to display a list of failed login attempts, which can help identify abnormal login activity on the system. When executed alone, it reads the `btmp` file located in the `/var/log` directory and displays all records of failed login attempts stored in that file.
 
-###  语法
-
-```shell
-lastb(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--a：把从何处登入系统的主机名称或ip地址显示在最后一行；
--d：将IP地址转换成主机名称；
--f<记录文件>：指定记录文件；
--n<显示列数>或-<显示列数>：设置列出名单的显示列数；
--R：不显示登入系统的主机名称或IP地址；
--x：显示系统关机，重新开机，以及执行等级的改变等信息。
+lastb (options) (parameters)
 ```
 
-###  参数
+### Options
 
-*   用户名：显示中的用户的登录列表；
-*   终端：显示从指定终端的登录列表。
+```shell
+-a: Display the hostname or IP address from which the login attempt was made at the end of the line;
+-d: Convert IP addresses into hostnames;
+-f <file>: Specify an alternative log file;
+-n <number> or -<number>: Set the number of lines to display;
+-R: Do not display the hostname or IP address of the login attempt;
+-x: Display system shutdown, reboot, and runlevel change information.
+```
 
-###  实例
+### Parameters
 
-首次运行lastb命令会报下的错误：
+*   Username: Display the login list for the specified user;
+*   Terminal: Display the login list for the specified terminal.
+
+### Examples
+
+Running the `lastb` command for the first time might result in the following error:
 
 ```shell
 lastb: /var/log/btmp: No such file or directory
 Perhaps this file was removed by the operator to prevent logging lastb info.
 ```
 
-只需建立这个不存在的文件即可。
+You simply need to create the missing file:
 
 ```shell
 touch /var/log/btmp
 ```
 
-使用ssh的登录失败不会记录在btmp文件中。
+Note that failed SSH login attempts might not be recorded in the `btmp` file depending on the configuration.
 
 ```shell
 lastb | head
@@ -59,5 +59,3 @@ root     ssh:notty    110.84.129.3     Mon Dec 16 19:12 - 19:12  (00:00)
 root     ssh:notty    110.84.129.3     Mon Dec 16 17:00 - 17:00  (00:00)
 admin    ssh:notty    129.171.193.99   Mon Dec 16 16:52 - 16:52  (00:00)
 ```
-
-

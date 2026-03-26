@@ -1,25 +1,23 @@
 arpwatch
 ===
 
-监听网络上ARP的记录
+Monitor ARP activity on the network
 
-## 补充说明
+## Additional Information
 
-**arpwatch命令** 用来监听网络上arp的记录。
+The **arpwatch command** is used to monitor ARP activity on the network.
 
-###  语法
-
-```shell
-arpwatch(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
--d：启动排错模式；
--f<记录文件>：设置存储ARP记录的文件，预设为/var/arpwatch/arp.dat；
--i<接口>：指定监听ARP的接口，预设的接口为eth0；
--r<记录文件>：从指定的文件中读取ARP记录，而不是从网络上监听。
+arpwatch (options)
 ```
 
+### Options
 
+```shell
+-d: Enable debug mode.
+-f <record_file>: Set the file to store ARP records, default is /var/arpwatch/arp.dat.
+-i <interface>: Specify the interface to monitor ARP activity, default is eth0.
+-r <record_file>: Read ARP records from a specified file instead of monitoring from the network.
+```

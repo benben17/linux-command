@@ -1,37 +1,37 @@
 vmstat
 ===
 
-显示虚拟内存状态
+Display virtual memory statistics.
 
-## 补充说明
+## Description
 
-**vmstat命令** 的含义为显示虚拟内存状态（“Viryual Memor Statics”），但是它可以报告关于进程、内存、I/O等系统整体运行状态。
+The **vmstat command** stands for "Virtual Memory Statistics," but it can report overall system status regarding processes, memory, I/O, and more.
 
-###  语法
-
-```shell
-vmstat(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--a：显示活动内页；
--f：显示启动后创建的进程总数；
--m：显示slab信息；
--n：头信息仅显示一次；
--s：以表格方式显示事件计数器和内存状态；
--d：报告磁盘状态；
--p：显示指定的硬盘分区状态；
--S：输出信息的单位。
+vmstat (option) (parameter)
 ```
 
-###  参数
+### Options
 
-*   事件间隔：状态信息刷新的时间间隔；
-*   次数：显示报告的次数。
+```shell
+-a: Display active memory pages;
+-f: Display the total number of processes created since boot;
+-m: Display slab information;
+-n: Display the header only once;
+-s: Display event counters and memory statistics in a table format;
+-d: Report disk statistics;
+-p: Display statistics for a specified hard disk partition;
+-S: Specify the units for output information.
+```
 
-###  实例
+### Parameters
+
+*   Interval: The time interval between refreshing status information;
+*   Count: The number of reports to display.
+
+### Examples
 
 ```shell
 vmstat 3
@@ -44,55 +44,44 @@ procs -----------memory---------- ---swap-- -----io---- --system-- -----cpu-----
  0  0    320  42188 167336 1534392    0    0     0     0 1002   41  0  0 100  0  0
 ```
 
- **字段说明：** 
+ **Field Descriptions:** 
 
-Procs（进程）
+Procs (Processes)
 
-*   r: 运行队列中进程数量，这个值也可以判断是否需要增加CPU。（长期大于1）
-*   b: 等待IO的进程数量。
+*   r: The number of processes in the run queue. This value can help determine if more CPUs are needed (if consistently > 1).
+*   b: The number of processes waiting for I/O.
 
-Memory（内存）
+Memory
 
-*   swpd: 使用虚拟内存大小，如果swpd的值不为0，但是SI，SO的值长期为0，这种情况不会影响系统性能。
-*   free: 空闲物理内存大小。
-*   buff: 用作缓冲的内存大小。
-*   cache: 用作缓存的内存大小，如果cache的值大的时候，说明cache处的文件数多，如果频繁访问到的文件都能被cache处，那么磁盘的读IO bi会非常小。
+*   swpd: Amount of virtual memory used. If swpd is non-zero but SI and SO are consistently zero, system performance is generally unaffected.
+*   free: Amount of idle physical memory.
+*   buff: Amount of memory used as buffers.
+*   cache: Amount of memory used as cache. A high cache value indicates many files are cached; if frequently accessed files are cached, disk read I/O (bi) will be very low.
 
 Swap
 
-*   si: 每秒从交换区写到内存的大小，由磁盘调入内存。
-*   so: 每秒写入交换区的内存大小，由内存调入磁盘。
+*   si: Amount of memory paged in from swap (disk to memory) per second.
+*   so: Amount of memory paged out to swap (memory to disk) per second.
 
-注意：内存够用的时候，这2个值都是0，如果这2个值长期大于0时，系统性能会受到影响，磁盘IO和CPU资源都会被消耗。有些朋友看到空闲内存（free）很少的或接近于0时，就认为内存不够用了，不能光看这一点，还要结合si和so，如果free很少，但是si和so也很少（大多时候是0），那么不用担心，系统性能这时不会受到影响的。
+Note: When there is enough memory, both values are 0. If these values are consistently greater than 0, system performance may be affected as disk I/O and CPU resources are consumed. Do not worry if `free` memory is low as long as `si` and `so` remain low (mostly 0).
 
-IO（现在的Linux版本块的大小为1kb）
+IO (Block size is typically 1KB in current Linux versions)
 
-*   bi: 每秒读取的块数
-*   bo: 每秒写入的块数
+*   bi: Blocks received from a block device (read) per second.
+*   bo: Blocks sent to a block device (write) per second.
 
-注意：随机磁盘读写的时候，这2个值越大（如超出1024k)，能看到CPU在IO等待的值也会越大。
+Note: During random disk I/O, higher values (e.g., > 1024K) will lead to higher CPU I/O wait times.
 
-system（系统）
+System
 
-*   in: 每秒中断数，包括时钟中断。
-*   cs: 每秒上下文切换数。
+*   in: Number of interrupts per second, including the clock.
+*   cs: Number of context switches per second.
 
-注意：上面2个值越大，会看到由内核消耗的CPU时间会越大。
+Note: Higher values for these two fields result in more CPU time consumed by the kernel.
 
-CPU（以百分比表示）
+CPU (Expressed as percentages)
 
-*   us: 用户进程执行时间百分比(user time)
-
-us的值比较高时，说明用户进程消耗的CPU时间多，但是如果长期超50%的使用，那么我们就该考虑优化程序算法或者进行加速。
-
-*   sy: 内核系统进程执行时间百分比(system time)
-
-sy的值高时，说明系统内核消耗的CPU资源多，这并不是良性表现，我们应该检查原因。
-
-*   wa: IO等待时间百分比
-
-wa的值高时，说明IO等待比较严重，这可能由于磁盘大量作随机访问造成，也有可能磁盘出现瓶颈（块操作）。
-
-*   id: 空闲时间百分比
-
-
+*   us: Percentage of time spent running non-kernel code (user time). High `us` values mean user processes are consuming a lot of CPU; if consistently over 50%, consider optimizing the program.
+*   sy: Percentage of time spent running kernel code (system time). High `sy` values indicate the kernel is consuming significant CPU resources, which should be investigated.
+*   wa: Percentage of time spent waiting for I/O. High `wa` values indicate serious I/O waiting, possibly due to heavy random disk access or disk bottlenecks.
+*   id: Percentage of time spent idle.

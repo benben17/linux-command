@@ -1,62 +1,60 @@
 cmp
 ===
 
-比较两个文件是否有差异
+Compare two files for differences
 
-## 补充说明
+## Description
 
-**cmp命令** 用来比较两个文件是否有差异。当相互比较的两个文件完全一样时，则该指令不会显示任何信息。若发现有差异，预设会标示出第一个不通之处的字符和列数编号。若不指定任何文件名称或是所给予的文件名为“-”，则cmp指令会从标准输入设备读取数据。
+The **cmp command** is used to compare two files for differences. If the two files are identical, the command produces no output. If differences are found, it identifies the character and line number of the first discrepancy. If no file name is specified or if the file name is "-", the `cmp` command reads from standard input.
 
-### 语法
+### Syntax
 
 ```shell
-cmp(选项)(参数)
+cmp [options] [arguments]
 ```
 
-### 选项
+### Options
 
 ```shell
--c或--print-chars：除了标明差异处的十进制字码之外，一并显示该字符所对应字符；
--i<字符数目>或--ignore-initial=<字符数目>：指定一个数目；
--l或——verbose：标示出所有不一样的地方；
--s或--quiet或——silent：不显示错误信息；
--v或——version：显示版本信息；
---help：在线帮助。
+-c or --print-chars: Output the differing characters in addition to their decimal codes.
+-i <number> or --ignore-initial=<number>: Skip the first <number> characters of both files.
+-l or --verbose: Output the byte numbers and values for all differing bytes.
+-s or --quiet or --silent: Suppress all output (useful for scripts).
+-v or --version: Display version information.
+--help: Online help.
 ```
 
-### 参数
+### Arguments
 
-目录：比较两个文件的差异。
+Files: The two files to be compared.
 
-### 实例
+### Examples
 
-使用cmp命令比较文件"testfile"和文件"testfile1"两个文件，则输入下面的命令：
+To compare files "testfile" and "testfile1", use the following command:
 
 ```shell
-cmp testfile testfile1            #比较两个指定的文件
+cmp testfile testfile1            # Compare the two specified files
 ```
 
-在上述指令执行之前，使用cat命令查看两个指定的文件内容，如下所示：
+Before executing the command, you can use `cat` to view the content of both files:
 
 ```shell
-cat testfile                    #查看文件内容  
-Absncn 50                       #显示文件“testfile”  
+cat testfile                    # View file content  
+Absncn 50                       # Content of "testfile"  
 Asldssja 60  
 Jslkadjls 85 
 
-cat testfile1                   #查看文件内容  
-Absncn 50                       #显示文件“testfile1”  
+cat testfile1                   # View file content  
+Absncn 50                       # Content of "testfile1"  
 AsldssjE 62  
 Jslkadjls 85  
 ```
 
-然后，再执行cmp命令，并返回比较结果，具体如下所示：
+Then, execute the `cmp` command:
 
 ```shell
-cmp testfile testfile1       #比较两个文件  
-testfile testfile1           #有差异：第8字节，第2行  
+cmp testfile testfile1       # Compare the two files  
+testfile testfile1           # Difference: byte 8, line 2  
 ```
 
-注意：在比较结果中，只能够显示第一比较结果。
-
-
+Note: By default, the output only shows the first discrepancy found.

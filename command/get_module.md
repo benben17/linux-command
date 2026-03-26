@@ -1,21 +1,21 @@
 get_module
 ===
 
-获取Linux内核模块的详细信息
+Retrieve detailed information about Linux kernel modules.
 
-## 补充说明
+## Supplemental Information
 
-**get_module命令** 用于获取Linux内核模块的详细信息。
+The **get_module command** is used to retrieve detailed information about Linux kernel modules.
 
-###  语法
+### Syntax
 
 ```shell
-get_module 模块名
+get_module <module_name>
 ```
 
-###  实例
+### Examples
 
-使用lsmod命令查看内核模块：
+Use the `lsmod` command to view kernel modules:
 
 ```shell
 lsmod | head -5
@@ -26,7 +26,7 @@ crypto_api             12609  1 xfrm_nalgo
 ip_conntrack_ftp       11569  0
 ```
 
-使用get_module命令查看模块详细信息：
+Use the `get_module` command to view detailed module information:
 
 ```shell
 get_module ipv6
@@ -62,5 +62,3 @@ Sections:
         __param              : 0xf8f1da08
         __versions           : 0xf8f1df00
 ```
-
-

@@ -1,21 +1,21 @@
 whatis
 ===
 
-查询一个命令执行什么功能
+Display one-line manual page descriptions
 
-## 补充说明
+## Description
 
-**whatis命令** 是用于查询一个命令执行什么功能，并将查询结果打印到终端上。
+The **whatis command** searches the manual page names and descriptions for the given command and prints the result to the terminal.
 
-whatis命令在用`catman -w`命令创建的数据库中查找command参数指定的命令、系统调用、库函数或特殊文件名。whatis命令显示手册部分的页眉行。然后可以发出man命令以获取附加的信息。whatis命令等同于使用`man -f`命令。
+The command searches a database created by `mandb` (or `catman -w` on older systems) for the command name, system call, library function, or special filename. It displays the header line of the manual page, which typically contains a one-line description. This is equivalent to running `man -f`.
 
-###  语法
+### Syntax
 
 ```shell
-whatis
+whatis [command]
 ```
 
-###  实例
+### Examples
 
 ```shell
 [root@localhost ~]# whatis ls
@@ -40,5 +40,3 @@ man                 (rpm) - A set of documentation tools: man, apropos and whati
 man-pages           (rpm) - Man (manual) pages from the Linux Documentation Project.
 man.config [man]     (5)  - configuration data for man
 ```
-
-

@@ -1,29 +1,27 @@
 mysql
 ===
 
-MySQL服务器客户端工具
+MySQL server client tool
 
-## 补充说明
+## Description
 
-**mysql命令** 是MySQL数据库服务器的客户端工具，它工作在命令行终端中，完成对远程MySQL数据库服务器的操作。
+The **mysql command** is a client tool for the MySQL database server. It runs in a command-line terminal to perform operations on local or remote MySQL database servers.
 
-###  语法
-
-```shell
-mysql(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--h：MySQL服务器的ip地址或主机名；
--u：连接MySQL服务器的用户名；
--e：执行mysql内部命令；
--p：连接MySQL服务器的密码。
+mysql [options] [database]
 ```
 
-###  参数
+### Options
 
-数据库：指定连接服务器后自动打开的数据库。
+```shell
+-h: Hostname or IP address of the MySQL server.
+-u: Username used to connect to the MySQL server.
+-e: Execute a MySQL command and quit.
+-p: Password used to connect to the MySQL server.
+```
 
+### Parameters
 
+Database: Specifies the database to be automatically opened after connecting to the server.

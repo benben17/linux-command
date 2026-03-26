@@ -1,73 +1,70 @@
 lp
 ===
 
-打印文件或修改排队的打印任务
+Print files or modify queued print jobs
 
-## 补充说明
+## Description
 
-**lp命令** 用于打印文件，或者修改排队的打印任务。与lpr命令类似，lp命令既支持文件输入也支持标准输入。它与lpr的不同之处在于它有一个不同（稍微复杂点）的参数选项设置。
+The **lp** command is used to print files or modify queued print jobs. Similar to the `lpr` command, `lp` supports both file input and standard input. It differs from `lpr` in having a slightly more complex set of parameter options.
 
-###  语法
-
-```shell
-lp(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--E：与打印服务器连接时强制使用加密；
--U：指定连接打印服务器时使用的用户名；
--d：指定接收打印任务的目标打印机；
--i：指定一个存在的打印任务号；
--m：打印完成时发送E-mail；
--n：指定打印的份数；
--t：指定打印任务的名称；
--H：指定打印任务开始的时间；
--P：指定需要打印的页码。
+lp (options) (parameters)
 ```
 
-###  参数
+### Options
 
-文件：需打印的文件。
+```shell
+-E: Force encryption when connecting to the server;
+-U <username>: Specify the username to use when connecting to the print server;
+-d <printer>: Specify the destination printer;
+-i <job-id>: Specify an existing job ID;
+-m: Send an email when the job is completed;
+-n <copies>: Specify the number of copies to print;
+-t <title>: Specify the name/title of the print job;
+-H <when>: Specify when the job should be printed;
+-P <page-list>: Specify which pages to print.
+```
 
-###  实例
+### Parameters
 
-要在连接在设备dlp0上的打印机lp0上打印文件`/etc/motd`，请输入：
+File: The file to be printed.
+
+### Examples
+
+To print the file `/etc/motd` on the printer `lp0` connected to device `dlp0`, enter:
 
 ```shell
 lp /etc/motd
 ```
 
-要使用文件的一个副本打印`/etc/motd`文件的30个副本，并且要用邮件通知用户作业完成，请输入：
+To print 30 copies of the `/etc/motd` file using a copy of the file and notify the user by email when the job is done, enter:
 
 ```shell
-lp -c -m -n30 -dlp0:lpd0 /etc/motd
+lp -c -m -n30 -d lp0:lpd0 /etc/motd
 ```
 
-要使用后端标志-f和-a并带上作业标题blah打印`/etc/motd`文件，请输入：
+To print `/etc/motd` with backend flags `-f` and `-a` and the job title "blah", enter:
 
 ```shell
 lp -t "blah" -o -f -o -a /etc/motd
 ```
 
-要排队MyFile文件并返回作业编号，请输入：
+To queue the file `myfile` and return the job number:
 
 ```shell
 lp myfile
 ```
 
-要排队MyFile文件并禁止作业编号，请输入：
+To queue the file `myfile` and suppress the job number:
 
 ```shell
 lp -s myfile
 ```
 
- **退出状态** 
+**Exit Status**
 
-该命令返回以下退出值：
-
-*   0：所有输入文件成功处理。
-*   >0：没有输出设备可用，或者出现一个错误。
-
-
+This command returns the following exit values:
+*   0: All input files were successfully processed.
+*   >0: No output device was available, or an error occurred.

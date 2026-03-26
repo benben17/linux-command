@@ -1,100 +1,99 @@
 reposync
 ===
 
-同步yum存储库到本地目录
+Synchronizes yum repositories to a local directory.
 
-## 概要
+## Synopsis
 
 ```shell
-reposync [选项]
+reposync [options]
 ```
 
-## 主要用途
+## Description
 
-reposync用于将远程yum存储库同步到本地目录，使用yum检索包。
+`reposync` is used to synchronize remote yum repositories to a local directory, using yum to retrieve packages.
 
-## 选项
+## Options
 
 ```shell
 -h, --help
-# 显示帮助信息
+# Display help information.
 
 -c CONFIG, --config=CONFIG
-# 指定配置文件(默认为/etc/yum.conf)
+# Specify configuration file (default is /etc/yum.conf).
 
 -a ARCH, --arch=ARCH
-# 指定arch
+# Specify architecture.
 
 --source
-# 同时下载src和rpm文件.
+# Download both src and rpm files.
 
 -r REPOID, --repoid=REPOID
-# 指定要查询的repo id，可以指定多次(默认为全部启用)。
+# Specify repo id to query; can be specified multiple times (default is all enabled).
 
 -e CACHEDIR, --cachedir CACHEDIR
-# 存储元数据的目录。
+# Directory to store metadata.
 
 -t, --tempcache
-# 使用临时目录存储/访问yum-cache。
+# Use temporary directory to store/access yum-cache.
 
 -d, --delete
-# 删除存储库中不再存在的本地包。
+# Delete local packages no longer present in the repository.
 
 -p DESTDIR, --download_path=DESTDIR
-# 指定下载路径:默认为当前目录。
+# Specify download path; default is current directory.
 
 --norepopath
-# 不要将重命名添加到下载路径中。只能在同步单个存储库时使用(默认是添加重命名)。
+# Do not add repo names to the download path. Only usable when synchronizing a single repository (default is to add repo names).
 
 -g, --gpgcheck
-# 下载后删除GPG签名检查失败的包。如果至少有一个包被删除，退出状态为“1”。
+# Delete packages that fail GPG signature check after download. Exit status is "1" if at least one package is deleted.
 
 -u, --urls
-# 只列出要下载的内容的url，不要下载。
+# Only list URLs of contents to be downloaded, do not download.
 
 -l, --plugins
-# 启用yum插件支持。
+# Enable yum plugin support.
 
 -m, --downloadcomps
-# 同时下载comps.xml。
+# Also download comps.xml.
 
 --download-metadata
-# 下载所有非默认元数据。
+# Download all non-default metadata.
 
 -n, --newest-only
-# 每个repo只下载最新的包。
+# Download only the newest packages for each repo.
 
 -q, --quiet
-# 输出尽可能少的信息。
+# Output as little information as possible.
 
 --allow-path-traversal
-# 允许同步存储在repo目录之外的包。这些包是在元数据中通过使用绝对路径或上一级“..”系统引用的并且出于安全原因通常会在reposync中跳过。
-# 注意:使用此选项有潜在的安全隐患，因为通过提供恶意repodata，攻击者可以使reposync写入任意位置运行该文件系统的用户可以访问的文件系统。
+# Allow synchronization of packages stored outside the repo directory. These packages are referenced in the metadata using absolute paths or parent directory ".." and are normally skipped in reposync for security reasons.
+# Note: Using this option has potential security implications, as an attacker could provide malicious repodata to cause reposync to write files to arbitrary locations accessible by the user running the command.
 ```
 
-## 例子
+## Examples
 
 ```shell
-# 将'updates'仓库中的所有包同步到当前目录:
+# Synchronize all packages in the 'updates' repository to the current directory:
 reposync --repoid=updates
 
-# 只同步最新的包从'updates'仓库到当前目录:
+# Synchronize only the newest packages from the 'updates' repository to the current directory:
 reposync -n --repoid=updates
 
-# 将'updates'和'extras'仓库中的包同步到当前目录:
+# Synchronize packages from the 'updates' and 'extras' repositories to the current directory:
 reposync --repoid=updates --repoid=extras
 
-# 将'updates'仓库中的所有包同步到repos目录:
+# Synchronize all packages in the 'updates' repository to the 'repos' directory:
 reposync -p repos --repoid=updates
 
-# 将'updates'仓库中的所有包同步到repos目录，排除x86_64架构文件。编辑/etc/yum.conf，添加选项exclude=*.x86_64。再执行:
+# Synchronize all packages in the 'updates' repository to the 'repos' directory, excluding x86_64 architecture files. Edit /etc/yum.conf, add the option `exclude=*.x86_64`, then execute:
 reposync -p repos --repoid=updates
 ```
 
-## 文件
+## Files
 
-reposync使用yum库来检索信息和包。如果没有指定配置文件，将使用默认的yum配置。
+`reposync` uses the yum library to retrieve information and packages. If no configuration file is specified, the default yum configuration will be used.
 
 *   /etc/yum.conf
 *   /etc/yum/repos.d/
-

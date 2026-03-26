@@ -1,44 +1,44 @@
 apropos
 ===
 
-在 whatis 数据库中查找字符串
+Search for strings in the whatis database
 
-## 补充说明
+## Additional Information
 
-**apropos命令** 在一些特定的包含系统命令的简短描述的数据库文件里查找关键字，然后把结果送到标准输出。
+The **apropos command** searches for keywords in specific database files containing short descriptions of system commands and sends the results to standard output.
 
-如果你不知道完成某个特定任务所需要命令的名称，可以使用一个关键字通过Linux apropos实用程序来搜索它。该实用程序可以搜索关键字并且显示所有包含匹配项的man页面的简短描述。另外，使用man实用程序和-k（关键字）选项，可以得到和用Linux apropos实用程序相同的结果（实际上是相同的命令）。
+If you don't know the name of the command required to complete a specific task, you can use a keyword to search for it using the Linux apropos utility. This utility searches for keywords and displays a short description of all man pages that contain matching items. Additionally, using the man utility with the -k (keyword) option yields the same results as using the Linux apropos utility (it is actually the same command).
 
-###  语法
+### Syntax
 
 ```shell
 apropos [-dalhvV] -e|-[w|-r] [-s section] [-m system[,...]] [-M path] [-L locale] -C [file] keyword ...
 ```
 
-###  选项
+### Options
 
 ```shell
--d, --debug：输出调试信息。
--v, --verbose：输出详细的警告信息。
--r, -- regex：将每个keyword作为正则表达式解释。这是默认行为。每个keyword将匹配手册页和描述。
--w, --wildcard：将每个keyword作为shell样式的通配符解释。
--e, --exact：每个keyword将精确匹配手册页名字和描述。
--a, --and：只显示匹配所有keyword的手册页和描述。默认显示匹配任何keyword的项。
--l, --long：不根据终端宽度缩减输出。
--s section, --section section：只查找指定的手册section。
--m system[,...], --systems=system[,...]：用于查找其它操作系统的手册页。
--M path, --manpath=path：指定从其它以冒号分隔的手册页层次查找。默认使用 $MANPATH 环境变量。这个选项覆盖 $MANPATH 的内容。
--L locale, --locale=locale：apropos调用C函数setlocale来得到当前本地化信息，包括 $LC_MESSAGE 和 $LANG 。使用该选项提供一个locale字符串来临时更改本地化信息。
--C file, --config-file=file：使用这个用户配置文件而不是默认的~/.manpath。
--h, --help：打印帮助信息并退出。
--V, --version：打印版本信息并退出。
+-d, --debug: Output debugging information.
+-v, --verbose: Output detailed warning information.
+-r, --regex: Interpret each keyword as a regular expression. This is the default behavior. Each keyword will match manual pages and descriptions.
+-w, --wildcard: Interpret each keyword as a shell-style wildcard.
+-e, --exact: Each keyword will exactly match the manual page name and description.
+-a, --and: Only show manual pages and descriptions that match all keywords. By default, items matching any keyword are shown.
+-l, --long: Do not trim output based on terminal width.
+-s section, --section section: Only search the specified manual section.
+-m system[,...], --systems=system[,...]: Used to find manual pages for other operating systems.
+-M path, --manpath=path: Specify a colon-separated list of manual page hierarchies to search. The default is to use the $MANPATH environment variable. This option overrides the content of $MANPATH.
+-L locale, --locale=locale: apropos calls the C function setlocale to get current localization information, including $LC_MESSAGES and $LANG. Use this option to provide a locale string to temporarily change localization information.
+-C file, --config-file=file: Use this user configuration file instead of the default ~/.manpath.
+-h, --help: Print help information and exit.
+-V, --version: Print version information and exit.
 ```
 
-###  返回值
+### Return Value
 
-返回0表示成功，1表示用法、语法或配置文件错误，2表示操作错误，16表示没有找到匹配的内容。
+Returns 0 for success, 1 for usage, syntax, or configuration file errors, 2 for operational errors, and 16 if no matches are found.
 
-###  实例
+### Examples
 
 ```shell
 [root@localhost ~]# man -k who
@@ -64,7 +64,7 @@ who                  (1)  - show who is logged on
 whoami               (1)  - print effective userid
 ```
 
-查找手册页名字和描述中包含emacs和vi的手册页：
+Search for manual pages that contain both "emacs" and "vi" in their names or descriptions:
 
 ```shell
 apropos -a emacs vi

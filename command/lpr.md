@@ -1,42 +1,40 @@
 lpr
 ===
 
-将文件发送给指定打印机进行打印
+Submit files for printing
 
-## 补充说明
+## Description
 
-**lpr命令** 用于将文件发送给指定打印机进行打印，如果不指定目标打印机，则使用默认打印机。
+The **lpr** command is used to send files to a specified printer for printing. If no destination printer is specified, the default printer is used.
 
-###  语法
-
-```shell
-lpr(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--E：与打印服务器连接时强制使用加密；
--H：指定可选的打印服务器；
--C：指定打印任务的名称；
--P：指定接受打印任务的目标打印机；
--U：指定可选的用户名；
--#：指定打印的份数；
--h：关闭banner打印；
--m：打印完成后发送E-mail；
--r：打印完成后删除文件。
+lpr (options) (parameters)
 ```
 
-###  参数
+### Options
 
-文件：需打印的文件。
+```shell
+-E: Force encryption when connecting to the print server;
+-H <server>: Specify an optional print server;
+-C <title>: Specify the name of the print job;
+-P <printer>: Specify the destination printer for the job;
+-U <username>: Specify an optional username;
+-# <copies>: Specify the number of copies to print;
+-h: Disable banner printing;
+-m: Send an email after the job is completed;
+-r: Remove the file after printing is finished.
+```
 
-###  实例
+### Parameters
 
-将man1和man2送到打印机lp进行打印：
+File: The file to be printed.
+
+### Examples
+
+Print `man1` and `man2` on the printer `lp`:
 
 ```shell
 lpr -P lp man1 man2
 ```
-
-

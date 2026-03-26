@@ -1,29 +1,27 @@
 apt-key
 ===
 
-管理Debian Linux系统中的软件包密钥
+Manage package keys in Debian Linux systems
 
-## 补充说明
+## Additional Information
 
-**apt-key命令** 用于管理Debian Linux系统中的软件包密钥。每个发布的deb包，都是通过密钥认证的，apt-key用来管理密钥。
+The **apt-key command** is used to manage package keys in Debian Linux systems. Each released deb package is authenticated via a key, and `apt-key` is used to manage these keys.
 
-###  语法
-
-```shell
-apt-key(参数)
-```
-
-###  参数
-
-操作指令：APT密钥操作指令。
-
-###  实例
+### Syntax
 
 ```shell
-apt-key list          # 列出已保存在系统中key。
-apt-key add keyname   # 把下载的key添加到本地trusted数据库中。
-apt-key del keyname   # 从本地trusted数据库删除key。
-apt-key update        # 更新本地trusted数据库，删除过期没用的key。
+apt-key [command]
 ```
 
+### Parameters
 
+Management Command: APT key operation command.
+
+### Examples
+
+```shell
+apt-key list          # List keys saved in the system.
+apt-key add keyname   # Add the downloaded key to the local trusted database.
+apt-key del keyname   # Delete the key from the local trusted database.
+apt-key update        # Update the local trusted database and remove expired/useless keys.
+```

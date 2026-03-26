@@ -1,48 +1,46 @@
 tty
 ===
 
-显示连接到当前标准输入的终端设备文件名
+Print the filename of the terminal connected to standard input
 
-## 概要
+## Synopsis
 
 ```shell
 tty [option] ...
 ```
 
-## 主要用途
+## Main Purpose
 
-- 显示连接到当前标准输入的终端设备文件名，当标准输入不是终端时打印 "not a tty"。
+- Print the filename of the terminal connected to standard input. Prints "not a tty" if standard input is not a terminal.
 
-## 选项
+## Options
 
 ```shell
--s, --silent, --quiet    不打印任何信息，只返回退出状态。
---help                   显示帮助信息并退出。
---version                显示版本信息并退出。
+-s, --silent, --quiet    Do not print anything, only return the exit status.
+--help                   Display help information and exit.
+--version                Display version information and exit.
 ```
 
-## 返回值
+## Return Value
 
-当使用 `-s, --silent, --quiet` 时，返回码为 0 表示标准输入是终端，返回码为 1 表示标准输入不是终端，返回码为 2 表示选项错误，返回码为 3 表示有写错误发生。
+When using `-s, --silent, --quiet`, a return code of 0 indicates standard input is a terminal, 1 indicates it is not, 2 indicates an option error, and 3 indicates a write error occurred.
 
-## 例子
+## Example
 
-显示连接到当前标准输入的终端设备文件名。
+Display the terminal device filename connected to current standard input.
 
 ```shell
 [root@localhost ~]# tty
 /dev/pts/2
 ```
 
-查找终端关联的进程（假设是 pts/2）
+Find the processes associated with the terminal (assuming it's pts/2):
 
 ```shell
-# 注意是筛选 TTY 列。
+# Note the filtering for the TTY column.
 ps -ef | egrep "pts/2 " | grep -v grep
 ```
 
-### 注意
+### Notes
 
-1. 该命令是`GNU coreutils`包中的命令，相关的帮助信息请查看`man -s 1 tty`，`info coreutils 'tty invocation'`。
-
-
+1. This command is part of the `GNU coreutils` package. For more help, see `man -s 1 tty` or `info coreutils 'tty invocation'`.

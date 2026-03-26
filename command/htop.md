@@ -1,186 +1,164 @@
 htop
 ===
 
-[非内部命令]一个互动的进程查看器，可以动态观察系统进程状况
+An interactive process viewer that allows dynamic observation of system processes.
 
-## 补充说明
+## Description
 
-htop命令 是Linux系统中的一个互动的进程查看器，一个文本模式的应用程序(在控制台或者X终端中)，需要ncurses。
+The `htop` command is an interactive process viewer for Linux systems. It is a text-mode application (run in a console or X terminal) and requires the `ncurses` library.
 
-与Linux传统的top相比，htop更加人性化。它可让用户交互式操作，支持颜色主题，可横向或纵向滚动浏览进程列表，并支持鼠标操作。
+Compared to the traditional `top` command, `htop` is more user-friendly. It allows interactive operations, supports color themes, enables horizontal and vertical scrolling of the process list, and supports mouse operations.
 
-与top相比，htop有以下优点：
+Advantages of `htop` over `top`:
 
-- 可以横向或纵向滚动浏览进程列表，以便看到所有的进程和完整的命令行。
-- 在启动上，比top 更快。
-- 杀进程时不需要输入进程号。
-- htop 支持鼠标操作。
-- 两者相比起来，top比较繁琐。
+- Scroll the process list horizontally and vertically to see all processes and complete command lines.
+- Starts faster than `top`.
+- No need to enter the PID to kill a process.
+- Supports mouse operations.
+- `top` is generally more cumbersome to use.
 
-top缺点：
+Disadvantages of `top`:
 
-- 只支持键盘操作。
-- 显示也单调。
+- Only supports keyboard operations.
+- Display is relatively monotonous.
 
-htop 官网：http://htop.sourceforge.net/
+htop Official Website: http://htop.sourceforge.net/
 
-### htop 安装
+### htop Installation
 
-在大多数的 Linux 发行版中你不会找到预安装的 `htop`，但作为最流行的实用程序之一，你会在几乎每个 Linux 发行版的默认存储库中找到 `htop`。
+In most Linux distributions, `htop` is not pre-installed. However, as one of the most popular utilities, you can find it in the default repositories of almost every Linux distribution.
 
-因此，如果你的机器是基于 Debian/Ubuntu 驱动的，则以下命令应该可以完成你的工作：
+For Debian/Ubuntu-based systems:
 
 ```shell
 sudo apt install htop
 ```
 
-类似的，如果你使用的是 Fedora，则可以使用以下的命令：
+For Fedora:
 
 ```shell
 sudo dnf install htop
 ```
 
-如果你使用的是 CentOS 或 RedHat 则可以使用以下的命令：
+For CentOS or RedHat:
 
 ```shell
 sudo yum install htop
 ```
-如果你想避免从源代码构建包，还有一个 Snap 包可用：
+
+A Snap package is also available:
 
 ```shell
 sudo snap install htop
 ```
 
-如果你使用的是其它的发行版或者想从源代码构建，你可以使用 `wget` 下载并安装：
-这需要你下载并安装 `wget` `cmake`
+If you are using other distributions or want to build from source, you can use `wget` to download and install. This requires `wget` and `cmake`.
 
 ```shell
-wget https://link.zhihu.com/?target=https%3A//hisham.hm/htop/releases/2.2.0/htop-2.2.0.tar.gz
-
-tar -zxvf htop-2.2.0.tar.gz
-
-cd htop-2.2.0/
-
-./configure
-
+wget https://github.com/htop-dev/htop/archive/refs/tags/3.2.2.tar.gz
+tar -zxvf 3.2.2.tar.gz
+cd htop-3.2.2/
+./autogen.sh && ./configure
 make
-
-make install
+sudo make install
 ```
 
-当然你也可以随时参考你可以随时参考 [htop 的 GitHub](https://link.zhihu.com/?target=https%3A//github.com/htop-dev/htop) 页面以获得详细说明。
+Refer to the [htop GitHub page](https://github.com/htop-dev/htop) for detailed instructions.
 
-**说明**：htop源码安装方式默认安装到 `/usr/local` 目录下，如果想安装到其它路径，在执行 configure 时通过 `—prefix` 指定，格式为：`./configure --prefix=/some/path`
+**Note**: By default, `htop` installs to `/usr/local`. To install to a different path, use the `--prefix` flag during configuration: `./configure --prefix=/some/path`.
 
-###  语法
+### Syntax
 
 ```shell
 htop
 ```
 
-### 参数
+### Options
 
 ```shell
--C --no-color               使用单色配色方案
--d --delay=DELAY            设置更新之间的延迟，在十秒
--s --sort-key=COLUMN        纵列排序(try --sort-key=help for a list)
--u --user=USERNAME          只显示一个指定用户的进程
--p --pid=PID,[,PID,PID...]  只显示给用户
--h --help                   打印此命令帮助
--v --version                打印版本信息
+-C --no-color               Use a monochrome color scheme
+-d --delay=DELAY            Set the delay between updates, in tenths of a second
+-s --sort-key=COLUMN        Sort by column (try --sort-key=help for a list)
+-u --user=USERNAME          Show only processes for a specified user
+-p --pid=PID,[,PID,PID...]  Show only specific PIDs
+-h --help                   Print help message
+-v --version                Print version information
 ```
 
-#### 参数示例
+#### Examples
 
-- -C 选项：设置界面为无颜色。
+- `-C` option: Set the interface to no color.
+- `-d` option: Set the refresh interval in seconds. For example, `htop -d 10` refreshes every 10 seconds.
+- `-s` option: Sort by a specified column. For example, `htop -s PID` sorts the list by Process ID.
+- `-u` option: Display process information for a specific user. For example, `htop -u test` shows only processes owned by the user "test".
 
-- -d 选项 : 设置刷新时间，单位为秒。如，htop -d 10命令会每10秒刷新一次。
-
-- -s 选项 : 按指定的列排序。如，htop -s PID命令会按PID 列的大小排序来显示。
-
-- -u 选项 : 显示指定的用户的进程信息。如，htop -u test命令会只显示出用户名为test的相关进程。
-
-###  选项
+### Interactive Commands
 
 ```shell
-h,?     F1：查看htop使用说明
-S       F2：设置
-/       F3：搜索进程
-\       F4：过滤器，按关键字搜索
-t       F5：显示树形结构
-<,>     F6：选择排序方式
-[       F7：减少nice值，这样就可以提高对应进程的优先级
-]       F8：增加nice值，这样可以降低对应进程的优先级
-k       F9：杀掉选中的进程
-q       F10：退出htop
+h, ?    F1: View htop help/manual
+S       F2: Setup
+/       F3: Search for a process
+\       F4: Filter processes by keyword
+t       F5: Tree view
+<, >    F6: Select sorting method
+[       F7: Decrease nice value (increase priority)
+]       F8: Increase nice value (decrease priority)
+k       F9: Kill selected process
+q       F10: Quit htop
 
+/ : Search characters
+h : Show help
+l : List open files for a process (requires lsof)
+u : Show processes for a specific user
+U : Untag all processes
+s : Trace system calls with strace
+t : Toggle tree view
 
-/ : 搜索字符
-h : 显示帮助
-l : 显示进程打开的文件: 如果安装了lsof，按此键可以显示进程所打开的文件
-u : 显示所有用户，并可以选择某一特定用户的进程
-U : 取消标记所有的进程
-s : 将调用strace追踪进程的系统调用
-t : 显示树形结构
+H : Show/hide user threads
+I : Invert sort order
+K : Show/hide kernel threads    
+M : Sort by memory usage
+P : Sort by CPU usage    
+T : Sort by running time
 
-H：显示/隐藏用户线程
-I：倒转排序顺序
-K：显示/隐藏内核线程    
-M：按内存占用排序
-P：按CPU排序    
-T：按运行时间排序
-
-上下键或PgUP， PgDn : 移动选中进程  
-左右键或Home， End : 移动列表  
-Space(空格) : 标记/取消标记一个进程。命令可以作用于多个进程，例如 "kill"，将应用于所有已标记的进程  
-
+Up/Down or PgUp/PgDn: Move selection
+Left/Right or Home/End: Scroll process list
+Space: Tag/Untag a process (commands like "kill" apply to all tagged processes)
 ```
 
+### htop Settings
 
-### Htop设定
-
-鼠标点击Setup或者按下F2 之后进入htop 设定的页面
+Click "Setup" or press F2 to enter the `htop` configuration page.
 
 #### 1. Meters
-
-设定顶端的 显示信息，分为左右两侧，Left column 表示左侧的显示的信息，Right column表示右侧显示的信息，如果要新加选项，可以选择Available meters添加，F5新增到上方左侧，F6新增到上方右侧。Left column和Right column下面的选项，可以选定信息的显示方式，有LED、Bar(进度条)、Text(文本模式)，可以根据个人喜好进行设置
+Configure display information at the top. It's divided into "Left column" and "Right column". Select items from "Available meters" and press F5 to add to the left or F6 to add to the right. You can choose display modes like LED, Bar, or Text.
 
 #### 2. Display options
-
-选择要显示的内容，按空格 x表示显示，选择完后，按F10保存
+Select content to display. Press Space to toggle (x means selected). Press F10 to save.
 
 #### 3. Colors
+Set the interface color scheme.
 
-设定界面以什么颜色来显示，个人认为用处不大，各人喜好不同
+#### 4. Columns
+Add or remove columns. Use F7/F8 to move items up/down, F9 to remove, and F10 to save. You can add columns like PPID or PGRP based on your needs.
 
-#### 4. Colums
+**F3 Search Process**
+Press F3 or "/" to enter search mode. Type the process name, and matches will be highlighted.
 
-作用是增加或取消要显示的各项内容，选择后F7(向上移动)、F8(向下移动)、F9(取消显示、F10(保存更改))此处增加了PPID、PGRP，根据各人需求，显示那些信息。
+**F4 Filter**
+Case-insensitive fuzzy search. Only processes matching the keyword will be displayed.
 
-**F3 搜索进程**
+**F5 Tree View**
+Displays processes in a parent-child hierarchy.
 
-在界面下按F3或直接输入”/”就可以直接进入搜索模式，是按照进程名进行搜索的，搜索到的进程会用设定的颜色标记出来，方便查看。
+**F6 Sort**
+Choose the sorting criteria (e.g., CPU%, MEM%, PID).
 
-**F4：过滤器**
+**F7, F8 Adjust Nice Value**
+F7 decreases the nice value (increases priority), and F8 increases it (decreases priority). Range is -20 to 19.
 
-相当于模糊查找，不区分大小写，下方输入要搜索的内容后，则界面只显示搜索到的内容，更加方便查看
+**F9 Kill Process**
+Select a process and press F9 to send a signal (default is SIGTERM) to terminate it.
 
-**F5:以树形方式显示**
-
-
-**F6：排序方式**
-
-按下F6后会跳转至以树形方式显示界面，让您选择以什么方式进行排序，在Sort by下选择您要以什么来排序
-
-**F7，F8：调整进程nice值**
-
-F7表示减小nice值(增大优先级)，F8增大nice值(减小优先级)，选择某一进程，按F7或F8来增大或减小nice值，nice值范围为-20-19
-
-
-**F9：杀死进程**
-
-选择某一进程按F9即可杀死此进程，很方便
-
-**F10:退出htop**
-
-
+**F10 Quit**
+Exit `htop`.

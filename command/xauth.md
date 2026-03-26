@@ -1,40 +1,37 @@
 xauth
 ===
 
-显示和编辑被用于连接X服务器的认证信息
+Display and edit the authorization information used in connecting to the X server
 
-## 补充说明
+## Description
 
-**xauth命令** 用于显示和编辑被用于连接X服务器的认证信息。
+The **xauth command** is used to display and edit the authorization information (cookies) used to connect to X servers.
 
-###  语法
-
-```shell
-xauth(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--f：不使用默认的认证文件，而使用指定的认证文件；
--q：安静模式，不打印未请求的状态信息；
--v：详细模式，打印指定的各种操作信息；
--i：忽略认证文件锁定；
--b：执行任何操作，终端认证文件锁定。
+xauth [options] [arguments]
 ```
 
-###  参数
+### Options
 
-*   add：添加认证条目到认证文件中；
-*   extract：将指定的设备内容加入到指定的密码文件中；
-*   info：显示授权文件相关信息；
-*   exit：退出交互模式；
-*   list：列出给定的显示设备的内容；
-*   merge：合并多个授权文件内容；
-*   extract：将指定设备内容写入指定的授权文件；
-*   nextrct：将指定设备内容写入指定的授权文件；
-*   nmerge：合并多个授权文件内容；
-*   remove：删除指定显示设备的授权条目；
-*   source：从指定文件读取包含xauth的内容指令。
+```shell
+-f <filename>  Specify the authority file to use instead of the default.
+-q  Quiet mode. Do not print status messages.
+-v  Verbose mode. Print status information during various operations.
+-i  Ignore authority file locks.
+-b  Break authority file locks.
+```
 
+### Subcommands (Arguments)
 
+*   `add <display> <protocol> <hexkey>`: Add an authorization entry to the authority file.
+*   `extract <filename> <display>`: Extract authorization entries for a specified display into a file.
+*   `info`: Display information about the authority file.
+*   `exit`: Exit the interactive mode.
+*   `list [<display>]`: List authorization entries.
+*   `merge <filenames>...`: Merge multiple authority files.
+*   `nextract <filename> <display>`: Extract entries in numeric format.
+*   `nmerge <filenames>...`: Merge entries from files in numeric format.
+*   `remove <display>...`: Remove authorization entries for specified displays.
+*   `source <filename>`: Read `xauth` commands from a file.

@@ -1,65 +1,61 @@
 break
 ===
 
-结束for，while或until循环。
+Exit from for, while, or until loops.
 
-## 概要
+## Synopsis
 
 ```shell
 break [n]
 ```
 
-## 主要用途
+## Main Purpose
 
-- 结束for，while或until循环，可指定退出几层循环。
+- Exit from for, while, or until loops, optionally specifying the number of nested levels to break out of.
 
+## Parameters
 
-## 参数
+n (optional): An integer greater than or equal to 1, used to specify the number of nested loop levels to exit.
 
-n（可选）：大于等于1的整数，用于指定退出几层循环。
+## Return Value
 
-## 返回值
+Returns success unless `n` is less than 1.
 
-返回成功除非n小于1。
-
-## 例子
+## Examples
 
 ```shell
-# break的可选参数n缺省值为1。
-# 从外层for循环继续执行。
-for((i=3;i>0;i--)); do
-  for((j=3;j>0;j--)); do
-    if((j==2)); then
-      # 换成break 1时结果一样
+# The default value for the optional parameter n is 1.
+# Continues execution from the outer for loop.
+for ((i=3; i>0; i--)); do
+  for ((j=3; j>0; j--)); do
+    if ((j==2)); then
+      # The result is the same as break 1
       break
     fi
-  printf "%s %s\n" ${i} ${j}
+    printf "%s %s\n" ${i} ${j}
   done
 done
-# 输出结果
+# Output results
 3 3
 2 3
 1 3
 ```
 
 ```shell
-# 当n为2时：
-# 退出两层循环，结束。
-for((i=3;i>0;i--)); do
-  for((j=3;j>0;j--)); do
-    if((j==2)); then
+# When n is 2:
+# Exits two levels of loops and finishes.
+for ((i=3; i>0; i--)); do
+  for ((j=3; j>0; j--)); do
+    if ((j==2)); then
       break 2
     fi
-  printf "%s %s\n" ${i} ${j}
+    printf "%s %s\n" ${i} ${j}
   done
 done
-# 输出结果
+# Output results
 3 3
 ```
 
-### 注意
+### Notes
 
-1. 该命令是bash内建命令，相关的帮助信息请查看`help`命令。
-
-
-
+1. This command is a bash built-in; for related help information, please use the `help` command.

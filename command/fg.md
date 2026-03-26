@@ -1,48 +1,45 @@
 fg
 ===
 
-将后台作业移动到前台终端运行
+Move background jobs to the foreground for execution.
 
-## 概要
+## Synopsis
 
 ```shell
 fg [job_spec ...]
 ```
 
-## 主要用途
+## Main Purpose
 
-- 用于将后台作业（在后台运行的或者在后台挂起的作业）放到前台终端运行。
+- Move background jobs (either running in the background or suspended) to the foreground terminal for execution.
 
-- 若后台任务中只有一个，则使用该命令时可以省略任务号。
+- If there is only one background task, the task ID can be omitted.
 
-## 参数
+## Parameters
 
-job_spec（可选）：指定要移动到前台执行的作业标识符，可以是一到多个。
+job_spec (Optional): Specifies the job identifier(s) to be moved to the foreground. One or more can be specified.
 
-## 返回值
+## Return Value
 
-返回作业的执行状态，如果发生了错误返回失败。
+Returns the execution status of the job; returns failure if an error occurs.
 
-## 例子
+## Examples
 
 ```shell
-# 运行sleep命令，然后按下ctrl+z。
+# Run the sleep command, then press ctrl+z.
 sleep 60
 ^Z
 [1]+  Stopped                 sleep 60
 
-# 使用fg命令使得作业在前台运行。
+# Use the fg command to move the job to the foreground.
 fg %1
 
-# 返回信息：
+# Output:
 sleep 60
 ```
 
-### 注意
+### Note
 
-1. `bash`的作业控制命令包括`bg fg kill wait disown suspend`。
-2. 该命令需要`set`选项`monitor`处于开启状态时才能执行；查看作业控制状态：输入`set -o`查看`monitor`行；执行`set -o monitor`或`set -m`开启该选项。
-3. 该命令是bash内建命令，相关的帮助信息请查看`help`命令。
-
-
-
+1. `bash` job control commands include `bg`, `fg`, `kill`, `wait`, `disown`, and `suspend`.
+2. This command requires the `set` option `monitor` to be enabled; check the job control status by typing `set -o` and looking for the `monitor` line; execute `set -o monitor` or `set -m` to enable this option.
+3. This command is a bash built-in; for related help information, please refer to the `help` command.

@@ -1,67 +1,63 @@
 tac
 ===
 
-连接多个文件并以行为单位反向打印到标准输出。
+Concatenate and print files in reverse line by line
 
-## 概要
+## Summary
 
 ```shell
 tac [OPTION]... [FILE]...
 ```
 
-## 主要用途
+## Description
 
-- 按行为单位反向显示文件内容，如果没有文件或文件为`-`则读取标准输入。
-- 处理多个文件时，依次将每个文件反向显示，而不是将所有文件连在一起再反向显示。
+- Reverses the order of lines in a file and prints them to standard output. If no file is specified or if the file is `-`, it reads from standard input.
+- When processing multiple files, it reverses each file individually rather than concatenating them all before reversing.
 
+### Parameters
 
-## 参数
+FILE (optional): One or more files to process.
 
-FILE（可选）：要处理的文件，可以为一或多个。
-
-## 选项 
+### Options 
 
 ```shell
-长选项与短选项等价
-
--b, --before              在之前而不是之后连接分隔符。
--r, --regex               将分隔符作为基础正则表达式（BRE）处理。
--s, --separator=STRING    使用STRING作为分隔符代替默认的换行符。
---help                    显示帮助信息并退出。
---version                 显示版本信息并退出。
+-b, --before              Attach the separator before rather than after.
+-r, --regex               Treat the separator as a Basic Regular Expression (BRE).
+-s, --separator=STRING    Use STRING as the separator instead of the default newline.
+--help                    Display help and exit.
+--version                 Display version information and exit.
 ```
 
-## 返回值
+## Return Value
 
-返回状态为成功除非给出了非法选项或非法参数。
+Returns success unless invalid options or parameters are provided.
 
-## 例子 
+## Examples 
 
 ```shell
-# 选自官方info文档的例子：
-# 一个接着一个字符的反转一个文件：
+# Reverse a file character by character (example from info docs):
 tac -r -s 'x\|[^x]' test.log
 
-# 关于-b选项：
-seq 1 3 |tac
-# 输出
+# About the -b option:
+seq 1 3 | tac
+# Output
 3
 2
 1
-# 使用-b选项：
-seq 1 3 |tac -b
-# 输出，注意21后面没有换行符：
+
+# Using the -b option:
+seq 1 3 | tac -b
+# Output (note there is no newline after 21)
 
 
 3
 21
-# 前一个例子相当于将 '1\n2\n3\n' 转换为 '3\n2\n1\n'
-# 前一个例子相当于将 '1\n2\n3\n' 转换为 '\n\n3\n21'
+
+# The first example converts '1\n2\n3\n' to '3\n2\n1\n'
+# The second example converts '1\n2\n3\n' to '\n\n3\n21'
 ```
 
-### 注意
+### Notes
 
-1. 该命令是`GNU coreutils`包中的命令，相关的帮助信息请查看`man -s 1 tac`或`info coreutils 'tac invocation'`。
-2. 关于基础正则表达式（BRE）的内容，详见`man -s 1 grep`的`REGULAR EXPRESSIONS`段落。
-
-
+1. This command is part of the `GNU coreutils` package. See `man -s 1 tac` or `info coreutils 'tac invocation'` for more information.
+2. For details on Basic Regular Expressions (BRE), see the `REGULAR EXPRESSIONS` section in `man -s 1 grep`.

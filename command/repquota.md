@@ -1,37 +1,35 @@
 repquota
 ===
 
-报表的格式输出磁盘空间限制的状态
+Outputs the status of disk space limits in a report format.
 
-## 补充说明
+## Description
 
-**repquota命令** 以报表的格式输出指定分区，或者文件系统的磁盘配额信息。
+The **repquota command** outputs disk quota information for a specified partition or file system in a report format.
 
-###  语法
-
-```shell
-repquota(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--a：列出在/etc/fstab文件里，有加入quota设置的分区的使用状况，包括用户和群组；
--g：列出所有群组的磁盘空间限制；
--u：列出所有用户的磁盘空间限制；
--v：显示该用户或群组的所有空间限制。
+repquota(options)(parameters)
 ```
 
-###  参数
+### Options
 
-文件系统：要打印报表的文件系统或者对应的设备文件名。
+```shell
+-a: Lists the status of partitions with quota settings in the /etc/fstab file, including users and groups;
+-g: Lists disk space limits for all groups;
+-u: Lists disk space limits for all users;
+-v: Displays all space limits for the user or group.
+```
 
-###  实例
+### Parameters
 
-显示所有文件系统的磁盘使用情况
+File system: The file system or corresponding device filename to print the report for.
+
+### Examples
+
+Display disk usage for all file systems:
 
 ```shell
 repquota -a
 ```
-
-

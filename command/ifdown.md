@@ -1,26 +1,24 @@
 ifdown
 ===
 
-禁用指定的网络接口
+Disable a specified network interface.
 
-## 补充说明
+## Description
 
-**ifdown命令** 用于禁用指定的网络接口。
+The `ifdown` command is used to take a network interface down, preventing it from transmitting or receiving data.
 
-###  语法
-
-```shell
-ifdown(参数)
-```
-
-###  参数
-
-网络接口：要禁用的网络接口。
-
-###  实例
+### Syntax
 
 ```shell
-ifdown eth0  #禁用eth0
+ifdown [interface]
 ```
 
+### Parameters
 
+interface: The name of the network interface to disable.
+
+### Examples
+
+```shell
+ifdown eth0  # Disable eth0
+```

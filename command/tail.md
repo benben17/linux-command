@@ -1,16 +1,16 @@
 tail
 ===
 
-在屏幕上显示指定文件的末尾若干行
+Output the last part of files
 
-## 补充说明
+## Description
 
-**tail命令** 用于输入文件中的尾部内容。
-- 默认在屏幕上显示指定文件的末尾10行。
-- 处理多个文件时会在各个文件之前附加含有文件名的行。
-- 如果没有指定文件或者文件名为`-`，则读取标准输入。
-- 如果表示字节或行数的`NUM`值之前有一个`+`号，则从文件开头的第`NUM`项开始显示，而不是显示文件的最后`NUM`项。
-- `NUM`值后面可以有后缀：
+The **tail command** is used to output the last part of a file.
+- By default, it displays the last 10 lines of the specified file.
+- When multiple files are specified, it prepends each with its file name.
+- If no file is specified or if the file is `-`, it reads from standard input.
+- If the `NUM` value for bytes or lines is prefixed with a `+`, output starts at the `NUM`-th item from the beginning of the file, rather than the last `NUM` items.
+- Suffixes for `NUM`:
   - `b`  : 512
   - `kB` : 1000
   - `k ` : 1024
@@ -18,46 +18,42 @@ tail
   - `M ` : 1024 * 1024
   - `GB` : 1000 * 1000 * 1000
   - `G ` : 1024 * 1024 * 1024
-  - `T`、`P`、`E`、`Z`、`Y`等以此类推。
+  - `T`, `P`, `E`, `Z`, `Y` etc. follow the same logic.
 
-### 语法
-
-```shell
-tail (选项) (参数)
-```
-
-### 选项
+### Syntax
 
 ```shell
--c, --bytes=NUM                 输出文件尾部的NUM（NUM为整数）个字节内容。
--f, --follow[={name|descript}]  显示文件最新追加的内容。“name”表示以文件名的方式监视文件的变化。
--F                              与 “--follow=name --retry” 功能相同。
--n, --line=NUM                  输出文件的尾部NUM（NUM位数字）行内容。
---pid=<进程号>                  与“-f”选项连用，当指定的进程号的进程终止后，自动退出tail命令。
--q, --quiet, --silent           当有多个文件参数时，不输出各个文件名。
---retry                         即是在tail命令启动时，文件不可访问或者文件稍后变得不可访问，都始终尝试打开文件。使用此选项时需要与选项“--follow=name”连用。
--s, --sleep-interal=<秒数>      与“-f”选项连用，指定监视文件变化时间隔的秒数。
--v, --verbose                   当有多个文件参数时，总是输出各个文件名。
---help                          显示指令的帮助信息。
---version                       显示指令的版本信息。
+tail (options) (parameters)
 ```
 
-### 参数
-
-文件列表：指定要显示尾部内容的文件列表。
-
-### 实例
+### Options
 
 ```shell
-tail file #（显示文件file的最后10行）
-tail -n +20 file #（显示文件file的内容，从第20行至文件末尾）
-tail -c 10 file #（显示文件file的最后10个字节）
-
-tail -25 mail.log # 显示 mail.log 最后的 25 行
-tail -f mail.log # 等同于--follow=descriptor，根据文件描述符进行追踪，当文件改名或被删除，追踪停止
-tail -F mail.log # 等同于--follow=name --retry，根据文件名进行追踪，并保持重试，即该文件被删除或改名后，如果再次创建相同的文件名，会继续追踪
+-c, --bytes=NUM                 Output the last NUM bytes.
+-f, --follow[={name|descriptor}] Output appended data as the file grows. "name" tracks by filename.
+-F                              Same as "--follow=name --retry".
+-n, --lines=NUM                 Output the last NUM lines.
+--pid=PID                       Used with "-f"; terminate after process PID dies.
+-q, --quiet, --silent           Never output headers giving file names.
+--retry                         Keep trying to open a file if it is inaccessible. Use with "--follow=name".
+-s, --sleep-interval=N          With "-f", sleep for N seconds between iterations.
+-v, --verbose                   Always output headers giving file names.
+--help                          Display help information.
+--version                       Display version information.
 ```
 
+### Parameters
 
+File list: List of files to display the end of.
 
+### Examples
 
+```shell
+tail file # (Display the last 10 lines of file)
+tail -n +20 file # (Display file from line 20 to the end)
+tail -c 10 file # (Display the last 10 bytes of file)
+
+tail -25 mail.log # Display the last 25 lines of mail.log
+tail -f mail.log # Equivalent to --follow=descriptor; tracking stops if the file is renamed or deleted.
+tail -F mail.log # Equivalent to --follow=name --retry; tracking continues even if the file is deleted or renamed if a new file with the same name is created.
+```

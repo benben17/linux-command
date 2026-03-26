@@ -1,116 +1,118 @@
 od
 ===
 
-输出文件的八进制、十六进制等格式编码的字节
+Output files in octal, hexadecimal, and other formats.
 
-## 补充说明
+## Description
 
-**od命令** 用于输出文件的八进制、十六进制或其它格式编码的字节，通常用于显示或查看文件中不能直接显示在终端的字符。
+The **od command** is used to output the contents of a file in octal, hexadecimal, or other encoded formats. It is typically used to display or inspect characters in a file that cannot be directly displayed in the terminal.
 
-常见的文件为文本文件和二进制文件。此命令主要用来查看保存在二进制文件中的值。比如，程序可能输出大量的数据记录，每个数据是一个单精度浮点数。这些数据记录存放在一个文件中，如果想查看下这个数据，这时候od命令就派上用场了。在我看来，od命令主要用来格式化输出文件数据，即对文件中的数据进行无二义性的解释。不管是IEEE754格式的浮点数还是ASCII码，od命令都能按照需求输出它们的值。
+Common files are either text or binary. This command is primarily used to view values stored in binary files. For instance, if a program outputs a large number of single-precision floating-point records to a file, the `od` command can be used to inspect these values. It provides an unambiguous interpretation of the data in a file, whether it's IEEE 754 floating-point numbers or ASCII codes.
 
-###  语法
+### Syntax
 
 ```shell
-od(选项)(参数)
+od [options] [file...]
 ```
 
-###  选项
+### Options
 
 ```shell
--a：此参数的效果和同时指定“-ta”参数相同；
--A：<字码基数>：选择以何种基数计算字码；
--b：此参数的效果和同时指定“-toC”参数相同；
--c：此参数的效果和同时指定“-tC”参数相同；
--d：此参数的效果和同时指定“-tu2”参数相同；
--f：此参数的效果和同时指定“-tfF”参数相同；
--h：此参数的效果和同时指定“-tx2”参数相同；
--i：此参数的效果和同时指定“-td2”参数相同；
--j<字符数目>或--skip-bytes=<字符数目>：略过设置的字符数目；
--l：此参数的效果和同时指定“-td4”参数相同；
--N<字符数目>或--read-bytes=<字符数目>：到设置的字符树目为止；
--o：此参数的效果和同时指定“-to2”参数相同；
--s<字符串字符数>或--strings=<字符串字符数>：只显示符合指定的字符数目的字符串；
--t<输出格式>或--format=<输出格式>：设置输出格式；
--v或--output-duplicates：输出时不省略重复的数据；
--w<每列字符数>或--width=<每列字符数>：设置每列的最大字符数；
--x：此参数的效果和同时指定“-h”参数相同；
---help：在线帮助；
---version：显示版本信息。
+-a                            # Same as -t a (named characters).
+-A <radix>                    # Choose the input offset radix: d (decimal), o (octal), x (hexadecimal), or n (none).
+-b                            # Same as -t oC (octal bytes).
+-c                            # Same as -t c (ASCII characters or backslash escapes).
+-d                            # Same as -t u2 (unsigned decimal 2-byte units).
+-f                            # Same as -t fF (floats).
+-h                            # Same as -t x2 (hexadecimal 2-byte units).
+-i                            # Same as -t d2 (signed decimal 2-byte units).
+-j <bytes>, --skip-bytes=<bytes> # Skip the specified number of bytes from the beginning of the input.
+-l                            # Same as -t d4 (signed decimal 4-byte units).
+-N <bytes>, --read-bytes=<bytes> # Limit the output to the specified number of bytes.
+-o                            # Same as -t o2 (octal 2-byte units).
+-s <bytes>, --strings=<bytes> # Output strings of at least the specified number of graphic characters.
+-t <type>, --format=<type>    # Select the output format.
+-v, --output-duplicates       # Do not use * to mark line suppression (output all duplicate data).
+-w <bytes>, --width=<bytes>   # Set the number of output bytes per line.
+-x                            # Same as -t x2 (hexadecimal 2-byte units).
+--help                        # Display help information.
+--version                     # Display version information.
 ```
 
-###  参数
+### Parameters
 
-文件：指定要显示的文件。
+File: The file(s) to be displayed.
 
-###  实例
+### Examples
+
+Prepare a sample file `tmp`:
 
 ```shell
-[linuxde@localhost ~]$ echo abcdef g > tmp
-[linuxde@localhost ~]$ cat tmp
+[user@localhost ~]$ echo "abcdef g" > tmp
+[user@localhost ~]$ cat tmp
 abcdef g
 ```
 
-说明：先准备一个tmp文件
+Output using single-byte octal interpretation:
 
 ```shell
-[linuxde@localhost ~]$ od -b tmp
+[user@localhost ~]$ od -b tmp
 0000000 141 142 143 144 145 146 040 147 012
 0000011
 ```
 
-说明：使用单字节八进制解释进行输出，注意左侧的默认地址格式为八字节
+Output using ASCII characters (including escape sequences):
 
 ```shell
-[linuxde@localhost ~]$ od -c tmp
+[user@localhost ~]$ od -c tmp
 0000000   a   b   c   d   e   f       g  \n
 0000011
 ```
 
-说明：使用ASCII码进行输出，注意其中包括转义字符
+Output using single-byte decimal interpretation:
 
 ```shell
-[linuxde@localhost ~]$ od -t d1 tmp
+[user@localhost ~]$ od -t d1 tmp
 0000000   97   98   99  100  101  102   32  103   10
 0000011
 ```
 
-说明：使用单字节十进制进行解释
+Set the address (offset) radix to decimal:
 
 ```shell
-[linuxde@localhost ~]$ od -A d -c tmp
+[user@localhost ~]$ od -A d -c tmp
 0000000   a   b   c   d   e   f       g  \n
 0000009
 ```
 
-说明：设置地址格式为十进制。
+Set the address (offset) radix to hexadecimal:
 
 ```shell
-[linuxde@localhost ~]$ od -A x -c tmp
+[user@localhost ~]$ od -A x -c tmp
 000000   a   b   c   d   e   f       g  \n
-000009
+0000009
 ```
 
-说明：设置地址格式为十六进制
+Skip the first two bytes:
 
 ```shell
-[linuxde@localhost ~]$ od -j 2 -c tmp
+[user@localhost ~]$ od -j 2 -c tmp
 0000002   c   d   e   f       g  \n
 0000011
 ```
 
-说明：跳过开始的两个字节
+Skip the first two bytes and output only two bytes:
 
 ```shell
-[linuxde@localhost ~]$ od -N 2 -j 2 -c tmp
+[user@localhost ~]$ od -N 2 -j 2 -c tmp
 0000002   c   d
 0000004
 ```
 
-说明：跳过开始的两个字节，并且仅输出两个字节
+Output one byte per line:
 
 ```shell
-[linuxde@localhost ~]$ od -w1 -c tmp
+[user@localhost ~]$ od -w1 -c tmp
 0000000   a
 0000001   b
 0000002   c
@@ -123,10 +125,10 @@ abcdef g
 0000011
 ```
 
-说明：每行仅输出1个字节
+Output two bytes per line:
 
 ```shell
-[linuxde@localhost ~]$ od -w2 -c tmp
+[user@localhost ~]$ od -w2 -c tmp
 0000000   a   b
 0000002   c   d
 0000004   e   f
@@ -135,16 +137,12 @@ abcdef g
 0000011
 ```
 
-说明：每行输出两个字节
+Output three bytes per line using octal single-byte interpretation:
 
 ```shell
-[linuxde@localhost ~]$ od -w3 -b tmp
+[user@localhost ~]$ od -w3 -b tmp
 0000000 141 142 143
 0000003 144 145 146
 0000006 040 147 012
 0000011
 ```
-
-说明：每行输出3个字节，并使用八进制单字节进行解释
-
-

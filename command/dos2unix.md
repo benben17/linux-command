@@ -1,55 +1,55 @@
 dos2unix
 ===
 
-将DOS格式文本文件转换成Unix格式
+Convert text files from DOS format to Unix format.
 
-## 补充说明
+## Description
 
-**dos2unix命令** 用来将DOS格式的文本文件转换成UNIX格式的（DOS/MAC to UNIX text file format converter）。DOS下的文本文件是以`\r\n`作为断行标志的，表示成十六进制就是0D 0A。而Unix下的文本文件是以\n作为断行标志的，表示成十六进制就是0A。DOS格式的文本文件在Linux底下，用较低版本的vi打开时行尾会显示`^M`，而且很多命令都无法很好的处理这种格式的文件，如果是个shell脚本，。而Unix格式的文本文件在Windows下用Notepad打开时会拼在一起显示。因此产生了两种格式文件相互转换的需求，对应的将UNIX格式文本文件转成成DOS格式的是unix2dos命令。
+The **dos2unix** command is used to convert DOS-formatted text files to UNIX format (DOS/MAC to UNIX text file format converter). Text files in DOS use `\r\n` (CRLF) as a line break, which is `0D 0A` in hexadecimal. Unix text files use `\n` (LF) as a line break, which is `0A` in hexadecimal. When a DOS-formatted file is opened with an older version of `vi` in Linux, `^M` will appear at the end of each line, and many commands cannot handle this format correctly (e.g., shell scripts). Conversely, Unix-formatted files might appear as a single long line when opened in Windows Notepad. Therefore, there is a need to convert between these two formats. The corresponding tool to convert UNIX format to DOS is `unix2dos`.
 
-### 语法
+### Syntax
 
 ```shell
 dos2unix [-hkqV] [-c convmode] [-o file ...] [-n infile outfile ...]
 ```
 
-### 选项
+### Options
 
 ```shell
--k：保持输出文件的日期不变
--q：安静模式，不提示任何警告信息。
--V：查看版本
--c：转换模式，模式有：ASCII, 7bit, ISO, Mac, 默认是：ASCII。
--o：写入到源文件
--n：写入到新文件
+-k    Keep the date stamp of the output file.
+-q    Quiet mode, suppress all warnings.
+-V    Display version information.
+-c    Conversion mode. Modes: ASCII, 7bit, ISO, Mac. Default is ASCII.
+-o    Write to the original file (overwrite).
+-n    Write to a new file (specify input and output files).
 ```
 
-### 参数
+### Parameters
 
-参数：需要转换到文件。
+File: The file(s) to be converted.
 
-### 实例
+### Examples
 
-最简单的用法就是dos2unix直接跟上文件名：
+The simplest usage is dos2unix followed by the filename:
 
 ```shell
 dos2unix file
 ```
 
-如果一次转换多个文件，把这些文件名直接跟在dos2unix之后。（注：也可以加上`-o`参数，也可以不加，效果一样）
+To convert multiple files at once, list them after the command (Note: you can use the `-o` parameter, but it is the same as the default behavior):
 
 ```shell
 dos2unix file1 file2 file3
 dos2unix -o file1 file2 file3
 ```
 
-上面在转换时，都会直接在原来的文件上修改，如果想把转换的结果保存在别的文件，而源文件不变，则可以使用`-n`参数。
+The above commands modify the original files. If you want to save the result to a new file while keeping the original file unchanged, use the `-n` parameter:
 
 ```shell
-dos2unix oldfile newfile
+dos2unix -n oldfile newfile
 ```
 
-如果要保持文件时间戳不变，加上`-k`参数。所以上面几条命令都是可以加上`-k`参数来保持文件时间戳的。
+To keep the file timestamp unchanged, add the `-k` parameter. This can be combined with other commands:
 
 ```shell
 dos2unix -k file
@@ -58,9 +58,8 @@ dos2unix -k -o file1 file2 file3
 dos2unix -k -n oldfile newfile
 ```
 
-转换当前目录下所有文件
+Convert all files in the current directory:
 
 ```shell
-find -type f | xargs dos2unix
+find . -type f | xargs dos2unix
 ```
-

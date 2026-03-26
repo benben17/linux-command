@@ -1,29 +1,27 @@
 cupsenable
 ===
 
-启动指定的打印机
+Start the specified printer
 
-## 补充说明
+## Supplemental Information
 
-**cupsenable命令** 用于启动指定的打印机。
+The **cupsenable command** is used to start the specified printer.
 
-###  语法
-
-```shell
-cupsenable(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--E：当连接到服务器时强制使用加密；
--U：指定连接服务器时使用的用户名；
--u：指定打印任务所属的用户；
--h：指定连接的服务器名和端口号；
+cupsenable (options) (parameters)
 ```
 
-###  参数
+### Options
 
-目标：指定目标打印机。
+```shell
+-E: Force encryption when connecting to the server;
+-U: Specify the username to use when connecting to the server;
+-u: Specify the user to whom the print job belongs;
+-h: Specify the server name and port number to connect to.
+```
 
+### Parameters
 
+Target: Specify the target printer.

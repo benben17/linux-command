@@ -1,94 +1,90 @@
 gzip
 ===
 
-用来压缩文件
+Compress files.
 
-## 补充说明
+## Supplemental Information
 
-**gzip命令** 用来压缩文件。gzip是个使用广泛的压缩程序，文件经它压缩过后，其名称后面会多处“.gz”扩展名。
+The **gzip command** is used to compress files. It is a widely used compression utility; after a file is compressed, it will have a `.gz` extension added to its name.
 
-gzip是在Linux系统中经常使用的一个对文件进行压缩和解压缩的命令，既方便又好用。gzip不仅可以用来压缩大的、较少使用的文件以节省磁盘空间，还可以和tar命令一起构成Linux操作系统中比较流行的压缩文件格式。据统计，gzip命令对文本文件有60%～70%的压缩率。减少文件大小有两个明显的好处，一是可以减少存储空间，二是通过网络传输文件时，可以减少传输的时间。
+`gzip` is a frequently used command in Linux for both compressing and decompressing files, known for being convenient and efficient. It is not only used to compress large or infrequently used files to save disk space but is also commonly used in conjunction with the `tar` command to create the popular compressed archive formats. Statistics show that `gzip` can achieve a 60%–70% compression ratio for text files. Reducing file size provides two main benefits: saving storage space and reducing the time required for network transfers.
 
-### 语法
-
-```shell
-gzip(选项)(参数)
-```
-
-### 选项
+### Syntax
 
 ```shell
--a或——ascii：使用ASCII文字模式；
--d或--decompress或----uncompress：解开压缩文件；
--f或——force：强行压缩文件。不理会文件名称或硬连接是否存在以及该文件是否为符号连接；
--h或——help：在线帮助；
--l或——list：列出压缩文件的相关信息；
--L或——license：显示版本与版权信息；
--n或--no-name：压缩文件时，不保存原来的文件名称及时间戳记；
--N或——name：压缩文件时，保存原来的文件名称及时间戳记；
--q或——quiet：不显示警告信息；
--r或——recursive：递归处理，将指定目录下的所有文件及子目录一并处理；
--S或<压缩字尾字符串>或----suffix<压缩字尾字符串>：更改压缩字尾字符串；
--t或——test：测试压缩文件是否正确无误；
--v或——verbose：显示指令执行过程；
--V或——version：显示版本信息；
--<压缩效率>：压缩效率是一个介于1~9的数值，预设值为“6”，指定愈大的数值，压缩效率就会愈高；
---best：此参数的效果和指定“-9”参数相同；
---fast：此参数的效果和指定“-1”参数相同。
--num 用指定的数字num调整压缩的速度，-1或--fast表示最快压缩方法（低压缩比），-9或--best表示最慢压缩方法（高压缩比）。系统缺省值为6。
--c或--stdout或--to-stdout：保留原始文件，生成标准输出流（结合重定向使用）。
+gzip (options) (parameters)
 ```
 
-### 参数
+### Options
 
-文件列表：指定要压缩的文件列表。
+```shell
+-a, --ascii: Use ASCII text mode;
+-d, --decompress, --uncompress: Decompress the compressed file;
+-f, --force: Force compression even if files already exist or are hard links or symbolic links;
+-h, --help: Display online help;
+-l, --list: List information about the compressed file;
+-L, --license: Display version and copyright information;
+-n, --no-name: When compressing, do not save the original file name and time stamp;
+-N, --name: When compressing, save the original file name and time stamp;
+-q, --quiet: Suppress all warnings;
+-r, --recursive: Recursively process all files and subdirectories in the specified directory;
+-S <suffix>, --suffix <suffix>: Use <suffix> as the compression suffix;
+-t, --test: Test the integrity of the compressed file;
+-v, --verbose: Display verbose output;
+-V, --version: Display version information;
+-<num>: Set the compression level to <num>, where <num> is between 1 and 9. The default is 6. A higher value provides better compression but takes longer;
+--best: Same as -9;
+--fast: Same as -1;
+-c, --stdout, --to-stdout: Keep original files and write output to standard output (often used with redirection).
+```
 
-### 实例
+### Parameters
 
-把test6目录下的每个文件压缩成.gz文件
+File List: Specifies the list of files to be compressed.
+
+### Examples
+
+Compress every file in the `test6` directory into `.gz` files:
 
 ```shell
 gzip *
 ```
 
-把上例中每个压缩的文件解压，并列出详细的信息
+Decompress each compressed file from the previous example and list detailed information:
 
 ```shell
 gzip -dv *
 ```
 
-详细显示例1中每个压缩的文件的信息，并不解压
+Show detailed information for each compressed file from Example 1 without decompressing:
 
 ```shell
 gzip -l *
 ```
 
-压缩一个tar备份文件，此时压缩文件的扩展名为.tar.gz
+Compress a tar archive, resulting in a `.tar.gz` file:
 
 ```shell
 gzip -r log.tar
 ```
 
-递归的压缩目录
+Recursively compress a directory:
 
 ```shell
 gzip -rv test6
 ```
 
-这样，所有test下面的文件都变成了*.gz，目录依然存在只是目录里面的文件相应变成了*.gz.这就是压缩，和打包不同。因为是对目录操作，所以需要加上-r选项，这样也可以对子目录进行递归了。
+In this case, all files inside `test6` are turned into `.gz` files. The directory structure remains, but the files within are replaced by their compressed versions. This is compression, not archiving. Because it operates on a directory, the `-r` option is required for recursion.
 
-递归地解压目录
+Recursively decompress a directory:
 
 ```shell
 gzip -dr test6
 ```
 
-保留原始文件，把压缩/解压流重定向到新文件
+Keep original files and redirect the compression/decompression stream to a new file:
 
 ```shell
 gzip -c aa > aa.gz
 gzip -dc bb.gz > bb
 ```
-
-
-

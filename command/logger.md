@@ -1,42 +1,38 @@
 logger
 ===
 
-在系统日志中记录相应条目
+Enter messages into the system log
 
-## 补充说明
+## Description
 
-**logger命令** 是用于往系统中写入日志，他提供一个shell命令接口到syslog系统模块
+The **logger** command is used to write messages to the system log. It provides a shell command interface to the `syslog` system module.
 
-###  语法
+### Syntax
 
 ```shell
 logger [options] [message]
 ```
 
-###  选项
+### Options
 
 ```shell
- -T, --tcp             使用流连接(TCP)
- -d, --udp             使用数据报(UDP)
- -i, --id              逐行记录每一次logger的进程ID
- -f, --file <file>     记录特定的文件
- -h, --help            显示帮助文本并退出
- -n, --server <name>   写入指定的远程syslog服务器，使用UDP代替内装式syslog的例程
- -P, --port <port>     使用指定的UDP端口。默认的端口号是514
- -p, --priority <prio> 指定输入消息的优先级，优先级可以是数字或者指定为 " facility.level" 的格式。
-                       比如：" -p local3.info " local3 这个设备的消息级别为 info。
-                       默认级别是 "user.notice"
- -s, --stderr          输出标准错误到系统日志。
- -t, --tag <tag>       指定标记记录
- -u, --socket <socket> 写入指定的socket，而不是到内置系统日志例程。
- -V, --version         输出版本信息并退出
+ -T, --tcp             Use TCP
+ -d, --udp             Use UDP
+ -i, --id              Log the process ID of the logger process on each line
+ -f, --file <file>     Log the contents of the specified file
+ -h, --help            Display help and exit
+ -n, --server <name>   Write to the specified remote syslog server using UDP
+ -P, --port <port>     Use the specified UDP port (default is 514)
+ -p, --priority <prio> Specify the priority of the message (e.g., "facility.level").
+                       Example: "-p local3.info". Default is "user.notice"
+ -s, --stderr          Output message to standard error as well as the system log
+ -t, --tag <tag>       Mark every line to be logged with the specified tag
+ -u, --socket <socket> Write to the specified socket instead of the system log routine
+ -V, --version         Display version information and exit
 ```
 
-### 例子
+### Examples
 
 ```shell
 logger -p syslog.info "backup.sh is starting"
 ```
-
-
-

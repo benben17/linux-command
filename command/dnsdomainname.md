@@ -1,25 +1,25 @@
 dnsdomainname
 ===
 
-定义DNS系统中FQDN名称的域名
+Display the system's DNS domain name.
 
-## 补充说明
+## Description
 
-**dnsdomainname命令** 用于定义DNS系统中FQDN名称中的域名。
+The **dnsdomainname** command is used to show the domain name part of the system's fully qualified domain name (FQDN).
 
-###  语法
-
-```shell
-dnsdomainname(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
--v：详细信息模式，输出指令执行的详细信息。
+dnsdomainname (options)
 ```
 
-###  实例
+### Options
+
+```shell
+-v    Verbose mode, output detailed information about the command execution.
+```
+
+### Examples
 
 ```shell
 [root@AY1307311912260196fcZ ~]# dnsdomainname -v
@@ -28,5 +28,3 @@ Resolving `AY1307311912260196fcZ' ...
 Result: h_name=`AY1307311912260196fcZ'
 Result: h_addr_list=`10.160.7.81'
 ```
-
-

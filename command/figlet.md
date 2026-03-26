@@ -1,57 +1,57 @@
 figlet
 ===
 
-字符串转为 “字画符”。
+Convert strings into "ASCII art" characters.
 
-## 补充说明
+## Description
 
-将普通字符串转为有简单字符拼接而成的 “字画符”。
+Converts ordinary strings into "ASCII art" characters composed of simple characters.
 
-## 安装
+## Installation
 
-Ubuntu 等系统
+For Ubuntu and similar systems:
 
 ```shell
 apt-get update
 apt-get install -y figlet
 ```
 
-CentOS 等系统
+For CentOS and similar systems:
 
 ```shell
 yum install epel-release
 yum install -y figlet
 ```
 
-## 语法
+## Syntax
 
 ```shell
 figlet [ message ] [ -option ]
 ```
 
-## 参数
+## Parameters
 
-message 是需要转换的字符串。
-当没有输入 message 时，会读取标准输入，因此可以配合管道符等使用。
+`message` is the string that needs to be converted.
+If no `message` is provided, it reads from standard input, making it compatible with pipes and other redirections.
 
-## 选项
+## Options
 
 ```shell
--w      限制输出宽度，默认为 '80'
--c      居中显示
--f      指定字体，默认为 'standard'
--k      保留字符之间的空隙
--t      对齐宽度到当前终端的宽度，这个参数优先级比 -w 高
--v      显示版本信息
+-w      Limit output width, defaults to '80'.
+-c      Center the output.
+-f      Specify the font, defaults to 'standard'.
+-k      Keep whitespace between characters.
+-t      Align width to the current terminal width; this parameter takes precedence over -w.
+-v      Display version information.
 ```
 
-## 返回值
+## Return Value
 
-字符串，由简单字符拼接而成的 “字画符”。
+A string representing the "ASCII art" composed of simple characters.
 
-## 示例
+## Examples
 
-### 从参数输入
+### Input from Parameters
 
 ```shell
 figlet 'Hello, World!'
@@ -65,7 +65,7 @@ figlet 'Hello, World!'
 |_| |_|\___|_|_|\___( )    \_/\_/ \___/|_|  |_|\__,_(_)
 ```
 
-### 配合管道符输入
+### Input via Pipe
 
 ```shell
 echo 'Hello, World!' | figlet
@@ -79,7 +79,7 @@ echo 'Hello, World!' | figlet
 |_| |_|\___|_|_|\___( )    \_/\_/ \___/|_|  |_|\__,_(_)
 ```
 
-### 限制宽度
+### Limit Width
 
 ```shell
 figlet 'Hello, World!' -w 40
@@ -99,7 +99,7 @@ __        __         _     _ _
    \_/\_/ \___/|_|  |_|\__,_(_)
 ```
 
-### 居中显示
+### Center Output
 
 ```shell
 figlet 'Hello, World!' -w 40 -c
@@ -119,7 +119,7 @@ figlet 'Hello, World!' -w 40 -c
        \_/\_/ \___/|_|  |_|\__,_(_)
 ```
 
-### 指定字体
+### Specify Font
 
 ```shell
 figlet 'Hello, World!' -w 40 -c -f slant
@@ -139,7 +139,7 @@ figlet 'Hello, World!' -w 40 -c -f slant
     |__/|__/\____/_/  /_/\__,_(_)
 ```
 
-### 保留字符之间的空隙
+### Keep Whitespace Between Characters
 
 ```shell
 figlet 'Hello, World!' -w 40 -c -k

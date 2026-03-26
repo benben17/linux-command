@@ -1,28 +1,26 @@
 xset
 ===
 
-设置X-Window系统中的用户爱好的实用工具
+User preference utility for X Window.
 
-## 补充说明
+## Supplemental Information
 
-**xset命令** 是设置X-Window系统中的用户爱好的实用工具。
+The **xset command** is a utility for setting user preferences in the X Window system.
 
-###  语法
-
-```shell
-xset(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--b：蜂鸣器开关设置；
--c：键盘按键声响设置。
+xset (options) (parameters)
 ```
 
-###  参数
+### Options
 
-* c：键盘按键声响设置；
-* s：屏幕保护程序设置。
+```shell
+-b: Beeper (bell) on/off setting.
+-c: Key click sound setting.
+```
 
+### Parameters
 
+* c: Keyboard key sound settings.
+* s: Screen saver settings.

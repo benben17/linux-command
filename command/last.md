@@ -1,37 +1,37 @@
 last
 ===
 
-列出目前与过去登入系统的用户相关信息
+List information about currently and previously logged-in users
 
-## 补充说明
+## Description
 
-**last命令** 用于显示用户最近登录信息。单独执行last命令，它会读取`/var/log/wtmp`的文件，并把该给文件的内容记录的登入系统的用户名单全部显示出来。
+The **last** command is used to display information about the most recent logins of users. When executed alone, it reads the `/var/log/wtmp` file and displays all the records of users who have logged into the system.
 
-###  语法
-
-```shell
-last(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--a：把从何处登入系统的主机名称或ip地址，显示在最后一行；
--d：将IP地址转换成主机名称；
--f <记录文件>：指定记录文件。
--n <显示列数>或-<显示列数>：设置列出名单的显示列数；
--R：不显示登入系统的主机名称或IP地址；
--x：显示系统关机，重新开机，以及执行等级的改变等信息。
+last (options) (parameters)
 ```
 
-###  参数
+### Options
 
-*   用户名：显示用户登录列表；
-*   终端：显示从指定终端的登录列表。
+```shell
+-a: Display the hostname or IP address from which the user logged in at the end of the line;
+-d: Convert IP addresses into hostnames;
+-f <file>: Specify an alternative log file;
+-n <number> or -<number>: Set the number of lines to display;
+-R: Do not display the hostname or IP address of the login;
+-x: Display system shutdown, reboot, and runlevel change information.
+```
 
-###  实例
+### Parameters
 
-last命令用了显示用户登录情况，以下是直接显示固定行数的记录：
+*   Username: Display the login list for the specified user;
+*   Terminal: Display the login list for the specified terminal.
+
+### Examples
+
+The `last` command is used to show user login status. Below is an example of displaying a fixed number of records:
 
 ```shell
 last -10
@@ -46,5 +46,3 @@ root     pts/0        221.6.45.34      Tue Dec 10 14:41 - 15:52  (01:10)
 root     pts/0        221.6.45.34      Mon Dec  9 17:24 - 17:30  (00:06)
 root     pts/0        221.6.45.34      Mon Dec  9 09:38 - 11:41  (02:02)
 ```
-
-

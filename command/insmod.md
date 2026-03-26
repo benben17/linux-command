@@ -1,48 +1,45 @@
 insmod
 ===
 
-将给定的模块加载到内核中
+Insert a module into the Linux kernel.
 
-## 补充说明
+## Description
 
-**insmod命令** 用于将给定的模块加载到内核中。Linux有许多功能是通过模块的方式，在需要时才载入kernel。如此可使kernel较为精简，进而提高效率，以及保有较大的弹性。这类可载入的模块，通常是设备驱动程序。
+The `insmod` command is used to load a specified module into the kernel. Many Linux features are implemented as modules and loaded into the kernel only when needed. This keeps the kernel lean and efficient while maintaining flexibility. These loadable modules are typically device drivers.
 
-###  语法
+### Syntax
 
 ```shell
-insmod(选项)(参数)
+insmod [options] [filename]
 ```
 
-###  选项
+### Options
 
 ```shell
--f：不检查目前kernel版本与模块编译时的kernel版本是否一致，强制将模块载入；
--k：将模块设置为自动卸除；
--m：输出模块的载入信息；
--o<模块名称>：指定模块的名称，可使用模块文件的文件名；
--p：测试模块是否能正确地载入kernel；
--s：将所有信息记录在系统记录文件中；
--v：执行时显示详细的信息；
--x：不要汇出模块的外部符号；
--X：汇出模块所有的外部符号，此为预设置。
+-f : Force loading of the module even if the kernel version doesn't match the version the module was compiled for.
+-k : Set the module to be auto-removable.
+-m : Output module loading information.
+-o <name> : Specify the name of the module.
+-p : Test if the module can be loaded correctly into the kernel.
+-s : Log all messages to the system log.
+-v : Enable verbose mode.
+-x : Do not export external symbols from the module.
+-X : Export all external symbols (default).
 ```
 
-###  参数
+### Parameters
 
-内核模块：指定要加载的内核模块文件。
+Kernel module: The path to the kernel module file (.ko) to be loaded.
 
-###  实例
+### Examples
 
-加载RAID1阵列级别模块，如下所示：
+Load the RAID1 module:
 
 ```shell
-[root@localhost boot]# insmod /lib/modules/2.6.
-18-8.el5/kernel/drivers/md/raid1.ko  
+[root@localhost boot]# insmod /lib/modules/$(uname -r)/kernel/drivers/md/raid1.ko  
 
 [root@localhost boot]# lsmod | grep raid1
 raid1                  25153  0
 ```
 
-从以上显示结果可知，RAID1模块已加载成功。只是在使用insmod命令加载模块时，需要使用绝对路径方能加载，且加载时无法自动解决依赖关系。
-
-
+The output shows that the RAID1 module was loaded successfully. Note that `insmod` requires an absolute path and does not automatically resolve module dependencies (use `modprobe` for dependency resolution).

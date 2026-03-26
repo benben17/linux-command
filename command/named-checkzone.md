@@ -1,43 +1,41 @@
 named-checkzone
 ===
 
-使用 named-checkzone 可验证并转换区域文件，需指定区域名和文件名。
+Verify and convert zone files
 
-## 补充说明
+## Description
 
-**named-checkzone命令** 可以进行区域文件有效性检查和转换，必须指定区域名称和区域文件名称。
+The **named-checkzone command** is used to check the validity of zone files and convert them. It requires specifying both the zone name and the zone file name.
 
-###  语法
-
-```shell
-named-checkzone [选项] [区域名] [区域文件名]
-```
-
-###  选项
+### Syntax
 
 ```shell
--q 安静模式
--d 启用调试
--c <类别> 指定区域的类别。如果没指定就使用IN
+named-checkzone [options] [zone_name] [zone_file]
 ```
 
-### 例子
+### Options
 
-对区域文件/var/named/192.168.0.rev进行有效性检查和转换。
+```shell
+-q Quiet mode.
+-d Enable debugging.
+-c <class> Specify the class of the zone. If not specified, IN is used.
+```
+
+### Examples
+
+Check the validity of and convert the zone file `/var/named/192.168.0.rev`.
 
 ```shell
 [root@localhost ~]# named-checkzone 0.168.192.in-addr.arpa /var/named/192.168.0.rev
-zone0.168.192.in-addr.arpa/IN: loaded serial 1268360612
+zone 0.168.192.in-addr.arpa/IN: loaded serial 1268360612
 OK
 ```
 
-对区域文件/var/named/sh.com.hosts进行有效性检查和转换。
+Check the validity of and convert the zone file `/var/named/sh.com.hosts`.
 
 ```shell
-[root@localhost ~]#  named-checkzone sh.com /var/named/sh.com.hosts
-zonesh.com/IN: sh.com/MX 'mail.sh.com' is a CNAME (illegal)
-zonesh.com/IN: loaded serial 1268360234
+[root@localhost ~]# named-checkzone sh.com /var/named/sh.com.hosts
+zone sh.com/IN: sh.com/MX 'mail.sh.com' is a CNAME (illegal)
+zone sh.com/IN: loaded serial 1268360234
 OK
 ```
-
-

@@ -1,49 +1,46 @@
 clock
 ===
 
-用于调整 RTC 时间
+Used to adjust RTC (Real Time Clock) time
 
-## 补充说明
+## Description
 
-**clock命令**用于调整 RTC 时间。 RTC 是电脑内建的硬件时间，执行这项指令可以显示现在时刻，调整硬件时钟的时间，将系统时间设成与硬件时钟之时间一致，或是把系统时间回存到硬件时钟。
+The **clock command** is used to adjust the RTC time. RTC is the hardware clock built into the computer. Executing this command can display the current time, adjust the hardware clock, synchronize the system time with the hardware clock, or save the system time back to the hardware clock.
 
-###  语法
-
-```shell
-clock [--adjust][--debug][--directisa][--getepoch][--hctosys][--set --date="<日期时间>"]
-[--setepoch --epoch=< >][--show][--systohc][--test][--utc][--version]
-```
-
-###  选项
+### Syntax
 
 ```shell
---adjust 　第一次使用"--set"或"--systohc"参数设置硬件时钟，会在/etc目录下产生一个名称为adjtime的文件。当再次使用这两个参数调整硬件时钟，此文件便会记录两次调整间之差异，日后执行clock指令加上"--adjust"参数时，程序会自动根 据记录文件的数值差异，计算出平均值，自动调整硬件时钟的时间。
---debug 　详细显示指令执行过程，便于排错或了解程序执行的情形。
---directisa 　告诉clock指令不要通过/dev/rtc设备文件，直接对硬件时钟进行存取。这个参数适用于仅有ISA总线结构的老式电脑。
---getepoch 　把系统核心内的硬件时钟新时代数值，呈现到标准输出设备。
---hctosys 　Hardware Clock to System Time，把系统时间设成和硬件时钟一致。由于这个动作将会造成系统全面更新文件的存取时间，所以最好在系统启动时就执行它。
---set--date 　设置硬件时钟的日期和时间。
---setepoch--epoch=<年份> 　设置系统核心之硬件时钟的新时代数值，年份以四位树字表示。
---show 　读取硬件时钟的时间，并将其呈现至标准输出设备。
---systohc 　System Time to Hardware Clock，将系统时间存回硬件时钟内。
---test 　仅作测试，并不真的将时间写入硬件时钟或系统时间。
---utc 　把硬件时钟上的时间时为CUT，有时也称为UTC或UCT。
---version 　显示版本信息。
+clock [--adjust][--debug][--directisa][--getepoch][--hctosys][--set --date="<datetime>"]
+[--setepoch --epoch=<year>][--show][--systohc][--test][--utc][--version]
 ```
 
-### 实例
-
-获取当前的时间
+### Options
 
 ```shell
-clock # 获取当前的时间
+--adjust: The first time "--set" or "--systohc" is used to set the hardware clock, an adjtime file is created in the /etc directory. When these parameters are used again, the file records the difference between adjustments. Subsequent executions with "--adjust" will automatically calculate the average drift based on these values and adjust the hardware clock.
+--debug: Display detailed information about the command execution, useful for troubleshooting.
+--directisa: Tell the clock command not to use the /dev/rtc device file and instead access the hardware clock directly. This is suitable for older computers with only an ISA bus structure.
+--getepoch: Output the hardware clock epoch value from the kernel to standard output.
+--hctosys: Hardware Clock to System Time. Set the system time to match the hardware clock. Since this action updates access times for all files, it is best performed during system startup.
+--set --date="<datetime>": Set the date and time of the hardware clock.
+--setepoch --epoch=<year>: Set the hardware clock epoch value in the kernel, using a four-digit year.
+--show: Read the hardware clock time and output it to standard output.
+--systohc: System Time to Hardware Clock. Save the system time back into the hardware clock.
+--test: Test mode only; do not actually write time to the hardware clock or system time.
+--utc: Treat the hardware clock time as Coordinated Universal Time (UTC), also known as CUT or UCT.
+--version: Display version information.
 ```
 
-显示UTC时间
+### Examples
+
+Get the current time:
 
 ```shell
-clock -utc #显示UTC时间
+clock # Get the current time
 ```
 
+Display UTC time:
 
-
+```shell
+clock --utc # Display UTC time
+```

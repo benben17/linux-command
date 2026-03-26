@@ -1,32 +1,30 @@
 lpstat
 ===
 
-显示CUPS中打印机的状态信息
+Display status information about CUPS printers
 
-## 补充说明
+## Description
 
-**lpstat命令** 用于显示CUPS中打印机的状态信息。
+The **lpstat** command is used to display status information about printers in the CUPS system.
 
-### 语法
-
-```shell
-lpstat(选项)
-```
-
-### 选项
+### Syntax
 
 ```shell
--E：与打印机连接时加密；
--R：显示打印任务的等级；
--U：指定可选用户名；
--a：显示接受打印任务的打印机；
--c：显示打印机类；
--d：显示默认打印机；
--h：指定可选的服务器信息；
--l：显示长格式；
--p：显示指定打印机，以及打印机是否接受打印任务；
--s：显示汇总信息；
--t：显示所有的状态信息。
+lpstat (options)
 ```
 
+### Options
 
+```shell
+-E: Encrypt the connection to the printer server;
+-R: Display the ranking of print jobs;
+-U <username>: Specify an optional username;
+-a: Display the printers that are accepting print jobs;
+-c: Display printer classes;
+-d: Display the default printer;
+-h <server>: Specify optional server information;
+-l: Show long format output;
+-p: Show specified printers and whether they are accepting jobs;
+-s: Show summary information;
+-t: Show all status information.
+```

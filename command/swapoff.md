@@ -1,34 +1,32 @@
 swapoff
 ===
 
-关闭指定的交换空间
+Disable devices and files for paging and swapping
 
-## 补充说明
+## Description
 
-**swapoff命令** 用于关闭指定的交换空间（包括交换文件和交换分区）。swapoff实际上为swapon的符号连接，可用来关闭系统的交换区。
+The **swapoff command** is used to disable specified swap spaces (including swap files and swap partitions). `swapoff` is actually a symbolic link to `swapon`, used to turn off the system's swap areas.
 
-###  语法
-
-```shell
-swapoff(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--a：关闭配置文件“/etc/fstab”中所有的交换空间。
+swapoff (options) (parameters)
 ```
 
-###  参数
+### Options
 
-交换空间：指定需要激活的交换空间，可以是交换文件和交换分区，如果是交换分区则指定交换分区对应的设备文件。
+```shell
+-a: Disable all swap spaces specified in the configuration file "/etc/fstab".
+```
 
-###  实例
+### Parameters
 
-关闭交换分区
+Swap space: Specify the swap space to be deactivated, which can be a swap file or a swap partition. If it is a swap partition, specify the device file corresponding to the partition.
+
+### Examples
+
+Disable a swap partition:
 
 ```shell
 swapoff /dev/sda2
 ```
-
-

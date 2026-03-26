@@ -1,16 +1,14 @@
 logout
 ===
 
-退出当前登录的Shell
+Log out of the current shell
 
-## 补充说明
+## Description
 
-**logout命令** 用于退出当前登录的Shell，logout指令让用户退出系统，其功能和login指令相互对应。
+The **logout** command is used to exit the currently logged-in shell, effectively logging the user out of the system. It corresponds to the `login` command.
 
-###  语法
+### Syntax
 
 ```shell
 logout
 ```
-
-

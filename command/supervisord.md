@@ -1,18 +1,18 @@
 supervisord
 ===
 
-配置后台服务/常驻进程的进程管家工具
+A process control system for managing background services and persistent processes
 
-## 安装
+## Installation
 
 ```shell
-# 安装 supervisord
+# Install supervisor
 apt-get install supervisor
 ```
 
-## 实例
+## Examples
 
-生成配置文件 `/etc/supervisord.conf`
+Generate a configuration file `/etc/supervisord.conf`:
 
 ```shell
 [program:app]
@@ -21,15 +21,15 @@ directory=/srv/www
 user=www-data
 ```
 
-supervisord: 启动 supervisor 服务
+`supervisord`: Start the supervisor service
 
 ```shell
 supervisorctl start app
 supervisorctl stop app
-supervisorctl reload # 修改/添加配置文件需要执行这个
+supervisorctl reload # Execute this after modifying/adding configuration files
 ```
 
-## 下载地址
+## Download Links
 
 https://pypi.python.org/pypi/meld3  
-https://pypi.python.org/pypi/supervisor  
+https://pypi.python.org/pypi/supervisor

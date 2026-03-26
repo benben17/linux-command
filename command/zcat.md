@@ -1,36 +1,34 @@
 zcat
 ===
 
-显示压缩包中文件的内容
+Display the contents of files inside a compressed archive
 
-## 补充说明
+## Description
 
-**zcat命令** 用于不真正解压缩文件，就能显示压缩包中文件的内容的场合。
+The **zcat** command is used to display the contents of a compressed file without actually decompressing it.
 
-###  语法
-
-```shell
-zcat(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--S：指定gzip格式的压缩包的后缀。当后缀不是标准压缩包后缀时使用此选项；
--c：将文件内容写到标准输出；
--d：执行解压缩操作；
--l：显示压缩包中文件的列表；
--L：显示软件许可信息；
--q：禁用警告信息；
--r：在目录上执行递归操作；
--t：测试压缩文件的完整性；
--V：显示指令的版本信息；
--l：更快的压缩速度；
--9：更高的压缩比。
+zcat [options] [parameters]
 ```
 
-###  参数
+### Options
 
-文件：指定要显示其中文件内容的压缩包。
+```shell
+-S, --suffix=[suffix]: Specify the suffix for gzip compressed files. Use this option when the suffix is not a standard compression suffix;
+-c, --stdout: Write the file content to standard output;
+-d, --decompress: Perform decompression;
+-l, --list: List the files inside the compressed archive;
+-L, --license: Display software license information;
+-q, --quiet: Suppress warning messages;
+-r, --recursive: Perform recursive operations on directories;
+-t, --test: Test the integrity of compressed files;
+-V, --version: Display version information;
+-1, --fast: Faster compression speed;
+-9, --best: Higher compression ratio.
+```
 
+### Parameters
 
+Files: Specifies the compressed archives whose contents are to be displayed.

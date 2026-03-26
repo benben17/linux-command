@@ -1,56 +1,54 @@
 dpkg-divert
 ===
 
-Debian Linux中创建并管理一个转向列表
+Override a package's version of a file in Debian.
 
-## 补充说明
+## Description
 
-**dpkg-divert命令** 是Debian Linux中创建并管理一个转向（diversion）列表，其使得安装文件的默认位置失效的工具。
+The **dpkg-divert** command is a utility in Debian Linux used to create and manage a list of diversions. Diversions allow you to move a file from its default location, preventing it from being overwritten when a package is installed.
 
-###  语法
-
-```shell
-dpkg-divert(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
---add：添加一个转移文件；
---remove：删除一个转移文件；
---list：列出匹配的转移；
---truename：对应转移文件真实文件名；
---quidet：安静模式。
+dpkg-divert (options) (parameters)
 ```
 
-###  参数
+### Options
 
-文件：指定转移文件名。
+```shell
+--add       Add a diversion.
+--remove    Remove a diversion.
+--list      List diversions matching a pattern.
+--truename  Display the real name for a diverted file.
+--quiet     Quiet mode, minimize output.
+```
 
-###  实例
+### Parameters
 
-指定软件包wibble安装时，写入`/usr/bin/example.foo`，而不是`/usr/bin/example`：
+File: Specifies the file name for the diversion.
+
+### Examples
+
+Specify that when the package `wibble` is installed, it should write to `/usr/bin/example.foo` instead of `/usr/bin/example`:
 
 ```shell
 dpkg-divert --package wibble --divert /usr/bin/example.foo --rename /usr/bin/example
 ```
 
-指定软件包wibble安装时，删除对`/usr/bin/example`的转移修改：
+Remove the diversion for `/usr/bin/example` associated with the package `wibble`:
 
 ```shell
 dpkg-divert --package wibble --rename --remove /usr/bin/example
 ```
 
-删除对`/usr/bin/example`的转移修改：
+Remove any diversion for `/usr/bin/example`:
 
 ```shell
 dpkg-divert --rename --remove /usr/bin/example
 ```
 
-添加一个软件包安装时，写入`/usr/bin/example.foo`，而不是`/usr/bin/example`的修改：
+Add a diversion so that any package trying to install to `/usr/bin/example` will write to `/usr/bin/example.foo` instead:
 
 ```shell
 dpkg-divert --divert /usr/bin/example.foo --rename /usr/bin/example
 ```
-
-

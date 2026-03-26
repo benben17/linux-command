@@ -1,160 +1,159 @@
 emacs
 ===
 
-功能强大的全屏文本编辑器
+Powerful full-screen text editor.
 
-## 补充说明
+## Description
 
-**emacs命令** 是由GNU组织的创始人Richard Stallman开发的一个功能强大的全屏文本编辑器，它支持多种编程语言，具有很多优良的特性。有众多的系统管理员和软件开发者使用emacs。
+The **emacs** command is a powerful full-screen text editor developed by Richard Stallman, the founder of the GNU project. It supports multiple programming languages and has many excellent features. It is widely used by system administrators and software developers.
 
-###  语法
-
-```shell
-emacs(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
-+<行号>：启动emacs编辑器，并将光标移动到制定行号的行；
--q：启动emacs编辑器，而不加载初始化文件；
--u<用户>：启动emacs编辑器时，加载指定用户的初始化文件；
--t<文件>：启动emacs编辑器时，把指定的文件作为中端，不适用标准输入（stdin）与标准输出（stdout）；
--f<函数>：执行指定lisp（广泛应用于人工智能领域的编程语言）函数；
--l<lisp代码文件>：加载指定的lisp代码文件；
--batch：以批处理模式运行emacs编辑器。
+emacs [options] [parameters]
 ```
 
-###  参数
-
-文件：指定要编辑的文本文件。
-
-## emacs命令操作大全  
-
-基本命令
+### Options
 
 ```shell
-C-x C-c : 退出Emacs
-C-x C-f : 打开一个文件，如果文件不存在，则创建一个文件
-C-g : 取消未完成的命令
++<line_number>: Start emacs and move the cursor to the specified line number.
+-q: Start emacs without loading the initialization file.
+-u <user>: Load the initialization file of the specified user.
+-t <file>: Use the specified file as a terminal, instead of using standard input (stdin) and standard output (stdout).
+-f <function>: Execute the specified Lisp function.
+-l <lisp_file>: Load the specified Lisp code file.
+-batch: Run emacs in batch mode.
 ```
 
-编辑
+### Parameters
+
+File: Specify the text file to be edited.
+
+## Emacs Command Reference
+
+### Basic Commands
 
 ```shell
-C-z (redefined): Undo；原来C-z是挂起Emacs（然后用fg命令调出）；C-x u 是默认的命令； 移动一下光标，再C-z就可以redo
-M-d : 删除光标后的词语
+C-x C-c : Exit Emacs
+C-x C-f : Open a file; if it doesn't exist, create it.
+C-g : Cancel a partially entered command.
 ```
 
-移动光标
+### Editing
 
 ```shell
-C-v : 向前翻页
-M-v : 向后翻页
-M-r : 将光标移动到屏幕中间那行
-C-a : 移到行首
-M-a : 移到句首，从行首到句首之间可能有空格
-C-e : 移到行尾
-M-e : 移到句尾
-M-{ : 向上移动一段
-M-} : 向下移动一段
-C-right : 向前移动一个单词
-C-left : 向后移动一个单词
-C-up : 向前移动一段
-C-down : 向后移动一段
-M-< : 移到整个文本开头
-M-> : 移到整个文本末尾
-C-u 数字 命令 : 执行多次(数字表示次数)该命令；"M-数字 命令" 也可以
-M-x goto-line : 移动到某一行
-C-l : 重绘屏幕，效果就是当前编辑行移动窗口中央
+C-z (redefined): Undo; originally C-z was to suspend Emacs (use 'fg' to resume). C-x u is the default undo. Move the cursor and C-z again to redo.
+M-d : Delete the word after the cursor.
 ```
 
-Buffer 相关
+### Moving the Cursor
 
 ```shell
-C-x k : 关闭当前buffer
-C-x b : 切换到前一个编辑的buffer
-C-x C-b : 列出当前所有buffer
-C-x C-s : 保存当前buffer
-C-x s : 保存所有未保存的buffer，会提示你是否需要保存
-C-x C-w : 文件另存为
+C-v : Page forward
+M-v : Page backward
+M-r : Move cursor to the middle line of the screen.
+C-a : Move to the beginning of the line.
+M-a : Move to the beginning of the sentence (there may be spaces between the line start and sentence start).
+C-e : Move to the end of the line.
+M-e : Move to the end of the sentence.
+M-{ : Move up one paragraph.
+M-} : Move down one paragraph.
+C-right : Move forward one word.
+C-left : Move backward one word.
+C-up : Move up one paragraph.
+C-down : Move down one paragraph.
+M-< : Move to the beginning of the buffer.
+M-> : Move to the end of the buffer.
+C-u <number> <command> : Execute the command multiple times (number of times). "M-<number> <command>" also works.
+M-x goto-line : Move to a specific line.
+C-l : Redraw screen, centering the current line in the window.
 ```
 
-拷贝与粘贴
+### Buffer Related
 
 ```shell
-M-space (redefined): 设置mark; C-@ 是默认命令
-C-w (redefined) : 剪切一块区域；如果没有设置mark，则是剪切一行
-M-w (redefined) : 拷贝一块区域；如果没有设置mark, 则是拷贝一行
-C-k : 从当前位置剪切到行尾
-C-y : 粘贴
-M-y : 用C-y拉回最近被除去的文本后，换成 M-y可以拉回以前被除去的文本。键入多次的M-y可以拉回更早以前被除去的文本。
-C-x r k : 执行矩形区域的剪切
-C-x r y : 执行矩形区域的粘贴
+C-x k : Kill current buffer.
+C-x b : Switch to the previous buffer.
+C-x C-b : List all buffers.
+C-x C-s : Save current buffer.
+C-x s : Save all modified buffers (prompts for each).
+C-x C-w : Save file as.
 ```
+
+### Copy and Paste
 
 ```shell
-窗口操作
-C-x 0 : 关闭当前窗口
-C-x 1 : 将当前窗口最大化
-C-x 2 : 垂直分割窗口
-C-x 3 : 水平分割窗口
-M-o (redefined) : 在窗口之间切换; C-x o 是默认命令
-C-x 5 1/2/3/0 : 对frame类似的操作
-C-x < : 窗口内容右卷
-C-x > : 窗口内容左卷（这两个命令在垂直分割窗口后比较有用）
-(C-u) C-x ^ : 加高当前窗口，如果有C-u，则每次加高4行
-(C-u) C-x } : 加宽当前窗口
-(C-u) C-x { : 压窄当前窗口
-ESC C-v : 在其它窗口进行卷屏操作
+M-space (redefined): Set mark; C-@ is the default.
+C-w (redefined) : Kill (cut) region; if no mark is set, kill the current line.
+M-w (redefined) : Copy region; if no mark is set, copy the current line.
+C-k : Kill from cursor to end of line.
+C-y : Yank (paste).
+M-y : Cycle through previous kills after C-y.
+C-x r k : Kill rectangular region.
+C-x r y : Yank rectangular region.
 ```
 
-搜索和替换
+### Window Operations
 
 ```shell
-C-s : 向前搜索（增量式搜索）；连续C-s，跳到下一个搜索到的目标
-C-s RET : 普通搜索
-C-r : 向前搜索
-C-s RET C-w : 按单词查询
-M-% : 查询替换，也就是替换前会询问一下
-M-x replace-string : 普通替换
+C-x 0 : Close current window.
+C-x 1 : Maximize current window.
+C-x 2 : Split window vertically.
+C-x 3 : Split window horizontally.
+M-o (redefined) : Switch between windows; C-x o is the default.
+C-x 5 1/2/3/0 : Similar operations for frames.
+C-x < : Scroll window content right.
+C-x > : Scroll window content left.
+(C-u) C-x ^ : Increase window height.
+(C-u) C-x } : Increase window width.
+(C-u) C-x { : Decrease window width.
+ESC C-v : Scroll other window.
 ```
 
-Tags
+### Search and Replace
 
 ```shell
-M-! etags .c .h : 创建TAGS文件
-M-. : 跳到tag所在位置
-M-x list-tags : 列出tags
+C-s : Incremental search forward; press C-s again for next occurrence.
+C-s RET : Normal search.
+C-r : Incremental search backward.
+C-s RET C-w : Search by word.
+M-% : Query replace (asks before each replacement).
+M-x replace-string : Simple replace string.
 ```
 
-书签
+### Tags
 
 ```shell
-C-x r m : 设置书签bookmark
-C-x r b : 跳到bookmark处
+M-! etags *.c *.h : Create TAGS file.
+M-. : Jump to tag definition.
+M-x list-tags : List tags.
 ```
 
-帮助
+### Bookmarks
 
 ```shell
-C-h ? : 查看帮助信息
-C-h f : 查看一个函数
-C-h v : 查看一个变量
-C-h k : 查看一个键绑定 (C－h c 也是查看键绑定，但是信息较简略)
-C-h C-f : 查看一个函数的info，非常有用
-C-h i : 看Info
+C-x r m : Set bookmark.
+C-x r b : Jump to bookmark.
 ```
 
-其它
+### Help
 
 ```shell
-C-M-\ : 对选中区域，按照某种格式(比如C程序)进行格式化
-C-x h : 全部选中
-M-! : 执行外部shell命令
-M-x shell : 模拟shell的buffer
-M-x term : 模拟terminal, C-c k 关闭terminal
-C-x C-q : 修改buffer的只读属性
+C-h ? : View help information.
+C-h f : Describe a function.
+C-h v : Describe a variable.
+C-h k : Describe a key binding.
+C-h C-f : View info for a function.
+C-h i : View Info manuals.
 ```
 
+### Other
 
+```shell
+C-M-\ : Indent region according to major mode.
+C-x h : Select all.
+M-! : Execute external shell command.
+M-x shell : Run a shell in a buffer.
+M-x term : Run a terminal emulator.
+C-x C-q : Toggle read-only mode for buffer.
+```

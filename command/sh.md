@@ -1,30 +1,30 @@
 sh
 ===
 
-shell命令解释器
+Shell command interpreter.
 
-## 补充说明
+## Description
 
-**sh命令** 是shell命令语言解释器，执行命令从标准输入读取或从一个文件中读取。通过用户输入命令，和内核进行沟通！Bourne Again Shell （即bash）是自由软件基金会（GNU）开发的一个Shell，它是Linux系统中一个默认的Shell。Bash不但与Bourne Shell兼容，还继承了C Shell、Korn Shell等优点。
+The **sh command** is a shell command language interpreter that reads commands from standard input or a file. It acts as an interface between user input and the kernel. Bourne Again Shell (bash), developed by the Free Software Foundation (GNU), is the default shell on many Linux systems. Bash is compatible with the original Bourne Shell and incorporates features from C Shell and Korn Shell.
 
-### 语法
+### Syntax
 
 ```shell
 bash [options] [file]
 ```
 
-### 选项
+### Options
 
 ```shell
--c string：命令从-c后的字符串读取。
--i：实现脚本交互。
--n：进行shell脚本的语法检查。
--x：实现shell脚本逐条语句的跟踪。
+-c string: Read commands from the specified string following the -c option.
+-i: Run the shell in interactive mode.
+-n: Perform syntax checking on a shell script without executing it.
+-x: Enable tracing of shell script execution, printing each command before it is run.
 ```
 
-###  实例
+### Examples
 
-使用-x选项跟踪脚本调试shell脚本，能打印出所执行的每一行命令以及当前状态：
+Use the `-x` option to trace and debug a shell script, printing each line executed along with its current state:
 
 ```shell
 [root@AY1307311912260196fcZ satools]# sh -x check_ssh_login.sh
@@ -57,5 +57,3 @@ bash [options] [file]
 + echo sshd:121.42.0.72
 + echo vsftpd:121.42.0.72
 ```
-
-

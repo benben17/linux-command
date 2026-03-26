@@ -1,38 +1,38 @@
 setpci
 ===
 
-查询和配置PCI设备的使用工具
+A utility for querying and configuring PCI devices.
 
-## 补充说明
+## Description
 
-**setpci命令** 是一个查询和配置PCI设备的使用工具。
+The **setpci command** is a utility used to query and configure PCI devices.
 
-###  语法
-
-```shell
-setpci(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--v：显示指令执行的细节信息；
--f：当没有任何操作需要完成时，不显示任何信息；
--D：测试模式，并不真正将配置信息写入寄存器；
--d：仅显示给定厂商和设备的信息；
--s：仅显示指定总线、插槽上的设备或设备上的功能块信息。
+setpci [options] [parameters]
 ```
 
-###  参数
+### Options
 
-*   PCI设备：指定要配置的PCI设备；
-*   操作：指定要完成的配置操作。
+```shell
+-v: Display detailed information about the execution of the command.
+-f: Do not display any information when there are no operations to be completed.
+-D: Test mode; do not actually write configuration information to the registers.
+-d: Display information only for a given vendor and device ID.
+-s: Display information only for devices on a specified bus and slot, or function blocks on a device.
+```
 
-###  实例
+### Parameters
 
-Linux下调节笔记本屏幕亮度方法：
+*   PCI Device: Specify the PCI device to be configured.
+*   Operations: Specify the configuration operations to be completed.
 
-首先进入终端输入lspci命令，列出各种设备的地址：
+### Examples
+
+Method to adjust laptop screen brightness in Linux:
+
+First, enter the `lspci` command in the terminal to list the addresses of various devices:
 
 ```shell
 lspci
@@ -45,25 +45,23 @@ lspci
 ......
 ```
 
-发现00:02.0是VGA设备，于是我们修改它的属性：
+We find that `00:02.0` is the VGA device, so we modify its attributes:
 
 ```shell
 sudo setpci -s 00:02.0 F4.B=FF
 ```
 
-解释一下：
+Explanation:
 
-*    **setpci**  是修改设备属性的命令。
-*    **-s**  表示接下来输入的是设备的地址。
-*    **00:02.0**  VGA设备地址（<总线>:<接口>.<功能>）。
-*    **F4**  要修改的属性的地址，这里应该表示“亮度”。
-*    **.B**  修改的长度（B应该是字节（Byte），还有w（应该是Word，两个字节）、L（应该是Long，4个字节））。
-*    **=FF**  要修改的值（可以改）。
+*   **setpci**: The command to modify device attributes.
+*   **-s**: Indicates that the following input is the device address.
+*   **00:02.0**: VGA device address (<bus>:<slot>.<function>).
+*   **F4**: The address of the attribute to modify, which represents "brightness" in this case.
+*   **.B**: The length of the modification (B for Byte; other options include `w` for Word (2 bytes) and `L` for Long (4 bytes)).
+*   **=FF**: The value to be set (can be changed).
 
-我这里00是最暗，FF是最亮，不同的电脑可能不一样。比如说我嫌FF太闪眼了，我就可以：
+In this example, `00` is the darkest and `FF` is the brightest. This may vary for different computers. If `FF` is too bright, you can use:
 
 ```shell
 sudo setpci -s 00:02.0 F4.B=CC
 ```
-
-

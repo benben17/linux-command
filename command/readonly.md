@@ -1,105 +1,100 @@
-readonly
-===
+# readonly
 
-标记shell变量或函数为只读
+Mark shell variables or functions as read-only.
 
-## 语法
+## Syntax
 
 ```shell
 readonly [-aAf] [name[=value] ...]
 readonly -p
 ```
 
-## 主要用途
+## Main Uses
 
-- 定义一到多个变量并设置只读属性。
-- 为已定义的一到多个变量设置只读属性。
-- 显示全部包含只读属性的变量。
-- 为已定义的一到多个函数设置只读属性。
-- 显示全部包含只读属性的函数。
+- Define one or more variables and set the read-only attribute.
+- Set the read-only attribute for one or more already defined variables.
+- Display all variables that have the read-only attribute.
+- Set the read-only attribute for one or more already defined functions.
+- Display all functions that have the read-only attribute.
 
-## 选项
+## Options
 
 ```shell
--a：指向数组。
--A：指向关联数组。
--f：指向函数。
--p：显示全部只读变量。
---：在它之后的选项无效。
+-a: Refers to indexed arrays.
+-A: Refers to associative arrays.
+-f: Refers to functions.
+-p: Display all read-only variables.
+--: Signals the end of options; any further arguments are treated as names.
 ```
 
-## 参数
+## Parameters
 
 ```shell
-name（可选）：变量名或函数名
-value（可选）：变量的值
+name (optional): The name of the variable or function.
+value (optional): The value to assign to the variable.
 ```
 
-### 返回值
+### Return Value
 
-readonly返回true除非你提供了非法选项或非法名称。
+`readonly` returns true (0) unless an invalid option or an invalid name is provided.
 
-## 例子
+## Examples
 
 ```shell
-# 定义变量并增加只读属性
+# Define variables and add read-only attribute
 readonly var1=13 var2
 readonly -a arr1=(1 2 3 4 5) arr2=('z' 'x' 'c')
-# 必须有 '-A' 选项
+# The '-A' option is required for associative arrays during definition
 readonly -A dict1=(['key1']='value1')
 ```
 
 ```shell
-# 先定义变量、函数，然后再为它们添加只读属性
+# Define variables and functions first, then add read-only attribute
 max=3
 readonly max
 
-# 数组定义时可以不加 `declare -a`
+# Arrays can be defined without `declare -a`
 seasons=('spring' 'summer' 'autumn' 'winter')
-# 为数组添加只读属性时可以不加 `-a` 选项
+# The '-a' option is not required when marking an existing array as read-only
 readonly seasons
 
 declare -A man=(['age']=23 ['height']='190cm')
-# 为关联数组添加只读属性时可以不加 `-A` 选项
+# The '-A' option is not required when marking an existing associative array as read-only
 readonly man
 
 function foo(){ echo 'bar'; }
-# 为函数添加只读属性时必须加 `-f` 选项
+# The '-f' option MUST be used to mark a function as read-only
 readonly -f foo
 ```
 
 ```shell
-# 显示全部只读变量，以下两个命令的显示结果一样
+# Display all read-only variables; the following two commands produce the same output
 readonly
 readonly -p
-# 显示全部拥有只读属性的数组
+# Display all read-only indexed arrays
 readonly -a
-# 显示全部拥有只读属性的关联数组
+# Display all read-only associative arrays
 readonly -A
-# 显示全部拥有只读属性的函数
+# Display all read-only functions
 readonly -f
 ```
 
-## 常见错误
+## Common Errors
 
-对于只读变量而言，若用户对其值进行修改，则会立即报错。例如，使用该指令定义一个只读变量"test"，并且将其值初始化为"ok"，输入如下命令：
+If a user attempts to modify the value of a read-only variable, an error is reported immediately. For example:
 
 ```shell
-[root@localhost ~]# readonly test='ok'        #定义只读变量并初始化 
+[root@localhost ~]# readonly test='ok'        # Define and initialize a read-only variable
 ```
 
-那么当用户直接修改该只读变量时就会报错，如下所示：
+Attempting to modify it:
 
 ```shell
-[root@localhost ~]# test='my'                 #试图修改只读变量的值
+[root@localhost ~]# test='my'                 # Attempt to change the value
 -bash: test: readonly variable
 ```
 
-当用户试图修改只读变量的值时，会被提示该变量为只读变量。
+## Notes
 
-## 注意
-
-1. 该命令是bash内建命令，相关的帮助信息请查看`help`命令。
-2. `declare +r`不能去除只读属性， `unset`不能删除只读变量。
-
-
+1. This is a Bash builtin command; use the `help` command for related information.
+2. The `declare +r` command cannot remove the read-only attribute, and `unset` cannot delete read-only variables.

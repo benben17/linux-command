@@ -1,33 +1,31 @@
 squidclient
 ===
 
-squid服务器的客户端管理工具
+Client management tool for Squid servers.
 
-## 补充说明
+## Description
 
-**squidclient命令** 使用squid服务器的客户端管理工具，它可以查看squid服务器的详细运行信息和管理squid服务器。
+The **squidclient command** is a command-line tool for managing Squid servers. It can be used to view detailed running information and perform administrative tasks on a Squid server.
 
-###  语法
-
-```shell
-squidclient(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--a：不包含“accept:header”；
--r：强制缓存重新加载URL；
--s：安静模式，不输出信息到标准输出设备；
--h：从指定主机获取url
--l：指定一个本地ip地址进行绑定；
--p：端口号，默认为3128；
--m：指定发送请求的方法；
--u：代理认证用户名。
+squidclient [option] [parameter]
 ```
 
-###  参数
+### Options
 
-URL：指定操作缓存中的URL。
+```shell
+-a: Do not include an "Accept:" header;
+-r: Force a cache reload of the URL;
+-s: Quiet mode, do not output information to standard output (stdout);
+-h: Retrieve the URL from the specified host;
+-l: Specify a local IP address to bind to;
+-p: Port number, defaults to 3128;
+-m: Specify the HTTP method to send (e.g., GET, POST, PURGE);
+-u: Username for proxy authentication.
+```
 
+### Parameter
 
+URL: Specify the URL in the cache to operate on.

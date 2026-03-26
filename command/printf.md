@@ -1,189 +1,185 @@
 printf
 ===
 
-格式化并输出结果。
+Format and print data.
 
-## 目录
+## Table of Contents
 
-- [bash内建命令](#内建命令)
-- [GNU coreutils中的命令](#外部命令)
+- [Bash Builtin Command](#builtin-command)
+- [External Command](#external-command)
 
-## 内建命令
+## Builtin Command
 
-#### 概要
+#### Synopsis
 
 ```shell
 printf [-v var] format [arguments]
 ```
 
-#### 主要用途
+#### Main Usage
 
-- 格式化参数并输出。
+- Formats arguments and prints them.
 
-#### 选项
+#### Options
 
 ```shell
--v var：将结果输出到变量var中而不是输出到标准输出。
+-v var: Output the result to the variable var instead of standard output.
 ```
 
-#### 参数
+#### Parameters
 
-format：输出格式。
+format: Output format.
 
-arguments：一到多个参数。
+arguments: One or more arguments.
 
 ```shell
-转义序列：除了支持printf(1)和printf(3)的转义序列，内建printf还支持以下转义序列：
+Escape Sequences: In addition to the escape sequences supported by printf(1) and printf(3), the builtin printf supports the following:
 
-%b       展开参数中的反斜杠转义字符。
-%q       将参数扩起以用作shell输入。
-%(fmt)T  根据strftime(3)中的转义字符来输出日期时间字符串。
+%b       Expand backslash escape characters in arguments.
+%q       Quote arguments so they can be used as shell input.
+%(fmt)T  Output date-time string according to strftime(3) escape characters.
 ```
 
-#### 返回值
+#### Return Value
 
-返回状态为成功除非给出了非法选项、写错误、赋值错误。
+Returns success unless an invalid option is given, a write error occurs, or an assignment error occurs.
 
-#### 例子
+#### Examples
 
 ```shell
-# %-5s 格式为左对齐且宽度为5的字符串代替（'-'表示左对齐），不使用则默认右对齐。
-# %-4.2f 格式为左对齐宽度为4，保留两位小数。
+# %-5s: Formatted as a left-aligned string with a width of 5 ('-' denotes left alignment). Default is right-aligned.
+# %-4.2f: Formatted as a left-aligned float with a width of 4 and 2 decimal places.
 
 printf "%-5s %-10s %-4s\n" NO Name Mark
 printf "%-5s %-10s %-4.2f\n" 01 Tom 90.3456
 printf "%-5s %-10s %-4.2f\n" 02 Jack 89.2345
 printf "%-5s %-10s %-4.2f\n" 03 Jeff 98.4323
 
-# 输出
+# Output
 NO    Name       Mark
 01    Tom        90.35
 02    Jack       89.23
 03    Jeff       98.43
 
 
-# %b %q %(fmt)T 的例子。
-# see it again with a newline.
+# Examples for %b %q %(fmt)T.
+# Output with a newline.
 printf "%s\n" 'hello world'
-# 展开换行符，和上面的结果一样。
+# Expand newline character, same result as above.
 printf "%b" 'hello world\n'
 
 printf '%q\n' 'a b c'
-# 输出
+# Output
 a\ b\ c
 
-# %z为时区，%n为换行符。
-printf "%(%F %T %z%n)T"
-# 输出
+# %z is timezone, %n is newline.
+printf "%( %F %T %z%n)T"
+# Output
 2019-09-10 01:48:07 +0000
 ```
 
-#### 注意
+#### Note
 
-1. 该命令是bash内建命令，相关的帮助信息请查看`help`命令。
+1. This command is a bash builtin; use the `help` command for related help information.
 
 
-## 外部命令
+## External Command
 
-#### 概要
+#### Synopsis
 
 ```shell
 printf FORMAT [ARGUMENT]...
 printf OPTION
 ```
 
-#### 主要用途
+#### Main Usage
 
-- 格式化参数并输出。
+- Formats arguments and prints them.
 
 
-#### 选项
+#### Options
 
 ```shell
---help 显示帮助信息并退出。
---version 显示版本信息并退出。
+--help Display help information and exit.
+--version Display version information and exit.
 ```
 
-#### 参数
+#### Parameters
 
-format：输出格式。
+format: Output format.
 
-arguments：一到多个参数。
+arguments: One or more arguments.
 
 ```shell
-在这里忽略了（%b %q），如果你安装的coreutils版本支持它们，那么请参考上面的例子。
-支持的转义序列：
+Note that (%b %q) are omitted here; if your coreutils version supports them, refer to the examples above.
+Supported escape sequences:
 
-\"          双引号
-\\          反斜杠
-\a          响铃
-\b          退格
-\c          截断输出
-\e          退出
-\f          翻页
-\n          换行
-\r          回车
-\t          水平制表符
-\v          竖直制表符
-\NNN        八进制数 (1到3位数字)
-\xHH        十六进制数 (1到2位数字)
-\uHHHH      Unicode字符附加4位十六进制数字
-\UHHHHHHHH  Unicode字符附加8位十六进制数字
-%%          百分号
+\"          Double quote
+\\          Backslash
+\a          Alert (bell)
+\b          Backspace
+\c          Produce no further output
+\e          Escape
+\f          Form feed
+\n          New line
+\r          Carriage return
+\t          Horizontal tab
+\v          Vertical tab
+\NNN        Octal number (1 to 3 digits)
+\xHH        Hexadecimal number (1 to 2 digits)
+\uHHHH      Unicode character with 4 hex digits
+\UHHHHHHHH  Unicode character with 8 hex digits
+%%          Literal %
 
-以及'diouxXfeEgGcs'中的一个结尾的C格式规范，将被转换为正确的类型并处理可变宽度。
+And C format specifications ending in one of 'diouxXfeEgGcs', which will be converted to the correct type and handle variable widths.
 ```
 
-#### 例子
+#### Examples
 
 ```shell
-# 使用 /usr/bin/printf 确保调用的不是内建命令。
-# 当然，在你关闭内建printf以及确认当前环境没有printf函数的情况下，可直接使用printf，详见末尾"注意"的链接。
+# Use /usr/bin/printf to ensure the external command is called, not the builtin.
+# You can use printf directly if the builtin is disabled or no such function exists.
 
-# 按行打印数组和关联数组的下标及值。
+# Print array indices and values line by line.
 
-# 声明数组可以不加'declare -a'或'local -a'（在函数内声明的局部变量）。
+# Declaring an array doesn't strictly require 'declare -a' or 'local -a'.
 arr=('line1' 'line2')
 /usr/bin/printf "%s\n" ${!arr[@]}
-# 输出下标
+# Output indices
 0
 1
 /usr/bin/printf "%s\n" ${arr[@]}
-# 输出值
+# Output values
 line1
 line2
 
-#声明关联数组（也就是字典）必须加'declare -A'或'local -A'（在函数内声明的局部变量）。
+# Declaring an associative array (dictionary) must use 'declare -A' or 'local -A'.
 declare -A assoc_arr=(['key1']='value1' ['key2']='value2')
 /usr/bin/printf "%s\n" ${!assoc_arr[@]}
-# 输出键。
+# Output keys.
 key2
 key1
 /usr/bin/printf "%s\n" ${assoc_arr[@]}
-# 输出值。
+# Output values.
 value2
 value1
 ```
 
-#### 返回值
+#### Return Value
 
-返回状态为成功除非给出了非法选项等。
+Returns success unless an invalid option is given, etc.
 
-#### 注意
+#### Note
 
-1. 该命令是`GNU coreutils`包中的命令，相关的帮助信息请查看`man -s 1 printf`或`info coreutils 'pwd invocation'`。
+1. This command is part of the `GNU coreutils` package; use `man 1 printf` or `info coreutils 'printf invocation'` for help.
 
-2. 启动或关闭内建命令请查看`enable`命令，关于同名优先级的问题请查看`builtin`命令的例子部分的相关讨论。
+2. To enable or disable builtin commands, use the `enable` command. For priority issues with same-named commands, see the `builtin` command examples.
 
-3. 我通过和`bug-bash@gnu.org`的交流，得到了关于这几个格式说明符`%b %q %(fmt)T`的解释：
-   > printf(1)中的%b格式说明符是printf(3)支持的格式之外增加的一个POSIX特性。
+3. Explanation of the format specifiers `%b %q %(fmt)T` from `bug-bash@gnu.org`:
+   > The %b format specifier in printf(1) is a POSIX feature added beyond what printf(3) supports.
    >
-   > %q和%T说明符是非标准的，并且不受所有独立实现的printf的支持。
+   > The %q and %T specifiers are non-standard and not supported by all standalone printf implementations.
    
-   更多细节请参考链接：
-   - [POSIX printf](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/printf.html)
-   `APPLICATION USAGE`段落的第五节。
-   - [POSIX printf格式说明符](https://pubs.opengroup.org/onlinepubs/9699919799/functions/printf.html)
-   的`Description`段落。
-
-
+   More details can be found at:
+   - [POSIX printf](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/printf.html) Section 5 of `APPLICATION USAGE`.
+   - [POSIX printf Format Specifiers](https://pubs.opengroup.org/onlinepubs/9699919799/functions/printf.html) `Description` section.

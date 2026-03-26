@@ -1,35 +1,35 @@
 nstat
 ===
 
-nstat 是一个简单的监视内核的 SNMP 计数器和网络接口状态的实用工具。
+nstat is a simple tool for monitoring kernel SNMP counters and network interface statistics.
 
-## 补充说明
+## Description
 
-大多数命令行用户都熟悉 netstat ，这是 net-tools 软件包中的命令。目前新版本中 net-tools 软件包几乎完全被弃用，取而代之的是 ip 命令套件，而 nstat 属于新软件包。
+Most command-line users are familiar with `netstat`, which is part of the `net-tools` package. In modern Linux distributions, `net-tools` is largely deprecated and replaced by the `iproute2` suite, to which `nstat` belongs.
 
-###  语法
+### Syntax
 
-```s
+```shell
 nstat [OPTION] [ PATTERN [ PATTERN ] ]
 ```
 
-###  选项
+### Options
 
 ```shell
--h：显示帮助信息；
--V：显示指令版本信息；
--z：转储零计数器。默认情况下不显示它们；
--r：清零历史统计；
--n：不显示任何内容，仅更新历史；
--a：显示计数器的绝对值；
--d：以守护进程模式运行并收集统计数据
--s：不更新历史；
--j：JSON格式输出。
+-h: Display help message.
+-V: Display version information.
+-z: Dump zero counters. By default, counters with a value of zero are not shown.
+-r: Reset history statistics (clear history).
+-n: Do not display anything, only update the history.
+-a: Display absolute values of counters.
+-d: Run in daemon mode and collect statistics.
+-s: Do not update history.
+-j: Output in JSON format.
 ```
 
-### 实例
+### Examples
 
-直接输入以查询网络接口状态，以下展示了 IPv4，IPv6，TCP，UDP，ICMP 的统计数据：
+Run `nstat` to query the status of network interfaces. The following shows statistics for IPv4, IPv6, TCP, UDP, and ICMP:
 
 ```shell
 nstat          

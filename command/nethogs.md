@@ -1,140 +1,118 @@
 nethogs
 ===
 
-终端下的网络流量监控工具
+Terminal-based network traffic monitoring tool
 
-## 补充说明
+## Description
 
-有很多适用于Linux系统的开源网络监视工具。比如说，你可以用命令iftop来检查带宽使用情况。netstat用来查看接口统计报告，还有top监控系统当前运行进程。但是如果你想要找一个能够按进程实时统计网络带宽利用率的工具，那么NetHogs值得一看。
+There are many open-source network monitoring tools for Linux. For example, you can use `iftop` to check bandwidth usage, `netstat` to view interface statistics, and `top` to monitor running processes. However, if you are looking for a tool that provides real-time network bandwidth usage per process, **NetHogs** is worth a look.
 
- **NetHogs** 是一个开源的命令行工具（类似于Linux的top命令），用来按进程或程序实时统计网络带宽使用率。
+**NetHogs** is an open-source command-line tool (similar to the Linux `top` command) used to track real-time network bandwidth usage per process or program.
 
-来自NetHogs项目网站:
+From the NetHogs project website:
 
-> NetHogs是一个小型的net top工具，不像大多数工具那样拖慢每个协议或者是每个子网的速度而是按照进程进行带宽分组。NetHogs不需要依赖载入某个特殊的内核模块。如果发生了网络阻塞你可以启动NetHogs立即看到哪个PID造成的这种状况。这样就很容易找出哪个程序跑飞了然后突然占用你的带宽。
+> NetHogs is a small 'net top' tool. Instead of breaking the traffic down per protocol or per subnet, like most tools do, it groups bandwidth by process. NetHogs does not rely on a special kernel module to be loaded. If there's suddenly a lot of network traffic, you can fire up NetHogs and immediately see which PID is causing this. This makes it easy to identify programs that have gone wild and are suddenly taking up your bandwidth.
 
-本文为你介绍如何在Unix/Linux操作系统下如何安装和使用NetHogs按进程监控网络带宽使用率。
+This article introduces how to install and use NetHogs to monitor network bandwidth usage per process on Unix/Linux operating systems.
 
-
-###  语法 
+### Syntax
 
 ```shell
-nethogs（选项）（参数）
+nethogs [options] [device [device [device ...]]]
 ```
-###  选项 
+
+### Options
 
 ```shell
 usage: nethogs [-V] [-h] [-b] [-d seconds] [-v mode] [-c count] [-t] [-p] [-s] [device [device [device ...]]]
-  -V : 打印版本。
-  -h : 打印此帮助。
-  -b : bughunt模式 - 暗示tracemode。
-  -d : 延迟更新刷新率（以秒为单位）。 默认值为1。
-  -v : 视图模式（0 = KB / s，1 =总KB，2 =总B，3 =总MB）。 默认值为0。
-  -c : 更新次数。 默认为0（无限制）。
-  -t : tracemode.
-  -p : 煽动混乱模式（不推荐）。
-  -s : 按发送列排序输出。
-  -a : 监控所有设备，甚至环回/停止。
-  device : 要监控的设备。 默认是所有接口启动和运行，不包括环回
+  -V : Print version.
+  -h : Print this help message.
+  -b : Bughunt mode - implies tracemode.
+  -d : Delay for update refresh rate (in seconds). Default is 1.
+  -v : View mode (0 = KB/s, 1 = total KB, 2 = total B, 3 = total MB). Default is 0.
+  -c : Number of updates. Default is 0 (unlimited).
+  -t : Trace mode.
+  -p : Promiscuous mode (not recommended).
+  -s : Sort output by the SENT column.
+  -a : Monitor all devices, even loopback/stopped.
+  device : Device(s) to monitor. Default is all active interfaces except loopback.
 
-当nethogs运行时，按：
-  q：退出
-  s：按SENT流量排序
-  r：按RECEIVE流量排序
-  m：在总（KB，B，MB）和KB / s模式之间切换
+While nethogs is running, press:
+  q: Quit
+  s: Sort by SENT traffic
+  r: Sort by RECEIVE traffic
+  m: Toggle between total (KB, B, MB) and KB/s modes
 ```
 
-其他参数和用法
+**Common Parameters**
 
-```shell
--d : 刷新间隔
--h : 帮助
--p : promiscuous 模式
--t : trace模式 
--V : 版本
-```
+*   `-d`: Refresh interval.
+*   `-h`: Help.
+*   `-p`: Promiscuous mode.
+*   `-t`: Trace mode.
+*   `-V`: Version.
 
-**交互命令**
+**Interactive Commands**
 
-以下是NetHogs的一些交互命令（键盘快捷键）
+*   `m`: Cycle through units (KB/s, KB, B, MB).
+*   `r`: Sort by received traffic.
+*   `s`: Sort by sent traffic.
+*   `q`: Exit the program.
 
-*   m : 修改单位
-*   r : 按流量排序
-*   s : 按发送流量排序
-*   q : 退出命令提示符
+### Installation
 
-### 安装
+**On RHEL, CentOS, and Fedora**
 
-**在RHEL、CentOS和Fedora下安装NetHogs**
-
-要安装NetHogs，你必须要启用你所用Linux下的EPEL源。然后运行下面的yum命令下载安装NetHogs包。
+To install NetHogs, you must enable the EPEL repository for your version of Linux. Then run the following `yum` command:
 
 ```shell
 yum install nethogs
 ```
 
-**在Ubuntu、Linux mint和Debian下安装NetHogs**
+**On Ubuntu, Linux Mint, and Debian**
 
-键入apt-get命令安装NetHogs包：
+Use the `apt-get` command:
 
 ```shell
-$ sudo apt-get install nethogs
+sudo apt-get install nethogs
 ```
 
-###  NetHogs用法 
+### Usage
 
-在基于RedHat系统下键入如下命令启动NetHogs工具。
+On RedHat-based systems, start the tool with:
 
 ```shell
 nethogs
 ```
 
-在Debian/Ubuntu/Linux Mint下要执行NetHogs你必须拥有root权限：
+On Debian/Ubuntu/Linux Mint, you must have root privileges:
 
 ```shell
-$ sudo nethogs
+sudo nethogs
 ```
 
-!nethogs
+**Preview of NetHogs on Ubuntu 12.10**
 
-Ubuntu 12.10 下的NetHogs预览
+As shown in the interface, the `SENT` and `RECEIVED` columns display traffic statistics for each process. Total bandwidth is shown at the bottom. You can use interactive commands to control the sorting.
 
-正如上图所示，send列和received列显示的是按照每个进程的流量统计。总的收发数据带宽在最下方，而且可以用交互命令控制排序，下面将要讨论这些交互命令。
+### Command Line Arguments
 
-###  NetHogs 命令行参数 
-
-以下就是NetHogs命令行的参数，用-d来添加刷新频率参数，device name 用来检测给定的某个或者某些设备的带宽（默认是eth0）。例如：设置5秒钟的刷新频率，键入如下命令即可：
+You can use `-d` to set the refresh rate and specify device names to monitor specific interfaces (default is eth0). For example, to set a 5-second refresh rate:
 
 ```shell
-nethogs -d 5
+sudo nethogs -d 5
 ```
+
+To monitor only the `eth0` interface:
 
 ```shell
-$ sudo nethogs -d 5
+sudo nethogs eth0
 ```
 
-如果只用来监视设备（eth0）的网络带宽可以使用如下命令：
+To monitor both `eth0` and `eth1` interfaces:
 
 ```shell
-nethogs eth0
+sudo nethogs eth0 eth1
 ```
 
-```shell
-$ sudo nethogs eth0
-```
-
-如果要同时监视eth0和eth1接口，使用以下命令即可：
-
-```shell
-nethogs eth0 eth1
-```
-
-```shell
-$ sudo nethogs eth0 eth1
-
-```
-
-关于NetHogs命令行工具的完整参数列表，可以参考NetHogs的手册，使用方法是在终端里输入`man nethogs`或者`sudo man nethogs`，更多信息请参考NetHogs项目主页。
-
-
-
+For a complete list of parameters, refer to the NetHogs manual by typing `man nethogs` in your terminal. For more information, visit the NetHogs project homepage.

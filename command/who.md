@@ -1,54 +1,54 @@
 who
 ===
 
-显示当前所有登陆用户的信息。
+Display who is logged in
 
-## 概要
+## Synopsis
 
 ```shell
 who [OPTION]... [file] [am i]
 ```
 
-## 主要用途
+## Description
 
-- 当没有给出非选项参数时，按以下字段顺序为每个当前用户打印信息：登录用户名称，终端信息，登录时间，远程主机或X display。
-- 当用户执行 `who am i` 时，只显示运行该命令的用户的信息。
+- When no non-option arguments are provided, `who` prints information about each current user in the following order: username, terminal info, login time, and remote host or X display.
+- When the user executes `who am i`, it displays only information about the user running the command.
 
-## 选项
+## Options
 
 ```shell
--a, --all                                等价于调用 '-b -d --login -p -r -t -T -u'。
--b, --boot                               上次系统启动的时间。
--d, --dead                               打印 dead 状态的进程。
--H, --heading                            打印列标题行。
--l, --login                              打印系统登录进程。
---lookup                                 尝试通过 DNS 规范主机名。
--m                                       仅显示和标准输入关联的主机名和用户。
--p, --process                            打印由 init 生成的活动进程。
--q, --count                              列出所有已登录的用户的名称和数量。
--r, --runlevel                           打印当前运行级别。
--s, --short                              仅打印名称、行和时间（默认）。
--t, --time                               打印上次系统时钟更改。
--T, -w, --mesg, --message, --writable    将 '+、-、?' 中的一个作为用户的消息状态添加到用户名称后面。
--u, --users                              列出登录的用户。
---help                                   显示帮助信息并退出。
---version                                显示版本信息并退出。
+-a, --all                                Same as '-b -d --login -p -r -t -T -u'.
+-b, --boot                               Time of last system boot.
+-d, --dead                               Print dead processes.
+-H, --heading                            Print column headings.
+-l, --login                              Print system login processes.
+--lookup                                 Attempt to canonicalize hostnames via DNS.
+-m                                       Only show hostname and user associated with stdin.
+-p, --process                            Print active processes spawned by init.
+-q, --count                              List all login names and number of users logged in.
+-r, --runlevel                           Print current runlevel.
+-s, --short                              Only print name, line, and time (default).
+-t, --time                               Print last system clock change.
+-T, -w, --mesg, --message, --writable    Add one of '+, -, ?' as a user message status after the username.
+-u, --users                              List users logged in.
+--help                                   Display help and exit.
+--version                                Display version and exit.
 
-关于 -T 选项的 '+、-、?'：
-'+'  允许写入信息
-'-'  禁止写入信息
-'?'  不能查找到终端设备
+About message status (+, -, ?):
+'+'  Allow writing messages (mesg y)
+'-'  Disallow writing messages (mesg n)
+'?'  Cannot find terminal device
 ```
 
-## 参数
+## Parameters
 
-file（可选）：指定 `file` 代替默认的 `/var/run/utmp` 、`/etc/utmp` ；通常使用 `/var/log/wtmp` 作为参数用于查看过去登陆系统的用户。
+file (optional): Specify a file instead of the default `/var/run/utmp` or `/etc/utmp`. Typically `/var/log/wtmp` is used to see past logins.
 
-## 返回值
+## Return Value
 
-返回0表示成功，返回非0值表示失败。
+Returns 0 on success and non-zero on failure.
 
-## 例子
+## Examples
 
 ```shell
 [root@localhost ~]# who
@@ -69,8 +69,6 @@ root     + pts/0        2013-08-19 15:04 (192.168.0.134)
 root     + pts/1        2013-12-20 10:37 (180.111.155.40)
 ```
 
-### 注意
+### Note
 
-1. 该命令是`GNU coreutils`包中的命令，相关的帮助信息请查看`man -s 1 who`，`info coreutils 'who invocation'`。
-
-
+1. This command is part of the `GNU coreutils` package. For more help, see `man -s 1 who`.

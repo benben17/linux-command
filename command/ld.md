@@ -1,38 +1,35 @@
 ld
 ===
 
-将目标文件连接为可执行程序
+Link object files into an executable program
 
-## 补充说明
+## Description
 
-**ld命令** 是GNU的连接器，将目标文件连接为可执行程序。
+The **ld** command is the GNU linker, which links object files into an executable program.
 
-###  语法 
+### Syntax
 
 ```shell
-ld(选项)(参数)
+ld (options) (parameters)
 ld [options] objfile ...
 ```
 
-###  选项 
+### Options
 
 ```shell
--o：指定输出文件名；
--e：指定程序的入口符号。
+-o: Specify the output filename;
+-e: Specify the entry point symbol of the program.
 ```
 
-###  参数 
+### Parameters
 
-目标文件：指定需要连接的目标文件。
+Object file: Specify the object files to be linked.
 
-### 实例
+### Examples
 
-这告诉ld通过将文件 `/lib/crt0.o` 与 `hello.o` 和库 `libc.a` 链接起来，生成一个名为 `output` 的文件，该文件将来自标准搜索目录。
+This tells `ld` to produce a file called `output` by linking the file `/lib/crt0.o` with `hello.o` and the library `libc.a`, which will come from the standard search directories.
 
 ```shell
 ld -o <output> /lib/crt0.o hello.o -lc
 ld -o output /lib/crt0.o hello.o -lc
 ```
-
-
-

@@ -1,43 +1,41 @@
 dpkg-reconfigure
 ===
 
-Debian Linux中重新配制一个已经安装的软件包
+Reconfigure an already installed package in Debian.
 
-## 补充说明
+## Description
 
-**dpkg-reconfigure命令** 是Debian Linux中重新配置已经安装过的软件包，可以将一个或者多个已安装的软件包传递给此指令，它将询问软件初次安装后的配置问题。
+The **dpkg-reconfigure** command is used in Debian Linux to reconfigure packages after they have already been installed. You can pass one or more package names to this command, and it will re-ask the configuration questions that were asked when the software was first installed.
 
-当用户需要再次对软件包配置的时候，可以使用dpkg-reconfigure命令来对指定的软件包进行配置。
+When a user needs to change the configuration of a package, they can use `dpkg-reconfigure`.
 
-###  语法
-
-```shell
-dpkg-reconfigure(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--a：重新配置所有的软件包；
--u或--unseen-only：仅显示未提过的问题；
---default-priority：使用默认优先级，而非“低”级；
---force：强制执行操作，需谨慎使用此选项；
---no-reload：不要轻易的重装模板（使用时请慎重考虑）；
--f或--frontend：指定 debconf 前端界面；
--p或--priority：指定要显示的问题的最优先级；
---terse：开启简要模式。
+dpkg-reconfigure (options) (parameters)
 ```
 
-###  参数
+### Options
 
-软件包名：需要重新配置的已安装的软件包。
+```shell
+-a                Reconfigure all installed packages.
+-u, --unseen-only Show only questions that have not been asked before.
+--default-priority Use the default priority instead of "low".
+--force           Force reconfiguration. Use with caution.
+--no-reload       Do not reload templates. Use with caution.
+-f, --frontend    Specify the debconf frontend to use.
+-p, --priority    Specify the minimum priority of questions to be displayed.
+--terse           Enable terse output mode.
+```
 
-###  实例
+### Parameters
 
-用于配置语言：
+Package Name: The name of the installed package to reconfigure.
+
+### Examples
+
+Reconfigure locales:
 
 ```shell
 sudo dpkg-reconfigure locales
 ```
-
-

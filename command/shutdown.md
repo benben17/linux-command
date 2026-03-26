@@ -1,48 +1,46 @@
 shutdown
 ===
 
-用来执行系统关机的命令
+Command to shut down the system.
 
-## 补充说明
+## Description
 
-**shutdown命令** 用来系统关机命令。shutdown指令可以关闭所有程序，并依用户的需要，进行重新开机或关机的动作。
+The **shutdown command** is used to shut down the system. It can close all running programs and perform a reboot or shutdown action as requested by the user.
 
-###  语法
-
-```shell
-shutdown(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--c：当执行“shutdown -h 11:50”指令时，只要按+键就可以中断关机的指令；
--f：重新启动时不执行fsck；
--F：重新启动时执行fsck；
--h：将系统关机；
--k：只是送出信息给所有用户，但不会实际关机；
--n：不调用init程序进行关机，而由shutdown自己进行；
--r：shutdown之后重新启动；
--t<秒数>：送出警告信息和删除信息之间要延迟多少秒。
+shutdown [option] [parameter]
 ```
 
-###  参数
+### Options
 
-*   [时间]：设置多久时间后执行shutdown指令；
-*   [警告信息]：要传送给所有登入用户的信息。
+```shell
+-c: Cancel a pending shutdown. (e.g., if "shutdown -h 11:50" was executed, use "shutdown -c" to cancel);
+-f: Skip fsck on next boot;
+-F: Force fsck on next boot;
+-h: Shut down the system;
+-k: Only send out warning messages, but do not actually shut down;
+-n: Do not call init to shut down, do it by shutdown itself;
+-r: Reboot after shutdown;
+-t<seconds>: Delay between sending warning message and deleting information.
+```
 
-###  实例
+### Parameters
 
-指定现在立即关机：
+*   [time]: Specify when to execute the shutdown command;
+*   [warning message]: Message to be sent to all logged-in users.
+
+### Examples
+
+Shut down immediately:
 
 ```shell
 shutdown -h now
 ```
 
-指定5分钟后关机，同时送出警告信息给登入用户：
+Shut down in 5 minutes and send a warning message to logged-in users:
 
 ```shell
 shutdown +5 "System will shutdown after 5 minutes"
 ```
-
-

@@ -1,20 +1,18 @@
 ispell
 ===
 
-检查文件中出现的拼写错误
+Interactive spelling corrector.
 
-## 补充说明
+## Description
 
-**ispell命令** 用于检查文件中出现的拼写错误。
+The `ispell` command is an interactive spell-checking utility used to check for and correct spelling errors in files.
 
-###  语法
+### Syntax
 
 ```shell
-ispell(参数)
+ispell [parameters] [file]
 ```
 
-###  参数
+### Parameters
 
-文件：指定要进行拼写检查的文件。
-
-
+File: The file to be checked for spelling errors.

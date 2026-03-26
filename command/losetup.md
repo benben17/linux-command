@@ -1,69 +1,67 @@
 losetup
 ===
 
-设定与控制循环（loop）设备
+Set up and control loop devices
 
-## 补充说明
+## Description
 
-**losetup命令** 用来设置循环设备。循环设备可把文件虚拟成块设备，籍此来模拟整个文件系统，让用户得以将其视为硬盘驱动器，光驱或软驱等设备，并挂入当作目录来使用。
+The **losetup** command is used to set up and control loop devices. A loop device allows a file to be virtualized as a block device, simulating an entire file system. This enables users to treat a file as a hard disk drive, optical drive, or floppy drive and mount it as a directory.
 
-###  语法
+### Syntax
 
 ```shell
 losetup [ -e encryption ] [ -o offset ] loop_device file
 losetup [ -d ] loop_device
 ```
 
-###  选项
+### Options
 
 ```shell
--a 显示所有循环设备的状态。
--d 卸除设备。
--e <加密选项> 启动加密编码 。
--f 寻找第一个未使用的循环设备。
--o <偏移量>设置数据偏移量，单位是字节。
+-a: Display the status of all loop devices.
+-d: Detach the file or device from the specified loop device.
+-e <encryption>: Enable the specified encryption.
+-f: Find the first unused loop device.
+-o <offset>: Set the data offset in bytes.
 ```
 
-###  参数
+### Parameters
 
-*   loop_device：循环设备可以是/dev/loop0, /dev/loop1 ... /dev/loop7。
-*   file：要与循环设备相关联的文件名，这个往往是一个磁盘镜象文件，如 *.img
+*   loop_device: The loop device, e.g., `/dev/loop0`, `/dev/loop1`, ..., `/dev/loop7`.
+*   file: The name of the file to be associated with the loop device, often a disk image file like `*.img`.
 
-###  loop设备介绍
+### Loop Device Overview
 
-在类 UNIX 系统里，loop 设备是一种伪设备(pseudo-device)，或者也可以说是仿真设备。它能使我们像块设备一样访问一个文件。在使用之前，一个 loop 设备必须要和一个文件进行连接。这种结合方式给用户提供了一个替代块特殊文件的接口。因此，如果这个文件包含有一个完整的文件系统，那么这个文件就可以像一个磁盘设备一样被 mount 起来。
+In Unix-like systems, a loop device is a pseudo-device (or simulation device) that makes a file accessible as a block device. Before use, a loop device must be associated with a file. This association provides users with an interface that replaces the block special file. If the file contains a complete file system, it can be mounted just like a disk device.
 
-上面说的文件格式，我们经常见到的是 cd 或 DVD 的 ISO 光盘镜像文件或者是软盘(硬盘)的 *.img 镜像文件。通过这种 loop mount (回环mount)的方式，这些镜像文件就可以被 mount 到当前文件系统的一个目录下。
+Common file formats for this purpose include ISO images for CDs/DVDs or `*.img` images for floppy or hard disks. Through loop mounting, these image files can be mounted to a directory in the current file system.
 
-至此，顺便可以再理解一下 loop 之含义：对于第一层文件系统，它直接安装在我们计算机的物理设备之上；而对于这种被 mount 起来的镜像文件(它也包含有文件系统)，它是建立在第一层文件系统之上，这样看来，它就像是在第一层文件系统之上再绕了一圈的文件系统，所以称为 loop。
+The term "loop" refers to the fact that while the primary file system is installed directly on physical hardware, the mounted image (which itself contains a file system) is built on top of the primary one, essentially creating a "loop" or a layered file system.
 
-###  实例
+### Examples
 
-创建空的磁盘镜像文件，这里创建一个1.44M的软盘：
+Create an empty disk image file (e.g., a 1.44M floppy):
 
 ```shell
 dd if=/dev/zero of=floppy.img bs=512 count=2880
 ```
 
-使用 losetup 将磁盘镜像文件虚拟成块设备：
+Use `losetup` to virtualize the disk image as a block device:
 
 ```shell
 losetup /dev/loop1 floppy.img
 ```
 
-挂载块设备：
+Mount the block device:
 
 ```shell
-mount /dev/loop0 /tmp
+mount /dev/loop1 /tmp
 ```
 
-经过上面的三步之后，我们就可以通过/tmp目录，像访问真实块设备一样来访问磁盘镜像文件floppy.img。
+After these steps, you can access the disk image file `floppy.img` via the `/tmp` directory as if it were a real block device.
 
-卸载loop设备：
+Detach the loop device:
 
 ```shell
 umount /tmp
 losetup -d /dev/loop1
 ```
-
-

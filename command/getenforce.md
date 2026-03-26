@@ -1,25 +1,23 @@
 getenforce
 ===
 
-显示当前SELinux的应用模式，是强制、执行还是停用
+Display the current SELinux enforcement mode (Enforcing, Permissive, or Disabled).
 
-## 补充说明
+## Supplemental Information
 
-**grename命令** 可以重命名卷组的名称。
+The **getenforce command** is used to check the current operating mode of SELinux.
 
-###  语法
+### Syntax
 
 ```shell
 getenforce
 ```
 
-### 例子
+### Examples
 
-查看当前SELinux的应用模式。
+Check the current SELinux enforcement mode:
 
 ```shell
 [root@localhost ~]# getenforce
 Enforcing
 ```
-
-

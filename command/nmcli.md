@@ -1,67 +1,65 @@
 nmcli
 ===
 
-地址配置工具
+Command-line tool for controlling NetworkManager
 
-## 补充说明
+## Description
 
-**nmcli命令** 是 NetworkManager client 网络管理客户端。
+The **nmcli command** is the command-line interface for NetworkManager, used to create, display, edit, delete, activate, and deactivate network connections, as well as to control and display network device status.
 
-###  语法
+### Syntax
 
 ```shell
 nmcli [OPTIONS] OBJECT { COMMAND | help }
 ```
 
-###  选项
+### Options
 
 ```shell
 OPTIONS
-  -t[erse]                                  # terse output 简洁的输出
-  -p[retty]                                 # pretty output 漂亮的输出
-  -m[ode] tabular|multiline                 # output mode  输出模式
-  -f[ields] <field1,field2,...>|all|common  # specify fields to output 指定要输出的字段
-  -e[scape] yes|no                          # escape columns separators in values 在值中转义列分隔符
-  -n[ocheck]                                # 不要检查nmcli和NetworkManager版本
-  -a[sk]                                    # 要求缺少参数
-  -w[ait] <seconds>                         # 设置超时等待整理操作
-  -v[ersion]                                # 显示程序版本
-  -h[elp]                                   # 打印此帮助
+  -t[erse]                                  # Terse output (minimalistic).
+  -p[retty]                                 # Pretty output (human-friendly).
+  -m[ode] tabular|multiline                 # Output mode.
+  -f[ields] <field1,field2,...>|all|common  # Specify fields to output.
+  -e[scape] yes|no                          # Escape column separators in values.
+  -n[ocheck]                                # Do not check nmcli and NetworkManager versions.
+  -a[sk]                                    # Ask for missing parameters.
+  -w[ait] <seconds>                         # Set timeout for waiting for operation completion.
+  -v[ersion]                                # Show version.
+  -h[elp]                                   # Print help.
 
 OBJECT
-  g[eneral]       NetworkManager的一般状态和操作
-  n[etworking]    整体组网控制
-  r[adio]         NetworkManager切换开关
-  c[onnection]    NetworkManager的连接
-  d[evice]        由NetworkManager管理的设备
-  a[gent]         NetworkManager秘密代理或polkit代理
+  g[eneral]       General status and operations of NetworkManager.
+  n[etworking]    Overall networking control.
+  r[adio]         NetworkManager radio switches (Wi-Fi, WWAN).
+  c[onnection]    NetworkManager's connections.
+  d[evice]        Devices managed by NetworkManager.
+  a[gent]         NetworkManager secret agent or polkit agent.
 ```
 
-###  实例
+### Examples
 
 ```shell
-nmcli connection show            # 查看当前连接状态
-nmcli connection reload          # 重启服务
-nmcli connection show -active    # 显示活动的连接
-nmcli connection show "lan eth0" # 显示指定一个网络连接配置
-nmcli device status              # 显示设备状态
-nmcli device show eno16777736    # 显示指定接口属性
-nmcli device show                # 显示全部接口属性
-nmcli con up static              # 启用static连接配置
-nmcli con up default             # 启用default连接配置 
-nmcli con add help               # 查看帮助
-
+nmcli connection show            # View current connection status
+nmcli connection reload          # Reload connection profiles from disk
+nmcli connection show -active    # List active connections
+nmcli connection show "lan eth0" # Show details for a specific connection
+nmcli device status              # Show status of devices
+nmcli device show eno16777736    # Show properties of a specific interface
+nmcli device show                # Show properties of all interfaces
+nmcli con up static              # Activate the "static" connection profile
+nmcli con up default             # Activate the "default" connection profile
+nmcli con add help               # View help for adding connections
 ```
 
-### 创建网络会话
+### Creating a Network Session
 
 ```shell
 nmcli connection add con-name company ifname ens33 autoconnect no type ethernet ip4 192.168.1.2/24 gw4 192.168.1.1
-# con-name 指定会话名称，
-# ifname 指定本机网卡
-# autoconnect no 是否自动连接
-# ethernet 指定网卡类型
-# ip4/ip6
-# gw4/gw5
+# con-name: Specifies the connection profile name.
+# ifname: Specifies the network interface.
+# autoconnect no: Do not connect automatically.
+# type ethernet: Specifies the connection type.
+# ip4/ip6: IPv4 or IPv6 address.
+# gw4/gw6: Gateway address.
 ```
-

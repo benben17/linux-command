@@ -1,46 +1,44 @@
 groups
 ===
 
-打印指定用户所在组的名称。
+Print the names of the groups a specific user is in.
 
-## 概要
+## Synopsis
 
 ```shell
 groups [OPTION]... [username]...
 ```
 
-## 主要用途
+## Description
 
-- 打印指定用户所在组的名称。
+- Prints the names of the groups that the specified user belongs to.
 
-## 选项
+## Options
 
 ```shell
---help       显示帮助信息并退出。
---version    显示版本信息并退出。
+--help       # Display help information and exit.
+--version    # Display version information and exit.
 ```
 
-## 参数
+## Parameters
 
-username（可选）：可以是一到多个，不提供时默认为当前用户。
+username (optional): One or more usernames. If not provided, the command defaults to the current user.
 
-## 返回值
+## Return Value
 
-返回0表示成功，返回非0值表示失败。
+Returns 0 on success and a non-zero value on failure.
 
-## 例子
+## Examples
 
-显示linux用户所属的组
+Display the groups for the user `linux`:
 
 ```shell
 [root@localhost ~]# groups linux
 linux : linux adm dialout cdrom plugdev lpadmin admin sambashare
 ```
 
-### 注意
+### Note
 
-1. 该命令等价于 `id -Gn`。
-2. 每个用户属于`/etc/passwd`中指定的一个组和在`/etc/group`中指定的其他组。
-3. 该命令是`GNU coreutils`包中的命令，相关的帮助信息请查看`man -s 1 groups`，`info coreutils 'groups invocation'`。
-
-
+1. This command is equivalent to `id -Gn`.
+2. Each user belongs to one group specified in `/etc/passwd` and potentially other groups specified in `/etc/group`.
+3. This command is part of the `GNU coreutils` package. For more information, see `man -s 1 groups` or `info coreutils 'groups invocation'`.

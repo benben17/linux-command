@@ -1,30 +1,28 @@
 look
 ===
 
-显示文件中以指定字符串开头的任意行
+Display lines in a file that begin with a specified string
 
-## 补充说明
+## Description
 
-**look命令** 用于显示文件中以指定字符串开头的任意行。
+The **look** command is used to display any lines in a file that start with the specified string.
 
-###  语法
-
-```shell
-look(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--a：使用另一个字典文件web2，该文件也位于/usr/dict目录下；
--d：只对比英文字母和数字，其余一概忽略不予比对；
--f：忽略字符大小写差别；
--t<字尾字符串>：设置字尾字符串。
+look (options) (parameters)
 ```
 
-###  参数
+### Options
 
-*   字符串：指定要查找的字符串；
-*   文件：指定要查找的目标文件。
+```shell
+-a: Use the alternative dictionary file `web2` located in `/usr/dict`;
+-d: Use dictionary order (compare only alphanumeric characters);
+-f: Ignore case distinctions;
+-t <string>: Specify a termination character (ignore characters after the first occurrence of the string).
+```
 
+### Parameters
 
+*   String: The string to search for at the beginning of lines;
+*   File: The file to search in.

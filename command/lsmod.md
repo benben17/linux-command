@@ -1,19 +1,19 @@
 lsmod
 ===
 
-显示已载入系统的模块
+Show the status of modules in the Linux Kernel
 
-## 补充说明
+## Description
 
-**lsmod命令** 用于显示已经加载到内核中的模块的状态信息。执行lsmod命令后会列出所有已载入系统的模块。Linux操作系统的核心具有模块化的特性，应此在编译核心时，务须把全部的功能都放入核心。您可以将这些功能编译成一个个单独的模块，待需要时再分别载入。
+The **lsmod command** is used to display the status information of modules that have been loaded into the kernel. Executing `lsmod` will list all modules currently loaded into the system. The Linux kernel is modular, meaning not all functions need to be built directly into the kernel core. Functions can be compiled as separate modules and loaded into the kernel when needed.
 
-###  语法
+### Syntax
 
 ```shell
 lsmod
 ```
 
-###  实例
+### Examples
 
 ```shell
 [root@LinServ-1 ~]# lsmod
@@ -92,11 +92,9 @@ ohci_hcd               24937  0
 ehci_hcd               34509  0
 ```
 
-*   第1列：表示模块的名称。
-*   第2列：表示模块的大小。
-*   第3列：表示依赖模块的个数。
-*   第4列：表示依赖模块的内容。
+*   **Column 1**: Module name.
+*   **Column 2**: Size of the module in bytes.
+*   **Column 3**: Number of instances of the module currently in use.
+*   **Column 4**: Which other modules are using this module.
 
-通常在使用lsmod命令时，都会采用类似`lsmod | grep -i ext3`这样的命令来查询当前系统是否加载了某些模块。
-
-
+Typically, `lsmod` is used with `grep` to check if a specific module is loaded, for example: `lsmod | grep -i ext3`.

@@ -1,39 +1,39 @@
 xrandr
 ===
 
-X 窗口系统配置管理工具
+An X Window System configuration management tool.
 
-## 补充说明
+## Supplemental Information
 
-**xrandr命令**RandR（Rotate and Resize，旋转与缩放）是一个X窗口系统扩展，允许客户端动态调整（即缩放、旋转、翻转）屏幕。xrandr是一款官方的randr扩展配置工具。
+**xrandr** (Rotate and Resize) is an X Window System extension that allows clients to dynamically adjust (scale, rotate, flip) the screen. **xrandr** is the official RandR extension configuration tool.
 
-### 语法
-
-```shell
-xrandr(选项)(参数)
-```
-
-### 选项
+### Syntax
 
 ```shell
---auto      #以系统最大分辨率输出
---off       #指定设备设置为关闭
---output    #输出设备
---mode      #设置分辨率
---rate      #设置刷新率
---right-of  #主显示器右侧
---left-of   #主显示器左侧
---above     #主显示器上方
---below     #主显示器下方
+xrandr (options) (parameters)
 ```
 
-### 参数
+### Options
 
-* 显示设备编号
+```shell
+--auto      # Output at the system's maximum resolution
+--off       # Set the specified device to off
+--output    # Specify output device
+--mode      # Set resolution
+--rate      # Set refresh rate
+--right-of  # Place output to the right of the primary display
+--left-of   # Place output to the left of the primary display
+--above     # Place output above the primary display
+--below     # Place output below the primary display
+```
 
-### 实例
+### Parameters
 
-测试配置，列出可用设备及其信息
+* Display device ID
+
+### Examples
+
+Test configuration, listing available devices and their information:
 
 ```shell
 xrandr
@@ -46,25 +46,25 @@ HDMI-1 connected primary 1920x1080+0+0 (normal left inverted right x axis y axis
 …
 ```
 
-克隆屏幕
+Clone screens:
 
 ```shell
 xrandr --output HDMI-1 --auto
 ```
 
-多显示器关闭不需要的
+Multi-display setup: Turn off the one not needed:
 
 ```shell
 xrandr --output HDMI-1 --off --output HDMI-2 --auto
 ```
 
-指定分辨率和刷新率
+Specify resolution and refresh rate:
 
 ```shell
 xrandr --output HDMI-1 --mode 1920x1080 --rate 60
 ```
 
-VGA1位于HDMI1左侧，均使用最佳分辨率，分屏显示
+VGA1 positioned to the left of HDMI1, both using optimal resolution, split screen display:
 
 ```shell
 xrandr --output VGA1 --auto --output HDMI1 --auto --right-of VGA1

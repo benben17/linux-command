@@ -1,32 +1,32 @@
 pidof
 ===
 
-查找指定名称的进程的进程号ID号
+Finds the process ID (PID) of a running program by name.
 
-## 补充说明
+## Description
 
-**pidof命令** 用于查找指定名称的进程的进程号id号。
+The **pidof command** is used to find the process ID (PID) of a running program. It is particularly useful in scripts for managing processes by their names rather than manually looking up PIDs.
 
-###  语法
-
-```shell
-pidof(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--s：仅返回一个进程号；
--c：仅显示具有相同“root”目录的进程；
--x：显示由脚本开启的进程；
--o：指定不显示的进程ID。
+pidof [options] [program_name]
 ```
 
-###  参数
+### Options
 
-进程名称：指定要查找的进程名称。
+```shell
+-s: Return only a single PID.
+-c: Only return PIDs with the same root directory.
+-x: Also return PIDs of shells running the named scripts.
+-o: Omit the specified process ID.
+```
 
-###  实例
+### Parameters
+
+Program Name: Specifies the name of the process to search for.
+
+### Examples
 
 ```shell
 pidof nginx
@@ -38,5 +38,3 @@ pidof crond
 pidof init
 1
 ```
-
-

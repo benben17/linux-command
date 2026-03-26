@@ -1,31 +1,29 @@
 mysqlimport
 ===
 
-为MySQL服务器用命令行方式导入数据
+Command-line tool for importing data into a MySQL server
 
-## 补充说明
+## Description
 
-**mysqlimport命令** 为mysql数据库服务器提供了一种命令行方式导入数据工具，它从特定格式的文本文件中读取数据插入MySQL数据库表中。
+The **mysqlimport command** provides a command-line interface for importing data into a MySQL database server. It reads data from text files with a specific format and inserts it into MySQL database tables.
 
-###  语法
-
-```shell
-mysqlimport(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--D：导入数据前清空表；
--f：出现错误时继续处理剩余的操作；
--h：MySQL服务器的ip地址或主机名；
--u：连接MySQL服务器的用户名；
--p：连接MySQL服务器的密码。
+mysqlimport [options] [database_name] [text_file]
 ```
 
-###  参数
+### Options
 
-*   数据库名：指定要导入的数据库名称；
-*   文本文件：包含特定格式文本文件。
+```shell
+-D: Empty the table before importing data.
+-f: Continue processing remaining operations even if errors occur.
+-h: Hostname or IP address of the MySQL server.
+-u: Username used to connect to the MySQL server.
+-p: Password used to connect to the MySQL server.
+```
 
+### Parameters
 
+*   Database Name: The name of the database where the data will be imported.
+*   Text File: The text file containing data in a specific format.

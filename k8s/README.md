@@ -1,21 +1,21 @@
-# 快速入门指南
+# Quick Start Guide
 
-本指南旨在帮助您在 Kubernetes 中部署基于 `wcjiang/linux-command` 镜像的 `linux-command` 应用。该应用提供了一套 `Deployment`，并通过 `Service` 对外暴露服务端口。
+This guide is designed to help you deploy the `linux-command` application in Kubernetes based on the `wcjiang/linux-command` image. This application provides a `Deployment` and exposes the service port through a `Service`.
 
-## 前提条件
+## Prerequisites
 
-- 已安装并配置好的 Kubernetes 集群
-- 安装并配置好的 `kubectl`，并连接至你的 Kubernetes 集群
+- A functioning Kubernetes cluster.
+- `kubectl` installed and configured to connect to your Kubernetes cluster.
 
-## 安装步骤
+## Installation Steps
 
-我们将使用此存储库中的`kubectl`应用 YAML 文件，该文件将安装 `linux-command` 应用。
+We will use the `kubectl` YAML application file from this repository to install the `linux-command` application.
 
 ```bash
 $ kubectl apply -f https://raw.githubusercontent.com/jaywcjlove/linux-command/refs/heads/master/k8s/linux-command.yaml
 ```
 
-检查 `Deployment` 状态：
+Check the `Deployment` status:
 
 ```bash
 $ kubectl get deployments -n linux-command
@@ -23,7 +23,7 @@ NAME            READY   UP-TO-DATE   AVAILABLE   AGE
 linux-command   1/1     1            1           17m
 ```
 
-你可以查看 `Pod` 的状态以确保其正常运行：
+You can check the `Pod` status to ensure it is running correctly:
 
 ```bash
 $ kubectl get pods -n linux-command
@@ -31,34 +31,34 @@ NAME                            READY   STATUS    RESTARTS   AGE
 linux-command-fff454654-427zp   1/1     Running   0          12m
 ```
 
-验证 `Service` 是否成功创建并获取暴露的端口：
+Verify that the `Service` was successfully created and retrieve the exposed port:
 
-```
+```bash
 $ kubectl get services -n linux-command
 NAME                    TYPE       CLUSTER-IP    EXTERNAL-IP   PORT(S)          AGE
 linux-command-service   NodePort   10.96.2.225   <none>        9665:30204/TCP   18m
 ```
 
-## 访问应用
+## Accessing the Application
 
-通过获取 `NodePort` 的端口来访问应用。以下是获取 `NodePort` 服务信息的命令：
+Access the application by retrieving the `NodePort`. Use the following command to get the `NodePort` service information:
 
-```
+```bash
 $ kubectl get svc linux-command-service -n linux-command
 ```
 
-根据输出，使用 `EXTERNAL-IP:PORT` 访问服务。例如：
+Based on the output, access the service using `EXTERNAL-IP:PORT`. For example:
 
 ```
 http://<Node-IP>:<NodePort>
 ```
 
-## 卸载应用
+## Uninstalling the Application
 
-如果需要删除已部署的资源，可以按以下顺序操作：
+If you need to delete the deployed resources, you can do so with the following command:
 
-```
+```bash
 kubectl delete -f linux-command.yaml
 ```
 
-这将会清理所有创建的 Kubernetes 资源。
+This will clean up all the Kubernetes resources created.

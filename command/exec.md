@@ -1,54 +1,52 @@
 exec
 ===
 
-调用并执行指定的命令
+Invoke and execute a specified command.
 
-## 补充说明
+## Description
 
-**exec命令** 用于调用并执行指令的命令。exec命令通常用在shell脚本程序中，可以调用其他的命令。如果在当前终端中使用命令，则当指定的命令执行完毕后会立即退出终端。
+The **exec** command is used to invoke and execute a command. It is commonly used in shell scripts to call other commands. If used directly in the current terminal, the terminal will exit immediately after the specified command finishes executing.
 
-###  语法
-
-```shell
-exec(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--c：在空环境中执行指定的命令。
+exec [options] [parameters]
 ```
 
-###  参数
-
-指令：要执行的指令和相应的参数。
-
-###  实例
-
-首先使用echo命令将文本“Linux C++”进行输出，输入如下命令：
+### Options
 
 ```shell
-echo Linux C++           # 输出指定信息
+-c: Execute the specified command in an empty environment.
 ```
 
-执行上面的指令后，输出如下信息：
+### Parameters
+
+Command: The command to be executed along with its arguments.
+
+### Examples
+
+First, use the `echo` command to output the text "Linux C++":
 
 ```shell
-Linux C++                # 输出信息
+echo Linux C++           # Output specified information
 ```
 
-然后再使用exec命令调用echo命令输出同样的信息，并且对输出的信息进行对比，输入指令如下所示：
+Output:
 
 ```shell
-exec -c echo Linux C++          # 调用命令
+Linux C++                # Output information
 ```
 
-执行以上命令后，其输出信息如下：
+Then use the `exec` command to call `echo` to output the same information:
 
 ```shell
-Linux C++                       # 使用指定指令输出信息
+exec -c echo Linux C++          # Invoke command
 ```
 
-通过比较两者执行后的结果来看，所实现的功能是相同的，即使用exec命令调用echo命令成功。
+Output:
 
+```shell
+Linux C++                       # Output information using specified command
+```
 
+Comparing the results, the functionality achieved is the same, indicating that the `exec` command successfully called the `echo` command.

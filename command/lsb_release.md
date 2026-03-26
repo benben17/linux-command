@@ -1,32 +1,27 @@
 lsb_release
 ===
 
-显示发行版本信息
+Display LSB (Linux Standard Base) information
 
-## 补充说明
+## Description
 
-LSB是Linux Standard Base的缩写， **lsb_release命令** 用来显示LSB和特定版本的相关信息。如果使用该命令时不带参数，则默认加上-v参数。
+LSB stands for Linux Standard Base. The **lsb_release command** is used to display LSB and specific distribution version information. If used without parameters, it defaults to the `-v` parameter.
 
-```shell
--v 显示版本信息。
--i 显示发行版的id。
--d 显示该发行版的描述信息。
--r 显示当前系统是发行版的具体版本号。
--c 发行版代号。
--a 显示上面的所有信息。
--h 显示帮助信息。
-```
-
-如果当前发行版是LSB兼容的，那么`/etc/lsb_release`文件中会包含LSB_VERSION域。这个域的值可以是用冒号隔开的一系列支持的模块。这些模块名是当前版本支持的LSB的模块名。如果当前版本不是LSB兼容的，就不要包含这个域。
-
-可选的域包括DISTRIB_ID, DISTRIB_RELEASE, DISTRIB_CODENAME,DISTRIB_DESCRIPTION，它们可以覆盖`/etc/distrib-release`文件中的内容。注：这里的distrib要替换为当前的发行版的名字。如果存在`/etc/lsb-release.d`目录，会在该目录中查找文件名并作为附加的模块版本加在LSB_VERSION前面。文件`/etc/distrib-release`中包含了一些描述信息，用来说明应该分析哪些文件名。
-
- 一般的格式是`Distributor release x.x (Codename)`  注意：Debian系统中缺乏相应的描述信息（见`/etc/debian-version`），为了支持Debian系统，大部分信息都被加在了lsb-release文件中。
-
-redhat和fedora系统中，还支持一个参数：
+### Options
 
 ```shell
--s, --short  输出简短的描述信息。
+-v, --version      Show version information.
+-i, --id           Show distribution ID.
+-d, --description  Show distribution description.
+-r, --release      Show release number of the distribution.
+-c, --codename     Show distribution codename.
+-a, --all          Show all of the above information.
+-h, --help         Show help message.
+-s, --short        Display short output (supported on RedHat and Fedora).
 ```
 
+If the current distribution is LSB compatible, the `/etc/lsb-release` file (or files in `/etc/lsb-release.d/`) will contain the LSB_VERSION field. This field's value may be a series of supported module names separated by colons.
 
+The optional fields include DISTRIB_ID, DISTRIB_RELEASE, DISTRIB_CODENAME, and DISTRIB_DESCRIPTION, which can override the content in `/etc/distrib-release` (where `distrib` is replaced by the distribution name).
+
+The general format is `Distributor release x.x (Codename)`. Note: Debian systems lack corresponding description information (see `/etc/debian-version`); to support Debian, most information is added to the lsb-release file.

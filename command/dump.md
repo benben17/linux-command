@@ -1,54 +1,52 @@
 dump
 ===
 
-用于备份ext2或者ext3文件系统
+Used for backing up ext2 or ext3 file systems.
 
-## 补充说明
+## Description
 
-**dump命令** 用于备份ext2或者ext3文件系统。可将目录或整个文件系统备份至指定的设备，或备份成一个大文件。
+The **dump** command is used to back up ext2 or ext3 file systems. It can back up a directory or an entire file system to a specified device, or back it up into a large file.
 
-###  语法
-
-```shell
-dump(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--0123456789：备份的层级；
--b<区块大小>：指定区块的大小，单位为KB；
--B<区块数目>：指定备份卷册的区块数目；
--c：修改备份磁带预设的密度与容量；
--d<密度>：设置磁带的密度。单位为BPI；
--f<设备名称>：指定备份设备；
--h<层级>：当备份层级等于或大于指定的层级时，将不备份用户标示为“nodump”的文件；
--n：当备份工作需要管理员介入时，向所有“operator”群组中的使用者发出通知；
--s<磁带长度>：备份磁带的长度，单位为英尺；
--T<日期>：指定备份的时间与日期；
--u：备份完毕后，在/etc/dumpdates中记录备份的文件系统、层级、日期与时间等；
--w：与-W类似，但仅显示需要备份的文件；
--W：显示需要备份的文件及其最后一次备份的层级、时间与日期。
+dump [options] [parameters]
 ```
 
-###  参数
-
-备份源：指定要备份的文件、目录或者文件系统。
-
-###  实例
-
-将`/home`目录所有内容备份到`/tmp/homeback.bak`文件中，备份层级为`0`并在`/etc/dumpdates`中记录相关信息：
+### Options
 
 ```shell
-‍dump -0u -f /tmp/homeback.bak /home
+-0123456789: Backup level.
+-b<block size>: Specify the block size in KB.
+-B<number of blocks>: Specify the number of blocks per volume.
+-c: Change the default density and capacity for backup tapes.
+-d<density>: Set the tape density in BPI.
+-f<device name>: Specify the backup device.
+-h<level>: Files tagged with "nodump" will not be backed up when the backup level is equal to or greater than the specified level.
+-n: Notify all users in the "operator" group when the backup requires administrator intervention.
+-s<tape length>: Length of the backup tape in feet.
+-T<date>: Specify the time and date for the backup.
+-u: After the backup is completed, record the backup file system, level, date, and time in /etc/dumpdates.
+-w: Similar to -W, but only displays files that need to be backed up.
+-W: Display files that need to be backed up along with their last backup level, time, and date.
 ```
 
-将`/home`目录所有内容备份到`/tmp/homeback.bak`文件中，备份层级为`1`（只备份上次使用层次`0`备份后发生过改变的数据）并在`/etc/dumpdates`中记录相关信息：
+### Parameters
+
+Backup source: Specify the file, directory, or file system to be backed up.
+
+### Examples
+
+Back up all contents of the `/home` directory to the `/tmp/homeback.bak` file with backup level `0` and record related information in `/etc/dumpdates`:
+
+```shell
+dump -0u -f /tmp/homeback.bak /home
+```
+
+Back up all contents of the `/home` directory to the `/tmp/homeback.bak` file with backup level `1` (only back up data that has changed since the last level `0` backup) and record related information in `/etc/dumpdates`:
 
 ```shell
 dump -1u -f /tmp/homeback.bak /home
 ```
 
-通过dump命令的备份层级，可实现完整+增量备份、完整+差异备份，在配合crontab可以实现无人值守备份。
-
-
+Through the backup levels of the `dump` command, full + incremental backup or full + differential backup can be achieved. Combined with `crontab`, unattended backups can be implemented.

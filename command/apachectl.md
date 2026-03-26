@@ -1,27 +1,26 @@
 apachectl
 ===
 
-Apache服务器前端控制工具
+A front-end control tool for the Apache HTTP server.
 
-## 补充说明
 
-**apachectl命令** 是Apache的Web服务器前端控制工具，用以启动、关闭和重新启动Web服务器进程。
+## Description
 
-###  语法
+The **apachectl command** is a front-end control interface for the Apache Web server, used to start, stop, and restart the Web server process.
+
+### Syntax
 
 ```
-apachectl(参数)
+apachectl [parameters]
 ```
 
-###  参数
+### Parameters
 
-* configtest：检查设置文件中的语法是否正确；
-* fullstatus：显示服务器完整的状态信息；
-* graceful：重新启动Apache服务器，但不会中断原有的连接；
-* help：显示帮助信息；
-* restart：重新启动Apache服务器；
-* start：启动Apache服务器；
-* status：显示服务器摘要的状态信息；
-* stop：停止Apache服务器。
-
-
+* configtest: Check the configuration file for syntax errors.
+* fullstatus: Display full status information from the server.
+* graceful: Restart the Apache server gracefully by sending a SIGUSR1 signal (does not terminate existing connections).
+* help: Display help information.
+* restart: Restart the Apache server.
+* start: Start the Apache server.
+* status: Display summary status information from the server.
+* stop: Stop the Apache server.

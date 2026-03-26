@@ -1,9 +1,9 @@
 shuf
 ===
 
-产生随机的排列。
+Generate random permutations.
 
-## 概要
+## Synopsis
 
 ```shell
 shuf [OPTION]... [FILE]
@@ -11,50 +11,50 @@ shuf -e [OPTION]... [ARG]...
 shuf -i LO-HI [OPTION]...
 ```
 
-## 主要用途
+## Main Description
 
-- 将输入的内容随机排列并输出。
-- 当没有文件或文件为`-`时，读取标准输入。
+- Randomly permutes input lines and writes them to standard output.
+- When no file is specified or the file is `-`, it reads from standard input.
 
-## 选项
+## Options
 
 ```shell
--e, --echo                  将每个ARG视为输入行。
--i, --input-range=LO-HI     将数字范围LO（最低）到HI（最高）之间的作为输入行。
--n, --head-count=COUNT      只输出前COUNT行。
--o, --output=FILE           将结果写入到文件而不是标准输出。
-    --random-source=FILE    将FILE中内容作为随机数据源。
--r, --repeat                输出行可以重复。
--z, --zero-terminated       行终止符为NUL（空字符）而不是默认的换行符。
---help                      显示帮助信息并退出。
---version                   显示版本信息并退出。
+-e, --echo                  Treat each ARG as an input line.
+-i, --input-range=LO-HI     Treat each number LO through HI as an input line.
+-n, --head-count=COUNT      Output at most COUNT lines.
+-o, --output=FILE           Write the result to FILE instead of standard output.
+    --random-source=FILE    Get random bytes from FILE.
+-r, --repeat                Output lines can be repeated.
+-z, --zero-terminated       Line delimiter is NUL (null character) instead of the default newline.
+--help                      Display help information and exit.
+--version                   Output version information and exit.
 ```
 
-## 参数
+## Parameters
 
-FILE（可选）：要处理的文件，可以为任意数量。
+FILE (optional): The file to process, multiple files can be specified.
 
-ARG（可选）：作为输入行的字符串，可以为任意数量。
+ARG (optional): Strings to be treated as input lines, multiple arguments can be specified.
 
-## 返回值
+## Return Value
 
-返回0表示成功，返回非0值表示失败。
+Returns 0 for success, and a non-zero value for failure.
 
-## 例子
+## Examples
 
 ```shell
-# 模拟硬币抛掷，获取前10个结果：
-[user2@pc ~]$ shuf -r -n 10 -e "正面" -e "反面"
-反面
-正面
-正面
-正面
-反面
-反面
-反面
-正面
-正面
-正面
+# Simulate a coin toss and get the first 10 results:
+[user2@pc ~]$ shuf -r -n 10 -e "Heads" -e "Tails"
+Tails
+Heads
+Heads
+Heads
+Tails
+Tails
+Tails
+Heads
+Heads
+Heads
 ```
 
 ```shell
@@ -68,9 +68,6 @@ ARG（可选）：作为输入行的字符串，可以为任意数量。
 11
 ```
 
+### Note
 
-### 注意
-
-1. 该命令是`GNU coreutils`包中的命令，更多详细的帮助信息请查看`man -s 1 shuf`，`info coreutils 'shuf invocation'`。
-
-
+1. This command is part of the `GNU coreutils` package. For more detailed help, please check `man -s 1 shuf` or `info coreutils 'shuf invocation'`.

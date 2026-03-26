@@ -1,58 +1,62 @@
 fishshell
 ===
 
-比 bash 更好用的 shell
+A smart and user-friendly shell, better than bash.
 
-## 安装
+## Installation
 
 ```shell
-# Ubuntu 和 Debian 的安装方法。
+# Ubuntu and Debian installation:
 sudo apt-get install fish
-# Mac 的安装方法。
+
+# macOS installation:
 brew install fish
 ```
 
-## 启动与帮助
+## Startup and Help
 
-由于 `Fish` 的语法与 `Bash` 有很大差异，`Bash` 脚本一般不兼容。因此，建议不要将 `Fish` 设为默认 `Shell`，而是每次手动启动它。
+Since `Fish` syntax differs significantly from `Bash`, `Bash` scripts are generally not compatible. It is recommended not to set `Fish` as your default shell immediately; instead, start it manually when needed.
 
 ```shell
-# 安装完成后，就可以启动 Fish。
+# Start Fish after installation:
 $ fish
-# 使用过程中，如果需要帮助，可以输入 help 命令
+
+# To get help while using Fish:
 $ help
 ```
 
-## 彩色显示
+## Color Display
 
 ```shell
-# 无效命令为红色
+# Invalid commands are shown in red:
 $ mkd
-# 有效命令为蓝色
+
+# Valid commands are shown in blue:
 $ mkdir
-# 有效路径会有下划线。如果没有下划线，你就知道这个路径不存在。
-$ cat ~/somefi 
+
+# Valid paths are underlined. If there's no underline, the path does not exist:
+$ cat ~/somefile
 ```
 
-## 自动建议
+## Autosuggestions
 
-Fish 会自动在光标后面给出建议，表示可能的选项，颜色为灰色。如果采纳建议，可以按下 `→` 或 `Control + F` 。如果只采纳一部分，可以按下 `Alt + →`。
+Fish automatically provides suggestions behind the cursor in grey. To accept a suggestion, press `→` or `Control + F`. To accept only the first part of the suggestion, press `Alt + →`.
 
 ```shell
-$ /bin/hostname # 命令建议
-$ grep --ignore-case # 参数建议
-$ ls node_modules # 路径建议
+$ /bin/hostname      # Command suggestion
+$ grep --ignore-case # Parameter suggestion
+$ ls node_modules    # Path suggestion
 ```
 
-## 自动补全
+## Auto-completion
 
-输入命令时，`Fish` 会自动显示匹配的上一条历史记录。如果没有匹配的历史记录，`Fish` 会猜测可能的结果，自动补全各种输入。比如，输入 `pyt` 再按下 `Tab` ，就会自动补全为 `python` 命令。
+When typing commands, `Fish` automatically shows matching entries from your history. If no history match is found, `Fish` guesses the possible results. For example, typing `pyt` and pressing `Tab` will autocomplete to the `python` command.
 
-`Fish` 还可以自动补全 `Git` 分支。
+`Fish` also supports auto-completion for `Git` branches.
 
-## 脚本语法
+## Scripting Syntax
 
-### if 语句
+### if Statement
 
 ```shell
 if grep fish /etc/shells
@@ -64,7 +68,7 @@ else
 end
 ```
 
-### switch 语句
+### switch Statement
 
 ```shell
 switch (uname)
@@ -79,7 +83,7 @@ case '*'
 end
 ```
 
-### while 循环
+### while Loop
 
 ```shell
 while true
@@ -87,7 +91,7 @@ while true
 end
 ```
 
-### for 循环
+### for Loop
 
 ```shell
 for file in *.txt
@@ -95,9 +99,9 @@ for file in *.txt
 end
 ```
 
-### 函数
+### Functions
 
-`Fish` 的函数用来封装命令，或者为现有的命令起别名。
+Functions in `Fish` are used to encapsulate commands or create aliases.
 
 ```shell
 function ll
@@ -105,7 +109,7 @@ function ll
 end
 ```
 
-上面代码定义了一个 `ll` 函数。命令行执行这个函数以后，就可以用 `ll` 命令替代 `ls -lhG`。其中，变量 `$argv` 表示函数的参数。
+The code above defines an `ll` function. Once defined, you can use `ll` instead of `ls -lhG`. The `$argv` variable represents the function's arguments.
 
 ```shell
 function ls
@@ -113,11 +117,11 @@ function ls
 end
 ```
 
-上面的代码重新定义 `ls` 命令。注意，函数体内的 `ls` 之前，要加上 `command`，否则会因为无限循环而报错。
+The code above redefines the `ls` command. Note the use of `command` before `ls` inside the function body to prevent an infinite loop.
 
-### 提示符
+### Prompt
 
-`fish_prompt` 函数用于定义命令行提示符（prompt）。
+The `fish_prompt` function is used to define the command-line prompt.
 
 ```shell
 function fish_prompt
@@ -129,55 +133,57 @@ function fish_prompt
 end
 ```
 
-执行上面的函数以后，你的命令行提示符就会变成下面这样。
+After executing the function above, your prompt will look like this:
 
 ```
 02/06/13
 /home/tutorial > 
 ```
 
-## 配置
+## Configuration
 
-Fish 的配置文件是 `~/.config/fish/config.fish`，每次 `Fish` 启动，就会自动加载这个文件。Fish 还提供 Web 界面配置该文件。
+Fish's configuration file is located at `~/.config/fish/config.fish`. It is automatically loaded whenever `Fish` starts. Fish also provides a web-based interface for configuration.
 
 ```shell
-$ fish_config # 浏览器打开 Web 界面配置
+$ fish_config # Opens the web interface in a browser
 ```
 
-Running Commands: 兼容 bash 等shell的命令执行方式  
-Getting Help: `help/man cmd -> browser/terminal`  
-Syntax Highlighting: 实时检查命令是否正确  
-Wildcards: 支持缩写  `*` 递归 匹配  
-Pipes and Redirections: 使用 `^` 代表 stderr  
-Autosuggestions: 自动建议, 可以使用 `Ctrl-f / ->` 来补全  
-Tab Completions: 更强大的 tab 补全  
-Variables: 使用 set 设置  
-Exit Status: 使用 `echo $status` 替代 `$?`  
-Exports (Shell Variables)  
-Lists: all variables in fish are really lists  
-Command Substitutions: 使用 `(cmd)` 来执行命令, 而不是 反引号、`$()`  
-Combiners (And, Or, Not): 不支持使用符合来表示逻辑运算  
-Functions：使用 `$argv` 替代 `$1`  
-Conditionals (If, Else, Switch) / Functions / Loops: 更人性化的写法(参考 py)  
-Prompt: `function fish_prompt` 实现  
-Startup (Where's .bashrc?): `~/.config/fish/config.fish`，更好的方式是 autoloading-function、universal-variables  
-Autoloading Functions: ` ~/.config/fish/functions/.`  
-Universal Variables：a variable whose value is shared across all instances of fish  
+### Key Features Comparison:
+
+- **Running Commands**: Compatible with bash-like execution.
+- **Getting Help**: `help/man cmd` opens in browser/terminal.
+- **Syntax Highlighting**: Real-time command validation.
+- **Wildcards**: Supports recursive matching with `**`.
+- **Pipes and Redirections**: Use `^` for stderr.
+- **Autosuggestions**: Use `Ctrl-f` or `→` to autocomplete.
+- **Tab Completions**: Powerful tab-based completion.
+- **Variables**: Set using `set` (instead of `name=value`).
+- **Exit Status**: Use `$status` instead of `$?`.
+- **Exports**: Use `set -x` instead of `export`.
+- **Lists**: All variables in Fish are actually lists.
+- **Command Substitutions**: Use `(cmd)` instead of backticks or `$()`.
+- **Combiners (And, Or, Not)**: Use words instead of symbols like `&&` or `||`.
+- **Functions**: Use `$argv` instead of `$1`, `$2`, etc.
+- **Conditionals/Loops**: Clean, Python-like syntax.
+- **Startup**: Configured via `~/.config/fish/config.fish`.
+- **Universal Variables**: Variables shared across all running Fish instances.
+
+### Examples:
 
 ```shell
-set name 'czl' # 设置变量，替代 name=czl
+set name 'czl' # Set a variable
 echo $name
-echo $status # exit status，替代 $?
-env # 环境变量
-set -x MyVariable SomeValue # 替代 export
-set -e MyVariable
-set PATH $PATH /usr/local/bin # 使用 lists 记录 PATH
-set -U fish_user_paths /usr/local/bin $fish_user_paths # 永久生效
-touch "testing_"(date +%s)".txt" # command subtitution，替代 `date +%s`
-cp file.txt file.txt.bak; and echo 'back success'; or echo 'back fail' # combiner
-functions # 列出 fish 下定义的函数
+echo $status   # Display exit status
+env            # List environment variables
+set -x MyVar Value # Export a variable
+set -e MyVar       # Erase a variable
+set PATH $PATH /usr/local/bin # Add to PATH list
+set -U fish_user_paths /usr/local/bin $fish_user_paths # Permanent PATH update
+touch "testing_"(date +%s)".txt" # Command substitution
+cp file.txt file.txt.bak; and echo 'success'; or echo 'fail' # Combiners
+functions # List defined functions
 ```
 
-## 参考资料
+## References
 
-- [fish-shell官网](http://fishshell.com)
+- [Official Fish Shell Website](http://fishshell.com)

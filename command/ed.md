@@ -1,40 +1,42 @@
 ed
 ===
 
-单行纯文本编辑器
+Line-oriented text editor.
 
-## 补充说明
+## Description
 
-**ed命令** 是单行纯文本编辑器，它有命令模式（command mode）和输入模式（input mode）两种工作模式。ed命令支持多个内置命令，常见内置命令如下：
+The **ed** command is a line-oriented text editor. It has two working modes: command mode and input mode. The `ed` command supports several built-in commands. Common built-in commands are as follows:
 
-###  语法
-
-```shell
-ed(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
-A # 切换到输入模式，在文件的最后一行之后输入新的内容；
-C # 切换到输入模式，用输入的内容替换掉最后一行的内容；
-i # 切换到输入模式，在当前行之前加入一个新的空行来输入内容；
-d # 用于删除最后一行文本内容；
-n # 用于显示最后一行的行号和内容；
-w # <文件名>：一给定的文件名保存当前正在编辑的文件；
-q # 退出ed编辑器。
+ed [options] [parameters]
 ```
+
+### Options
+
+**Common commands within ed:**
 
 ```shell
--G或——traditional：提供兼容的功能；
--p<字符串>：指定ed在command mode的提示字符；
--s，-，--quiet或——silent：不执行开启文件时的检查功能；
---help：显示帮助；
---version：显示版本信息。
+A # Switch to input mode and append new content after the last line of the file.
+C # Switch to input mode and replace the last line with the input content.
+i # Switch to input mode and insert a new blank line before the current line.
+d # Delete the last line of text.
+n # Display the line number and content of the last line.
+w <filename> # Save the currently edited file with the given filename.
+q # Quit the ed editor.
 ```
 
-###  参数
+**CLI Options:**
 
-文件：待编辑的文件。
+```shell
+-G, --traditional: Provide compatible features.
+-p <string>: Specify the prompt character for command mode.
+-s, -, --quiet, --silent: Suppress diagnostic messages when opening files.
+--help: Display help.
+--version: Display version information.
+```
 
+### Parameters
 
+File: The file to be edited.

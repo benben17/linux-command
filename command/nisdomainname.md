@@ -1,22 +1,20 @@
 nisdomainname
 ===
 
-显示主机NIS的域名
+Display or set the NIS domain name of the host
 
-## 补充说明
+## Description
 
-**nisdomainname命令** 用于显示主机NIS的域名。
+The **nisdomainname command** is used to display or set the system's NIS (Network Information Service) domain name.
 
-###  语法
-
-```shell
-nisdomainname(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
--v：详细信息模式。
+nisdomainname [options] [domainname]
 ```
 
+### Options
 
+```shell
+-v: Verbose mode.
+```

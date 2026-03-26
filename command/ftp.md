@@ -1,80 +1,79 @@
 ftp
 ===
 
-用来设置文件系统相关功能
+Client for the File Transfer Protocol.
 
-## 补充说明
+## Description
 
-**ftp命令** 用来设置文件系统相关功能。ftp服务器在网上较为常见，Linux ftp命令的功能是用命令的方式来控制在本地机和远程机之间传送文件，这里详细介绍Linux ftp命令的一些经常使用的命令，相信掌握了这些使用Linux进行ftp操作将会非常容易。
+The **ftp command** is the interface to the File Transfer Protocol. It is used to transfer files between a local machine and a remote host. Mastering `ftp` commands makes remote file management much easier.
 
-###  语法 
-
-```shell
-ftp(选项)(参数)
-```
-
-###  选项 
+### Syntax
 
 ```shell
--d：详细显示指令执行过程，便于排错或分析程序执行的情况；
--i：关闭互动模式，不询问任何问题；
--g：关闭本地主机文件名称支持特殊字符的扩充特性；
--n：不使用自动登录；
--v：显示指令执行过程。
+ftp (options) (parameters)
 ```
 
-###  参数 
-
-主机：指定要连接的FTP服务器的主机名或ip地址。
-
-###  实例 
+### Options
 
 ```shell
-ftp> ascii  # 设定以ASCII方式传送文件(缺省值) 
-ftp> bell   # 每完成一次文件传送,报警提示. 
-ftp> binary # 设定以二进制方式传送文件. 
-ftp> bye    # 终止主机FTP进程,并退出FTP管理方式. 
-ftp> case   # 当为ON时,用MGET命令拷贝的文件名到本地机器中,全部转换为小写字母. 
-ftp> cd     # 同UNIX的CD命令. 
-ftp> cdup   # 返回上一级目录. 
-ftp> chmod  # 改变远端主机的文件权限. 
-ftp> close  # 终止远端的FTP进程,返回到FTP命令状态, 所有的宏定义都被删除. 
-ftp> delete # 删除远端主机中的文件. 
-ftp> dir [remote-directory] [local-file] # 列出当前远端主机目录中的文件.如果有本地文件,就将结果写至本地文件. 
-ftp> get [remote-file] [local-file] # 从远端主机中传送至本地主机中. 
-ftp> help [command] # 输出命令的解释. 
-ftp> lcd # 改变当前本地主机的工作目录,如果缺省,就转到当前用户的HOME目录. 
-ftp> ls [remote-directory] [local-file] # 同DIR. 
-ftp> macdef                 # 定义宏命令. 
-ftp> mdelete [remote-files] # 删除一批文件. 
-ftp> mget [remote-files]    # 从远端主机接收一批文件至本地主机. 
-ftp> mkdir directory-name   # 在远端主机中建立目录. 
-ftp> mput local-files # 将本地主机中一批文件传送至远端主机. 
-ftp> open host [port] # 重新建立一个新的连接. 
-ftp> prompt           # 交互提示模式. 
-ftp> put local-file [remote-file] # 将本地一个文件传送至远端主机中. 
-ftp> pwd  # 列出当前远端主机目录. 
-ftp> quit # 同BYE. 
-ftp> recv remote-file [local-file] # 同GET. 
-ftp> rename [from] [to]     # 改变远端主机中的文件名. 
-ftp> rmdir directory-name   # 删除远端主机中的目录. 
-ftp> send local-file [remote-file] # 同PUT. 
-ftp> status   # 显示当前FTP的状态. 
-ftp> system   # 显示远端主机系统类型. 
-ftp> user user-name [password] [account] # 重新以别的用户名登录远端主机. 
-ftp> ? [command] # 同HELP. [command]指定需要帮助的命令名称。如果没有指定 command，ftp 将显示全部命令的列表。
-ftp> ! # 从 ftp 子系统退出到外壳。
+-d: Enable debugging (verbose output).
+-i: Disable interactive prompting during multiple file transfers.
+-g: Disable filename globbing (special character expansion).
+-n: Restrain ftp from attempting "auto-login" upon initial connection.
+-v: Verbose mode; show all responses from the remote server.
 ```
 
-FTP 匿名登录账号密码
+### Parameters
+
+Host: The hostname or IP address of the remote FTP server.
+
+### Examples
 
 ```shell
-账号：anonymous
-密码: anonymous@
+ftp> ascii  # Set file transfer type to ASCII (default).
+ftp> bell   # Sound a bell after each file transfer is completed.
+ftp> binary # Set file transfer type to binary.
+ftp> bye    # Terminate the FTP session and exit.
+ftp> case   # Toggle local filename case mapping (for mget).
+ftp> cd     # Change directory on the remote machine.
+ftp> cdup   # Change to the parent directory on the remote machine.
+ftp> chmod  # Change permissions of a file on the remote machine.
+ftp> close  # Terminate the FTP session but stay in the ftp shell.
+ftp> delete # Delete a file on the remote machine.
+ftp> dir [remote-directory] [local-file] # List files in the remote directory.
+ftp> get [remote-file] [local-file] # Transfer a file from remote to local.
+ftp> help [command] # Display help for a command.
+ftp> lcd # Change working directory on the local machine.
+ftp> ls [remote-directory] [local-file] # List remote files (shorthand for dir).
+ftp> macdef                 # Define a macro.
+ftp> mdelete [remote-files] # Delete multiple files on the remote machine.
+ftp> mget [remote-files]    # Transfer multiple files from remote to local.
+ftp> mkdir directory-name   # Create a directory on the remote machine.
+ftp> mput local-files # Transfer multiple files from local to remote.
+ftp> open host [port] # Open a connection to a remote host.
+ftp> prompt           # Toggle interactive prompting.
+ftp> put local-file [remote-file] # Transfer a file from local to remote.
+ftp> pwd  # Print the current working directory on the remote machine.
+ftp> quit # Same as bye.
+ftp> recv remote-file [local-file] # Same as get.
+ftp> rename [from] [to]     # Rename a file on the remote machine.
+ftp> rmdir directory-name   # Remove a directory on the remote machine.
+ftp> send local-file [remote-file] # Same as put.
+ftp> status   # Show the current status of the FTP session.
+ftp> system   # Show the remote system type.
+ftp> user user-name [password] [account] # Login as a different user.
+ftp> ? [command] # Same as help.
+ftp> ! # Escape to the local shell.
 ```
 
+Anonymous Login Credentials:
 
-关闭FTP连接
+```shell
+Username: anonymous
+Password: anonymous@
+```
+
+Closing Connection:
 
 ```shell
 bye
@@ -82,19 +81,16 @@ exit
 quit
 ```
 
-下载文件
+Downloading Files:
 
 ```shell
-ftp> get readme.txt # 下载 readme.txt 文件
-ftp> mget *.txt     # 下载 
+ftp> get readme.txt # Download a single file.
+ftp> mget *.txt     # Download multiple files.
 ```
 
-上传文件
+Uploading Files:
 
 ```shell
-ftp> put /path/readme.txt # 上传 readme.txt 文件
-ftp> mput *.txt           # 可以上传多个文件
+ftp> put /path/readme.txt # Upload a single file.
+ftp> mput *.txt           # Upload multiple files.
 ```
-
-
-

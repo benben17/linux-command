@@ -1,40 +1,38 @@
 userdel
 ===
 
-用于删除给定的用户以及与用户相关的文件
+Used to delete a given user and files related to the user.
 
-## 补充说明
+## Description
 
-**userdel命令** 用于删除给定的用户，以及与用户相关的文件。若不加选项，则仅删除用户帐号，而不删除相关文件。
+The **userdel command** is used to delete a given user and files related to the user. If no options are added, only the user account is deleted, and related files are not removed.
 
-###  语法
-
-```shell
-userdel(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--f：强制删除用户，即使用户当前已登录；
--r：删除用户的同时，删除与用户相关的所有文件。
+userdel (option) (parameter)
 ```
 
-###  参数
-
-用户名：要删除的用户名。
-
-###  实例
-
-userdel命令很简单，比如我们现在有个用户linuxde，其家目录位于`/var`目录中，现在我们来删除这个用户：
+### Options
 
 ```shell
-userdel linuxde       # 删除用户linuxde，但不删除其家目录及文件；
-userdel -r linuxde    # 删除用户linuxde，其家目录及文件一并删除；
+-f: Force the removal of the user, even if the user is currently logged in;
+-r: Remove all files related to the user while deleting the user.
 ```
 
-请不要轻易用`-r`选项；他会删除用户的同时删除用户所有的文件和目录，切记如果用户目录下有重要的文件，在删除前请备份。
+### Parameters
 
-其实也有最简单的办法，但这种办法有点不安全，也就是直接在`/etc/passwd`中删除您想要删除用户的记录；但最好不要这样做，`/etc/passwd`是极为重要的文件，可能您一不小心会操作失误。
+Username: The username to be deleted.
 
+### Examples
 
+The userdel command is simple. For example, if we have a user `linuxde` whose home directory is located in the `/var` directory, let's delete this user:
+
+```shell
+userdel linuxde       # Delete user linuxde, but do not delete their home directory and files;
+userdel -r linuxde    # Delete user linuxde, and delete their home directory and files together;
+```
+
+Please do not use the `-r` option lightly; it will delete all the user's files and directories. Remember to back up if there are important files in the user directory before deleting.
+
+Actually, there is a simplest way, but it is somewhat unsafe, which is to directly delete the record of the user you want to delete in `/etc/passwd`. However, it is best not to do this as `/etc/passwd` is an extremely important file, and you might make a mistake.

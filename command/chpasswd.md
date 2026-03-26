@@ -1,34 +1,32 @@
 chpasswd
 ===
 
-批量更新用户口令的工具
+Tool for batch updating user passwords
 
-## 补充说明
+## Description
 
-**chpasswd命令** 是批量更新用户口令的工具，是把一个文件内容重新定向添加到`/etc/shadow`中。
+The **chpasswd command** is a tool for batch updating user passwords. It reads a list of user/password pairs from standard input and updates the system's password files (typically `/etc/shadow`).
 
-###  语法
-
-```shell
-chpasswd(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
--e：输入的密码是加密后的密文；
--h：显示帮助信息并退出；
--m：当被支持的密码未被加密时，使用MD5加密代替DES加密。
+chpasswd [options]
 ```
 
-###  实例
+### Options
 
-先创建用户密码对应文件，格式为`username:password`，如`abc:abc123`，必须以这种格式来书写，并且不能有空行，保存成文本文件user.txt，然后执行chpasswd命令：
+```shell
+-e: The input passwords are already encrypted;
+-h: Display help information and exit;
+-m: Use MD5 encryption instead of DES when unsupported passwords are not encrypted.
+```
+
+### Examples
+
+First, create a file containing user-password pairs in the format `username:password`, e.g., `abc:abc123`. The file must follow this format strictly, with no empty lines. Save it as `user.txt`, then execute the `chpasswd` command:
 
 ```shell
 chpasswd < user.txt
 ```
 
-以上是运用chpasswd命令来批量修改密码。是linux系统管理中的捷径。
-
-
+This is how the `chpasswd` command is used to batch modify passwords, which is a shortcut in Linux system administration.

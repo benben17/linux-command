@@ -1,57 +1,56 @@
 uname
 ===
 
-打印系统信息。
+Print system information.
 
-## 概要
+## Synopsis
 
 ```shell
 uname [OPTION]...
 ```
 
-## 主要用途
+## Main Uses
 
-- 打印机器和操作系统的信息。
-- 当没有选项时，默认启用 `-s` 选项。
-- 如果给出多个选项或 `-a` 选项时，输出信息按以下字段排序：内核名称 主机名称 内核release 内核版本
- 机器名称 处理器 硬件平台 操作系统。
+- Print information about the machine and operating system.
+- When no options are provided, the `-s` option is enabled by default.
+- If multiple options are given or the `-a` option is used, the output information is sorted by the following fields: kernel name, host name, kernel release, kernel version, machine name, processor, hardware platform, operating system.
 
-## 选项
+## Options
 
 ```shell
--a, --all                  按顺序打印全部信息，如果 -p 和 -i 的信息是未知，那么省略。
--s, --kernel-name          打印内核名称。
--n, --nodename             打印网络节点主机名称。
--r, --kernel-release       打印内核release。
--v, --kernel-version       打印内核版本。
--m, --machine              打印机器名称。
--p, --processor            打印处理器名称。
--i, --hardware-platform    打印硬件平台名称。
--o, --operating-system     打印操作系统名称。
---help                     显示帮助信息并退出。
---version                  显示版本信息并退出。
+-a, --all                  Print all information in order. If -p and -i information is unknown, they are omitted.
+-s, --kernel-name          Print the kernel name.
+-n, --nodename             Print the network node hostname.
+-r, --kernel-release       Print the kernel release.
+-v, --kernel-version       Print the kernel version.
+-m, --machine              Print the machine name.
+-p, --processor            Print the processor name.
+-i, --hardware-platform    Print the hardware platform name.
+-o, --operating-system     Print the operating system name.
+--help                     Display help information and exit.
+--version                  Display version information and exit.
 ```
 
-## 返回值
+## Return Value
 
-返回0表示成功，返回非0值表示失败。
+Returns 0 on success, and a non-zero value on failure.
 
-## 例子
+## Examples
 
 ```shell
-# 单独使用uname命令时相当于uname -s
+# Using the uname command alone is equivalent to uname -s
 [root@localhost ~]# uname
 Linux
 ```
 
 ```shell
-# 查看全部信息
+# View all information
 [root@localhost ~]# uname -a
 Linux localhost 2.6.18-348.6.1.el5 #1 SMP Tue May 21 15:34:22 EDT 2013 i686 i686 i386 GNU/Linux
 ```
 
 ```shell
-# 分别列出信息
+# List information separately
 [root@localhost ~]# uname -m
 i686
 
@@ -77,8 +76,6 @@ i386
 GNU/Linux
 ```
 
-### 注意
+### Note
 
-1. 该命令是`GNU coreutils`包中的命令，相关的帮助信息请查看`man -s 1 uname`，`info coreutils 'uname invocation'`。
-
-
+1. This command is part of the `GNU coreutils` package. For related help information, please see `man -s 1 uname` or `info coreutils 'uname invocation'`.

@@ -1,77 +1,60 @@
 pkexec
 ===
 
-以其他用户身份执行命令
+Executes a command as another user.
 
-## 补充说明
+## Description
 
-**pkexec** 允许授权用户以另一个用户的身份执行 PROGRAM。如果未指定
-PROGRAM，则将运行默认 shell。如果未指定用户名，则程序将以管理超级用户 root
-的身份执行。
+**pkexec** allows an authorized user to execute a PROGRAM as another user. If PROGRAM is not specified, the default shell will be run. If no username is specified, the program will be executed as the administrative superuser, `root`.
 
-### 语法
+### Syntax
 
 ```shell
 pkexec [--version] [--disable-internal-agent] [--help]
 pkexec [--keep-cwd] [--user username] PROGRAM [ARGUMENTS...]
 ```
 
-### 选项
+### Options
 
-```shell
-PROGRAM 运行的程序
-ARGUMENTS... 传递给程序的参数
+```text
+PROGRAM: The program to run.
+ARGUMENTS: Arguments passed to the program.
 
---version 输出版本号然后退出
---disable-internal-agent 避免将注册自己的文本身份验证代理
---help 输出帮助文本然后退出
---keep-cwd 运行位置，默认在 /home/<username>/
---user <username> 需要运行的用户名
+--version: Output version information and exit.
+--disable-internal-agent: Avoid registering a textual authentication agent.
+--help: Output help text and exit.
+--keep-cwd: Keep the current working directory (default is /home/<username>/).
+--user <username>: Execute the command as the specified user.
 ```
 
-### 返回值
+### Return Value
 
-成功完成后，返回值为 PROGRAM 的返回值。
+Upon successful completion, the return value is that of the PROGRAM.
 
-- `127`: 在未获得授权或者身份验证发生错误
-- `126`: 用户关闭身份验证对话框而无法获得授权
+- `127`: Authorization not obtained or an authentication error occurred.
+- `126`: The user cancelled the authentication dialog.
 
-### 示例
+### Examples
 
-1. 运行具有管理员权限的命令：
+1.  **Run a command with administrative privileges:**
 
+```bash
+pkexec ls
 ```
-pkexec command
-```
 
-将 `command` 替换为你要以管理员权限运行的命令。例如，`pkexec ls` 将以管理员权限运行 `ls` 命令。
+2.  **Run a graphical command with administrative privileges:**
 
-2. 以图形界面运行具有管理员权限的命令：
-
-```
+```bash
 pkexec env DISPLAY=$DISPLAY XAUTHORITY=$XAUTHORITY command
 ```
 
-这个命令用于在图形界面中运行需要管理员权限的命令。将 `command` 替换为你要以管理员权限运行的命令。
+3.  **Run a command as a specific user:**
 
-3. 运行具有特定身份验证代理的命令：
-
-```
+```bash
 pkexec --user username command
 ```
 
-将 `username` 替换为你要作为哪个用户运行命令的用户名，将 `command` 替换为你要运行的命令。
+Note: When using `pkexec`, the system will prompt for the administrator's password. Use it only when necessary and exercise caution with administrative privileges.
 
-4. 查看 `pkexec` 的帮助信息：
-
-```
-pkexec --help
-```
-
-这个命令将显示 `pkexec` 的使用说明和选项列表。
-
-请注意，使用 `pkexec` 运行命令时，系统会提示你输入管理员密码进行身份验证。确保只在必要时使用 `pkexec` 来运行需要管理员权限的命令，并小心谨慎地处理管理员权限。
-
-### 参考资料
-
-- https://man.archlinux.org/man/pkexec.1.en
+### References
+- [pkexec(1) — Linux manual page](https://man.archlinux.org/man/pkexec.1.en)

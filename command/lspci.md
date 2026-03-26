@@ -1,31 +1,31 @@
 lspci
 ===
 
-显示当前主机的所有PCI总线信息
+List all PCI buses and devices
 
-## 补充说明
+## Description
 
-**lspci命令** 用于显示当前主机的所有PCI总线信息，以及所有已连接的PCI设备信息。
+The **lspci command** is a utility for displaying information about PCI buses in the system and devices connected to them.
 
-###  语法
-
-```shell
-lspci(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
--n：以数字方式显示PCI厂商和设备代码；
--t：以树状结构显示PCI设备的层次关系，包括所有的总线、桥、设备以及它们之间的联接；
--b：以总线为中心的视图；
--d：仅显示给定厂商和设备的信息；
--s：仅显示指定总线、插槽上的设备和设备上的功能块信息；
--i：指定PCI编号列表文件，而不使用默认的文件；
--m：以机器可读方式显示PCI设备信息。
+lspci [OPTION]...
 ```
 
-###  实例
+### Options
+
+```shell
+-n：Show PCI vendor and device codes as numbers.
+-t：Show a tree-like diagram containing all buses, bridges, devices and connections between them.
+-b：Bus-centric view. Show all IRQ numbers and addresses as seen by the cards on the PCI bus instead of as seen by the kernel.
+-d：Show only devices with specified vendor and device ID.
+-s：Show only devices in specified slot.
+-i：Use the specified file as the PCI ID list instead of the default.
+-m：Dump PCI device data in a backward-compatible machine readable form.
+```
+
+### Examples
 
 ```shell
 [root@localhost ~]# lspci
@@ -75,5 +75,3 @@ lspci(选项)
 03:00.0 Ethernet controller: Intel Corporation 82574L Gigabit Network Connection
 04:00.0 Serial Attached SCSI controller: LSI Logic / Symbios Logic SAS2008 PCI-Express Fusion-MPT SAS-2 [Falcon] (rev 03)
 ```
-
-

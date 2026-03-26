@@ -1,34 +1,32 @@
 fold
 ===
 
-控制文件内容输出时所占用的屏幕宽度
+Wrap input lines to fit a specified width.
 
-## 补充说明
+## Description
 
-**fold命令** 用于控制文件内容输出时所占用的屏幕宽度。fold命令会从指定的文件里读取内容，将超过限定列宽的列加入增列字符后，输出到标准输出设备。若不指定任何文件名称，或是所给予的文件名为“-”，则fold指令会从标准输入设备读取数据。
+The **fold command** is used to control the screen width occupied by file content when it is output. It reads content from the specified files and breaks any lines longer than the specified width, sending the result to standard output. If no files are specified, or if the filename is "-", `fold` reads from standard input.
 
-###  语法
-
-```shell
-fold(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--b或——bytes：以Byte为单位计算列宽，而非采用行数编号为单位；
--s或——spaces：以空格字符作为换列点；
--w<每列行数>或--width<每列行数>：设置每列的最大行数。
+fold (options) (parameters)
 ```
 
-###  参数
+### Options
 
-文件：指定要显示内容的文件。
+```shell
+-b, --bytes: Count width by bytes instead of columns.
+-s, --spaces: Break lines at spaces if possible.
+-w <width>, --width=<width>: Set the maximum line width (default is 80).
+```
 
-###  示例
+### Parameters
+
+File: Specifies the file whose content is to be displayed.
+
+### Example
 
 ```shell
 fold -w 5 filename
 ```
-
-

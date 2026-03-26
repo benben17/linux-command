@@ -1,55 +1,52 @@
 shift
 ===
 
-移动位置参数。
+Shift positional parameters.
 
-## 概要
+## Synopsis
 
 ```shell
 shift [n]
 ```
 
-## 主要用途
+## Main Description
 
-- 将位置参数`$n, $n+1...`重命名为`$1, $2...`。
+- Renames the positional parameters `$n, $n+1...` to `$1, $2...`.
 
-## 参数
+## Parameters
 
-n（可选）：大于等于1且小于等于参数个数的整数，默认为1。
+n (optional): An integer greater than or equal to 1 and less than or equal to the number of parameters, defaulting to 1.
 
-## 返回值
+## Return Value
 
-返回成功除非n大于参数个数或n小于1以及其他非法值。
+Returns success unless n is greater than the number of parameters or n is less than 1, or other illegal values.
 
-## 例子
+## Examples
 
-假设我们的脚本文件（test.sh）如下：
+Suppose our script file (test.sh) is as follows:
 
 ```shell
 #!/usr/bin/env bash
-# 显示前三个位置参数。
+# Display the first three positional parameters.
 echo "$1 $2 $3"
-# 移除前两个位置参数，并将$3重命名为$1，之后的以此类推。
+# Remove the first two positional parameters, rename $3 to $1, and so on.
 shift 2
 echo "$1 $2 $3"
 ```
 
-在终端执行该脚本：
+Execute the script in the terminal:
 
 ```shell
 sh test.sh q w e r t
 ```
 
-返回信息如下：
+The output is as follows:
 
 ```shell
 q w e
 e r t
 ```
 
-### 注意
+### Note
 
-1. 该命令是bash内建命令，相关的帮助信息请查看`help`命令。
-
-
-
+1. This command is a bash built-in; for related help information, please check the `help` command.

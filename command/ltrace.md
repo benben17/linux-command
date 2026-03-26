@@ -1,47 +1,47 @@
 ltrace
 ===
 
-用来跟踪进程调用库函数的情况
+A library call tracer
 
-## 补充说明
+## Description
 
-**ltrace命令** 是用来跟踪进程调用库函数的情况。
+The **ltrace command** is used to intercept and record the dynamic library calls which are called by the executed process and the signals which are received by that process. It can also intercept system calls made by the program.
 
-###  语法
-
-```shell
-ltrace [option ...] [command [arg ...]]
-```
-
-###  选项
+### Syntax
 
 ```shell
--a 对齐具体某个列的返回值。
--c 计算时间和调用，并在程序退出时打印摘要。
--C 解码低级别名称（内核级）为用户级名称。
--d 打印调试信息。
--e 改变跟踪的事件。
--f 跟踪子进程。
--h 打印帮助信息。
--i 打印指令指针，当库调用时。
--l 只打印某个库中的调用。
--L 不打印库调用。
--n, --indent=NR 对每个调用级别嵌套以NR个空格进行缩进输出。
--o, --output=file 把输出定向到文件。
--p PID 附着在值为PID的进程号上进行ltrace。
--r 打印相对时间戳。
--s STRLEN 设置打印的字符串最大长度。
--S 显示系统调用。
--t, -tt, -ttt 打印绝对时间戳。
--T 输出每个调用过程的时间开销。
--u USERNAME 使用某个用户id或组ID来运行命令。
--V, --version 打印版本信息，然后退出。
--x NAME treat the global NAME like a library subroutine.（求翻译）
+ltrace [OPTION]... [COMMAND [ARG...]]
 ```
 
-###  实例
+### Options
 
-最基本应用，不带任何参数：
+```shell
+-a <column>     Align return values in a specific column.
+-c              Count time and calls and report a summary on program exit.
+-C, --demangle  Decode (demangle) low-level symbol names into user-level names.
+-d              Print debugging information.
+-e <expr>       A qualifying expression which modifies which library calls to trace.
+-f              Trace child processes as they are created by currently traced processes.
+-h, --help      Display help and exit.
+-i              Print the instruction pointer at the time of the library call.
+-l <library>    Trace only calls to functions implemented in the specified library.
+-L              Do not display library calls (use with -S to see only system calls).
+-n, --indent <nr> Indent output by <nr> spaces for each level of call nesting.
+-o, --output <file> Write the trace output to the specified file.
+-p <pid>        Attach to the process with the specified PID.
+-r              Print a relative timestamp of each line of the trace.
+-s <strlen>     Specify the maximum string size to print.
+-S              Trace system calls as well as library calls.
+-t, -tt, -ttt   Print absolute timestamps.
+-T              Show the time spent inside each call.
+-u <username>   Run the command with the specified user ID or group ID.
+-V, --version   Display version information and exit.
+-x <name>       Treat the global symbol <name> as a library subroutine.
+```
+
+### Examples
+
+Basic usage without parameters:
 
 ```shell
 [guest@localhost tmp]$ ltrace ./a.out
@@ -53,7 +53,7 @@ printf("no1:%d \t no2:%d \t diff:%d\n", 8, 8, 0no1:8 no2:8 diff:0 ) = 23
 +++ killed by SIGFPE +++
 ```
 
-输出调用时间开销：
+Show time spent in each call:
 
 ```shell
 [guest@localhost tmp]$ ltrace -T ./a.out
@@ -65,7 +65,7 @@ printf("no1:%d \t no2:%d \t diff:%d\n", 8, 8, 0no1:8 no2:8 diff:0 ) = 23 <0.0001
 +++ killed by SIGFPE +++
 ```
 
-显示系统调用：
+Trace system calls:
 
 ```shell
 [guest@localhost tmp]$ ltrace -S ./a.out
@@ -81,7 +81,5 @@ SYS_fstat64(3, 0xbfbd76fc, 0xa4afc0, 4, 0xa4b658) = 0
 SYS_mmap2(0, 4096, 3, 34, -1) = 0xb7f29000
 SYS_mmap2(0, 5544, 5, 2050, 3) = 0x423000
 SYS_mmap2(0x424000, 4096, 3, 2066, 3) = 0x424000
-.............省去若干行
+...
 ```
-
-

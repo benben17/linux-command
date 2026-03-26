@@ -1,87 +1,86 @@
 dc
 ===
 
-任意精度计算器
+An arbitrary-precision calculator
 
-## 说明
+## Description
 
-dc 是一款逆波兰表达式计算器，支持无限制精度的算术运算。它还允许您定义和调用宏。通常，dc从标准输入读取，也可以通过参数传入文件来求值。
+**dc** is a reverse-Polish desk calculator which supports unlimited precision arithmetic. It also allows you to define and call macros. Normally dc reads from the standard input, but it can also read from files passed as arguments.
 
-## 语法
+## Syntax
 
 ```shell
-dc [选项] [文件...]
+dc [options] [file...]
 ```
 
-### 选项 
+### Options
 
 ```shell
--e, --expression=EXPR    # 评估表达式
--f, --file=FILE          # 评估文件内容
--h, --help               # 显示此帮助并退出
--V, --version            # 输出版本信息并退出
+-e, --expression=EXPR    # Evaluate expression
+-f, --file=FILE          # Evaluate file content
+-h, --help               # Display help and exit
+-V, --version            # Output version information and exit
 ```
 
+### Commands
+
 ```shell
-p 打印堆栈顶部的值并以换行符结束语句。
-n 打印堆栈顶部的值并以空语句结束行。
-f 打印整个堆栈，不做任何更改。
-P 从栈顶弹出值。
-c 清除堆栈。
-d 复制顶部值并将其推入主堆栈。
-r 反转堆栈中顶部两个元素的顺序。
-Z 从堆栈中弹出值，计算其中的位数并压入该数字。
-X 从堆栈中弹出值，计算其中的小数位数并压入该数字。
-z 将堆栈长度推入堆栈。
-i 从堆栈中弹出值并将其用作输入基数。
-o 从堆栈中弹出值并将其用作输出基数。
-k 从堆栈中弹出值并使用它来设置精度。
-I 将输入基数的值推入堆栈。
-O 将输出基数的值压入堆栈
-K 将精度值压入堆栈。
+p  Prints the value on the top of the stack, with a newline.
+n  Prints the value on the top of the stack and pops it, without a newline.
+f  Prints the entire contents of the stack without altering anything.
+P  Pops the value off the top of the stack.
+c  Clears the stack.
+d  Duplicates the value on the top of the stack, pushing the copy onto the stack.
+r  Reverses the order of the top two elements on the stack.
+Z  Pops a value off the stack, calculates its number of digits, and pushes that number.
+X  Pops a value off the stack, calculates its number of fractional digits, and pushes that number.
+z  Pushes the current stack depth onto the stack.
+i  Pops a value off the stack and uses it as the input radix.
+o  Pops a value off the stack and uses it as the output radix.
+k  Pops a value off the stack and uses it to set the precision.
+I  Pushes the value of the input radix onto the stack.
+O  Pushes the value of the output radix onto the stack.
+K  Pushes the current precision onto the stack.
 ```
 
-## 示例
+## Examples
 
-下面是 `dc` 命令在命令行完成的计算 `10 * 10` 得出结果 `100`，并推出的过程
+The following example shows how to calculate `10 * 10` using `dc`:
 
 ```shell
-$ dc        
+$ dc
 
-10          # 1. 输入数字10
-10          # 2. 输入数字10
-*           # 3. 输入运算类型*表示乘
-p           # 4. 输入p得到计算结果
+10          # 1. Input number 10
+10          # 2. Input number 10
+*           # 3. Input '*' for multiplication
+p           # 4. Input 'p' to print the result
 100
-q           # 5. 输入 q 退出 dc
+q           # 5. Input 'q' to quit dc
 ```
 
-示例显示在命令行结果 `509`
+Example showing a calculation from the command line resulting in `509`:
 
 ```bash
 $ dc --expression="50 10 * 9 + p"
 509
 ```
 
-## 支持的运算
+## Supported Operations
 
-`+` 从堆栈中弹出两个值，将它们相加，然后压栈结果。
+`+` Pops two values, adds them, and pushes the result.
 
-`-` 弹出两个值，从弹出的第二个值中减去弹出的第一个值，并压栈结果。
+`-` Pops two values, subtracts the first popped value from the second popped value, and pushes the result.
 
-`*` 弹出两个值，将它们相乘，然后压栈结果。结果中分数位数取决于当前精度值和两个参数中的分数位数。
+`*` Pops two values, multiplies them, and pushes the result. The number of fractional digits in the result depends on the current precision and the number of fractional digits in the two arguments.
 
-`/` 弹出两个值，将弹出的第二个值与弹出的第一个值相除，然后推送结果。分数位数由精度值指定。
+`/` Pops two values, divides the second popped value by the first popped value, and pushes the result. The number of fractional digits is specified by the precision value.
 
-`%` 弹出两个值，计算/命令将执行的除法的剩余部分，并推送该值。计算的值与序列 `Sd dld/Ld*- `计算的值相同。
+`%` Pops two values, computes the remainder of the division that the `/` command would perform, and pushes that value.
 
-`~` 弹出两个值，将弹出的第二个值与弹出的第一个值相除。首先推送商，然后推送余数。除法中使用的小数位数由精度值指定。
+`~` Pops two values and divides the second popped value by the first. The quotient is pushed first, followed by the remainder. The number of fractional digits used in the division is specified by the precision.
 
-（序列 SdSn lnld/lnld% 也可以完成此功能，但错误检查略有不同。）
+`^` Pops two values and performs exponentiation, using the first popped value as the exponent and the second as the base. Any fractional part of the exponent is ignored.
 
+`|` Pops three values and computes modular exponentiation. The first popped value is used as the modulus (must be a non-zero integer). The second is the exponent (must be a non-negative integer). The third is the base.
 
-`^` 使用弹出的第一个值作为指数，第二个值作为基数，弹出两个值并进行幂运算。忽略指数的分数部分。
-
-`|` 弹出三个值并计算模幂。 弹出的第一个值用作约简模数； 这个值必须是一个非零数字，并且应该是一个整数。 弹出的第二个用作指数； 该值必须是非负数，并且该指数的任何小数部分都将被忽略。 弹出的第三个值是取幂的基数，它应该是一个整数。 对于小整数，这类似于序列 Sm^Lm%，但与 ^ 不同的是，此命令适用于任意大的指数。
-
-`v` 弹出一个值，计算其平方根，然后压栈它。精度值的最大值和参数的精度用于确定结果中的小数位数。
+`v` Pops one value, computes its square root, and pushes the result. The number of fractional digits in the result is determined by the current precision and the precision of the argument.

@@ -1,192 +1,154 @@
 ls
 ===
 
-显示目录内容列表
+List directory contents
 
-## 补充说明
+## Description
 
-**ls命令** 就是list的缩写，用来显示目标列表，在Linux中是使用率较高的命令。ls命令的输出信息可以进行彩色加亮显示，以分区不同类型的文件。
+The **ls command** is short for "list". It is used to display a list of files and directories and is one of the most frequently used commands in Linux. The output of the `ls` command can be displayed with color highlighting to distinguish between different types of files.
 
-###  语法
+### Syntax
 
 ```shell
-ls [选项] [文件名...]
+ls [OPTION]... [FILE]...
    [-1abcdfgiklmnopqrstuxABCDFGLNQRSUX] [-w cols] [-T cols] [-I pattern] [--full-time] 
-   [--format={long,verbose,commas,across,vertical,single-col‐umn}] 
+   [--format={long,verbose,commas,across,vertical,single-column}] 
    [--sort={none,time,size,extension}] [--time={atime,access,use,ctime,status}] 
    [--color[={none,auto,always}]] [--help] [--version] [--]
 ```
 
-###  选项
+### Options
 
 ```shell
--C     # 多列输出，纵向排序。
--F     # 每个目录名加 "/" 后缀，每个 FIFO 名加 "|" 后缀， 每个可运行名加“ * ”后缀。
--R     # 递归列出遇到的子目录。
--a     # 列出所有文件，包括以 "." 开头的隐含文件。
--c     # 使用“状态改变时间”代替“文件修改时间”为依据来排序（使用“-t”选项时）或列出（使用“-l”选项时）。
--d     # 将目录名像其它文件一样列出，而不是列出它们的内容。
--i     # 输出文件前先输出文件系列号（即 i 节点号: i-node number）。 -l  列出（以单列格式）文件模式
-       # （file mode），文件的链接数，所有者名，组名，文件大小（以字节为单位），时间信息，及文件名。
-       # 缺省时，时间信息显示最近修改时间；可以以选项“-c”和“-u”选择显示其它两种时间信息。对于设备文件，
-       # 原先显示文件大小的区域通常显示的是主要和次要的信号（majorand minor device numbers）。
--q     # 将文件名中的非打印字符输出为问号。（对于到终端的输出这是缺省的。）
--r     # 逆序排列。
--t     # 按时间信息排序。
--u     # 使用最近访问时间代替最近修改时间为依据来排序（使用“-t”选项时）或列出（使用“-l”选项时）。
--1     # 单列输出。
--1, --format=single-column  # 一行输出一个文件（单列输出）。如标准输出不是到终端，此选项就是缺省选项。
--a, --all # 列出目录中所有文件，包括以“.”开头的文件。
--b, --escape # 把文件名中不可输出的字符用反斜杠加字符编号(就像在 C 语言里一样)的形式列出。
+-C     # List entries by columns, sorted vertically.
+-F     # Append indicator (one of */=>@|) to entries.
+-R     # List subdirectories recursively.
+-a     # Do not ignore entries starting with ".".
+-c     # With -lt: sort by, and show, ctime (time of last modification of file status information); with -l: show ctime and sort by name; otherwise: sort by ctime.
+-d     # List directories themselves, not their contents.
+-i     # Print the index number (inode) of each file.
+-l     # Use a long listing format.
+-q     # Print ? instead of nongraphic characters.
+-r     # Reverse order while sorting.
+-t     # Sort by modification time, newest first.
+-u     # With -lt: sort by, and show, access time; with -l: show access time and sort by name; otherwise: sort by access time.
+-1     # List one file per line.
+-1, --format=single-column  # List one file per line. This is the default when standard output is not a terminal.
+-a, --all # List all files in the directory, including those starting with ".".
+-b, --escape # Print C-style escapes for nongraphic characters.
 -c, --time=ctime, --time=status
-      # 按文件状态改变时间（i节点中的ctime）排序并输出目录内
-      # 容。如采用长格式输出（选项“-l”），使用文件的状态改
-      # 变时间取代文件修改时间。【译注：所谓文件状态改变（i节
-      # 点中以ctime标志），既包括文件被修改，又包括文件属性（ 如所有者、组、链接数等等）的变化】
+      # Sort by and show ctime (time of last status change). If using long format (-l), use status change time instead of modification time.
 -d, --directory
-      # 将目录名像其它文件一样列出，而不是列出它们的内容。
--f    # 不排序目录内容；按它们在磁盘上存储的顺序列出。同时启 动“ -a ”选项，如果在“ -f ”之前存在“ -l”、
-      # “ - -color ”或“ -s ”，则禁止它们。
--g    # 忽略，为兼容UNIX用。
+      # List directory names like other files, rather than listing their contents.
+-f    # Do not sort; list entries in directory order. Enables -a, disables -l, --color, and -s if they appeared before -f.
+-g    # Like -l, but do not list owner.
 -i, --inode
-      # 在每个文件左边打印  i  节点号（也叫文件序列号和索引号:  file  serial  number and index num‐
-      # ber）。i节点号在每个特定的文件系统中是唯一的。
+      # Print the index number of each file (also called the file serial number and index number).
 -k, --kilobytes
-      # 如列出文件大小，则以千字节KB为单位。
+      # Default to 1024-byte blocks for disk usage; used with -s and for directory totals.
 -l, --format=long, --format=verbose
-      # 输出的信息从左到右依次包括文件名、文件类型、权限、硬链接数、所有者名、组名、大小（byte）
-      # 、及时间信息（如未指明是其它时间即指修改时间）。对于6个月以上的文件或超出未来
-      # 1小时的文件，时间信息中的时分将被年代取代。
-      # 每个目录列出前，有一行“总块数”显示目录下全部文件所占的磁盘空间。块默认是1024字节；
-      # 如果设置了 POSIXLY_CORRECT 的环境变量，除非用“-k”选项，则默认块大小是 512 字节。
-      # 每一个硬链接都计入总块数（因此可能重复计数），这无 疑是个缺点。
+      # Use a long listing format. Information includes file mode, number of links, owner name, group name, size in bytes, and timestamp.
+      # For files older than 6 months or more than 1 hour into the future, the time includes the year instead of the time of day.
+      # A total block count is listed before each directory.
 
-# 列出的权限类似于以符号表示（文件）模式的规范。但是 ls
-      # 在每套权限的第三个字符中结合了多位（ multiple bits ） 的信息，如下： s 如果设置了  setuid
-      # 位或 setgid   位，而且也设置了相应的可执行位。 S 如果设置了 setuid 位或 setgid
-      # 位，但是没有设置相应的可执行位。 t 如果设置了  sticky  位，而且也设置了相应的可执行位。  T
-      # 如果设置了 sticky 位，但是没有设置相应的可执行位。              x
-      # 如果仅仅设置了可执行位而非以上四种情况。 - 其它情况（即可执行位未设置）。
+# Permissions are listed similar to symbolic mode. ls combines multiple bits in the third character of each set:
+      # s: setuid or setgid is set, and the corresponding execute bit is set.
+      # S: setuid or setgid is set, but the corresponding execute bit is not set.
+      # t: sticky bit is set, and the corresponding execute bit is set.
+      # T: sticky bit is set, but the corresponding execute bit is not set.
+      # x: execute bit is set, but none of the above apply.
+      # -: execute bit is not set.
+
 -m, --format=commas
-      # 水平列出文件，每行尽可能多，相互用逗号和一个空格分隔。
+      # Fill width with a comma separated list of entries.
 -n, --numeric-uid-gid
-      # 列出数字化的 UID 和 GID 而不是用户名和组名。
--o    #  以长格式列出目录内容，但是不显示组信息。等于使用“         --format=long          --no-group
-      # ”选项。提供此选项是为了与其它版本的 ls 兼容。
--p    #  在每个文件名后附上一个字符以说明该文件的类型。类似“ -F ”选项但是不 标示可执行文件。
+      # List numeric user and group IDs instead of names.
+-o    # Like -l, but do not list group information.
+-p    # Append / indicator to directories.
 -q, --hide-control-chars
-      # 用问号代替文件名中非打印的字符。这是缺省选项。
+      # Print ? instead of non-graphic characters.
 -r, --reverse
-      # 逆序排列目录内容。
+      # Reverse order while sorting.
 -s, --size
-      # 在每个文件名左侧输出该文件的大小，以    1024   字节的块为单位。如果设置了   POSIXLY_CORRECT
-      # 的环境变量，除非用“ -k ”选项，块大小是 512 字节。
+      # Print the allocated size of each file, in blocks.
 -t, --sort=time
-      # 按文件最近修改时间（ i 节点中的 mtime ）而不是按文件名字典序排序，新文件 靠前。
+      # Sort by modification time, newest first.
 -u, --time=atime, --time=access, --time=use
-      # 类似选项“    -t    ”，但是用文件最近访问时间（    i     节点中的     atime     ）取代文件修
-      # 改时间。如果使用长格式列出，打印的时间是最近访问时间。
+      # Sort by and show access time.
 -w, --width cols
-       # 假定屏幕宽度是      cols      （      cols     以实际数字取代）列。如未用此选项，缺省值是这
-       # 样获得的：如可能先尝试取自终端驱动，否则尝试取自环境变量          COLUMNS          （如果设
-       # 置了的话），都不行则取 80 。
+       # Assume screen width is 'cols' columns.
 
 -x, --format=across, --format=horizontal
-       # 多列输出，横向排序。
+       # List entries by lines instead of by columns.
 
 -A, --almost-all
-       # 显示除 "." 和 ".." 外的所有文件。
+       # Do not list implied . and ..
 
 -B, --ignore-backups
-       # 不输出以“ ~ ”结尾的备份文件，除非已经在命令行中给出。
+       # Do not list implied entries ending with ~.
 
 -C, --format=vertical
-       # 多列输出，纵向排序。当标准输出是终端时这是缺省项。使用命令名 dir 和 d 时， 则总是缺省的。
+       # List entries by columns. This is the default if standard output is a terminal.
 
 -D, --dired
-       # 当采用长格式（“-l”选项）输出时，在主要输出后，额外打印一行：  //DIRED//  BEG1 END1 BEG2
-       # END2 ...
-
-# BEGn 和 ENDn 是无符号整数，记录每个文件名的起始、结束位置在输出中的位置（
-#        字节偏移量）。这使得          Emacs          易于找到文件名，即使文件名包含空格或换行等非正
-#        常字符也无需特异的搜索。
-# 
-# 如果目录是递归列出的（“ -R ”选项），每个子目录后列出类似一行：
-       # //SUBDIRED//  BEG1 END1 ...  【译注：我测试了 TurboLinux4.0 和 RedHat6.1 ，发现它们都是在 “
-       # //DIRED//     BEG1...     ”之后列出“     //SUBDIRED//     BEG1     ...      ”，也即只有一个
-       # 而不是在每个子目录后都有。而且“ //SUBDIRED// BEG1 ... ”列出的是各个子目 录名的偏移。】
+       # Generate output designed for Emacs' dired mode.
 
 -F, --classify, --file-type
-       # 在每个文件名后附上一个字符以说明该文件的类型。“  * ”表示普通的可执行文件； “ / ”表示目录；“
-       # @ ”表示符号链接；“ | ”表示FIFOs；“ = ”表示套接字 (sockets) ；什么也没有则表示普通文件。
+       # Append indicator (one of */=>@|) to entries.
 
 -G, --no-group
-       # 以长格式列目录时不显示组信息。
+       # In a long listing, don't print group names.
 
--I, --ignorepattern
-       # 除非在命令行中给定，不要列出匹配shell文件名匹配式（pattern ，不是指一般
-       # 表达式）的文件。在shell中，文件名以"."起始的不与在文件名匹配式(pattern)
-       # 开头的通配符匹配。
+-I, --ignore=PATTERN
+       # Do not list implied entries matching shell PATTERN.
 
 -L, --dereference
-       # 列出符号链接指向的文件的信息，而不是符号链接本身。
+       # When showing file information for a symbolic link, show information for the file the link references rather than for the link itself.
 
 -N, --literal
-       # 不要用引号引起文件名。
+       # Print raw entry names (don't treat control characters specially).
 
 -Q, --quote-name
-       # 用双引号引起文件名，非打印字符以 C 语言的方法表示。
+       # Enclose entry names in double quotes.
 
 -R, --recursive
-       # 递归列出全部目录的内容。
+       # List subdirectories recursively.
 
 -S, --sort=size
-       # 按文件大小而不是字典序排序目录内容，大文件靠前。
+       # Sort by file size, largest first.
 
--T, --tabsize cols
-       # 假定每个制表符宽度是 cols 。缺省为 8。为求效率， ls 可能在输出中使用制表符。  若 cols 为
-       0，则不使用制表符。
+-T, --tabsize=COLS
+       # Assume tab stops at each COLS instead of 8.
 
 -U, --sort=none
-       # 不排序目录内容；按它们在磁盘上存储的顺序列出。（选项“-U”和“-f”的不
-       # 同是前者不启动或禁止相关的选项。）这在列很大的目录时特别有用，因为不加排序
-       # 能显著地加快速度。
+       # Do not sort; list entries in directory order.
 
 -X, --sort=extension
-       # 按文件扩展名（由最后的 "." 之后的字符组成）的字典序排序。没有扩展名的先列 出。
+       # Sort alphabetically by entry extension.
 
---color[=when]
-       # 指定是否使用颜色区别文件类别。环境变量  LS_COLORS  指定使用的颜色。如何设置 这个变量见 dir‐
-       # colors(1) 。 when 可以被省略，或是以下几项之一：
-none # 不使用颜色，这是缺省项。
-       # auto 仅当标准输出是终端时使用。 always 总是使用颜色。指定 --color 而且省略 when  时就等同于
-       # --color=always 。
+--color[=WHEN]
+       # Colorize the output. WHEN can be 'always' (default), 'auto', or 'never'.
 
 --full-time
-       # 列出完整的时间，而不是使用标准的缩写。格式如同          date(1)          的缺省格式；此格式
-       # 是不能改变的，但是你可以用 cut(1) 取出其中的日期字串并将结果送至命令 “ date -d ”。
-
-# 输出的时间包括秒是非常有用的。（ Unix 文件系统储存文件的时间信息精确到秒，
-       # 因此这个选项已经给出了系统所知的全部信息。）例如，当你有一个         Makefile          文件
-       # 不能恰当地生成文件时，这个选项会提供帮助。
+       # Like -l --time-style=full-iso.
 ```
 
-###  参数
+### Parameters
 
-目录：指定要显示列表的目录，也可以是具体的文件。
+Directory: The directory or files to list.
 
-###  实例
+### Examples
 
 ```shell
-$ ls       # 仅列出当前目录可见文件
-$ ls -l    # 列出当前目录可见文件详细信息
-$ ls -hl   # 列出详细信息并以可读大小显示文件大小
-$ ls -al   # 列出所有文件（包括隐藏）的详细信息
-$ ls --human-readable --size -1 -S --classify # 按文件大小排序
-$ du -sh * | sort -h # 按文件大小排序(同上)
+$ ls       # List visible files in the current directory
+$ ls -l    # List detailed information of visible files
+$ ls -hl   # List detailed information with human-readable file sizes
+$ ls -al   # List detailed information of all files (including hidden)
+$ ls --human-readable --size -1 -S --classify # Sort by file size
+$ du -sh * | sort -h # Sort by file size (alternative)
 ```
 
-显示当前目录下包括隐藏文件在内的所有文件列表
+List all files including hidden ones:
 
 ```shell
 [root@localhost ~]# ls -a
@@ -194,7 +156,7 @@ $ du -sh * | sort -h # 按文件大小排序(同上)
 ..  .bash_history    .bash_profile  .cshrc   install.log.syslog  .rnd            .ssh     .viminfo
 ```
 
-输出长格式列表
+Output long format:
 
 ```shell
 [root@localhost ~]# ls -1
@@ -205,9 +167,7 @@ install.log.syslog
 satools
 ```
 
-显示文件的inode信息
-
-索引节点（index inode简称为“inode”）是Linux中一个特殊的概念，具有相同的索引节点号的两个文本本质上是同一个文件（除文件名不同外）。
+Show file inode information:
 
 ```shell
 [root@localhost ~]# ls -i -l anaconda-ks.cfg install.log
@@ -215,7 +175,7 @@ satools
 2345474 -rw-r--r-- 1 root root 13837 Jun 11 22:49 install.log
 ```
 
-水平输出文件列表
+Horizontal output:
 
 ```shell
 [root@localhost /]# ls -m
@@ -223,9 +183,7 @@ satools
 bin, boot, data, dev, etc, home, lib, lost+found, media, misc, mnt, opt, proc, root, sbin, selinux, srv, sys, tmp, usr, var
 ```
 
-修改最后一次编辑的文件
-
-最近修改的文件显示在最上面。
+Sort by last modification time (newest first):
 
 ```shell
 [root@localhost /]# ls -t
@@ -233,7 +191,7 @@ bin, boot, data, dev, etc, home, lib, lost+found, media, misc, mnt, opt, proc, r
 tmp  root  etc  dev  lib  boot  sys  proc  data  home  bin  sbin  usr  var  lost+found  media  mnt  opt  selinux  srv  misc
 ```
 
-显示递归文件
+Recursive listing:
 
 ```shell
 [root@localhost ~]# ls -R
@@ -244,7 +202,7 @@ anaconda-ks.cfg  install.log  install.log.syslog  satools
 black.txt  freemem.sh  iptables.sh  lnmp.sh  mysql  php502_check.sh  ssh_safe.sh
 ```
 
-打印文件的UID和GID
+Print UID and GID:
 
 ```shell
 [root@localhost /]# ls -n
@@ -273,7 +231,7 @@ drwxr-xr-x  13 0 0  4096 Jun 11 23:38 usr
 drwxr-xr-x  19 0 0  4096 Jun 11 23:38 var
 ```
 
-列出文件和文件夹的详细信息
+List detailed information:
 
 ```shell
 [root@localhost /]# ls -l
@@ -302,7 +260,7 @@ drwxr-xr-x  13 root root  4096 Jun 11 23:38 usr
 drwxr-xr-x  19 root root  4096 Jun 11 23:38 var
 ```
 
-列出可读文件和文件夹详细信息
+List detailed information with human-readable sizes:
 
 ```shell
 [root@localhost /]# ls -lh
@@ -331,7 +289,7 @@ drwxr-xr-x  13 root root 4.0K Jun 11 23:38 usr
 drwxr-xr-x  19 root root 4.0K Jun 11 23:38 var
 ```
 
-显示文件夹信息
+Show directory information:
 
 ```shell
 [root@localhost /]# ls -ld /etc/
@@ -339,7 +297,7 @@ drwxr-xr-x  19 root root 4.0K Jun 11 23:38 var
 drwxr-xr-x 75 root root 4096 Oct 16 04:02 /etc/
 ```
 
-按时间列出文件和文件夹详细信息
+Sort by time, detailed information:
 
 ```shell
 [root@localhost /]# ls -lt
@@ -368,7 +326,7 @@ drwxr-xr-x   2 root root  4096 May 11  2011 srv
 drwxr-xr-x   2 root root  4096 Nov  8  2010 misc
 ```
 
-按修改时间列出文件和文件夹详细信息
+Sort by modification time in reverse:
 
 ```shell
 [root@localhost /]# ls -ltr
@@ -397,7 +355,7 @@ drwxr-xr-x  75 root root  4096 Oct 16 04:02 etc
 drwxrwxrwt   3 root root 98304 Oct 16 08:54 tmp
 ```
 
-按照特殊字符对文件进行分类
+Classify files with indicators:
 
 ```shell
 [root@localhost nginx-1.2.1]# ls -F
@@ -405,7 +363,7 @@ drwxrwxrwt   3 root root 98304 Oct 16 08:54 tmp
 auto/  CHANGES  CHANGES.ru  conf/  configure*  contrib/  html/  LICENSE  Makefile  man/  objs/  README  src/
 ```
 
-列出文件并标记颜色分类
+List files with color:
 
 ```shell
 [root@localhost nginx-1.2.1]# ls --color=auto
@@ -413,17 +371,15 @@ auto/  CHANGES  CHANGES.ru  conf/  configure*  contrib/  html/  LICENSE  Makefil
 auto  CHANGES  CHANGES.ru  conf  configure  contrib  html  LICENSE  Makefile  man  objs  README  src
 ```
 
-## 扩展知识
+## Extra Knowledge
 
-### 不同颜色代表的文件类型
+### File types represented by different colors
 
-* `蓝色`<!--rehype:style=background: blue;color:white;-->：目录
-* `绿色`<!--rehype:style=background: green;color:white;-->：可执行文件
-* `白色`<!--rehype:style=background: #efefef;-->：一般性文件，如文本文件，配置文件等
-* `红色`<!--rehype:style=background: red;color:white;-->：压缩文件或归档文件
-* `浅蓝色`<!--rehype:style=background: #c4c3ff;-->：链接文件
-* 红色闪烁：链接文件存在问题
-* 黄色：设备文件
-* 青黄色：管道文件
-
-
+* `Blue`<!--rehype:style=background: blue;color:white;-->: Directory
+* `Green`<!--rehype:style=background: green;color:white;-->: Executable file
+* `White`<!--rehype:style=background: #efefef;-->: General file (e.g., text, configuration)
+* `Red`<!--rehype:style=background: red;color:white;-->: Compressed or archive file
+* `Light Blue`<!--rehype:style=background: #c4c3ff;-->: Symbolic link
+* Flashing Red: Problem with symbolic link
+* Yellow: Device file
+* Cyan: Pipe (FIFO)

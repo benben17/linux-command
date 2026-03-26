@@ -1,17 +1,17 @@
 pstack
 ===
 
-显示每个进程的栈跟踪
+Display a stack trace for each process.
 
-## 补充说明
+## Description
 
-**pstack命令** 可显示每个进程的栈跟踪。<kbd>pstack</kbd> 命令必须由相应进程的属主或 <tt>root</tt> 运行。可以使用 <kbd>pstack</kbd> 来确定进程挂起的位置。此命令允许使用的唯一选项是要检查的进程的 <tt>PID</tt>。
+The **pstack command** displays a stack trace for each process. The `pstack` command must be run by the owner of the process or by `root`. It can be used to determine exactly where a process is hung. The only option required for this command is the `PID` of the process to be inspected.
 
-命令软件包下载地址：https://packages.debian.org/sid/pstack
+Package download URL: https://packages.debian.org/sid/pstack
 
-###  实例
+### Examples
 
-pstree以树结构显示进程
+Use `pstree` to display processes in a tree structure:
 
 ```shell
 pstree -p work | grep ad
@@ -23,7 +23,7 @@ sshd(22669)---bash(22670)---ad_preprocess(4551)-+-{ad_preprocess}(4552)
                                                 `-{ad_preprocess}(4557)
 ```
 
-work为工作用户，-p为显示进程识别码，ad_preprocess共启动了6个子线程，加上主线程共7个线程。
+In this case, `work` is the user, `-p` displays the PID, and `ad_preprocess` has started 6 sub-threads, making a total of 7 threads including the main thread.
 
 ```shell
 ps -Lf 4551
@@ -37,9 +37,9 @@ work      4551 22670  4556  0    7 16:30 pts/2    Sl+    0:00 ./ad_preprocess
 work      4551 22670  4557  0    7 16:30 pts/2    Sl+    0:00 ./ad_preprocess
 ```
 
-进程共启动了7个线程
+The process has started a total of 7 threads.
 
-pstack显示每个进程的栈跟踪：
+Display stack trace for each thread using `pstack`:
 
 ```shell
 pstack 4551
@@ -96,5 +96,3 @@ Thread 1 (Thread 182894129792 (LWP 4551)):
 #2  0x0000000000420d79 in Ad_preprocess::run ()
 #3  0x0000000000450ad0 in main ()
 ```
-
-

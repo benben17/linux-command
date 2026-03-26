@@ -1,27 +1,33 @@
 php
 ===
 
-PHP语言的命令行接口
+Command-line interface for the PHP language.
 
-## 补充说明
+## Description
 
-**php命令** 是流行的Web开发语言PHP的命令行接口，可以使用PHP语言开发基于命令行的系统管理脚本程序。
+The **php command** is the command-line interface for PHP, a popular web development language. It allows developers to create and execute PHP scripts for system administration, batch processing, or other non-web tasks.
 
-###  语法
-
-```shell
-php(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--a：进入交互模式；
--c：指定“php.ini”的搜索路径。
+php [options] [file] [--] [arguments...]
 ```
 
-###  参数
+### Options
 
-文件：要执行的php脚本。
+```shell
+-a: Enter interactive mode (REPL).
+-c <path>: Specify the directory where "php.ini" is located.
+-d foo[=bar]: Define INI entry 'foo' with value 'bar'.
+-f <file>: Parse and execute <file>.
+-h: Display help.
+-i: Display PHP information (like phpinfo()).
+-l: Syntax check only (lint).
+-m: Show compiled-in modules.
+-r <code>: Run PHP <code> without using script tags <?php ... ?>.
+-v: Display version information.
+```
 
+### Parameters
 
+File: The PHP script to execute.

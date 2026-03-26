@@ -1,32 +1,30 @@
 mysqlshow
 ===
 
-显示MySQL中数据库相关信息
+Display information about MySQL databases, tables, and columns
 
-## 补充说明
+## Description
 
-**mysqlshow命令** 用于显示mysql服务器中数据库、表和列表信息。
+The **mysqlshow command** is used to display information about databases, tables, and columns in a MySQL server.
 
-### 语法
-
-```shell
-mysqlshow(选项)(参数)
-```
-
-### 选项
+### Syntax
 
 ```shell
--h：MySQL服务器的ip地址或主机名；
--u：连接MySQL服务器的用户名；
--p：连接MySQL服务器的密码；
---count：显示每个数据表中数据的行数；
--k：显示数据表的索引；
--t：显示数据表的类型；
--i：显示数据表的额外信息。
+mysqlshow [options] [database_info]
 ```
 
-### 参数
+### Options
 
-数据库信息：指定要显示的数据库信息，可以是一个数据库名，或者是数据库名和表名，或者是数据库名、表名和列名。
+```shell
+-h: Hostname or IP address of the MySQL server.
+-u: Username used to connect to the MySQL server.
+-p: Password used to connect to the MySQL server.
+--count: Show the number of rows in each table.
+-k: Show table indexes.
+-t: Show table types.
+-i: Show extra information about the tables.
+```
 
+### Parameters
 
+Database info: Specifies what information to show. This can be a database name, or a database name and a table name, or a database name, table name, and column name.

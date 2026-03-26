@@ -1,28 +1,26 @@
 rpmsign
 ===
 
-使用RPM软件包的签名管理工具
+Signature management tool for RPM packages.
 
-## 补充说明
+## Description
 
-**rpmsign命令** 使用rpm软件包的签名管理工具。
+The **rpmsign command** is a signature management tool for RPM packages.
 
-###  语法
-
-```shell
-rpmsign(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
---addsign：为自动软件包添加签名；
---checksig：验证软件包签名；
---delsign：删除软件包签名；
---import：导入公钥；
---resign：重新签名软件包；
---nodigest：不验证软件包摘要；
---nosignature：不验证软件包签名。
+rpmsign(options)
 ```
 
+### Options
 
+```shell
+--addsign: Add signatures to packages.
+--checksig: Verify package signatures.
+--delsign: Delete package signatures.
+--import: Import public keys.
+--resign: Re-sign packages.
+--nodigest: Do not verify package digests.
+--nosignature: Do not verify package signatures.
+```

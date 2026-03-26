@@ -1,58 +1,58 @@
 hdparm
 ===
 
-显示与设定硬盘的参数
+Display and set hard drive parameters.
 
-## 补充说明
+## Supplemental Information
 
-**hdparm命令** 提供了一个命令行的接口用于读取和设置IDE或SCSI硬盘参数。
+The **hdparm command** provides a command-line interface for reading and setting parameters for IDE or SATA/SCSI hard drives.
 
-###  语法
-
-```shell
-hdparm(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--a<快取分区>：设定读取文件时，预先存入块区的分区数，若不加上<快取分区>选项，则显示目前的设定；
--A<0或1>：启动或关闭读取文件时的快取功能；
--c<I/O模式>：设定IDE32位I/O模式；
--C：检测IDE硬盘的电源管理模式；
--d<0或1>：设定磁盘的DMA模式；
--f：将内存缓冲区的数据写入硬盘，并清除缓冲区；
--g：显示硬盘的磁轨，磁头，磁区等参数；
--h：显示帮助；
--i：显示硬盘的硬件规格信息，这些信息是在开机时由硬盘本身所提供；
--I：直接读取硬盘所提供的硬件规格信息；
--k<0或1>：重设硬盘时，保留-dmu参数的设定；
--K<0或1>：重设硬盘时，保留-APSWXZ参数的设定；
--m<磁区数>：设定硬盘多重分区存取的分区数；
--n<0或1>：忽略硬盘写入时所发生的错误；
--p<PIO模式>：设定硬盘的PIO模式；
--P<磁区数>：设定硬盘内部快取的分区数；
--q:在执行后续的参数时，不在屏幕上显示任何信息；
--r<0或1>:设定硬盘的读写模式；
--S<时间>:设定硬盘进入省电模式前的等待时间；
--t;评估硬盘的读取效率；
--T：平谷硬盘快取的读取效率；
--u<0或1>：在硬盘存取时，允许其他中断要求同时执行；
--v：显示硬盘的相关设定；
--w<0或1>：设定硬盘的写入快取；
--X<传输模式>：设定硬盘的传输模式；
--y：使IDE硬盘进入省电模式；
--Y：使IDE硬盘进入睡眠模式；
--Z：关闭某些Seagate硬盘的自动省电功能。
+hdparm (options) (parameters)
 ```
 
-###  参数
+### Options
 
-设备文件：指定id驱动对应的设备文件名。
+```shell
+-a <count>: Set/get the sector count for filesystem readahead;
+-A <0|1>: Disable/enable IDE drive look-ahead feature;
+-c <mode>: Enable/disable IDE 32-bit I/O support;
+-C: Check current IDE power mode status;
+-d <0|1>: Disable/enable the DMA flag;
+-f: Flush the buffer cache for the device on exit;
+-g: Display drive geometry (cylinders, heads, sectors) and total sectors;
+-h: Display help information;
+-i: Display drive identification information provided at boot time;
+-I: Request identification info directly from the drive;
+-k <0|1>: Set/get keep_settings_over_reset flag;
+-K <0|1>: Set/get drive keep_features_over_reset flag;
+-m <count>: Set/get multiple sector count for multiple-sector I/O;
+-n <0|1>: Set/get ignore-write-errors flag;
+-p <mode>: Set IDE PIO mode;
+-P <count>: Set the drive's internal prefetch count;
+-q: Quiet operation;
+-r <0|1>: Set/get the read-only flag for the device;
+-S <timeout>: Set the standby (spindown) timeout for the drive;
+-t: Perform device read timings;
+-T: Perform cache read timings;
+-u <0|1>: Set/get interrupt-unmask flag;
+-v: Display all settings;
+-w <0|1>: Set/get write-caching flag;
+-X <mode>: Set the IDE transfer mode;
+-y: Force an IDE drive to immediately enter the low power standby mode;
+-Y: Force an IDE drive to immediately enter the lowest power sleep mode;
+-Z: Disable the automatic power-saving function of certain Seagate drives.
+```
 
-###  实例
+### Parameters
 
-显示硬盘的相关设置：
+Device: Specifies the device file corresponding to the hard drive (e.g., `/dev/sda`).
+
+### Examples
+
+Display hard drive settings:
 
 ```shell
 hdparm /dev/sda
@@ -60,19 +60,26 @@ hdparm /dev/sda
 IO_support = 0 (default 16-bit)
 readonly = 0 (off)
 readahead = 256 (on)
-geometry = 19457［柱面数］/255［磁头数］/63［扇区数］, sectors = 312581808［总扇区数］, start = 0［起始扇区数］
+geometry = 19457 [cylinders] / 255 [heads] / 63 [sectors], sectors = 312581808 [total], start = 0
+```
 
-```shell
-
-显示硬盘的柱面、磁头、扇区数：
+Display drive geometry (cylinders, heads, sectors):
 
 ```shell
 hdparm -g /dev/sda
 /dev/sda:
-geometry = 19457［柱面数］/255［磁头数］/63［扇区数］, sectors = 312581808［总扇区数］, start = 0［起始扇区数］
+geometry = 19457 [cylinders] / 255 [heads] / 63 [sectors], sectors = 312581808 [total], start = 0
 ```
 
-测试硬盘的读取速度：
+Test drive read speed:
+
+```shell
+hdparm -t /dev/sda
+/dev/sda:
+ Timing buffered disk reads:  244 MB in  3.02 seconds =  80.82 MB/sec
+```
+
+Test cache read speed:
 
 ```shell
 hdparm -T /dev/sda
@@ -80,35 +87,18 @@ hdparm -T /dev/sda
  Timing cached reads:   4684 MB in  2.00 seconds = 2342.92 MB/sec
 ```
 
-测试硬盘缓存的读取速度：
-
-```shell
-hdparm -T /dev/xvda
-/dev/xvda:
-Timing cached reads: 11154 MB in 1.98 seconds = 5633.44 MB/sec
-```
-
-检测硬盘的电源管理模式：
+Check the power management mode of the drive:
 
 ```shell
 hdparm -C /dev/sda
 /dev/sda:
-drive state is: standby [省电模式]
+drive state is: standby
 ```
 
-查询并设置硬盘多重扇区存取的扇区数，以增进硬盘的存取效率：
+**Note: Hard drive bad sector repair methods**
 
 ```shell
-hdparm -m /dev/sda
-hdparm -m    #参数值为整数值如8 /dev/sda
+Check: smartctl -l selftest /dev/sda
+Unmount: umount /dev/sda*
+Repair (using badblocks): badblocks /dev/sda
 ```
-
- **附：硬盘坏道修复方法** 
-
-```shell
-检查：smartctl -l selftest /dev/sda
-卸载：umount /dev/sda*
-修复：badblocks /dev/sda
-```
-
-

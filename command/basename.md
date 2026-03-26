@@ -1,46 +1,44 @@
 basename
 ===
 
-打印目录或者文件的基本名称
+Strip directory and suffix from filenames.
 
-## 补充说明
+## Description
 
-**basename命令** 用于打印目录或者文件的基本名称。basename和dirname命令通常用于shell脚本中的命令替换来指定和指定的输入文件名称有所差异的输出文件名称。
+The **basename command** is used to print the base name of a directory or file. The `basename` and `dirname` commands are commonly used for command substitution in shell scripts to specify an output filename that differs from the input filename.
 
-###  语法
-
-```shell
-basename(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
---help：显示帮助；
---version：显示版本号。
+basename [options] [parameters]
 ```
 
-###  参数
+### Options
 
-* 文件：带路径信息的文件；
-* 后缀：可选参数，指定要去除的文件后缀字符串。
+```shell
+--help: Display help information.
+--version: Display version information.
+```
 
-###  实例
+### Parameters
 
-1、要显示一个shell变量的基本名称，请输入：
+* File: A filename with path information.
+* Suffix: Optional parameter, specifies the filename suffix to be removed.
+
+### Examples
+
+1. To display the base name of a shell variable, enter:
 
 ```shell
 basename $WORKFILE
 ```
 
-此命令显示指定给shell变量WORKFILE的值的基本名称。如果WORKFILE变量的值是`/home/jim/program.c`文件，则此命令显示program.c。
+This command displays the base name of the value assigned to the shell variable `WORKFILE`. If the value of the `WORKFILE` variable is `/home/jim/program.c`, then this command displays `program.c`.
 
-要构造一个和另一个文件名称相同（除了后缀）的文件名称，请输入：
+2. To construct a filename that is the same as another filename (except for the suffix), enter:
 
 ```shell
 OFILE=`basename $1 .c`.o
 ```
 
-此命令指定给 OFILE 文件第一个位置上的参数（$1）的值，但它的 .c 后缀更改至 .o。如果 $1 是 /home/jim/program.c 文件，则 OFILE 成为 program.o。因为 program.o 仅是一个基本文件名称，它标识在当前目录中的文件。
-
-
+This command assigns the value of the first positional parameter ($1) to the `OFILE` file, but changes its `.c` suffix to `.o`. If `$1` is `/home/jim/program.c`, then `OFILE` becomes `program.o`. Since `program.o` is only a base filename, it identifies a file in the current directory.

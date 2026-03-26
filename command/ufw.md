@@ -1,104 +1,104 @@
 ufw
-===  
+===
 
-ubuntu防火墙管理工具
+Ubuntu firewall management tool
 
-## 概要
+## Synopsis
 
 ```shell
-sudo ufw [选项] [规则/命令]
+sudo ufw [options] [rule/command]
 ```
 
-## 用途
+## Purpose
 
-- 管理Ubuntu系统防火墙规则，简化`iptables`操作。
-- 启用或禁用防火墙，查看当前防火墙状态。
-- 快速配置允许/拒绝端口、服务或特定IP的访问。
+- Manage Ubuntu system firewall rules and simplify `iptables` operations.
+- Enable or disable the firewall and view the current firewall status.
+- Quickly configure access for allowing/denying ports, services, or specific IPs.
 
-## 参数
+## Parameters
 
-### 常用操作命令
+### Common Operation Commands
 
-- `enable`: 启用防火墙并设置开机自启。
-- `disable`: 关闭防火墙。
-- `reload`: 重新加载防火墙规则（不中断现有连接）。
-- `reset`: 重置所有规则到初始状态。
-- `allow <rule>`: 允许指定规则（如端口、服务）。
-- `deny <rule>`: 拒绝指定规则。
-- `status`: 显示防火墙状态和规则列表。
+- `enable`: Enable the firewall and set it to start at boot.
+- `disable`: Disable the firewall.
+- `reload`: Reload firewall rules (without interrupting existing connections).
+- `reset`: Reset all rules to the initial state.
+- `allow <rule>`: Allow a specified rule (e.g., port, service).
+- `deny <rule>`: Deny a specified rule.
+- `status`: Show the firewall status and list of rules.
 
-### 规则格式
+### Rule Formats
 
-- `<port>`: 端口号（如 `22`、`80/tcp`）。
-- `<protocol>`: 协议类型（`tcp` 或 `udp`）。
-- `comment <text>`: 为规则添加注释（需配合 `allow`/`deny` 使用）。
+- `<port>`: Port number (e.g., `22`, `80/tcp`).
+- `<protocol>`: Protocol type (`tcp` or `udp`).
+- `comment <text>`: Add a comment to a rule (must be used with `allow`/`deny`).
 
-### 选项
+### Options
 
-- `--dry-run`: 仅显示规则变更，不实际应用。
+- `--dry-run`: Show rule changes only, without actually applying them.
 
 ------
 
-## 返回值
+## Return Value
 
-- 成功执行返回 `0`。
-- 错误或无效参数返回非零值。
+- Returns `0` on successful execution.
+- Returns a non-zero value for errors or invalid parameters.
 
 ------
 
-## 示例
+## Examples
 
-### 基础操作
+### Basic Operations
 
 ```
-# 启用防火墙
+# Enable firewall
 sudo ufw enable
 
-# 关闭防火墙
+# Disable firewall
 sudo ufw disable
 
-# 查看防火墙状态
+# View firewall status
 sudo ufw status
 ```
 
-### 规则配置
+### Rule Configuration
 
 ```
-# 允许SSH默认端口（22/tcp）
+# Allow default SSH port (22/tcp)
 sudo ufw allow ssh
 
-# 允许TCP协议的8080端口并添加注释
+# Allow port 8080 for TCP and add a comment
 sudo ufw allow 8080/tcp comment "Web Server"
 
-# 拒绝来自192.168.1.5的访问
+# Deny access from 192.168.1.5
 sudo ufw deny from 192.168.1.5
 
-# 拒绝UDP协议的53端口
+# Deny port 53 for UDP
 sudo ufw deny 53/udp
 ```
 
-### 高级操作
+### Advanced Operations
 
 ```
-# 显示带编号的规则列表（便于删除）
+# Show numbered rule list (useful for deletion)
 sudo ufw status numbered
 
-# 删除第3条规则
+# Delete the 3rd rule
 sudo ufw delete 3
 
-# 重置所有规则
+# Reset all rules
 sudo ufw reset
 ```
 
 ------
 
-## 注意
+## Notes
 
-1. **权限要求**：需使用 `sudo` 执行命令。
-2. **默认策略**：首次启用时默认阻止所有入站流量，允许所有出站流量。
-3. **规则优先级**：
-   规则按顺序匹配，先拒绝后允许可能导致冲突
-4. **日志记录**：
-   可通过 `sudo ufw logging on` 启用日志，日志路径为 `/var/log/ufw.log`
-5. **服务名称支持**：
-   支持 `/etc/services` 中定义的服务名（如 `http`、`ssh`）
+1. **Privilege Requirement**: Commands must be executed using `sudo`.
+2. **Default Policy**: When first enabled, it defaults to blocking all incoming traffic and allowing all outgoing traffic.
+3. **Rule Priority**:
+   Rules are matched in order; denying before allowing may cause conflicts.
+4. **Logging**:
+   Enable logging with `sudo ufw logging on`; logs are located at `/var/log/ufw.log`.
+5. **Service Name Support**:
+   Supports service names defined in `/etc/services` (e.g., `http`, `ssh`).

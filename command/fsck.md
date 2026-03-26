@@ -1,55 +1,51 @@
 fsck
 ===
 
-fsck（英文全拼：file system check）命令检查并且试图修复文件系统中的错误
+Check and repair a Linux filesystem.
 
-## 补充说明
+## Description
 
-**fsck命令** 被用于检查并且试图修复文件系统中的错误。当文件系统发生错误，可用fsck指令尝试加以修复。
+The **fsck command** (file system check) is used to check and, if necessary, repair one or more Linux filesystems. It is often run automatically during system boot if a filesystem was not unmounted cleanly.
 
-###  语法
-
-```shell
-fsck(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--a：自动修复文件系统，不询问任何问题；
--A：依照/etc/fstab配置文件的内容，检查文件内所列的全部文件系统；
--N：不执行指令，仅列出实际执行会进行的动作；
--P：当搭配"-A"参数使用时，则会同时检查所有的文件系统；
--r：采用互动模式，在执行修复时询问问题，让用户得以确认并决定处理方式；
--R：当搭配"-A"参数使用时，则会略过/目录的文件系统不予检查；
--s：依序执行检查作业，而非同时执行；
--t<文件系统类型>：指定要检查的文件系统类型；
--T：执行fsck指令时，不显示标题信息；
--V：显示指令执行过程。
+fsck (options) (parameters)
 ```
 
-###  参数
+### Options
 
-文件系统：指定要查看信息的文件系统。
+```shell
+-a: Automatically repair the filesystem without asking any questions.
+-A: Check all filesystems listed in /etc/fstab.
+-N: Do not execute; just show what would be done.
+-P: When used with "-A", check all filesystems in parallel.
+-r: Interactive mode; prompt for confirmation before making repairs.
+-R: When used with "-A", skip the root filesystem.
+-s: Serialize fsck operations (check one by one instead of in parallel).
+-t <type>: Specify the type of filesystem to be checked.
+-T: Do not show the title on startup.
+-V: Produce verbose output, showing command execution details.
+```
 
-###  实例
+### Parameters
 
-linux的文件系统损坏会导致linux不正常关机，出错的时候如果系统告诉你是哪一块硬盘的分区有问题，比如是`/dev/hda2`，接着用如下的命令去对付它：
+Filesystem: Specifies the device or mount point of the filesystem to be checked.
+
+### Examples
+
+If a Linux system shuts down abnormally, it may lead to filesystem corruption. If the system identifies a specific partition with errors, such as `/dev/hda2`, you can use the following command to attempt a repair:
 
 ```shell
 fsck -y /dev/hda2
 ```
 
-结束后使用reboot命令重启系统这样就好了！
+After the command completes, use the `reboot` command to restart the system.
 
-如果不知道时哪个地方出了问题，可以直接：
+If you don't know which partition has the problem, you can simply run:
 
 ```shell
 fsck
 ```
 
-在随后的多个确认对话框中输入`:y`
-
-结束后同样使用reboot命令重启系统这样就好了！
-
-
+Enter `y` at the subsequent confirmation prompts. Once finished, reboot the system.

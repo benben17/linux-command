@@ -1,78 +1,78 @@
 df
 ===
 
-显示磁盘的相关信息
+Display information about disk space usage.
 
-## 补充说明
+## Description
 
-**df命令** 用于显示磁盘分区上的可使用的磁盘空间。默认显示单位为KB。可以利用该命令来获取硬盘被占用了多少空间，目前还剩下多少空间等信息。
+The **df** command is used to display the amount of available disk space on file systems. By default, the display unit is KB. This command can be used to obtain information such as how much space is occupied on the hard disk and how much space is currently left.
 
-###  语法 
-
-```shell
-df(选项)(参数)
-```
-
-###  选项 
+### Syntax
 
 ```shell
--a或--all：包含全部的文件系统；
---block-size=<区块大小>：以指定的区块大小来显示区块数目；
--h或--human-readable：以可读性较高的方式来显示信息；
--H或--si：与-h参数相同，但在计算时是以1000 Bytes为换算单位而非1024 Bytes；
--i或--inodes：显示inode的信息；
--k或--kilobytes：指定区块大小为1024字节；
--l或--local：仅显示本地端的文件系统；
--m或--megabytes：指定区块大小为1048576字节；
---no-sync：在取得磁盘使用信息前，不要执行sync指令，此为预设值；
--P或--portability：使用POSIX的输出格式；
---sync：在取得磁盘使用信息前，先执行sync指令；
--t<文件系统类型>或--type=<文件系统类型>：仅显示指定文件系统类型的磁盘信息；
--T或--print-type：显示文件系统的类型；
--x<文件系统类型>或--exclude-type=<文件系统类型>：不要显示指定文件系统类型的磁盘信息；
---help：显示帮助；
---version：显示版本信息。
+df (options) (parameters)
 ```
 
-###  参数 
+### Options
 
-文件：指定文件系统上的文件。
+```shell
+-a, --all             Include all file systems.
+--block-size=<SIZE>   Use SIZE-byte blocks.
+-h, --human-readable  Print sizes in human readable format (e.g., 1K 234M 2G).
+-H, --si              Likewise, but use powers of 1000 not 1024.
+-i, --inodes          List inode information instead of block usage.
+-k, --kilobytes       Like --block-size=1K.
+-l, --local           Limit listing to local file systems.
+-m, --megabytes       Like --block-size=1M.
+--no-sync             Do not invoke sync before getting usage info (default).
+-P, --portability     Use the POSIX output format.
+--sync                Invoke sync before getting usage info.
+-t, --type=<TYPE>     Limit listing to file systems of type TYPE.
+-T, --print-type      Print file system type.
+-x, --exclude-type=<TYPE> Limit listing to file systems not of type TYPE.
+--help                Display help.
+--version             Display version information.
+```
 
-### 大小格式
+### Parameters
 
-显示值以 `--block-size` 和 `DF_BLOCK_SIZE`，`BLOCK_SIZE` 和 `BLOCKSIZE` 环境变量中的第一个可用 `SIZE` 为单位。 否则，单位默认为 `1024` 个字节（如果设置 `POSIXLY_CORRECT`，则为`512`）。
+File: Specifies a file on the file system to check.
 
-SIZE是一个整数和可选单位（例如：10M是10 * 1024 * 1024）。 单位是K，M，G，T，P，E，Z，Y（1024的幂）或KB，MB，...（1000的幂）。
+### Size Format
 
-###  实例 
+Displayed values are in units of the first available `SIZE` from `--block-size`, and the `DF_BLOCK_SIZE`, `BLOCK_SIZE` and `BLOCKSIZE` environment variables. Otherwise, units default to `1024` bytes (or `512` if `POSIXLY_CORRECT` is set).
 
-查看系统磁盘设备，默认是KB为单位：
+SIZE is an integer and optional unit (example: 10M is 10 * 1024 * 1024). Units are K, M, G, T, P, E, Z, Y (powers of 1024) or KB, MB, ... (powers of 1000).
+
+### Examples
+
+View system disk devices, default is in KB:
 
 ```shell
 [root@LinServ-1 ~]# df
-文件系统               1K-块        已用     可用 已用% 挂载点
+Filesystem           1K-blocks      Used Available Use% Mounted on
 /dev/sda2            146294492  28244432 110498708  21% /
 /dev/sda1              1019208     62360    904240   7% /boot
 tmpfs                  1032204         0   1032204   0% /dev/shm
 /dev/sdb1            2884284108 218826068 2518944764   8% /data1
 ```
 
-使用`-h`选项以KB以上的单位来显示，可读性高：
+Use the `-h` option to display in units larger than KB for better readability:
 
 ```shell
 [root@LinServ-1 ~]# df -h
-文件系统              容量  已用 可用 已用% 挂载点
+Filesystem            Size  Used Avail Use% Mounted on
 /dev/sda2             140G   27G  106G  21% /
 /dev/sda1             996M   61M  884M   7% /boot
 tmpfs                1009M     0 1009M   0% /dev/shm
 /dev/sdb1             2.7T  209G  2.4T   8% /data1
 ```
 
-查看全部文件系统：
+View all file systems:
 
 ```shell
 [root@LinServ-1 ~]# df -a
-文件系统               1K-块        已用     可用 已用% 挂载点
+Filesystem           1K-blocks      Used Available Use% Mounted on
 /dev/sda2            146294492  28244432 110498708  21% /
 proc                         0         0         0   -  /proc
 sysfs                        0         0         0   -  /sys
@@ -83,13 +83,10 @@ tmpfs                  1032204         0   1032204   0% /dev/shm
 none                         0         0         0   -  /proc/sys/fs/binfmt_misc
 ```
 
-显示 `public` 目录中的可用空间量，如以下输出中所示：
+Show the amount of available space in the `public` directory:
 
 ```shell
 df public
 # Filesystem     1K-blocks     Used Available Use% Mounted on
 # /dev/loop0      18761008 15246924   2554392  86% /d Avail
 ```
-
-
-

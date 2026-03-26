@@ -1,24 +1,22 @@
 dris
 ===
 
-显示和清空目录堆栈中的内容
+Display and clear the directory stack.
 
-## 补充说明
+## Description
 
-**dris命令** 用于显示和清空目录堆栈中的内容。
+The **dris** command is used to display and clear the contents of the directory stack.
 
-###  语法
-
-```shell
-dris(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
-+n：显示从左边算起第n笔的目录；
--n：显示从右边算起第n笔的目录；
--l：显示目录完整的记录。
+dris (options)
 ```
 
+### Options
 
+```shell
++n    Display the nth directory from the left (starting from 0).
+-n    Display the nth directory from the right (starting from 0).
+-l    Display the full record of directories.
+```

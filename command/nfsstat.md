@@ -1,55 +1,53 @@
 nfsstat
 ===
 
-列出NFS客户端和服务器的工作状态
+Display NFS (Network File System) statistics
 
-## 补充说明
+## Description
 
-**nfsstat命令** 用于列出NFS客户端和服务器的工作状态。
+The **nfsstat command** displays statistics about NFS (Network File System) and RPC (Remote Procedure Call) activity for both the client and the server.
 
-###  语法
-
-```shell
-nfsstat(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
--s：仅列出NFS服务器端状态；
--c：仅列出NFS客户端状态；
--n：仅列出NFS状态，默认显示nfs客户端和服务器的状态；
--2：仅列出NFS版本2的状态；
--3：仅列出NFS版本3的状态；
--4：仅列出NFS版本4的状态；
--m：打印以加载的nfs文件系统状态；
--r：仅打印rpc状态。
+nfsstat [options]
 ```
 
-###  实例
+### Options
 
-要显示关于客户机发送和拒绝的RPC和NFS调用数目的信息，输入：
+```shell
+-s: Display statistics for the NFS server side only.
+-c: Display statistics for the NFS client side only.
+-n: Display NFS statistics only (default is both NFS and RPC).
+-2: Display statistics for NFS version 2 only.
+-3: Display statistics for NFS version 3 only.
+-4: Display statistics for NFS version 4 only.
+-m: Print information about each mounted NFS file system.
+-r: Display RPC statistics only.
+```
+
+### Examples
+
+To display information about the number of RPC and NFS calls sent and rejected by the client:
 
 ```shell
 nfsstat -c
 ```
 
-要显示和打印与客户机NFS调用相关的信息，输入如下命令：
+To display information specifically related to client NFS calls:
 
 ```shell
 nfsstat -cn
 ```
 
-要显示和打印客户机和服务器的与RPC调用相关的信息，输入如下命令：
+To display RPC call information for both the client and the server:
 
 ```shell
 nfsstat -r
 ```
 
-要显示关于服务器接收和拒绝的RPC和NFS调用数目的信息，输入如下命令：
+To display information about the number of RPC and NFS calls received and rejected by the server:
 
 ```shell
-nfsstat –s
+nfsstat -s
 ```
-
-

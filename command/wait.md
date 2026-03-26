@@ -1,47 +1,47 @@
 wait
 ===
 
-等待进程执行完后返回
+Wait for a process to complete before returning.
 
-## 补充说明
+## Description
 
-**wait命令** 用来等待指令的指令，直到其执行完毕后返回终端。该指令常用于shell脚本编程中，待指定的指令执行完成后，才会继续执行后面的任务。该指令等待作业时，在作业标识号前必须添加百分号"%"。
+The **wait command** is used to wait for a command to finish before returning to the terminal. This command is commonly used in shell scripting to ensure a specified command has completed before proceeding with subsequent tasks. When waiting for a job, a percent sign "%" must precede the job identifier.
 
-###  语法
+### Syntax
 
 ```shell
-wait(参数)
+wait (parameter)
 ```
 
-###  参数
+### Parameters
 
-进程或作业标示：指定进程号或者作业号。
+Process or job identifier: Specifies the process ID or job number.
 
-###  实例
+### Examples
 
-使用命令wait等待作业号为1的作业完成后再返回，输入如下命令：
+Use the `wait` command to wait for job number 1 to complete before returning:
 
-运行一个sleep进程
+Run a sleep process in the background:
 
 ```shell
 sleep 10s &
 [1] 27156
 ```
 
-指定作业号
+Specify the job number:
 
 ```shell
-wait %1       #等待作业号为1的作业完成 
+wait %1       # Wait for job number 1 to complete
 [1]+  Done                    sleep 10s
 ```
 
-指定进程号
+Specify the process ID:
 
 ```shell
 wait 27156
 [1]+  Done                    sleep 10s
 ```
 
-输出当前存在作业号的指令，如下所示：
+Output commands for currently existing job numbers:
 
 [jobs](./jobs.md)

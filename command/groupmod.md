@@ -1,85 +1,87 @@
 groupmod
 ===
 
-修改系统上的组定义
+Modify a group definition on the system.
 
-## 补充说明
+## Supplemental Information
 
-**groupmod命令** 通过修改组数据库（ /etc/group 与 /etc/gshadow ）的相应条目来更改指定组的定义，例如GID，组成员，组名称，组密码等。
+The **groupmod command** modifies the definition of a specified group by altering the appropriate entries in the group databases (`/etc/group` and `/etc/gshadow`). This includes changing the GID, group members, group name, group password, etc.
 
-###  语法
-
-```shell
-groupmod (选项) (参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--a, --append: 与 -U 选项配合使用，将指定用户追加到现有成员列表，而不是采用默认的覆盖方式。
--g, --gid GID: 将组修改为指定值，必须是非负整数且唯一（除非同时使用 -o 选项），以该组为主要组的成员会自动更新以保持该组。
--n, --new-name 新组名称: 设置要修改为的组名称。
--o: 可以设置重复的gid；
--p, --password 密码: 设置组密码（也可以直接修改 /etc/gshadow 文件），密码必须是 crypt 加密后的密文，用于配合 newgrp 命令让非组成员临时切换到该组，但该机制在现代系统中已不推荐使用。
--U, --users user1,user2...: 以逗号分隔的用户列表，将组成员覆盖为该列表；若同时指定 -a 选项，则改为追加到现有成员列表中。
+groupmod (options) (parameters)
 ```
 
-###  参数
+### Options
 
-组名：指定要修改的组。
+```shell
+-a, --append: Used with the -U option to append specified users to the existing member list instead of overwriting.
+-g, --gid GID: Modify the GID of the group to the specified value. It must be a non-negative, unique integer (unless the -o option is used). Members using this group as their primary group will be updated automatically.
+-n, --new-name NEW_GROUP_NAME: Set the new name for the group.
+-o: Allow setting a duplicate GID.
+-p, --password PASSWORD: Set the group password (alternatively, modify /etc/gshadow directly). The password must be encrypted using crypt. This allows non-members to temporarily switch to the group using newgrp, though this mechanism is not recommended in modern systems.
+-U, --users user1,user2...: A comma-separated list of users to replace the current group members; if -a is also specified, users are appended to the existing list.
+```
 
-###  实例
+### Parameters
 
-修改 group1 的GID
+Group Name: Specifies the group to be modified.
+
+### Examples
+
+Modify the GID of `group1`:
 
 ```shell
 groupmod -g 1003 group1
 ```
 
-修改 group2 的GID为重复的gid 1003
+Modify the GID of `group2` to a duplicate GID `1003`:
 
-``` shell
-groupmod -g 1003 -o  group2
+```shell
+groupmod -g 1003 -o group2
 ```
 
-修改 group2 名称为 group3
+Rename `group2` to `group3`:
 
 ```shell
 groupmod -n group3 group2
 ```
 
-覆盖 group3 的组成员为 user1
+Overwrite members of `group3` with `user1`:
 
 ```shell
 groupmod -U user1 group3
 ```
 
-追加 user2 user3 到 group3
+Append `user2` and `user3` to `group3`:
 
 ```shell
 groupmod -a -U user2,user3 group3
 ```
 
-### 说明
+### Note
 
-部分系统（如 Ubuntu 22.04）上的`groupmod`命令可能不支持 -a 和 -U 选项，可以使用`gpasswd`命令代替。
+On some systems (like Ubuntu 22.04), the `groupmod` command may not support the `-a` and `-U` options. You can use the `gpasswd` command instead.
 
 ```shell
 groupmod -U user1,user2 groupname
 ```
 
-等价于
+is equivalent to:
 
 ```shell
 gpasswd -M "" groupname
 gpasswd -M user1,user2 groupname
 ```
 
+and
+
 ```shell
 groupmod -a -U user1,user2,user3 groupname
 ```
 
-等价于
+is equivalent to:
 
 ```shell
 gpasswd -a user1 groupname

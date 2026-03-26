@@ -1,50 +1,55 @@
 ipcalc
 ===
 
-简单的IP地址计算器
+A simple IP address calculator.
 
-## 补充说明
+## Description
 
-**ipcalc命令** 是一个简单的ip地址计算器，可以完成简单的IP地址计算任务。
+The `ipcalc` command is a simple utility for performing IPv4 address calculations. It can calculate broadcast addresses, network addresses, netmasks, and hostnames.
 
-###  语法
-
-```shell
-ipcalc(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
--b：由给定的IP地址和网络掩码计算出广播地址；
--h：显示给定UP地址所对应的主机名；
--m：由给定的IP地址计算器网络掩码；
--p：显示给定的掩码或IP地址的前缀；
--n：由给定的IP地址和网络掩码计算网络地址；
--s：安静模式；
---help：显示帮助信息。
+ipcalc [options]
 ```
 
-###  实例
+### Options
 
+```shell
+-b : Calculate the broadcast address from the given IP address and netmask.
+-h : Display the hostname for the given IP address.
+-m : Calculate the netmask from the given IP address.
+-p : Display the prefix for the given mask or IP address.
+-n : Calculate the network address from the given IP address and netmask.
+-s : Silent mode; suppress error messages.
+--help : Display help information.
+```
+
+### Examples
+
+Calculate the prefix:
 ```shell
 [root@localhost ~]# ipcalc -p 192.168.2.1 255.255.255.0
 PREFIX=24
+```
 
+Calculate the network address:
+```shell
 [root@localhost ~]# ipcalc -n 192.168.2.1 255.255.255.0
 NETWORK=192.168.2.0
+```
 
+Get the hostname:
+```shell
 [root@localhost ~]# ipcalc -h 127.0.0.1
 hostname=localhost.localdomain
+```
 
-[root@localhost ~]# ipcalc -m 192.168.2.1
-NETMASK=255.255.255.0
-
+Display multiple fields:
+```shell
 [root@localhost ~]# ipcalc -pnbm 192.168.2.1 255.255.255.0
 NETMASK=255.255.255.0
 PREFIX=24
 BROADCAST=192.168.2.255
 NETWORK=192.168.2.0
 ```
-
-

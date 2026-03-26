@@ -1,25 +1,23 @@
 ifcfg
 ===
 
-置Linux中的网络接口参数
+Configure network interface parameters in Linux.
 
-## 补充说明
+## Description
 
-**ifcfg命令** 是一个Bash脚本程序，用来设置Linux中的网络接口参数。
+The `ifcfg` command is a Bash script used to set network interface parameters on Linux systems.
 
-###  语法
-
-```shell
-ifcfg(参数)
-```
-
-###  参数
+### Syntax
 
 ```shell
-网络接口：指定要操作的网络接口；
-add/del：添加或删除网络接口上的地址；
-ip地址：指定IP地址和子网掩码；
-Stop：停用指定的网络接口的IP地址。
+ifcfg [parameters]
 ```
 
+### Parameters
 
+```shell
+interface : Specify the network interface to operate on.
+add/del   : Add or delete an address on the network interface.
+IP_address: Specify the IP address and subnet mask.
+Stop      : Deactivate the IP address of the specified network interface.
+```

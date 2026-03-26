@@ -1,37 +1,33 @@
 true
 ===
 
-返回状态为成功。
+Return a successful exit status.
 
-## 概要
+## Synopsis
 
 ```shell
 true
 ```
 
-## 主要用途
+## Main Purpose
 
-- 用于和其他命令进行逻辑运算。
+- Used for logical operations with other commands.
 
-## 返回值
+## Return Value
 
-返回状态总是成功；返回值为0。
+Always returns a successful status; the return value is 0.
 
-## 例子
+## Example
 
 ```shell
-# 当你的脚本设置set -e时，任何返回值为失败的命令都会使得脚本退出。
+# When your script is set to 'set -e', any command returning failure will cause the script to exit.
 set -e
-# 如何临时跳过呢？下面的语句使用逻辑或操作符连接true，返回值一定为真。
+# How to temporarily skip this? The following statement uses the logical OR operator with true, ensuring the return value is always true.
 some_command || true
 
-# 当然，和python的pass一样，也可以用作条件语句临时占位。
+# Similarly to 'pass' in Python, it can also be used as a placeholder in conditional statements.
 ```
 
+### Notes
 
-### 注意
-
-1. 该命令是bash内建命令，相关的帮助信息请查看`help`命令。
-
-
-
+1. This command is a bash built-in; see the `help` command for related help information.

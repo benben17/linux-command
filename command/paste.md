@@ -1,27 +1,25 @@
 paste
 ===
 
-将多个文件按列队列合并
+Merges lines of files.
 
-## 补充说明
+## Description
 
-**paste命令** 用于将多个文件按照列队列进行合并。
+The **paste command** is used to merge lines from multiple files into a single output, with corresponding lines from each file joined by tabs (by default).
 
-###  语法
-
-```shell
-paste(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--d<间隔字符>或--delimiters=<间隔字符>：用指定的间隔字符取代跳格字符；
--s或——serial串列进行而非平行处理。
+paste [options] [file...]
 ```
 
-###  参数
+### Options
 
-文件列表：指定需要合并的文件列表。
+```shell
+-d <list>, --delimiters=<list>: Use characters from the list instead of tabs for joining lines.
+-s, --serial: Paste one file at a time instead of in parallel.
+```
 
+### Parameters
 
+File List: Specifies the files to be merged.

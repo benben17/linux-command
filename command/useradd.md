@@ -1,113 +1,114 @@
 useradd
 ===
 
-创建的新的系统用户
+Create a new system user.
 
-## 补充说明
+## Description
 
-**useradd命令** 用于Linux中创建的新的系统用户。useradd可用来建立用户帐号。帐号建好之后，再用passwd设定帐号的密码．而可用userdel删除帐号。使用useradd指令所建立的帐号，实际上是保存在`/etc/passwd`文本文件中。
+The **useradd command** is used to create a new system user in Linux. useradd can be used to set up user accounts. After the account is created, use `passwd` to set the account password. `userdel` can be used to delete accounts. Accounts created with the useradd command are actually stored in the `/etc/passwd` text file.
 
-在Slackware中，adduser指令是个script程序，利用交谈的方式取得输入的用户帐号资料，然后再交由真正建立帐号的useradd命令建立新用户，如此可方便管理员建立用户帐号。在Red Hat Linux中， **adduser命令** 则是useradd命令的符号连接，两者实际上是同一个指令。
+In Slackware, the adduser command is a script program that interactively obtains user account information and then passes it to the actual useradd command to create the new user, making it easier for administrators to create user accounts. In Red Hat Linux, the **adduser command** is a symbolic link to the useradd command; both are actually the same command.
 
-###  语法
-
-```shell
-useradd(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--b, --base-dir BASE_DIR  # 如果未指定 -d HOME_DIR，则系统的默认基本目录。如果未指定此选项，useradd 将使用 /etc/default/useradd 中的 HOME 变量指定的基本目录，或默认使用 /home。
--c, --comment COMMENT    # 加上备注文字。任何文本字符串。它通常是对登录名的简短描述，目前用作用户全名的字段。
--d, --home HOME_DIR      # 将使用 HOME_DIR 作为用户登录目录的值来创建新用户。 
--D, --defaults           # 变更预设值。
--e, --expiredate EXPIRE_DATE # 用户帐户将被禁用的日期。 日期以 YYYY-MM-DD 格式指定。
--f, --inactive INACTIVE      # 密码过期后到帐户被永久禁用的天数。
--g, --gid GROUP   # 用户初始登录组的组名或编号。组名必须存在。组号必须引用已经存在的组。
--G, --groups GROUP1[,GROUP2,...[,GROUPN]]] # 用户也是其成员的补充组列表。每个组用逗号隔开，中间没有空格。
--h, --help # 显示帮助信息并退出。
--k, --skel SKEL_DIR # 骨架目录，其中包含要在用户的主目录中复制的文件和目录，当主目录由 useradd 创建时。
--K, --key KEY=VALUE # 覆盖 /etc/login.defs 默认值（UID_MIN、UID_MAX、UMASK、PASS_MAX_DAYS 等）。
--l, --no-log-init   # 不要将用户添加到 lastlog 和 faillog 数据库。
--m, --create-home   # 如果用户的主目录不存在，则创建它。
--M                  # 不要创建用户的主目录，即使 /etc/login.defs (CREATE_HOME) 中的系统范围设置设置为 yes。
--N, --no-user-group # 不要创建与用户同名的组，而是将用户添加到由 -g 选项或 /etc/default/useradd 中的 GROUP 变量指定的组中。
--o, --non-unique    # 允许创建具有重复（非唯一）UID 的用户帐户。 此选项仅在与 -o 选项结合使用时有效。
--p, --password PASSWORD # crypt(3) 返回的加密密码。 默认是禁用密码。
--r, --system        # 创建一个系统帐户。
--s, --shell SHELL   # 用户登录 shell 的名称。
--u, --uid UID       # 用户 ID 的数值。
--U, --user-group    # 创建一个与用户同名的组，并将用户添加到该组。
--Z, --selinux-user SEUSER # 用户登录的 SELinux 用户。 默认情况下将此字段留空，这会导致系统选择默认的 SELinux 用户。
-
-# 更改默认值
-# 当仅使用 -D 选项调用时，useradd 将显示当前默认值。 当使用 -D 和其他选项调用时，useradd 将更新指定选项的默认值。 有效的默认更改选项是：
+useradd (option) (parameter)
 ```
 
-###  参数
-
-用户名：要创建的用户名。
-
-### 退出值
-
-`useradd` 命令以以下值退出：
+### Options
 
 ```shell
-0 成功
-1 无法更新密码文件
-2 无效的命令语法
-3 选项的无效参数
-4 UID 已经在使用（并且没有 -o）
-6 指定的组不存在
-9 用户名已被使用
-10 无法更新组文件
-12 无法创建主目录
-13 无法创建邮件假脱机
-14 无法更新 SELinux 用户映射
+-b, --base-dir BASE_DIR  # The default base directory for the system if -d HOME_DIR is not specified. If this option is not specified, useradd uses the base directory specified by the HOME variable in /etc/default/useradd, or defaults to /home.
+-c, --comment COMMENT    # Add a comment string. This is usually a short description of the login name and is used as the field for the user's full name.
+-d, --home HOME_DIR      # The new user will be created using HOME_DIR as the value for the user's login directory.
+-D, --defaults           # Change default settings.
+-e, --expiredate EXPIRE_DATE # The date on which the user account will be disabled. The date is specified in YYYY-MM-DD format.
+-f, --inactive INACTIVE      # The number of days after a password expires until the account is permanently disabled.
+-g, --gid GROUP   # The group name or number of the user's initial login group. The group name must exist. The group number must refer to an already existing group.
+-G, --groups GROUP1[,GROUP2,...[,GROUPN]]] # A list of supplementary groups which the user is also a member of. Each group is separated by a comma, with no intervening spaces.
+-h, --help # Display help information and exit.
+-k, --skel SKEL_DIR # The skeleton directory, which contains files and directories to be copied in the user's home directory, when the home directory is created by useradd.
+-K, --key KEY=VALUE # Override /etc/login.defs defaults (UID_MIN, UID_MAX, UMASK, PASS_MAX_DAYS, etc.).
+-l, --no-log-init   # Do not add the user to the lastlog and faillog databases.
+-m, --create-home   # Create the user's home directory if it does not exist.
+-M                  # Do not create the user's home directory, even if the system-wide setting in /etc/login.defs (CREATE_HOME) is set to yes.
+-N, --no-user-group # Do not create a group with the same name as the user, but add the user to the group specified by the -g option or by the GROUP variable in /etc/default/useradd.
+-o, --non-unique    # Allow the creation of a user account with a duplicate (non-unique) UID. This option is only valid when combined with the -u option.
+-p, --password PASSWORD # The encrypted password, as returned by crypt(3). The default is to disable the password.
+-r, --system        # Create a system account.
+-s, --shell SHELL   # The name of the user's login shell.
+-u, --uid UID       # The numerical value of the user's ID.
+-U, --user-group    # Create a group with the same name as the user and add the user to that group.
+-Z, --selinux-user SEUSER # The SELinux user for the user's login. Leaving this field blank defaults to the system's default SELinux user.
+
+# Changing Defaults
+# When called with only the -D option, useradd displays the current default values. When called with -D and other options, useradd updates the default values for the specified options. Valid default change options are:
 ```
 
-### 文件
+### Parameters
+
+Username: The username to be created.
+
+### Exit Values
+
+The `useradd` command exits with the following values:
 
 ```shell
-/etc/passwd # 用户帐户信息。
-/etc/shadow # 保护用户帐户信息。
-/etc/group  # 组帐户信息。
-/etc/gshadow # 保护组帐户信息。
-/etc/default/useradd # 帐户创建的默认值。
-/etc/skel/                                 # 包含默认文件的目录。
-/etc/login.defs # 影子密码套件配置。
+0 Success
+1 Cannot update password file
+2 Invalid command syntax
+3 Invalid argument to option
+4 UID already in use (and no -o)
+6 Specified group does not exist
+9 Username already in use
+10 Cannot update group file
+12 Cannot create home directory
+13 Cannot create mail spool
+14 Cannot update SELinux user mapping
 ```
 
-###  实例
-
-新建用户加入组：
+### Files
 
 ```shell
-useradd –g sales jack –G company,employees    # -g：加入主要组、-G：加入次要组
+/etc/passwd # User account information.
+/etc/shadow # Secure user account information.
+/etc/group  # Group account information.
+/etc/gshadow # Secure group account information.
+/etc/default/useradd # Default values for account creation.
+/etc/skel/   # Directory containing default files.
+/etc/login.defs # Shadow password suite configuration.
 ```
 
-建立一个新用户账户，并设置ID：
+### Examples
+
+Create a new user and add to groups:
+
+```shell
+useradd –g sales jack –G company,employees    # -g: join primary group, -G: join supplementary groups
+```
+
+Create a new user account and set the ID:
 
 ```shell
 useradd caojh -u 544
 ```
 
-需要说明的是，设定ID值时尽量要大于500，以免冲突。因为Linux安装后会建立一些特殊用户，一般0到499之间的值留给bin、mail这样的系统账号。
+Note that when setting ID values, try to use values greater than 500 to avoid conflicts. Since Linux installations create some special users, values between 0 and 499 are usually reserved for system accounts like bin or mail.
 
-新建一个普通用户：
+Create a regular user:
 
 ```shell
 useradd lutixia
 ```
 
-新建一个系统用户,系统用户一般用于管理服务，无需登录，所以分配nologin，限制其登录系统：
+Create a system user; system users are generally used for managing services and do not need to log in, so they are assigned nologin to restrict system access:
+
 ```shell
 useradd -r -s /sbin/nologin mq
 ```
 
-修改创建用户的默认参数，设置密码过期后到永久禁用的不活动时间为30天: 
+Modify the default parameters for creating users, setting the inactivity time after password expiration to 30 days:
+
 ```shell
 useradd -D -f 30
 ```
-

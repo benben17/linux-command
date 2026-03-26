@@ -1,60 +1,53 @@
 pico
 ===
 
-功能强大全屏幕的文本编辑器
+A simple, display-oriented text editor.
 
-## 补充说明
+## Description
 
-**pico命令** 是功能强大全屏幕的文本编辑器。pico的操作简单，提供了丰富的快捷键。常用的快捷键如下：
+**pico** is a simple, easy-to-use, full-screen text editor. It provides a variety of keyboard shortcuts displayed at the bottom of the screen.
 
-```shell
-Ctrl+G：获得pico的帮助信息；
-Ctrl+O：保存文件内容，如果是新文件，需要输入文件名；
-Ctrl+R：在当前光标位置插入一个指定的文本文件内容；
-Ctrl+Y：向前翻页；
-Ctrl+V：向后翻页；
-Ctrl+w：对文件进行搜索；
-Ctrl+K：剪切当前文件行到粘贴缓冲区；
-Ctrl+U：粘贴缓冲区中的内容到当前光标所在位置；
-Ctrl+C：显示当前光标位置；
-Ctrl+T：调用拼写检查功能，对文档进行拼写检查；
-Ctrl+J：段落重排；
-Ctrl+X：退出，当文件内容发生改变时，提供是否保存修改。
-```
+Common shortcuts:
+*   `Ctrl+G`: Get help.
+*   `Ctrl+O`: Save (Write Out) the file.
+*   `Ctrl+R`: Read a file into the current one at the cursor position.
+*   `Ctrl+Y`: Page Up.
+*   `Ctrl+V`: Page Down.
+*   `Ctrl+W`: Search (Where Is) for text.
+*   `Ctrl+K`: Cut the current line.
+*   `Ctrl+U`: Uncut (Paste) the last cut text.
+*   `Ctrl+C`: Show current cursor position.
+*   `Ctrl+T`: Spell check the document.
+*   `Ctrl+J`: Justify the current paragraph.
+*   `Ctrl+X`: Exit (prompts to save if modified).
 
-###  语法
-
-```shell
-pico(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--b：开启置换的功能；
--d：开启删除的功能；
--e：使用完整的文件名称；
--f：支持键盘上F1、F2...功能键；
--g：显示光标；
--h：在线帮助；
--j：开启切换的功能；
--k：预设pico在使用剪下命令时，会把光标所在的列的内容全部删除；
--m：开启鼠标支持的功能，您可用鼠标点选命令列表；
--n<间隔秒数>：设置多久检查一次新邮件；
--o<工作目录>：设置工作目录；
--q：忽略预设值；
--r<编辑页宽>：设置编辑文件的页宽；
--s<拼字检查器>：另外指定拼字检查器；
--t：启动工具模式；
--v：启动阅读模式，用户只能观看，无法编辑文件的内容；
--w：关闭自动换行，通过这个参数可以编辑内容很长的列；
--x：关闭页面下方的命令列表；
--z：让pico可被Ctrl+z中断，暂存在后台作业里；
-+<列表编号>：执行pico指令进入编辑模式时，从指定的列数开始编辑。
+pico [options] [file]
 ```
 
-###  参数
+### Options
 
-文件：指定要编辑的文件。
+```shell
+-b: Enable search and replace.
+-d: Enable the delete key to work correctly.
+-e: Use full filenames.
+-f: Enable function keys (F1, F2, etc.).
+-g: Show the cursor in the file browser.
+-h: Display help.
+-k: Cut from cursor to end of line instead of the whole line.
+-m: Enable mouse support.
+-n <interval>: Set the interval (in seconds) for checking new mail.
+-o <dir>: Set the operating directory.
+-r <width>: Set the editing fill column width.
+-v: View mode (read-only).
+-w: Disable automatic word wrap.
+-x: Disable the shortcut menu at the bottom.
+-z: Enable suspension (Ctrl+Z).
++<line>: Start at the specified line number.
+```
 
+### Parameters
 
+File: The file to be edited.

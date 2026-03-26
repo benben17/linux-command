@@ -1,110 +1,99 @@
 enable
 ===
 
-启动或禁用shell内建命令
+Enable or disable shell built-in commands.
 
-
-### 概要
+### Synopsis
 
 enable [-a] [-dnps] [-f filename] [name ...]
 
-### 主要用途
+### Description
 
-- 禁用一到多个内建命令。
+- Disable one or more built-in commands.
+- Enable one or more built-in commands.
+- Directly call an external command with the same name as a disabled built-in, found in the `$PATH`.
+- Print all built-in commands, whether disabled or not.
+- Print enabled built-in commands.
+- Print disabled built-in commands.
+- Print enabled POSIX special built-in commands.
+- Print disabled POSIX special built-in commands.
+- Print all POSIX special built-in commands.
+- Load built-in commands from a dynamic library.
+- Remove built-in commands loaded from a dynamic library.
 
-- 启用一到多个内建命令。
-
-- 直接调用与禁用的内建命令同名且在`$PATH`路径下找到的外部命令。
-
-- 打印所有内建命令，无论是否禁用。
-- 打印处于启用状态的内建命令。
-- 打印处于禁用状态的内建命令。
-
-- 打印处于启用状态的posix标准内建命令。
-- 打印处于禁用状态的posix标准内建命令。
-- 打印posix标准内建命令，无论是否禁用。
-
-- 从动态库中加载内建命令。
-- 移除从动态库中加载的内建命令。
-
-#### 选项
-
+#### Options
 
 ```shell
--a 打印所有内建命令，无论是否禁用。
--d 移除从动态库中加载的内建命令。
--n 禁用内建命令或显示已禁用的内建命令。
--p 以可复用格式打印。
--s 只显示处于启动状态的posix标准内建命令。
--f 动态库中加载内建命令。
--ns 打印处于禁用状态的posix标准内建命令。
--as 打印posix标准内建命令，无论是否禁用。
+-a    Print all built-in commands, whether disabled or not.
+-d    Remove built-in commands loaded from a dynamic library.
+-n    Disable built-in commands or show disabled built-in commands.
+-p    Print built-in commands in a reusable format.
+-s    Display only enabled POSIX special built-in commands.
+-f    Load built-in commands from a dynamic library.
+-ns   Print disabled POSIX special built-in commands.
+-as   Print all POSIX special built-in commands, whether disabled or not.
 ```
 
-#### 参数
+#### Parameters
 
-filename：动态库文件名。
+filename: The dynamic library filename.
 
-name（可选）：内建命令，可以为多个。
+name (optional): Built-in command(s). Multiple names can be specified.
 
-#### 返回值
+#### Return Value
 
-enable返回成功，除非name不是内建命令或有错误发生。
+`enable` returns success unless `name` is not a built-in command or an error occurs.
 
-### 例子（以下内容限于篇幅不再列出返回值部分）
+### Examples
 
 ```shell
-# posix special builtin
-# 假设没有任何内建命令被禁用
-# 禁用两个posix标准内建命令
+# POSIX special built-ins
+# Assuming no built-ins are disabled
+# Disable two POSIX special built-ins
 enable -n set source
-# 打印处于禁用状态的posix标准内建命令
+# Print disabled POSIX special built-ins
 enable -ns
-# 打印posix标准内建命令，无论是否禁用。
+# Print all POSIX special built-ins
 enable -as
-# 打印处于启用状态的posix标准内建命令
+# Print enabled POSIX special built-ins
 enable -s
 ```
 
 ```shell
-# 假设没有任何内建命令被禁用
-# 禁用一到多个内建命令
+# Assuming no built-ins are disabled
+# Disable one or more built-in commands
 enable -n echo pwd
-# 打印所有内建命令，无论是否禁用。
+# Print all built-in commands
 enable -a
-# 打印处于启用状态的内建命令
+# Print enabled built-in commands
 enable
-# 打印处于禁用状态的内建命令
+# Print disabled built-in commands
 enable -n
-# 启用一到多个内建命令
+# Enable one or more built-in commands
 enable pwd
 ```
 
 ### Q&A
 
-Q：请问`-f`，`-d`，`-p`的演示呢？
+Q: Where are the demonstrations for `-f`, `-d`, and `-p`?
 
-A：说明一下，`-f`与`-d`限于个人能力没有找到合适的例子，如果您有更好的例子欢迎提pr；
-经过我验证`-p`选项是否使用好像没有区别，可以比较```enable -p|cat -A```和```enable|cat -A``` 有什么区别。（注：`cat -A`用于显示不可见字符）
+A: Regarding `-f` and `-d`, suitable examples haven't been found yet. If you have better examples, feel free to submit a pull request. 
+For the `-p` option, there seems to be no visible difference in output; you can compare `enable -p | cat -A` and `enable | cat -A` to check for invisible characters.
 
-Q：是否可以禁用`enable`自己？之后还能禁用或启用内建命令吗？
+Q: Can I disable `enable` itself? Can I still enable/disable built-ins after that?
 
-A：可以；不能。
+A: Yes, you can disable it. However, once disabled, you cannot use it to enable or disable any built-in commands until it is re-enabled (which usually requires a new shell session).
 
-### 注意
+### Note
 
-> linux shell命令执行时，shell总是先在自己的shell builtin中查找该命令，如果找到则执行该命令；如果找不到该命令，则会从环境变量`$PATH`指定的路径中依次去查找待执行的命令。看起来好像没有办法编写用户自己的命令来替代shell builtin命令。幸运的是，有了`enable`命令我们就能做到了。
+> When a Linux shell command is executed, the shell always looks for the command in its built-ins first. If found, it executes it. If not, it searches through the paths specified in the `$PATH` environment variable. It might seem like there's no way to override a shell built-in with a user-defined command. Fortunately, the `enable` command allows us to do exactly that.
 
-1. 关于同名命令调用的优先级的知识，请先参考`builtin`命令的*提示*部分，然后继续阅读下面部分；
+1. Regarding command priority, refer to the "Note" section of the `builtin` command.
 
-  当内建命令`echo`没有禁用时，如果要调用外部命令`echo`，只能这样写`/usr/bin/echo`；
+  When the built-in `echo` is not disabled, to call the external `echo` command, you must use the full path like `/usr/bin/echo`.
 
-  当我们禁用了`echo`后，优先级顺序变成了这样：
+  When `echo` is disabled, the priority becomes:
+  Function > External Command
+  If no `echo` function exists, the external command will be called.
 
-  函数 > 外部命令
-
-  如果执行命令的环境没有`echo`函数，那么调用的`echo`就是外部命令。
-
-2. 该命令是bash内建命令，相关的帮助信息请查看 `help` 命令。
-
-
+2. This is a bash built-in command. For more help, use the `help` command.

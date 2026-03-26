@@ -1,22 +1,20 @@
 xinit
 ===
 
-是Linux下X-Window系统的初始化程序
+The initialization program for the X-Window system under Linux.
 
-## 补充说明
+## Supplemental Information
 
-**xinit命令** 是Linux下X-Window系统的初始化程序，主要完成X服务器的初始化设置。
+The **xinit command** is the initialization program for the X-Window system under Linux, primarily responsible for the initialization setup of the X server.
 
-###  语法
+### Syntax
 
 ```shell
-xinit(参数)
+xinit(parameters)
 ```
 
-###  参数
+### Parameters
 
-* 客户端选项：客户端指令及选项；
-* --：用于区分客户端选项和服务器端选项；
-* 服务器端选项：服务器端选项指令及选项。
-
-
+* Client options: Client commands and options;
+* --: Used to separate client options from server options;
+* Server options: Server command and options.

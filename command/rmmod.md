@@ -1,34 +1,34 @@
 rmmod
 ===
 
-从运行的内核中移除指定的内核模块
+Remove specified kernel modules from the running kernel.
 
-## 补充说明
+## Description
 
-**rmmod命令** 用于从当前运行的内核中移除指定的内核模块。执行rmmod指令，可删除不需要的模块。Linux操作系统的核心具有模块化的特性，应此在编译核心时，务须把全部的功能都放如核心。你可以将这些功能编译成一个个单独的模块，待有需要时再分别载入它们。
+The **rmmod command** is used to remove specified kernel modules from the currently running kernel. By executing the `rmmod` command, unnecessary modules can be deleted. The Linux kernel has modular characteristics; therefore, when compiling the kernel, it is not necessary to include all functionalities in the core. You can compile these functionalities into individual modules and load them as needed.
 
-### 语法
-
-```shell
-rmmod(选项)(参数)
-```
-
-### 选项
+### Syntax
 
 ```shell
--v：显示指令执行的详细信息；
--f：强制移除模块，使用此选项比较危险；
--w：等待着，直到模块能够被除时在移除模块；
--s：向系统日志（syslog）发送错误信息。
+rmmod(options)(parameters)
 ```
 
-### 参数
+### Options
 
-模块名：要移除的模块名称。
+```shell
+-v: Displays detailed information about command execution.
+-f: Forcibly removes modules; using this option is dangerous.
+-w: Waits until the module can be removed before removing it.
+-s: Sends error messages to the system log (syslog).
+```
 
-### 实例
+### Parameters
 
-用rmmod命令主要用于卸载正在使用的Linux内核模块，与`modprobe -r`命令相似，如下所示：
+Module name: The name of the module to be removed.
+
+### Examples
+
+The `rmmod` command is primarily used to unload Linux kernel modules currently in use, similar to the `modprobe -r` command, as shown below:
 
 ```shell
 [root@localhost boot]# lsmod | grep raid1
@@ -37,5 +37,3 @@ raid1                  25153  0
 [root@localhost boot]# rmmod raid1
 [root@localhost boot]# lsmod | grep raid1
 ```
-
-

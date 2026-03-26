@@ -1,29 +1,29 @@
 resize
 ===
 
-命令设置终端机视窗的大小
+Sets the terminal window size.
 
-## 补充说明
+## Description
 
-**resize命令** 命令设置终端机视窗的大小。执行resize指令可设置虚拟终端机的视窗大小。
+The **resize command** sets the terminal window size. Executing the `resize` command can set the window size of a virtual terminal.
 
-###  语法
-
-```shell
-resize [-cu][-s <列数> <行数>]
-```
-
-###  选项
+### Syntax
 
 ```shell
--c 　就算用户环境并非C Shell，也用C Shell指令改变视窗大小。
--s <列数> <行数> 　设置终端机视窗的垂直高度和水平宽度。
--u 　就算用户环境并非Bourne Shell，也用Bourne Shell指令改变视窗大小。
+resize [-cu][-s <columns> <lines>]
 ```
 
-### 实例
+### Options
 
-使用 C shell
+```shell
+-c: Use C shell commands to change the window size, even if the user environment is not C shell.
+-s <columns> <lines>: Set the vertical height and horizontal width of the terminal window.
+-u: Use Bourne shell commands to change the window size, even if the user environment is not Bourne shell.
+```
+
+### Examples
+
+Using C shell:
 
 ```shell
 [root@localhost ~]# resize -c
@@ -33,8 +33,7 @@ setenv LINES '34';
 unset noglob;
 ```
 
-
-使用 Bourne shell
+Using Bourne shell:
 
 ```shell
 [root@localhost ~]# resize -u
@@ -43,11 +42,8 @@ LINES=34;
 export COLUMNS LINES;
 ```
 
-设置指定大小
+Set to a specific size:
 
 ```shell
 [root@localhost ~]# resize -s 80 160
 ```
-
-
-

@@ -1,50 +1,50 @@
 slabtop
 ===
 
-实时显示内核slab内存缓存信息
+Display kernel slab cache information in real-time.
 
-## 补充说明
+## Description
 
-**slabtop命令** 以实时的方式显示内核“slab”缓冲区的细节信息。
+The **slabtop command** displays detailed information about the kernel "slab" buffer in real-time.
 
-###  语法
-
-```shell
-slabtop(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
---delay=n, -d n：每n秒更新一次显示的信息，默认是每3秒；
---sort=S, -s S：指定排序标准进行排序（排序标准，参照下面或者man手册）；
---once, -o：显示一次后退出；
---version, -V：显示版本；
---help：显示帮助信息。
+slabtop [option]
 ```
 
-排序标准：
+### Options
 
-*   a: sort by number of active objects
-*   b: sort by objects per slab
-*   c: sort by cache size
-*   l: sort by number of slabs
-*   v：sort by number of active slabs
-*   n: sort by name
-*   o: sort by number of objects
-*   p: sort by pages per slab
-*   s: sort by object size
-*   u: sort by cache utilization
+```shell
+--delay=n, -d n: Update the display every n seconds (default is 3 seconds);
+--sort=S, -s S: Sort the display by the specified criteria (see below or refer to the man page);
+--once, -o: Display information once and exit;
+--version, -V: Display version information;
+--help: Display help information.
+```
 
-###  知识扩展
+Sort criteria:
 
-内核的模块在分配资源的时候，为了提高效率和资源的利用率，都是透过slab来分配的。通过slab的信息，再配合源码能粗粗了解系统的运行情况，比如说什么资源有没有不正常的多，或者什么资源有没有泄漏。linux系统透过/proc/slabinfo来向用户暴露slab的使用情况。
+*   a: Sort by number of active objects
+*   b: Sort by objects per slab
+*   c: Sort by cache size
+*   l: Sort by number of slabs
+*   v: Sort by number of active slabs
+*   n: Sort by name
+*   o: Sort by number of objects
+*   p: Sort by pages per slab
+*   s: Sort by object size
+*   u: Sort by cache utilization
 
-Linux 所使用的 slab 分配器的基础是 Jeff Bonwick 为 SunOS 操作系统首次引入的一种算法。Jeff 的分配器是围绕对象缓存进行的。在内核中，会为有限的对象集（例如文件描述符和其他常见结构）分配大量内存。Jeff 发现对内核中普通对象进行初始化所需的时间超过了对其进行分配和释放所需的时间。因此他的结论是不应该将内存释放回一个全局的内存池，而是将内存保持为针对特定目而初始化的状态。Linux slab 分配器使用了这种思想和其他一些思想来构建一个在空间和时间上都具有高效性的内存分配器。
+### Knowledge Expansion
 
-保存着监视系统中所有活动的 slab 缓存的信息的文件为/proc/slabinfo。
+When kernel modules allocate resources, they use the slab allocator to improve efficiency and resource utilization. By examining slab information and combining it with source code analysis, you can get a rough understanding of system performance—for example, detecting if certain resources are abnormally high or if there are leaks. The Linux system exposes slab usage via `/proc/slabinfo`.
 
-###  实例
+The slab allocator used by Linux is based on an algorithm first introduced by Jeff Bonwick for the SunOS operating system. Jeff's allocator is centered around object caching. In the kernel, a large amount of memory is allocated for a limited set of objects (such as file descriptors and other common structures). Jeff found that the time required to initialize a common object in the kernel exceeded the time required to allocate and release it. Therefore, he concluded that instead of releasing memory back to a global pool, it should be kept in a state initialized for a specific purpose. The Linux slab allocator uses this and other ideas to build a memory allocator that is efficient in both space and time.
+
+The file containing information on all active slab caches in the system is `/proc/slabinfo`.
+
+### Example
 
 ```shell
 slabtop
@@ -89,5 +89,3 @@ slabtop
    214    214 100%    2.00K    107        2       428K size-2048
    203     83  40%    0.02K      1      203         4K biovec-1
 ```
-
-

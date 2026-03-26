@@ -1,35 +1,33 @@
 rpmquery
 ===
 
-从RPM数据库中查询软件包信息
+Query package information from the RPM database.
 
-## 补充说明
+## Description
 
-**rpmquery命令** 使用多种依据从rpm数据库中查询软件包信息。
+The **rpmquery command** queries package information from the RPM database based on various criteria.
 
-###  语法
-
-```shell
-rpmquery(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
--qf：查询指定的文件所属的软件包；
--q：查询指定的软件包是否被安装；
--qc：查询软件包中的配置文件；
--qd：查询软件包中的文档文件；
--qi：查询软件包的基本信息。
+rpmquery(options)
 ```
 
-###  实例
+### Options
 
-使用rpmquery命令查询指定文件所属的软件包：
+```shell
+-qf: Query the package that a specified file belongs to.
+-q: Query whether a specified package is installed.
+-qc: Query configuration files in a package.
+-qd: Query documentation files in a package.
+-qi: Query basic information about a package.
+```
+
+### Examples
+
+Use the `rpmquery` command to query the package that a specified file belongs to:
 
 ```shell
 [root@localhost ~]# rpmquery -qf /usr/bin/htpasswd
 httpd-2.2.3-81.el5.centos
 ```
-
-

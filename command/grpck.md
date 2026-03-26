@@ -1,49 +1,48 @@
 grpck
 ===
 
-用于验证组文件的完整性
+Verify the integrity of group files.
 
-## 补充说明
+## Supplemental Information
 
-**grpck命令** 用于验证组文件的完整性，在验证之前，需要先锁定（lock）组文件`/etc/group`和`/etc/shadow`。
+The **grpck command** is used to verify the integrity of group files. Before verification, the group files `/etc/group` and `/etc/gshadow` are locked.
 
-grpck命令检查数据是否正确存放，每条记录是否都包含足够的信息，是否有一个唯一的组名，是否包含正确的用户，是否正确设置了组的管理员等。grpck检查发现错误以后，在命令行提示用户是否删除错误的记录。如果用户没有明确回答删除记录，grpck终止运行。
+`grpck` checks if the data is correctly stored, if each record contains sufficient information, if there is a unique group name, if it contains valid users, and if group administrators are correctly set. If `grpck` detects an error, it prompts the user to delete the erroneous record. If the user does not explicitly choose to delete the record, `grpck` terminates.
 
-###  语法
-
-```shell
-grpck(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
--r：只读模式；
--s：排序组id。
+grpck (options)
 ```
 
-###  实例
-
-对组账号和影子文件进行验证：
+### Options
 
 ```shell
-grpck   # 必须以管理员身份运行
-grpck /etc/group /etc/gshadow   # 后面两句一样，如果没有输出信息，则表示没有错误。
+-r: Read-only mode;
+-s: Sort entries by group ID.
 ```
 
-测试错误的实例：
+### Examples
+
+Verify the group and shadow files:
 
 ```shell
-**echo check_user:x: >> /etc/group    # 添加一行错误的格式数据
-cat /etc/group | grep check_user**
-check_user:x:  # 这儿GID字段为空，是错误的。
-
- **grpck /etc/group** 
-invalid group file entry
-delete line 'check_user:x:'? y      # 提示是否删除
-grpck: the files have been updated  # 这时已经删除了错误的行，提示文件已经更新。
-
- **cat /etc/group  | grep check_user   # 没有查到，已经删除了。** 
+grpck   # Must be run as root
+grpck /etc/group /etc/gshadow   # The two forms are equivalent; no output indicates no errors.
 ```
 
+Example of testing an error:
 
+```shell
+# Add an incorrectly formatted line
+echo check_user:x: >> /etc/group
+cat /etc/group | grep check_user
+# check_user:x:  (The GID field is empty, which is an error.)
+
+grpck /etc/group 
+# invalid group file entry
+# delete line 'check_user:x:'? y      # Prompt to delete
+# grpck: the files have been updated  # The erroneous line has been deleted.
+
+cat /etc/group | grep check_user   # No result found, it has been deleted.
+```

@@ -1,27 +1,25 @@
 mesg
 ===
 
-设置当前终端的写权限
+Control write access to your terminal
 
-## 补充说明
+## Description
 
-**mesg命令** 用于设置当前终端的写权限，即是否让其他用户向本终端发信息。将mesg设置y时，其他用户可利用write命令将信息直接显示在您的屏幕上。
+The **mesg command** is used to control whether other users are allowed to send messages to your terminal using the `write` or `talk` commands. Setting `mesg` to `y` allows messages to be displayed directly on your screen, while `n` prohibits them.
 
-###  语法
-
-```shell
-mesg(参数)
-```
-
-###  参数
-
-y/n：y表示运行向当前终端写信息，n表示禁止向当前终端写信息。
-
-###  实例
+### Syntax
 
 ```shell
-[root@localhost ~]# mesg y    #允许系统用户将信息直接显示在你的屏幕上。
-[root@localhost ~]# mesg n    #不允许系统用户将信息直接显示在你的屏幕上。
+mesg [y|n]
 ```
 
+### Parameters
 
+y/n: `y` allows write access to the terminal; `n` prohibits it.
+
+### Examples
+
+```shell
+[root@localhost ~]# mesg y    # Allow other users to send messages to your terminal.
+[root@localhost ~]# mesg n    # Prohibit other users from sending messages to your terminal.
+```

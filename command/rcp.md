@@ -1,125 +1,106 @@
-rcp
-===
+# rcp
 
-使在两台Linux主机之间的文件复制操作更简单
+Make file copying between two Linux hosts simpler.
 
-## 补充说明
+## Description
 
-**rcp命令** 使在两台Linux主机之间的文件复制操作更简单。通过适当的配置，在两台Linux主机之间复制文件而无需输入密码，就像本地文件复制一样简单。
+The **rcp** (remote copy) command is used to copy files between two Linux hosts. With proper configuration, copying files between hosts can be done without a password, making it as simple as a local file copy.
 
-###  语法 
-
-```shell
-rcp(选项)(参数)
-```
-
-###  选项 
+### Syntax
 
 ```shell
--p：保留源文件或目录的属性，包括拥有者、所属群组、权限与时间；
--r：递归处理，将指定目录下的文件与子目录一并处理；
--x：加密两台Linux主机间传送的所有信息。
--D：指定远程服务器的端口号。
+rcp [options] [parameters]
 ```
 
-同名用户的主目录。如果没有给出远程用户名，就使用当前用户名。如果远程机上的路径包含特殊shell字符，需要用反斜线`\\`、双引号`""`或单引号`''`括起来，使所有的shell元字符都能被远程地解释。需要说明的是，rcp不提示输入口令，它通过rsh命令来执行拷贝。
+### Options
 
-directory 每个文件或目录参数既可以是远程文件名也可以是本地文件名。远程文件名具有如下形式`rname@rhost:path`，其中rname是远程用户名，rhost是远程计算机名，path是这个文件的路径。
+```shell
+-p: Preserve source file or directory attributes, including owner, group, permissions, and timestamps.
+-r: Recursive mode; process files and subdirectories within the specified directory.
+-x: Encrypt all data transmitted between the two Linux hosts.
+-D: Specify the port number of the remote server.
+```
 
-###  参数 
+If no remote username is specified, the current username is used. If the path on the remote machine contains special shell characters, it must be enclosed in backslashes `\\`, double quotes `""`, or single quotes `''` to ensure all shell metacharacters are correctly interpreted on the remote side. Note that `rcp` does not prompt for a password; it typically uses the `rsh` command for transport.
 
-源文件：指定要复制的源文件。源文件可以有多个。
+### Parameters
 
-###  实例 
+Source file: Specifies the source file to be copied. Multiple source files can be provided.
 
- **rcp命令使用条件** 
+### Examples
 
-如果系统中有`/etc/hosts`文件，系统管理员应确保该文件包含要与之进行通信的远程主机的项。配置过程:
+**Requirements for using rcp**
 
-只对root用户生效
+If the system uses `/etc/hosts`, ensure it contains entries for the remote host. Configuration process:
 
-1、在双方root用户根目录下建立rhosts文件，并将双方的hostname加进去。在此之前应在双方的`/etc/hosts`文件中加入对方的ip和hostname  
-2、把rsh服务启动起来，redhat默认是不启动的。  
-方法：用执行ntsysv命令，在rsh选项前用空格键选中，确定退出。然后执行`service xinetd restart`即可。  
-3、到`/etc/pam.d/`目录下，把rsh文件中的`auth required /lib/security/pam_securetty.so`一行用“#”注释掉即可。（只有注释掉这一行，才能用root用户登录）
+*Only for the root user:*
+1. Create a `.rhosts` file in the root home directory on both systems and add the respective hostnames. Ensure IP and hostname mappings are in `/etc/hosts`.
+2. Enable the `rsh` service (disabled by default on many distributions like RedHat). Use `ntsysv` or similar tools to enable it, then restart `xinetd`.
+3. In `/etc/pam.d/`, comment out the line `auth required /lib/security/pam_securetty.so` in the `rsh` configuration to allow root access.
 
- **将当前目录下的 test1 复制到名为 webserver1 的远程系统：** 
+**Copy `test1` from the current directory to a remote system named `webserver1`:**
 
 ```shell
 rcp test1 webserver1:/home/root/test3
 ```
 
-在这种情况下，test1 被复制到远程子目录 test3下，名称仍为 test1 。如果仅提供了远程主机名，rcp 将把 test1 复制到远程主目录下，名称仍为 test1 。
+In this case, `test1` is copied to the remote directory `/home/root/test3` with the original name `test1`. If only the hostname is provided, `rcp` copies the file to the user's remote home directory.
 
- **还可以在目的目录中包含文件名。例如，将文件复制到名为 webserver1的系统中：** 
+**Copy a file and rename it on the remote system:**
 
 ```shell
 rcp test1 webserver1:/home/root/test3
 ```
 
-在这种情况下，将 test1 复制到远程目录root 下并将其命名为 test3。
+Here, `test1` is copied to the remote directory `/home/root/` and renamed to `test3`.
 
- **从远程系统复制文件：要将远程系统中的文件复制到本地目录下：** 
-
-```shell
-rcp remote_hostname:remote_file local_fileEnter
-```
-
- **将远程系统 webserver1中的 test2 复制到当前目录：** 
+**Copy a file from a remote system to the local directory:**
 
 ```shell
-rcp webserver1:/home/root/test2 .Enter
+rcp remote_hostname:remote_file local_file
 ```
 
-`.`是“当前目录”的简写形式。在这种情况下，远程目录中的 test2 被复制到当前目录下，名称仍为 test2 。
-
-如果希望用新名称复制文件，请提供目标文件名。如果希望将 test2 复制到本地系统中的其他目录下，请使用以下绝对或相对路径名：
+**Copy `test2` from remote system `webserver1` to the current directory:**
 
 ```shell
-rcp webserver1:/home/root/test2 otherdir/ Enter
+rcp webserver1:/home/root/test2 .
 ```
 
-或者，如果希望用其他文件名将文件复制到其他目录下：
+The `.` represents the current directory. `test2` is copied locally with its original name.
+
+**Copy a file to another local directory or with a new name:**
 
 ```shell
-rcp webserver1:/home/root/test2 otherdir/otherfile Enter
+rcp webserver1:/home/root/test2 otherdir/
+rcp webserver1:/home/root/test2 otherdir/otherfile
 ```
 
- **将目录复制到远程系统：** 
+**Copy a directory to a remote system:**
 
-要将本地目录及其文件和子目录复制到远程系统，请同时使用 rcp 和 -r（递归）选项。
+To copy a local directory and its contents recursively:
 
 ```shell
-rcp -r local_dir remote_hostname:remote_dir Enter
+rcp -r local_dir remote_hostname:remote_dir
 ```
 
-如果当前目录下没有 local_dir，则除本地目录名外，还需要提供相对路径名（自当前目录开始）或绝对路径名（自 / 顶级目录开始）。另外，如果主目录下没有 remote_dir，则 remote_dir 将需要一个相对路径（自主目录开始）或绝对路径（自 / 开始）。
-
- **要将名为 work 的子目录完整地复制到 webserver1远程计算机中的主目录下名为 products 的目录，请键入以下内容：** 
+**Copy the `work` subdirectory to the `products` directory on `webserver1`:**
 
 ```shell
-rcp -r work webserver1:/home/root/products Enter
+rcp -r work webserver1:/home/root/products
 ```
 
-此命令在`webserver1:/home/root/products`下创建名为 work 的目录及其全部内容（假定`/home/root/products`已存在于 webserver1中）。
+This creates a `work` directory inside `/home/root/products` on the remote host (assuming the destination path exists).
 
-本示例假定用户处于包含 work 的本地目录下。否则，必须提供该目录的相对或绝对路径，如`/home/root/work`。
+**Copy a directory from a remote system:**
 
- **从远程系统复制目录：** 
-
-要将远程目录及其所有文件和子目录复制到本地目录，请在以下语法中使用 rcp 和 -r（递归）选项。
+To copy a remote directory and its contents to the local system:
 
 ```shell
-rcp –r remote_hostname:remote_dir local_dir Enter
+rcp -r remote_hostname:remote_dir local_dir
 ```
 
-要将名为 work 的远程目录复制到当前目录，请键入以下内容：
+**Copy the remote directory `work` to the current local directory:**
 
 ```shell
-rcp –r webserver1:/home/root/work .Enter
+rcp -r webserver1:/home/root/work .
 ```
-
-`.`表示当前目录。将在此目录下创建 work 目录。
-
-
-

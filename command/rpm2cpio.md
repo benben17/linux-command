@@ -1,26 +1,24 @@
 rpm2cpio
 ===
 
-将RPM软件包转换为cpio格式的文件
+Convert RPM packages to cpio format files.
 
-## 补充说明
+## Description
 
-**rpm2cpio命令** 用于将rpm软件包转换为cpio格式的文件。
+The **rpm2cpio command** is used to convert RPM packages into cpio format files.
 
-###  语法
+### Syntax
 
 ```shell
-rpm2cpio(参数)
+rpm2cpio(parameter)
 ```
 
-###  参数
+### Parameters
 
-文件：指定要转换的rpm包的文件名。
+File: Specifies the filename of the RPM package to be converted.
 
-###  实例
+### Examples
 
 ```shell
 rpm2cpio ../libstdc++-4.3.0-8.i386.rpm | cpio -idv
 ```
-
-

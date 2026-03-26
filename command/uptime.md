@@ -1,49 +1,47 @@
 uptime
 ===
 
-查看Linux系统负载信息
+View Linux system load information.
 
-## 补充说明
+## Description
 
-**uptime命令** 能够打印系统总共运行了多长时间和系统的平均负载。uptime命令可以显示的信息显示依次为：现在时间、系统已经运行了多长时间、目前有多少登陆用户、系统在过去的1分钟、5分钟和15分钟内的平均负载。
+The **uptime command** can print how long the system has been running and the system load average. The information displayed by the uptime command includes: the current time, how long the system has been running, the number of currently logged-in users, and the system load average over the past 1, 5, and 15 minutes.
 
-###  语法
+### Syntax
 
 ```shell
-uptime(选项)
+uptime (option)
 ```
 
-###  选项
+### Options
 
 ```shell
--V：显示指令的版本信息。
+-V: Display version information.
 ```
 
-###  实例
+### Examples
 
-使用uptime命令查看系统负载：
+Use the uptime command to check the system load:
 
 ```shell
-[root@LinServ-1 ~]# uptime -V    #显示uptime命令版本信息
+[root@LinServ-1 ~]# uptime -V    # Display uptime command version information
 procps version 3.2.7
 
 [root@LinServ-1 ~]# uptime
  15:31:30 up 127 days,  3:00,  1 user,  load average: 0.00, 0.00, 0.00
 ```
 
- **显示内容说明：** 
+ **Display Content Description:** 
 
 ```shell
-15:31:30             # 系统当前时间
-up 127 days,  3:00   # 主机已运行时间,时间越大，说明你的机器越稳定。
-1 user               # 用户连接数，是总连接数而不是用户数
-load average: 0.00, 0.00, 0.00         #  系统平均负载，统计最近1，5，15分钟的系统平均负载
+15:31:30             # Current system time
+up 127 days, 3:00    # System uptime; a larger value indicates a more stable machine.
+1 user               # Number of user connections (total connections, not distinct users)
+load average: 0.00, 0.00, 0.00         # System load average for the last 1, 5, and 15 minutes
 ```
 
-那么什么是系统平均负载呢？ 系统平均负载是指在特定时间间隔内运行队列中的平均进程数。
+What is the system load average? The system load average refers to the average number of processes in the run queue over a specific time interval.
 
-如果每个CPU内核的当前活动进程数不大于3的话，那么系统的性能是良好的。如果每个CPU内核的任务数大于5，那么这台机器的性能有严重问题。
+If the number of active processes per CPU core is no more than 3, system performance is good. If the number of tasks per CPU core is greater than 5, the machine's performance has serious problems.
 
-如果你的linux主机是1个双核CPU的话，当Load Average 为6的时候说明机器已经被充分使用了。
-
-
+If your Linux host has one dual-core CPU, a Load Average of 6 indicates that the machine is being fully utilized.

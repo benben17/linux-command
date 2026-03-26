@@ -1,48 +1,48 @@
 getcap
 ===
 
-显示文件的能力（capabilities）
+Display the capabilities of files.
 
-## 补充说明
+## Supplemental Information
 
-**getcap命令** 用于查看文件的能力（capabilities）。在 Linux 中，文件的能力是一种权限控制机制，可以赋予普通文件特定的特权操作，而无需完全的 root 权限。
+The **getcap command** is used to examine the capabilities of files. In Linux, file capabilities are a security mechanism that allows specific privileges to be assigned to an executable file without granting it full root permissions.
 
-### 语法
-
-```shell
-getcap [选项] [文件名...]
-```
-
-### 选项
+### Syntax
 
 ```shell
--v      # 显示详细信息，通常与其他选项一起使用。
--p      # 显示进程的能力。
+getcap [options] [filename...]
 ```
 
-### 参数
+### Options
 
-文件名：指定要查看能力的文件路径。
+```shell
+-v      # Display verbose information; usually used with other options.
+-p      # Display the capabilities of a process.
+```
 
-### 实例
+### Parameters
 
-查看一个可执行文件的能力：
+Filename: Specifies the path(s) of the file(s) to be examined.
+
+### Examples
+
+Check the capabilities of an executable file:
 
 ```shell
 $ getcap /usr/bin/ping
 /usr/bin/ping = cap_net_raw+ep
 ```
 
-查看当前目录下所有文件的能力：
+Check the capabilities of all files in the current directory:
 
 ```shell
 $ getcap *
 /usr/bin/ping = cap_net_raw+ep
 ```
 
-如果文件没有设置任何能力，getcap 不会返回任何输出。
+If a file has no capabilities set, `getcap` will not return any output.
 
-查看进程的能力（以 PID 为例）：
+Check the capabilities of a process (using PID as an example):
 
 ```shell
 $ getcap -p 1234

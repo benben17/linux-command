@@ -1,34 +1,32 @@
 seinfo
 ===
 
-查询SELinux的策略提供多少相关规则
+Query how many rules are provided by the SELinux policy.
 
-## 补充说明
+## Description
 
-**seinfo命令** 是用来查询SELinux的策略提供多少相关规则，一个主体进程能否读取到目标文件资源的重点是在于SELinux的策略以及策略内的各项规则，然后再通过该规则的定义去处理各项目标文件的安全上下文，尤其是“类型”部分。SELinux的策略与规则管理相关命令：seinfo命令、sesearch命令、getsebool命令、setsebool命令、semanage命令。
+The **seinfo command** is used to query how many related rules are provided by the SELinux policy. Whether a subject process can read a target file resource depends on the SELinux policy and the rules within it. The rules define how to handle the security contexts of various target files, especially the "type" part. Related commands for managing SELinux policies and rules include `seinfo`, `sesearch`, `getsebool`, `setsebool`, and `semanage`.
 
-###  语法
-
-```shell
-seinfo（选项）
-```
-
-###  选项
+### Syntax
 
 ```shell
--A：列出SELinux的状态、规则布尔值、身份识别、角色、类型等所有信息。
--t：列出SELinux所有类型(type)的种类。
--r：列出SELinux所有角色(role)的种类。
--u：列出SELinux所有身份识别(user)的种类。
--b：列出所有规则的种类（布尔值）。
+seinfo(options)
 ```
 
-###  实例
+### Options
 
-列出与httpd有关的规则：
+```shell
+-A: Lists all information, including SELinux status, rule Booleans, identities, roles, types, etc.
+-t: Lists all SELinux types.
+-r: Lists all SELinux roles.
+-u: Lists all SELinux identities (users).
+-b: Lists all rule types (Booleans).
+```
+
+### Examples
+
+List rules related to `httpd`:
 
 ```shell
 seinfo -b | grep httpd
 ```
-
-

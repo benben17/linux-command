@@ -1,52 +1,50 @@
 cal
 ===
 
-显示当前日历或指定日期的日历
+Displays a calendar of the current month or a specified date.
 
-## 补充说明
+## Description
 
-**cal命令** 用于显示当前日历，或者指定日期的日历，如果没有指定参数，则显示当前月份。
+The **cal command** is used to display the calendar for the current month or a specified date. If no parameters are provided, it displays the current month.
 
-一个单一的参数指定要显示的年份  (1  -  9999)  ;  注意年份必须被完全地指定:  cal 89 不会 显示1989年的日历.  两个参数表示月份 (1 - 12) 和年份.  如果没有指定参数,
-则显示当前月份的日历.
+A single parameter specifies the year to be displayed (1 - 9999); note that the year must be fully specified: `cal 89` will not display the calendar for 1989. Two parameters represent the month (1 - 12) and the year. If no parameters are specified, the calendar for the current month is displayed.
 
-一年从Jan 1 (1 月 1 日) 开始.
+A year starts on January 1st.
 
-格里高利历法改革(Gregorian Reformation)被认为发生于 1752 年 9 月 3 日.  在此之前, 多数国家已经认可这项改革(尽管有一些直到 20  世纪初才认可它).   那天之后的  10
-天在这项改革被略去了, 所以那个月的日历有点不太寻常.
+The Gregorian Reformation is considered to have occurred on September 3, 1752. Prior to this, most countries had already accepted the reform (though some did not until the early 20th century). Ten days were omitted following that date, so the calendar for that month is somewhat unusual.
 
-###  语法
+### Syntax
 
 ```shell
-cal [ -mjy ] [ 月份 ] [ 年份 ]
+cal [ -mjy ] [ month ] [ year ]
 ```
 
-###  选项
+### Options
 
 ```shell
--l # 显示单月输出；
--3 # 显示临近三个月的日历；
--s # 将星期日作为月的第一天；
--m # 显示星期一作为一周的第一天..  (缺省为星期日.)
--j # 显示儒略历的(Julian)日期 (以 1 为基的天数, 从 1 月 1 日开始计数) .
--y # 显示当前年份的日历..
+-l # Display single-month output.
+-3 # Display the previous, current, and next month's calendars.
+-s # Display Sunday as the first day of the week.
+-m # Display Monday as the first day of the week (default is Sunday).
+-j # Display Julian dates (day of the year starting from January 1st as 1).
+-y # Display a calendar for the current year.
 ```
 
-###  参数
+### Parameters
 
 ```shell
-月：指定月份；
-年：指定年份。
+month: Specify the month.
+year: Specify the year.
 ```
 
-###  实例
+### Examples
 
-单独执行cal命令会打印出日历：
+Executing the `cal` command alone prints the calendar for the current month:
 
 ```shell
 [root@localhost ~]# cal
-    十二月 2013     
-日 一 二 三 四 五 六
+   December 2013     
+Su Mo Tu We Th Fr Sa
  1  2  3  4  5  6  7
  8  9 10 11 12 13 14
 15 16 17 18 19 20 21
@@ -56,8 +54,8 @@ cal [ -mjy ] [ 月份 ] [ 年份 ]
 
 ```shell
 [root@localhost ~]# cal -j
-        十二月 2013        
-  日   一   二   三   四   五   六
+        December 2013        
+  Su   Mo   Tu   We   Th   Fr   Sa
 335 336 337 338 339 340 341
 342 343 344 345 346 347 348
 349 350 351 352 353 354 355
@@ -68,8 +66,8 @@ cal [ -mjy ] [ 月份 ] [ 年份 ]
 ```shell
 [root@localhost ~]# cal -3
 
-      九月 2021               十月 2021               十一月 2021
-日  一 二  三 四 五  六  日 一 二 三  四  五 六  日 一 二 三 四 五 六
+    September 2021          October 2021          November 2021
+Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa  Su Mo Tu We Th Fr Sa
           1  2  3  4                  1  2      1  2  3  4  5  6
  5  6  7  8  9 10 11   3  4  5  6  7  8  9   7  8  9 10 11 12 13
 12 13 14 15 16 17 18  10 11 12 13 14 15 16  14 15 16 17 18 19 20
@@ -77,6 +75,3 @@ cal [ -mjy ] [ 月份 ] [ 年份 ]
 26 27 28 29 30        24 25 26 27 28 29 30  28 29 30
                       31
 ```
-
-
-

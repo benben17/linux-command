@@ -1,86 +1,85 @@
 ln
 ===
 
-用来为文件创建链接
+Create links between files
 
-## 补充说明
+## Description
 
-**ln命令** 用来为文件创建链接，链接类型分为硬链接和符号链接两种，默认的链接类型是硬链接。如果要创建符号链接必须使用"-s"选项。
+The **ln** command is used to create links between files. There are two types of links: hard links and symbolic links (also known as soft links). By default, `ln` creates hard links. To create a symbolic link, the `-s` option must be used.
 
-注意：符号链接文件不是一个独立的文件，它的许多属性依赖于源文件，所以给符号链接文件设置存取权限是没有意义的。
+Note: A symbolic link is not an independent file; many of its attributes depend on the source file. Therefore, setting access permissions for a symbolic link file is generally meaningless.
 
-###  语法
-
-```shell
-ln [选项]... [-T] 目标 链接名	(第一种格式)
-　或：ln [选项]... 目标		(第二种格式)
-　或：ln [选项]... 目标... 目录	(第三种格式)
-　或：ln [选项]... -t 目录 目标...	(第四种格式)
-```
-
-###  选项
+### Syntax
 
 ```shell
---backup[=CONTROL]      # 为每个已存在的目标文件创建备份文件
--b                      # 类似--backup，但不接受任何参数
--d, -F, --directory         # 创建指向目录的硬链接(只适用于超级用户)
--f, --force                 # 强行删除任何已存在的目标文件
--i, --interactive           # 覆盖既有文件之前先询问用户
--L, --logical               # 取消引用作为符号链接的目标
--n, --no-dereference        # 把符号链接的目的目录视为一般文件
--P, --physical              # 直接将硬链接到符号链接
--r, --relative              # 创建相对于链接位置的符号链接
--s, --symbolic              # 对源文件建立符号链接，而非硬链接
--S, --suffix=SUFFIX         # 用"-b"参数备份目标文件后，备份文件的字尾会被加上一个备份字符串，预设的备份字符串是符号“~”，用户可通过“-S”参数来改变它
--t, --target-directory=DIRECTORY # 指定要在其中创建链接的DIRECTORY
--T, --no-target-directory   # 将“LINK_NAME”视为常规文件
--v, --verbose               # 打印每个链接文件的名称
---help      # 显示此帮助信息并退出
---version   # 显示版本信息并退出
+ln [options]... [-T] target link_name    (1st format)
+ln [options]... target                  (2nd format)
+ln [options]... target... directory      (3rd format)
+ln [options]... -t directory target...   (4th format)
 ```
 
-###  参数
-
-*   源文件：指定链接的源文件。如果使用`-s`选项创建符号链接，则“源文件”可以是文件或者目录。创建硬链接时，则“源文件”参数只能是文件。
-*   目标文件：指定源文件的目标链接文件。
+### Options
 
 ```shell
-none, off       # 不进行备份(即使使用了--backup 选项)
-numbered, t     # 备份文件加上数字进行排序
-existing, nil   # 若有数字的备份文件已经存在则使用数字，否则使用普通方式备份
-simple, never   # 永远使用普通方式备份
+--backup[=CONTROL]      # Create a backup for each existing destination file
+-b                      # Like --backup but does not accept an argument
+-d, -F, --directory     # Allow the superuser to attempt to hard link directories
+-f, --force             # Remove existing destination files
+-i, --interactive       # Prompt whether to remove destinations
+-L, --logical           # Dereference targets that are symbolic links
+-n, --no-dereference    # Treat LINK_NAME as a normal file if it is a symbolic link to a directory
+-P, --physical          # Make hard links directly to symbolic links
+-r, --relative          # Create symbolic links relative to link location
+-s, --symbolic          # Make symbolic links instead of hard links
+-S, --suffix=SUFFIX     # Override the usual backup suffix (default is ~)
+-t, --target-directory=DIRECTORY # Specify the DIRECTORY in which to create the links
+-T, --no-target-directory   # Treat LINK_NAME as a normal file always
+-v, --verbose           # Print name of each linked file
+--help      # Display this help and exit
+--version   # Output version information and exit
 ```
 
-###  实例
+### Parameters
 
-将目录`/usr/mengqc/mub1` 下的文件 m2.c 链接到目录 `/usr/liu` 下的文件 a2.c
+*   Source file: Specify the source file for the link. If creating a symbolic link with `-s`, the source can be a file or a directory. When creating a hard link, the source must be a file.
+*   Target file: Specify the name/location of the link to be created.
+
+```shell
+# CONTROL argument for --backup:
+none, off       # Never make backups (even if --backup is given)
+numbered, t     # Make numbered backups
+existing, nil   # Numbered if numbered backups exist, simple otherwise
+simple, never   # Always make simple backups
+```
+
+### Examples
+
+Link the file `m2.c` in `/usr/mengqc/mub1` to `a2.c` in `/usr/liu`:
 
 ```shell
 cd /usr/mengqc
 ln mub1/m2.c /usr/liu/a2.c
 ```
 
-在执行ln命令之前，目录`/usr/liu`中不存在a2.c文件。执行ln之后，在`/usr/liu`目录中才有a2.c这一项，表明m2.c和a2.c链接起来（注意，二者在物理上是同一文件），利用`ls -l`命令可以看到链接数的变化。
+Before execution, `a2.c` does not exist in `/usr/liu`. After execution, `a2.c` appears as a link to `m2.c` (physically they are the same file). You can see the link count increase using `ls -l`.
 
-**创建软链接**
+**Creating a symbolic link**
 
-在目录`/usr/liu`下建立一个符号链接文件abc，使它指向目录`/usr/mengqc/mub1`
+Create a symbolic link `abc` in `/usr/liu` pointing to the directory `/usr/mengqc/mub1`:
 
 ```shell
 ln -s /usr/mengqc/mub1 /usr/liu/abc
 ```
 
-执行该命令后，`/usr/mengqc/mub1`代表的路径将存放在名为`/usr/liu/abc`的文件中。
+**Creating a hard link**
 
-**创建硬链接**
-
-给文件创建硬链接，为 `log2022.log` 创建硬链接 `ln2022`，`log2022.log` 与 `ln2022` 的各项属性相同
+Create a hard link `ln2022` for the file `log2022.log`. Both files will share the same attributes and data:
 
 ```shell
 ln log2022.log ln2022
 ```
 
-输出：
+Output:
 
 ```
 [root@localhost test]# ll
@@ -93,31 +92,30 @@ lrwxrwxrwx 1 root root     11 12-07 16:01 link2013 -> log2022.log
 -rw-r--r-- 2 root bin      61 11-13 06:03 log2022.log
 ```
 
-## 扩展知识
+## Extended Knowledge
 
-Linux具有为一个文件起多个名字的功能，称为链接。被链接的文件可以存放在相同的目录下，但是必须有不同的文件名，而不用在硬盘上为同样的数据重复备份。另外，被链接的文件也可以有相同的文件名，但是存放在不同的目录下，这样只要对一个目录下的该文件进行修改，就可以完成对所有目录下同名链接文件的修改。对于某个文件的各链接文件，我们可以给它们指定不同的存取权限，以控制对信息的共享和增强安全性。
+Linux allows multiple names for a single file, a feature known as linking. Linked files can reside in the same directory but must have different names, avoiding redundant backups on the disk. They can also have the same name if placed in different directories; modifying one will affect all others since they point to the same data. Different access permissions can be assigned to different links to control sharing and security.
 
-文件链接有两种形式，即硬链接和符号链接。
+There are two types of links: hard links and symbolic links.
 
-ln功能说明：是为某一个文件在另外一个位置建立一个同步的链接，当我们需要在不同的目录，用到相同的文件时，我们不需要在每一个需要的目录下都放一个必须相同的文件，我们只要在某个固定的目录，放上该文件，然后在其它的目录下用ln命令链接（link）它就可以，不必重复的占用磁盘空间。
+The `ln` command creates a synchronous link in another location. When the same file is needed in different directories, there's no need to store multiple copies; just store the file once and use `ln` to link to it elsewhere, saving disk space.
 
-> :warning: ln命令会保持每一处链接文件的同步性，也就是说，不论你改动了哪一处，其它的文件都会发生相同的变化。
+> :warning: The `ln` command maintains synchronicity across all linked files; changes made to one will be reflected in all others.
 
-### 软链接：
+### Symbolic Links (Soft Links):
 
-1. 软链接，以路径的形式存在。类似于Windows操作系统中的快捷方式
-2. 软链接可以 跨文件系统 ，硬链接不可以
-3. 软链接可以对一个不存在的文件名进行链接
-4. 软链接可以对目录进行链接
+1. A symbolic link exists as a path string, similar to a shortcut in Windows.
+2. Symbolic links can cross file systems, whereas hard links cannot.
+3. A symbolic link can point to a non-existent filename.
+4. Symbolic links can point to directories.
 
-###  硬链接
+### Hard Links
 
-建立硬链接时，在另外的目录或本目录中增加目标文件的一个目录项，这样，一个文件就登记在多个目录中。如下所示的m2.c文件就在目录mub1和liu中都建立了目录项。
+Creating a hard link adds a directory entry in the same or another directory pointing to the same file data.
 
-
-1. 硬链接，以文件副本的形式存在。但不占用实际空间。
-2. 不允许给目录创建硬链接
-3. 硬链接只有在同一个文件系统中才能创建
+1. A hard link exists as a file replica but does not occupy additional data space.
+2. Hard links cannot be created for directories.
+3. Hard links can only be created within the same file system.
 
 ```shell
 ls -ailR
@@ -142,18 +140,17 @@ total 8
 922731 -rw-r--r-- 3 root root    0 Jun 17 11:18 m2.c
 ```
 
-创建硬链接后，己经存在的文件的索引节点号（inode）会被多个目录文件项使用。一个文件的硬链接数可以在目录的长列表格式的第二列中看到，无额外链接的文件的链接数为1。
+After creating hard links, the inode number of the existing file is shared by multiple directory entries. The link count is shown in the second column of the `ls -l` output.
 
-在默认情况下，ln命令创建硬链接。ln命令会增加链接数，rm命令会减少链接数。一个文件除非链接数为0，否则不会从文件系统中被物理地删除。
+By default, `ln` creates hard links. `ln` increases the link count, while `rm` decreases it. A file is not physically deleted from the file system until its link count reaches zero.
 
-对硬链接有如下限制：
+Restrictions on hard links:
+* Cannot be created for directories.
+* Cannot cross file system boundaries.
 
-*   不能对目录文件做硬链接。
-*   不能在不同的文件系统之间做硬链接。就是说，链接文件和被链接文件必须位于同一个文件系统中。
+### Symbolic Links (Soft Links) - Technical Details
 
-### 符号链接(软连接)
-
-符号链接也称为软链接，是将一个路径名链接到一个文件。这些文件是一种特别类型的文件。事实上，它只是一个文本文件（如下所示的abc文件），其中包含它提供链接的另一个文件的路径名，如虚线箭头所示。另一个文件是实际包含所有数据的文件。所有读、写文件内容的命令被用于符号链接时，将沿着链接方向前进来访问实际的文件。
+A symbolic link links a path name to a file. It is a special type of file that contains the path name of another file. When commands read or write to a symbolic link, the system follows the link to access the actual file.
 
 ```shell
 $ ls -il
@@ -162,18 +159,12 @@ total 0
 922735 -rw-r--r-- 1 root root 0 Jun 17 11:27 a.txt
 ```
 
-与硬链接不同的是，符号链接确实是一个新文件，当然它具有不同的索引节点号；而硬链接并没有建立新文件。
+Unlike hard links, a symbolic link is a new file with its own inode. It does not have the restrictions of hard links: it can point to directories and cross file systems.
 
-符号链接没有硬链接的限制，可以对目录文件做符号链接，也可以在不同文件系统之间做符号链接。
+When creating a symbolic link with `ln -s`, it is recommended to use absolute paths for the source to ensure the link works regardless of the current working directory.
 
-用`ln -s`命令建立符号链接时，源文件最好用绝对路径名。这样可以在任何工作目录下进行符号链接。而当源文件用相对路径时，如果当前的工作路径与要创建的符号链接文件所在路径不同，就不能进行链接。
-
-符号链接保持了链接与源文件或目录之间的区别：
-
-*   删除源文件或目录，只删除了数据，不会删除链接。一旦以同样文件名创建了源文件，链接将继续指向该文件的新数据。
-*   在目录长列表中，符号链接作为一种特殊的文件类型显示出来，其第一个字母是l。
-*   符号链接的大小是其链接文件的路径名中的字节数。
-*   当用`ls -l`命令列出文件时，可以看到符号链接名后有一个箭头指向源文件或目录，例如`lrwxrwxrwx … 14 jun 20 10:20 /etc/motd->/original_file`其中，表示“文件大小”的数字“14”恰好说明源文件名`original_file`由14个字符构成。
-
-
-
+Key characteristics of symbolic links:
+* Deleting the source file breaks the link (it becomes "dangling"), but the link file remains.
+* In directory listings, symbolic links are indicated by the letter `l` as the first character of the permissions string.
+* The size of a symbolic link file is the number of bytes in the path name it points to.
+* `ls -l` shows the link target with an arrow (e.g., `abc -> a.txt`).

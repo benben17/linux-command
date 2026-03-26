@@ -1,31 +1,29 @@
 times
 ===
 
-显示进程累计时间。
+Display process accumulated time.
 
-## 主要用途
+## Main Purpose
 
-- 打印出shell及其子进程累计使用的用户时间和系统时间。
+- Print the accumulated user and system time used by the shell and its child processes.
 
-## 返回值
+## Return Value
 
-总是返回成功。
+Always returns success.
 
-## 例子
+## Example
 
 ```shell
-# 执行命令
+# Execute the command
 times
-# 返回结果
+# Result
 0m0.037s 0m0.009s
 0m0.010s 0m0.024s
-# 根据times(2)的man手册，对应关系如下：
-# 用户时间        | 系统时间
-# 子进程的用户时间 | 子进程的系统时间
+# According to the times(2) man page, the mapping is as follows:
+# User time        | System time
+# Child process user time | Child process system time
 ```
 
-### 注意
+### Notes
 
-1. 该命令是bash内建命令，相关的帮助信息请查看`help`命令。
-
-
+1. This command is a bash built-in; see the `help` command for related help information.

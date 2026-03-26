@@ -1,42 +1,39 @@
 tailf
 ===
 
-在屏幕上显示指定文件的末尾若干行内容，通常用于日志文件的跟踪输出
+Output the last part of a file and follow growth, typically used for log tracking
 
-## 补充说明
+## Description
 
-tailf命令几乎等同于`tail -f`，严格说来应该与`tail --follow=name`更相似些。当文件改名之后它也能继续跟踪，特别适合于日志文件的跟踪（follow the growth of a log file）。与`tail -f`不同的是，如果文件不增长，它不会去访问磁盘文件。tailf特别适合那些便携机上跟踪日志文件，因为它能省电，因为减少了磁盘访问。tailf命令不是个脚本，而是一个用C代码编译后的二进制执行文件，某些Linux安装之后没有这个命令。
+The **tailf command** is nearly identical to `tail -f`, but is more similar to `tail --follow=name`. It can continue tracking even if the file is renamed, making it ideal for monitoring the growth of log files. Unlike `tail -f`, it does not access the disk if the file is not growing. `tailf` is particularly suitable for laptops as it reduces disk access and saves power. Note that `tailf` is a compiled C binary, not a script, and may not be installed on all Linux distributions.
 
-tailf和tail -f的区别
+### Differences between tailf and tail -f
 
-1. tailf 总是从文件开头一点一点的读， 而tail -f 则是从文件尾部开始读
-2. tailf check文件增长时，使用的是文件名， 用stat系统调用；而tail -f 则使用的是已打开的文件描述符； 注：tail 也可以做到类似跟踪文件名的效果； 但是tail总是使用fstat系统调用，而不是stat系统调用；结果就是：默认情况下，当tail的文件被偷偷删除时，tail是不知道的，而tailf是知道的。
+1. `tailf` reads the file incrementally from the beginning, whereas `tail -f` reads from the end.
+2. `tailf` checks for file growth using the filename and the `stat` system call; `tail -f` uses the opened file descriptor. (Note: `tail` can also track by filename, but it uses `fstat` rather than `stat`. Consequently, by default, `tail` may not realize if a file is deleted, while `tailf` will).
 
-###  语法
-
-```shell
-tailf logfile # 动态跟踪日志文件logfile，最初的时候打印文件的最后10行内容。
-```
-
-###  选项
+### Syntax
 
 ```shell
--n, --lines NUMBER  # 输出最后数行
--NUMBER             # 与NUMBER相同 `-n NUMBER'
--V, --version       # 输出版本信息并退出
--h, --help          # 显示帮助并退出
+tailf logfile # Dynamically track the log file, initially printing the last 10 lines.
 ```
 
-###  参数
+### Options
 
-目标：指定目标日志。
+```shell
+-n, --lines NUMBER  # Output the last N lines.
+-NUMBER             # Same as `-n NUMBER`.
+-V, --version       # Output version information and exit.
+-h, --help          # Display help and exit.
+```
 
-### 实例
+### Parameters
+
+Target: Specify the target log file.
+
+### Examples
 
 ```shell
 tailf log/WEB.LOG 
-tailf -n 5 log2014.log   # 显示文件最后5行内容
+tailf -n 5 log2014.log   # Display the last 5 lines of the file
 ```
-
-
-

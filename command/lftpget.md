@@ -1,28 +1,26 @@
 lftpget
 ===
 
-调用lftp指令下载指定的文件
+Download specified files by calling the lftp command
 
-## 补充说明
+## Description
 
-**lftpget命令** 通过调用lftp指令下载指定的文件。
+The **lftpget** command downloads specified files by invoking the `lftp` command.
 
-###  语法
-
-```shell
-lftpget(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--c：继续先前的下载；
--d：输出调试信息；
--v：输出详细信息。
+lftpget (options) (parameters)
 ```
 
-###  参数
+### Options
 
-文件：指定要下载的文件，文件必须是合法的URL路径。
+```shell
+-c: Continue a previous download;
+-d: Output debug information;
+-v: Output verbose information.
+```
 
+### Parameters
 
+File: Specify the files to download; they must be valid URL paths.

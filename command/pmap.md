@@ -1,32 +1,32 @@
 pmap
 ===
 
-报告进程的内存映射关系
+Report memory maps of a process
 
-## 补充说明
+## Description
 
-**pmap命令** 用于报告进程的内存映射关系，是Linux调试及运维一个很好的工具。
+The **pmap command** is used to report memory maps of a process. It is an excellent tool for Linux debugging and operations.
 
-###  语法
-
-```shell
-pmap(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--x：显示扩展格式；
--d：显示设备格式；
--q：不显示头尾行；
--V：显示指定版本。
+pmap (options) (parameters)
 ```
 
-###  参数
+### Options
 
-进程号：指定需要显示内存映射关系的进程号，可以是多个进程号。
+```shell
+-x: Show extended format;
+-d: Show device format;
+-q: Do not display header/footer lines;
+-V: Show version.
+```
 
-###  实例
+### Parameters
+
+PID: The process ID for which to display memory mapping. Multiple process IDs can be specified.
+
+### Examples
 
 ```shell
 pidof nginx
@@ -119,5 +119,3 @@ ffffffffff600000    8192       0       0 -----    [ anon ]
 ----------------  ------  ------  ------
 total kB           72880   22940   22000
 ```
-
-

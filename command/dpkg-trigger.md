@@ -1,30 +1,28 @@
 dpkg-trigger
 ===
 
-Debian Linux下的软件包触发器
+A package trigger utility for Debian.
 
-## 补充说明
+## Description
 
-**dpkg-trigger命令** 是Debian Linux下的软件包触发器。
+The **dpkg-trigger** command is a tool to explicitly activate triggers and check for their support in the running `dpkg`.
 
-###  语法
-
-```shell
-dpkg-trigger(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
---check-supported：检查运行的dpkg是否支持触发器，返回值为0，则支持触发器。
---help：显示帮助信息；
---admindir=<目录>：设置dpkg数据库所在的目录；
---no-act：仅用于测试，不执行任何操作；
---by-package=<软件包>：覆盖触发器等待者。
+dpkg-trigger (options) (parameters)
 ```
 
-###  参数
+### Options
 
-触发器名：指定触发器名称。
+```shell
+--check-supported    Check if the running dpkg supports triggers. Returns 0 if supported.
+--help               Display help information.
+--admindir=<dir>     Change the location of the dpkg database.
+--no-act             Test only, do not actually perform any actions.
+--by-package=<pkg>   Override the trigger waiter.
+```
 
+### Parameters
 
+Trigger Name: Specifies the name of the trigger.

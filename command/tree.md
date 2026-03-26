@@ -1,89 +1,88 @@
 tree
 ===
 
-树状图列出目录的内容
+List directory contents in a tree-like format
 
-## 补充说明
+## Description
 
-**tree命令** 以树状图列出目录的内容。
+The **tree command** lists the contents of a directory in a tree-like format.
 
-### 语法
+### Syntax
 
 ```shell
-tree(选项)(参数)
+tree [options] [parameters]
 ```
 
-### 选项
+### Options
 
 ```shell
-------- 列表选项 -------
--a            # 显示所有文件和目录。
--d            # 显示目录名称而非文件。
--l            # 如遇到性质为符号连接的目录，直接列出该连接所指向的原始目录。
--f            # 在每个文件或目录之前，显示完整的相对路径名称。
--x            # 将范围局限在现行的文件系统中，若指定目录下的某些子目录，其存放于另一个文件系统上，则将该目录予以排除在寻找范围外。
--L level      # 限制目录显示层级。
+------- Listing Options -------
+-a            # Display all files and directories (including hidden ones).
+-d            # List directories only.
+-l            # Follow symbolic links as if they were directories.
+-f            # Print the full relative path for each file.
+-x            # Stay on the current file system only.
+-L level      # Max display depth of the directory tree.
 -R            # Rerun tree when max dir level reached.
--P pattern    # <范本样式> 只显示符合范本样式的文件和目录名称。
--I pattern    # Do not list files that match the given pattern.
+-P pattern    # List only those files that match the wildcard pattern.
+-I pattern    # Do not list files that match the wildcard pattern.
 --ignore-case # Ignore case when pattern matching.
 --matchdirs   # Include directory names in -P pattern matching.
---noreport    # Turn off file/directory count at end of tree listing.
+--noreport    # Turn off file/directory count at the end of the tree listing.
 --charset X   # Use charset X for terminal/HTML and indentation line output.
---filelimit # # Do not descend dirs with more than # files in them.
+--filelimit # # Do not descend directories with more than # files.
 --timefmt <f> # Print and format time according to the format <f>.
 -o filename   # Output to file instead of stdout.
--------- 文件选项 ---------
--q            # 用“？”号取代控制字符，列出文件和目录名称。
--N            # 直接列出文件和目录名称，包括控制字符。
+-------- File Options ---------
+-q            # Print non-printable characters as '?'.
+-N            # Print non-printable characters as is.
 -Q            # Quote filenames with double quotes.
--p            # 列出权限标示。
--u            # 列出文件或目录的拥有者名称，没有对应的名称时，则显示用户识别码。
--g            # 列出文件或目录的所属群组名称，没有对应的名称时，则显示群组识别码。
--s            # 列出文件和目录大小。
--h            # Print the size in a more human readable way.
---si          # Like -h, but use in SI units (powers of 1000).
--D            # 列出文件或目录的更改时间。
--F            # 在执行文件，目录，Socket，符号连接，管道名称名称，各自加上"*"，"/"，"@"，"|"号。
+-p            # Print permissions for each file.
+-u            # Print the username, or UID if no username is available.
+-g            # Print the group name, or GID if no group name is available.
+-s            # Print the size of each file in bytes.
+-h            # Print the size in a human-readable way (e.g., KB, MB).
+--si          # Like -h, but use SI units (powers of 1000).
+-D            # Print the date of the last modification.
+-F            # Append a '/' for directories, '*' for executable files, '@' for symbolic links, '|' for FIFOs, and '=' for sockets.
 --inodes      # Print inode number of each file.
 --device      # Print device ID number to which each file belongs.
-------- 排序选项 -------
+------- Sorting Options -------
 -v            # Sort files alphanumerically by version.
--t            # 用文件和目录的更改时间排序。
+-t            # Sort files by last modification time.
 -c            # Sort files by last status change time.
 -U            # Leave files unsorted.
 -r            # Reverse the order of the sort.
 --dirsfirst   # List directories before files (-U disables).
---sort X      # Select sort: name,version,size,mtime,ctime.
-------- 图形选项 ------
--i            # 不以阶梯状列出文件和目录名称。
--A            # 使用ASNI绘图字符显示树状图而非以ASCII字符组合。
+--sort X      # Select sort: name, version, size, mtime, ctime.
+------- Graphics Options ------
+-i            # Do not print indentation lines.
+-A            # Use ANSI line graphics characters.
 -S            # Print with CP437 (console) graphics indentation lines.
--n            # Turn colorization off always (-C overrides).
--C            # 在文件和目录清单加上色彩，便于区分各种类型。
-------- XML / HTML / JSON选项 -------
--X            # Prints out an XML representation of the tree.
--J            # Prints out an JSON representation of the tree.
--H baseHREF   # Prints out HTML format with baseHREF as top directory.
+-n            # Turn off colorization (overridden by -C).
+-C            # Turn on colorization.
+------- XML / HTML / JSON Options -------
+-X            # Print out an XML representation of the tree.
+-J            # Print out a JSON representation of the tree.
+-H baseHREF   # Print out HTML format with baseHREF as top directory.
 -T string     # Replace the default HTML title and H1 header with string.
 --nolinks     # Turn off hyperlinks in HTML output.
----- 杂项选项 ----
---version     # 输入版本信息。
---help        # 打印使用帮助信息。
+---- Miscellaneous Options ----
+--version     # Display version information.
+--help        # Display usage help information.
 --            # Options processing terminator.
 ```
 
-### 参数
+### Parameters
 
-目录：执行tree指令，它会列出指定目录下的所有文件，包括子目录里的文件。
+Directory: Execute the tree command on the specified directory, listing all files and subdirectories.
 
+### Examples
 
-### 实例
-
-列出目录`/private/` 第一级文件名
+List filenames in the first level of the `/private/` directory:
 
 ```shell
-tree  /private/ -L 1
+tree /private/ -L 1
 /private/
 ├── etc
 ├── tftpboot
@@ -91,22 +90,22 @@ tree  /private/ -L 1
 └── var
 ```
 
-忽略文件夹
+Ignore folders:
 
 ```shell
-tree -I node_modules # 忽略当前目录文件夹node_modules
-tree -P node_modules # 列出当前目录文件夹node_modules的目录结构
-tree -P node_modules -L 2 # 显示目录node_modules两层的目录树结构
-tree -L 2 > /home/www/tree.txt # 当前目录结果存到 tree.txt 文件中
+tree -I node_modules # Ignore node_modules in the current directory
+tree -P node_modules # List the structure of the node_modules folder in the current directory
+tree -P node_modules -L 2 # Display two levels of the node_modules directory
+tree -L 2 > /home/www/tree.txt # Save the current directory structure to tree.txt
 ```
 
-忽略多个文件夹
+Ignore multiple folders:
 
 ```shell
 tree -I 'node_modules|icon|font' -L 2
 ```
 
-非树状结构列出目录`/private/`下的所有文件
+List all files in `/private/` in a non-tree format:
 
 ```
 tree -if /private/
@@ -119,7 +118,7 @@ tree -if /private/
 /private/tftpboot
 ```
 
-显示所有文件目录(包括隐藏文件)并忽略(node_modules|.git)目录，展示(`-L 2`)两层。
+Show all files and directories (including hidden ones), ignore `node_modules` and `.git`, and display two levels (`-L 2`).
 
 ```shell
 $ tree -I 'node_modules|.git' -L 2 -a
@@ -131,5 +130,3 @@ $ tree -I 'node_modules|.git' -L 2 -a
 ├── README.md
 └── renovate.json
 ```
-
-

@@ -1,23 +1,23 @@
 wall
 ===
 
-向系统当前所有打开的终端上输出信息
+Write a message to all users' terminals
 
-## 补充说明
+## Description
 
-**wall命令** 用于向系统当前所有打开的终端上输出信息。通过wall命令可将信息发送给每位同意接收公众信息的终端机用户，若不给予其信息内容，则wall命令会从标准输入设备读取数据，然后再把所得到的数据传送给所有终端机用户。
+The **wall command** is used to send a message to all users currently logged into the system. It displays the message on every terminal that is set to receive public messages. If no message is provided as an argument, the `wall` command reads from standard input until an EOF character is received.
 
-###  语法
+### Syntax
 
 ```shell
-wall(参数)
+wall [message]
 ```
 
-###  参数
+### Parameters
 
-消息：指定广播消息。
+message: The broadcast message to be sent.
 
-###  实例
+### Examples
 
 ```shell
 [root@localhost ~]# wall this is a test line
@@ -26,5 +26,3 @@ Broadcast message from root (pts/1) (Fri Dec 20 11:36:51 2013):
 
 this is a test line
 ```
-
-

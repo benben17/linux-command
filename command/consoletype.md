@@ -1,23 +1,21 @@
 consoletype
 ===
 
-输出已连接的终端类型
+Output the connected terminal type
 
-## 补充说明
+## Description
 
-**consoletype命令** 用于打印已连接的终端类型到标准输出，并能够检查已连接的终端是当前终端还是虚拟终端。
+The **consoletype command** is used to print the type of the connected terminal to standard output. It can also check whether the connected terminal is the current console or a virtual terminal.
 
-###  语法
+### Syntax
 
 ```shell
 consoletype
 ```
 
-###  实例
+### Examples
 
 ```shell
 [root@localhost ~]# consoletype
 pty
 ```
-
-

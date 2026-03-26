@@ -1,63 +1,60 @@
 hostname
 ===
 
-显示和设置系统的主机名
+Show or set the system's host name.
 
-## 补充说明
+## Supplemental Information
 
-**hostname命令** 
-用于显示和设置系统的主机名称。
+The **hostname command** is used to display or set the system's host name.
 
-- 环境变量 `HOSTNAME` 也保存了当前的主机名。
-- 在使用 `hostname` 命令设置主机名后，系统并不会永久保存新的主机名，重启之后还是原来的主机名。如果需要永久修改主机名，需要修改 `/etc/hosts` 和 `/etc/sysconfig/network` 的相关内容并进行重启；也可以使用 `hostnamectl` 命令进行永久修改。
+- The `HOSTNAME` environment variable also stores the current host name.
+- When using the `hostname` command to set the host name, the change is not permanent and will be lost after a reboot. To make the change permanent, you must modify `/etc/hosts` and `/etc/sysconfig/network` (or `/etc/hostname` on modern systems) and reboot. Alternatively, use the `hostnamectl` command for permanent changes.
 
-### 语法
-
-```shell
-hostname [-b] {hostname|-F file}           设置主机名称（或从文件获取）
-hostname [-a|-A|-d|-f|-i|-I|-s|-y]         显示格式化的名称
-hostname                                   显示主机名称
-
-{yp,nis,}domainname {nisdomain|-F file}    设置 NIS 主机名称（或从文件获取）
-{yp,nis,}domainname                        显示 NIS 主机名称
-
-dnsdomainname                              显示 DNS 主机名称
-
-hostname -V|--version|-h|--help            打印信息并退出
-```
-
-### 选项
+### Syntax
 
 ```shell
--a, --alias               显示主机别名
--A, --all-fqdns           显示所有FQDN名称
--b, --boot                如果没有可用的主机名，则设置默认主机名
--d, --domain              显示DNS域名
--f, --fqdn, --long        显示FQDN名称
--F, --file                从给定文件中读取主机名或NIS域名
--i, --ip-address          显示主机的ip地址
--I, --all-ip-addresses    显示主机所有的ip地址
--s, --short               显示短主机名称，在第一个点处截断
--y, --yp, --nis           显示NIS域名
+hostname [-b] {hostname|-F file}           # Set host name (or get from file)
+hostname [-a|-A|-d|-f|-i|-I|-s|-y]         # Show formatted name
+hostname                                   # Show host name
+
+{yp,nis,}domainname {nisdomain|-F file}    # Set NIS domain name (or get from file)
+{yp,nis,}domainname                        # Show NIS domain name
+
+dnsdomainname                              # Show DNS domain name
+
+hostname -V|--version|-h|--help            # Print info and exit
 ```
 
-### 实例
+### Options
 
-显示主机名
+```shell
+-a, --alias               # Show host aliases
+-A, --all-fqdns           # Show all FQDNs
+-b, --boot                # Set default hostname if none is available
+-d, --domain              # Show DNS domain name
+-f, --fqdn, --long        # Show FQDN (Fully Qualified Domain Name)
+-F, --file                # Read host name or NIS domain name from the specified file
+-i, --ip-address          # Show the IP address(es) of the host name
+-I, --all-ip-addresses    # Show all network addresses of the host
+-s, --short               # Show short host name (truncated at the first dot)
+-y, --yp, --nis           # Show NIS domain name
+```
+
+### Examples
+
+Display the host name:
 ```shell
 [root@AY1307311912260196fcZ ~]# hostname
 AY1307311912260196fcZ
 ```
 
-临时改变主机名
+Temporarily change the host name:
 ```shell
 [root@AY1307311912260196fcZ ~]# hostname newname
 ```
 
-显示主机的所有IP地址
+Display all IP addresses of the host:
 ```shell
 [root@AY1307311912260196fcZ ~]# hostname -I
 10.17.0.1 10.18.0.10 172.17.0.1
 ```
-
-

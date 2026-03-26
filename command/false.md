@@ -1,26 +1,22 @@
 false
 ===
 
-返回状态为失败。
+Returns a failure status.
 
-## 概要
+## Synopsis
 
 ```shell
 false
 ```
 
-## 主要用途
+## Main Purpose
 
-- 用于和其他命令进行逻辑运算。
+- Used for logical operations with other commands.
 
-## 返回值
+## Return Value
 
-返回状态总是失败；返回值为1。
+Always returns a failure status; the return value is 1.
 
+### Note
 
-### 注意
-
-1. 该命令是bash内建命令，相关的帮助信息请查看`help`命令。
-
-
-
+1. This command is a bash built-in; for related help information, please refer to the `help` command.

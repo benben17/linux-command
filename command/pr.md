@@ -1,50 +1,46 @@
 pr
 ===
 
-将文本文件转换成适合打印的格式
+Convert text files for printing
 
-## 补充说明
+## Description
 
-**pr命令** 用来将文本文件转换成适合打印的格式，它可以把较大的文件分割成多个页面进行打印，并为每个页面添加标题。
+The **pr command** is used to convert text files into a format suitable for printing. It can split large files into multiple pages for printing and add a title to each page.
 
-###  语法
-
-```shell
-pr(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--e<制表符[宽度]>(--expand-tabs=<制表符[宽度]>)：将制表符（或制表符）转换为空格.如果指定了宽度，则将制表符转换为宽度字符，默认为8;
--h<标题>：为页指定标题；
--i<out-tab-char[out-tab-width>(--output-tabs<out-tab-char[out-tab-width]>)：在输出中用制表符替换空格，可以指定替代制表符(默认为制表符)和宽度(默认为8)；
--l<行数>：指定每页的行数；
--n<分隔符[数字]>：对列进行编号，或者使用 -m 选项对行进行编号，将分隔符附加到每个数字默认为制表符并限制数字的大小，默认为5；
--o<宽度>：为左边距设置宽度；
--s<分隔符>(--separator<分隔符>)：使用指定的分隔符（默认为制表符）而不是空格分隔列；
--S<字符串>(--sep-string<字符串>)：使用指定的字符串（默认为-J的制表符）或者是一个空格分隔列；
--w<页面宽度>：设置页面宽度以进行多列输出，默认为72；
--W<页面宽度>：设置页面宽度为固定值，默认为72；
--J(--join-lines)：合并整行，忽略 -W 如果设置;
--num_cols：num_cols是一个整数，为一页有n行的文件打印指定num_cols列；
--m(--merge)：打印所有文件，每列一个文件。
--f(-F)(--form-feed)：用换页符替代换行符；
--r(--no-file-warnings)：无法打开输入文件时静默；
--t：限制页眉,页脚与页尾的填充；
--T(--omit-pagination)：类似于-t,但也限制换页；
--v(--show-non-printing)：将不可打印的字符转换为八进制反斜杠格式；
--d：双倍行距；
--a(--across)：交错打印，即水平打印，而非纵向打印；
--c(--show-control-chars)：将控制字符转换为帽子符号（例如 ^C），将其他不可打印的字符转换为八进制反斜杠格式；
---help：打印帮助信息并退出；
---version：打印版本信息并退出.
-
-
+pr(options)(parameters)
 ```
 
-###  参数
+### Options
 
-文件：需要转换格式的文件。
+```shell
+-e<tab[width]> (--expand-tabs=<tab[width]>): Expand tabs (or tab characters) to spaces. If width is specified, convert tabs to that width; otherwise, the default is 8.
+-h<title>: Specify a title for the page header.
+-i<out-tab-char[out-tab-width]> (--output-tabs<out-tab-char[out-tab-width]>): Replace spaces with tabs in output. You can specify an alternative tab character (default is tab) and width (default is 8).
+-l<lines>: Specify the number of lines per page.
+-n<separator[digits]>: Number columns, or use the -m option to number lines. Append a separator to each number (default is tab) and limit the number of digits (default is 5).
+-o<width>: Set the width for the left margin.
+-s<separator> (--separator<separator>): Use the specified separator (default is tab) instead of spaces to separate columns.
+-S<string> (--sep-string<string>): Use the specified string (default is tab for -J) or a space to separate columns.
+-w<page_width>: Set page width for multi-column output (default is 72).
+-W<page_width>: Set page width to a fixed value (default is 72).
+-J (--join-lines): Join full lines, ignoring -W if set.
+-num_cols: num_cols is an integer; specify the number of columns to print for a file.
+-m (--merge): Print all files, one per column.
+-f (-F) (--form-feed): Use form feeds instead of newlines.
+-r (--no-file-warnings): Silent when an input file cannot be opened.
+-t: Omit page headers and footers.
+-T (--omit-pagination): Similar to -t, but also omit form feeds.
+-v (--show-non-printing): Convert non-printing characters to octal backslash notation.
+-d: Double space the output.
+-a (--across): Print columns across (horizontally) rather than down.
+-c (--show-control-chars): Convert control characters to hat notation (e.g., ^C) and other non-printing characters to octal backslash notation.
+--help: Print help information and exit.
+--version: Print version information and exit.
+```
 
+### Parameters
 
+File: The files to be converted.

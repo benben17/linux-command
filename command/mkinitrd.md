@@ -1,62 +1,49 @@
 mkinitrd
 ===
 
-建立要载入ramdisk的映像文件
+Create an initial ramdisk image for preloading modules
 
-## 补充说明
+## Description
 
-**mkinitrd命令** 建立要载入ramdisk的映像文件，以供Linux开机时载入ramdisk。
+The **mkinitrd command** creates an initial ramdisk image (initrd) for the Linux kernel. This image is loaded into memory at boot time and contains modules needed to mount the root filesystem (e.g., disk drivers, filesystem modules).
 
-这个是重新封包核心的命令，例如你自己修改了一个设备的驱动，如果这个驱动要加入核心级别的话，就需要对核心进行重新封包，把新加的配置编译到核心内部去！
+This is often used when a new driver is modified or added that needs to be available at the earliest stages of the boot process.
 
-###  语法
-
-```shell
-mkinitrd(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--f：若指定的映像问家名称与现有文件重复，则覆盖现有的文件；
--v：执行时显示详细的信息；
---omit-scsi-modules：不要载入SCSI模块；
---preload=<模块名称>：指定要载入的模块；
---with=<模块名称>：指定要载入的模块；
---version：显示版本信息。
+mkinitrd [OPTION]... IMAGE KERNEL-VERSION
 ```
 
-###  参数
+### Options
 
-*   映像文件：指定要创建的映像文件；
-*   内核版本：指定内核版本。
+```shell
+-f：Overwrite the existing image file if it has the same name.
+-v：Verbose mode; display detailed information during execution.
+--omit-scsi-modules：Do not load any SCSI modules.
+--preload <module>：Preload the specified module.
+--with <module>：Include the specified module in the image.
+--version：Display version information.
+```
 
-###  实例
+### Parameters
+
+*   Image: The name of the output image file (e.g., `initrd.img`).
+*   Kernel Version: The version of the kernel for which the image is created.
+
+### Examples
+
+Create an initrd image for the currently running kernel:
 
 ```shell
 [root@localhost tmp]# mkinitrd -v -f myinitrd.img $(uname -r)
 Creating initramfs
-WARNING: using /tmp for temporary files
-Looking for deps of module ide-disk
-Looking for deps of module ext3  jbd
-Looking for deps of module jbd
+...
 Using modules:  ./kernel/fs/jbd/jbd.ko ./kernel/fs/ext3/ext3.ko
-/sbin/nash -> /tmp/initrd.Vz3928/bin/nash
-/sbin/insmod.static -> /tmp/initrd.Vz3928/bin/insmod
-/sbin/udev.static -> /tmp/initrd.Vz3928/sbin/udev
-/etc/udev/udev.conf -> /tmp/initrd.Vz3928/etc/udev/udev.conf
-copy from /lib/modules/2.6.9-5.EL/./kernel/fs/jbd/jbd.ko(elf32-i386) to /tmp/initrd.Vz3928/lib/jbd.ko(elf32-i386)
-copy from /lib/modules/2.6.9-5.EL/./kernel/fs/ext3/ext3.ko(elf32-i386) to /tmp/initrd.Vz3928/lib/ext3.ko(elf32-i386)
+...
 Loading module jbd
 Loading module ext3
 
 [root@localhost tmp]# file myinitrd.img
 myinitrd.img: gzip compressed data, from Unix, max compression
-
-[root@localhost tmp]# mv myinitrd.img  myinitrd.img.gz
-[root@localhost tmp]# gzip -d myinitrd.img.gz
-[root@localhost tmp]# file myinitrd.img
-myinitrd.img: ASCII cpio archive (SVR4 with no CRC)
 ```
-
-

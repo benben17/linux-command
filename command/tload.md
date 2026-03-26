@@ -1,40 +1,38 @@
 tload
 ===
 
-显示系统负载状况
+Display system load average
 
-## 补充说明
+## Description
 
-**tload命令** 以图形化的方式输出当前系统的平均负载到指定的终端。假设不给予终端机编号，则会在执行tload指令的终端机显示负载情形。
+The **tload command** graphically outputs the current system load average to a specified terminal. If no terminal number is given, the load situation is displayed on the terminal where the tload instruction is executed.
 
-###  语法
-
-```shell
-tload(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--s：指定闲时的刻度；
--d：指定间隔的时间（秒）。
+tload [options] [parameters]
 ```
 
-###  参数
+### Options
 
-终端：指定显示信息的终端设备文件。
+```shell
+-s: Specify the scale for idle time;
+-d: Specify the interval time (seconds).
+```
 
-###  实例
+### Parameters
 
-使用tload命令查看系统负载情况：
+Terminal: Specifies the terminal device file to display the information.
+
+### Examples
+
+Use the tload command to view system load:
 
 ```shell
 tload -d 1
-0.08, 0.02,0.01
+0.08, 0.02, 0.01
 0.04, 0.01, 0.00
 0.04, 0.01, 0.00
-0.04, 0.01,0.00
+0.04, 0.01, 0.00
 0.06, 0.02, 0.00
 ```
-
-

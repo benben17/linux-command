@@ -1,95 +1,94 @@
 blkid
 ===
 
-查看块设备的文件系统类型、LABEL、UUID等信息
+Locate/print block device attributes (file system type, LABEL, UUID, etc.).
 
-## 补充说明
+## Description
 
-在Linux下可以使用 **blkid命令** 对查询设备上所采用文件系统类型进行查询。blkid主要用来对系统的块设备（包括交换分区）所使用的文件系统类型、LABEL、UUID等信息进行查询。要使用这个命令必须安装e2fsprogs软件包。
+In Linux, the **blkid command** can be used to query the file system type used on a device. `blkid` is primarily used to query information such as the file system type, LABEL, and UUID used by the system's block devices (including swap partitions). To use this command, the `e2fsprogs` package must be installed.
 
-###  语法
+### Syntax
 
 ```shell
 blkid -L | -U
-blkid [-c ] [-ghlLv] [-o] [-s ][-t ] -[w ] [ ...]
-blkid -p [-s ] [-O ] [-S ][-o] ...
-blkid -i [-s ] [-o] ...
+blkid [-c <file>] [-ghlLv] [-o <format>] [-s <tag>] [-t <token>] [-w <file>] [<dev> ...]
+blkid -p [-s <tag>] [-O <offset>] [-S <size>] [-o <format>] <dev> ...
+blkid -i [-s <tag>] [-o <format>] <dev> ...
 ```
 
-###  选项
+### Options
 
 ```shell
--c <file>   # 指定cache文件(default: /etc/blkid.tab, /dev/null = none)
--d          # don't encode non-printing characters
--h          # 显示帮助信息
--g          # garbage collect the blkid cache
--o <format> # 指定输出格式
--k          # list all known filesystems/RAIDs and exit
--s <tag>    # 显示指定信息，默认显示所有信息
--t <token>  # find device with a specific token (NAME=value pair)
--l          # look up only first device with token specified by -t
--L <label>  # convert LABEL to device name
--U <uuid>   # convert UUID to device name
--v          # 显示版本信息
--w <file>   # write cache to different file (/dev/null = no write)
-<dev>       # specify device(s) to probe (default: all devices)
+-c <file>   # Specify a cache file (default: /etc/blkid.tab, /dev/null = none)
+-d          # Don't encode non-printing characters
+-h          # Display help information
+-g          # Garbage collect the blkid cache
+-o <format> # Specify the output format
+-k          # List all known filesystems/RAIDs and exit
+-s <tag>    # Display specified information, defaults to all information
+-t <token>  # Find device with a specific token (NAME=value pair)
+-l          # Look up only the first device with the token specified by -t
+-L <label>  # Convert LABEL to device name
+-U <uuid>   # Convert UUID to device name
+-v          # Display version information
+-w <file>   # Write cache to a different file (/dev/null = no write)
+<dev>       # Specify device(s) to probe (default: all devices)
+
 Low-level probing options:
--p          # low-level superblocks probing (bypass cache)
--i          # gather information about I/O limits
--S <size>   # overwrite device size
--O <offset> # probe at the given offset
--u <list>   # filter by "usage" (e.g. -u filesystem,raid)
--n <list>   # filter by filesystem type (e.g. -n vfat,ext3)
+-p          # Low-level superblocks probing (bypass cache)
+-i          # Gather information about I/O limits
+-S <size>   # Overwrite device size
+-O <offset> # Probe at the given offset
+-u <list>   # Filter by "usage" (e.g., -u filesystem,raid)
+-n <list>   # Filter by filesystem type (e.g., -n vfat,ext3)
 ```
 
-###  实例
+### Examples
 
-1、列出当前系统中所有已挂载文件系统的类型：
+1. List the types of all mounted file systems in the current system:
 
 ```shell
 sudo blkid
 ```
 
-2、显示指定设备 UUID：
+2. Display the UUID of a specified device:
 
 ```shell
 sudo blkid -s UUID /dev/sda5
 ```
 
-3、显示所有设备 UUID：
+3. Display the UUIDs of all devices:
 
 ```shell
 sudo blkid -s UUID
 ```
 
-4、显示指定设备 LABEL：
+4. Display the LABEL of a specified device:
 
 ```shell
 sudo blkid -s LABEL /dev/sda5
 ```
 
-5、显示所有设备 LABEL：
+5. Display the LABELs of all devices:
 
 ```shell
 sudo blkid -s LABEL
 ```
 
-6、显示所有设备文件系统：
+6. Display the file system type of all devices:
 
 ```shell
 sudo blkid -s TYPE
 ```
 
-7、显示所有设备：
+7. Display all devices:
 
 ```shell
 sudo blkid -o device
 ```
 
-8、以列表方式查看详细信息：
+8. View detailed information in list format:
 
 ```shell
 sudo blkid -o list
 ```
-
-

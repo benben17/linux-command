@@ -1,54 +1,52 @@
 blockdev
 ===
 
-从命令行调用区块设备控制程序
+Call block device ioctls from the command line.
 
-## 补充说明
+## Description
 
-**blockdev命令** 在命令调用“ioxtls”函数，以实现对设备的控制。
+The **blockdev command** calls `ioctl` functions from the command line to achieve control over devices.
 
-###  语法
-
-```shell
-blockdev(选项)(参数)
-```
-
-选项
+### Syntax
 
 ```shell
--V：打印版本号并退出；
--q：安静模式；
--v：详细信息模式；
---setro：只读；
---setrw：只写；
---getro：打印只读状态，“1”表示只读，“0”表示非只读；
---getss：打印扇区大小。通常为521；
---flushbufs：刷新缓冲区；
---rereadpt：重新读取分区表。
+blockdev [options] [parameters]
 ```
 
-###  参数
+### Options
 
-设备文件名：指定要操作的磁盘的设备文件名。
+```shell
+-V: Print version number and exit.
+-q: Quiet mode.
+-v: Verbose mode.
+--setro: Set read-only.
+--setrw: Set read-write.
+--getro: Print read-only status. "1" means read-only, "0" means not read-only.
+--getss: Print sector size. Usually 512.
+--flushbufs: Flush buffers.
+--rereadpt: Reread partition table.
+```
 
-###  实例
+### Parameters
 
-设置设备为只读：
+Device Filename: Specify the device filename of the disk to be operated on.
+
+### Examples
+
+Set a device to read-only:
 
 ```shell
 blockdev --setro /dev/hda4
 ```
 
-读取设备是否为只读：
+Check if a device is read-only:
 
 ```shell
 blockdev --getro /dev/hda4
 ```
 
-设置设别为可读写：
+Set a device to read-write:
 
 ```shell
 blockdev --setrw /dev/hda4
 ```
-
-

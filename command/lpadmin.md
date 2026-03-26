@@ -1,37 +1,35 @@
 lpadmin
 ===
 
-配置CUPS套件中的打印机和类
+Configure CUPS printers and classes
 
-## 补充说明
+## Description
 
-**lpadmin命令** 用于配置CUPS套件中的打印机和类，也被用来设置打印服务器默认打印机。
+The **lpadmin** command is used to configure printers and classes in the CUPS suite. It is also used to set the default printer for the print server.
 
-###  语法
-
-```shell
-lpadmin(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--c：将打印机加入类；
--i：为打印机设置“system V”风格的接口脚本；
--m：从mode目录设置一个标准的“system V”接口脚本或“PPD”文件；
--o：为“PPD”或服务器设置选项；
--r：从类中删除打印机；
--u：设置打印机用户级的访问控制；
--D：为打印机提供一个文字描述；
--E：允许打印机接受打印任务；
--L：为打印机位置提供一个文字描述；
--P：为打印机指定一个ppd描述文件；
--p：指定要配置的打印机名称；
--d：设置默认打印机。
+lpadmin (options) (parameters)
 ```
 
-###  参数
+### Options
 
-打印机：指定要配置的打印机的名称。
+```shell
+-c <class>: Add the printer to the specified class;
+-i <interface>: Set a System V style interface script for the printer;
+-m <model>: Set a standard System V interface script or PPD file from the model directory;
+-o <option=value>: Set an option for the PPD or server;
+-r <class>: Remove the printer from the specified class;
+-u <allow/deny:user>: Set user-level access control for the printer;
+-D <info>: Provide a textual description for the printer;
+-E: Enable the printer to accept print jobs;
+-L <location>: Provide a textual description of the printer's location;
+-P <ppd-file>: Specify a PPD (PostScript Printer Description) file for the printer;
+-p <printer>: Specify the name of the printer to configure;
+-d <printer>: Set the default printer.
+```
 
+### Parameters
 
+Printer: Specify the name of the printer to configure.

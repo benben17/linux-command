@@ -1,33 +1,32 @@
 ssh-copy-id
 ===
 
-把本地的ssh公钥文件安装到远程主机对应的账户下
+Install your public key in a remote machine's authorized_keys
 
-## 补充说明
+## Description
 
-**ssh-copy-id命令** 可以把本地主机的公钥复制到远程主机的authorized_keys文件上，ssh-copy-id命令也会给远程主机的用户主目录（home）和`~/.ssh`, 和`~/.ssh/authorized_keys`设置合适的权限。
+The **ssh-copy-id command** copies a local public key to the `authorized_keys` file on a remote host. It also ensures that the remote user's home directory, `~/.ssh`, and `~/.ssh/authorized_keys` have the correct permissions.
 
-**ssh-copy-id** 使用ssh登陆远程服务器，一般是通过密码校验用户身份，所以在sshd的配制中应该启用密码校验方式：
-  将/etc/ssh/sshd_config中的PasswordAuthentication设置为yes，之后重启sshd
-###  语法
+**ssh-copy-id** uses SSH to log into the remote server, typically via password authentication. Therefore, `PasswordAuthentication` should be enabled in the remote server's `sshd_config`:
+Set `PasswordAuthentication` to `yes` in `/etc/ssh/sshd_config`, then restart `sshd`.
+
+### Syntax
 
 ```shell
 ssh-copy-id [-i [identity_file]] [user@]machine
 ```
 
-###  选项
+### Options
 
 ```shell
--i：指定公钥文件
+-i: Specify the identity file (public key).
 ```
 
-###  实例
+### Examples
 
-1、把本地的ssh公钥文件安装到远程主机对应的账户下：
+1. Install the local public key to the remote host:
 
 ```shell
 ssh-copy-id user@server
 ssh-copy-id -i ~/.ssh/id_rsa.pub user@server
 ```
-
-

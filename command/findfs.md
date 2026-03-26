@@ -1,29 +1,27 @@
 findfs
 ===
 
-标签或UUID查找文件系统
+Find a filesystem by label or UUID.
 
-## 补充说明
+## Description
 
-**findfs命令** 依据卷标（Label）和UUID查找文件系统所对应的设备文件。findfs命令会搜索整个磁盘，看是否有匹配的标签或者UUID没有，如果有则打印到标注输出上。findfs命令也是e2fsprogs项目的一部分。
+The **findfs command** locates a filesystem device based on its volume label or UUID. The `findfs` command searches all disks in the system to find a match. If a match is found, the device name is printed to standard output. The `findfs` command is part of the `e2fsprogs` project.
 
-###  语法
+### Syntax
 
 ```shell
-findfs(参数)
+findfs (parameter)
 ```
 
-###  参数
+### Parameters
 
-`LABEL=<卷标>`或者`UUID=<UUID>`：按照卷标或者UUID查询文件系统。
+`LABEL=<label>` or `UUID=<uuid>`: Query the filesystem by its volume label or UUID.
 
-###  实例
+### Example
 
-通过卷标名查找对应的文件系统：
+Find the device corresponding to a volume label:
 
 ```shell
 findfs LABEL=/boot
 /dev/hda1
 ```
-
-

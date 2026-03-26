@@ -1,27 +1,27 @@
 dmesg
 ===
 
-显示Linux系统启动信息
+Display or control the kernel ring buffer.
 
-## 补充说明
+## Description
 
-**dmesg命令** 被用于检查和控制内核的环形缓冲区。kernel会将开机信息存储在ring buffer中。您若是开机时来不及查看信息，可利用dmesg来查看。开机信息保存在`/var/log/dmesg`文件里。
+The **dmesg** command is used to examine or control the kernel ring buffer. The kernel stores boot-up messages in this ring buffer. If you miss the messages during boot, you can use `dmesg` to view them later. Boot messages are also saved in the `/var/log/dmesg` file.
 
-###  语法 
-
-```shell
-dmesg(选项)
-```
-
-###  选项 
+### Syntax
 
 ```shell
--c：显示信息后，清除ring buffer中的内容；
--s<缓冲区大小>：预设置为8196，刚好等于ring buffer的大小；
--n：设置记录信息的层级。
+dmesg (options)
 ```
 
-###  实例 
+### Options
+
+```shell
+-c          Clear the ring buffer after printing its contents.
+-s <size>   Set the size of the buffer used to query the kernel ring buffer. The default is 8196.
+-n <level>  Set the level at which logging of messages is done to the console.
+```
+
+### Examples
 
 ```shell
 [root@localhost ~]# dmesg | head
@@ -37,7 +37,7 @@ BIOS-provided physical RAM map:
  BIOS-e820: 00000000e0000000 - 00000000e8000000 (reserved)
 ```
 
-查看硬盘基础信息
+View basic hard disk information:
 
 ```shell
 dmesg | grep sda
@@ -50,7 +50,7 @@ dmesg | grep sda
 [    2.448503] sd 0:0:0:0: [sda] Attached SCSI disk
 ```
 
-查看多关键字
+Search for multiple keywords:
 
 ```shell
 dmesg | grep -E "vcc5v0_host|vcc_3v3_s0|ttyS"

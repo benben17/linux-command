@@ -1,87 +1,86 @@
 let
 ===
 
-简单的计算器，执行算术表达式。
+A simple calculator for performing arithmetic expressions.
 
-## 概要
+## Synopsis
 
 ```shell
 let arg [arg ...]
 ```
 
-## 主要用途
+## Main Purpose
 
-- 执行一个或多个算术表达式。
+- Execute one or more arithmetic expressions.
 
-## 参数
+## Parameters
 
-arg：算术表达式
+arg: Arithmetic expression
 
-## 返回值
+## Return Value
 
-当`let`最后一个执行的表达式的计算结果为0时返回`1`，否则返回`0`。
-当`let`执行的表达式的除数为0时，返回`1`并报错。
+Returns `1` if the result of the last expression evaluated by `let` is 0; otherwise returns `0`.
+Returns `1` and an error message if an expression executed by `let` involves division by zero.
 
-## 运算符优先级递减表
+## Operator Precedence (Descending Order)
 
-|**运算符**|**描述**|
+| **Operator** | **Description** |
 |:-------:|:-------:|
-|```id++, id--```|```变量后增量、变量后减量```|
-|```++id, --id```|```变量预增量、变量预减量```|
-|```-, +```|```正号、负号```|
-|```!, ~```|```逻辑否、按位取反```|
-|```**```|```幂运算```|
-|```*, /, %```|```乘法、除法、取余```|
-|```+, -```|```加法、减法```|
-|```<<, >>```|```按位左移、右移```|
-|```<=, >=, <, >```|```比较```|
-|```==, !=```|```等于、不等于```|
-|```&```|```按位与```|
-|```^```|```按位异或```|
-|```\|```|```按位或```|
-|```&&```|```逻辑与```|
-|```\|\|```|```逻辑或```|
-|```expr ? expr : expr```|```条件运算符（三元运算符）```|
-|```=, *=, /=, %=, +=, -=,```<br>```<<=, >>=, &=, ^=, \|=```|```赋值```|
+| `id++, id--` | Variable post-increment, post-decrement |
+| `++id, --id` | Variable pre-increment, pre-decrement |
+| `-, +` | Unary minus, unary plus |
+| `!, ~` | Logical negation, bitwise negation |
+| `**` | Exponentiation |
+| `*, /, %` | Multiplication, division, modulo |
+| `+, -` | Addition, subtraction |
+| `<<, >>` | Bitwise left shift, right shift |
+| `<=, >=, <, >` | Comparison |
+| `==, !=` | Equality, inequality |
+| `&` | Bitwise AND |
+| `^` | Bitwise XOR |
+| `|` | Bitwise OR |
+| `&&` | Logical AND |
+| `||` | Logical OR |
+| `expr ? expr : expr` | Conditional (ternary) operator |
+| `=, *=, /=, %=, +=, -=,` <br> `<<=, >>=, &=, ^=, |=` | Assignment |
 
-
-## 例子
+## Examples
 
 ```shell
-# 尝试直接在终端中执行算术表达式（就像在python的IDLE）。
+# Attempting to execute an arithmetic expression directly in the terminal (like Python IDLE).
 3+4
-bash：3+4：command not found...
-# 换一种方式。
+bash: 3+4: command not found...
+# Trying another way.
 3 + 4
-bash：3：command not found...
-# 看来不行。
+bash: 3: command not found...
+# It seems it doesn't work directly.
 ```
 
 ```shell
-# let命令赋值。
+# Using the let command for assignment.
 let a=3**4
 echo ${a}
-# 显示81。
-# ((...))和let命令等效。
+# Output: 81
+# ((...)) is equivalent to the let command.
 ((a=3**4))
 ```
 
 ```shell
-# let常用于变量赋值，而外部命令expr可直接返回表达式的值。
+# let is commonly used for variable assignment, while the external command expr can directly return the value of an expression.
 let 3+4
-# 没有显示7。
-# 执行后显示7，注意空格。
+# No output (7 is not displayed).
+# This outputs 7; note the spaces.
 expr 3 + 4
 ```
 
 ```shell
-# 条件表达式。
+# Conditional expressions.
 if ((8>4)); then
   echo '8 is greater than 4.'
 else
   echo 'error'
 fi
-# 注意空格。
+# Note the spaces in the [[]] form.
 if [[ 12 -le 10 ]]; then
   echo 'error'
 else
@@ -90,33 +89,30 @@ fi
 ```
 
 ```shell
-# 可以通过declare命令设置整型属性的方法来进行算术运算。
-# local命令与此类似。
+# Arithmetic operations can be performed by setting the integer attribute with the declare command.
+# The local command works similarly.
 
-# 没有指定整型属性，输出为字符串'a+b'。
+# Integer attribute not specified; the output is the string 'a+b'.
 declare a=3 b=4 c
 c=a+b
 echo ${c}
-# 不过可以使用以下方式赋值。
+# However, you can assign it like this:
 c=$((a+b))
 echo ${c}
-# 显示7
+# Output: 7
 
-# 设置了整型属性就可以直接加了。
+# With the integer attribute set, you can perform addition directly.
 declare -i a=3 b=4 c
 c=a+b
 echo ${c}
-# 同上。
+# Same as above.
 declare -i a
 a=2*3
 echo ${a}
-# 显示6。
+# Output: 6
 ```
 
-### 注意
+### Notes
 
-1. 该命令是bash内建命令，相关的帮助信息请查看`help`命令。
-
-2. 执行算术计算的命令除了`let`，还有外部命令`expr`、`bc`等。
-
-
+1. This command is a Bash built-in; use the `help` command for more information.
+2. In addition to `let`, other commands for arithmetic calculation include external commands like `expr` and `bc`.

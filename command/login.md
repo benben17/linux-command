@@ -1,27 +1,25 @@
 login
 ===
 
-登录系统或切换用户身份
+Log into the system or switch user identity
 
-## 补充说明
+## Description
 
-**login命令** 用于给出登录界面，可用于重新登录或者切换用户身份，也可通过它的功能随时更换登入身份。在Slackware发行版中 ，您可在命令后面附加欲登入的用户名称，它会直接询问密码，等待用户输入。当`/etc/nologin`文件存在时，系统只root帐号登入系统，其他用户一律不准登入。
+The **login** command is used to provide a login interface for re-logging or switching user identities. In distributions like Slackware, you can append the username after the command, and it will prompt for the password. When the `/etc/nologin` file exists, only the root account can log into the system; other users are denied access.
 
-###  语法
-
-```shell
-login(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--p：告诉login指令不销毁环境变量；
--h：指定远程服务器的主机名。
+login (options) (parameters)
 ```
 
-###  参数
+### Options
 
-用户名：指定登录使用的用户名。
+```shell
+-p: Tell the login command not to destroy environment variables;
+-h: Specify the hostname of the remote server.
+```
 
+### Parameters
 
+Username: Specify the username to log in as.

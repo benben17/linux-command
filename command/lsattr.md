@@ -1,39 +1,37 @@
 lsattr
 ===
 
-查看文件的第二扩展文件系统属性
+List file attributes on a Linux second extended file system
 
-## 补充说明
+## Description
 
-**lsattr命令** 用于查看文件的第二扩展文件系统属性。
+The **lsattr command** is used to view the attributes of files on a Linux second extended file system (ext2/ext3/ext4).
 
-###  语法
-
-```shell
-lsattr(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--E：可显示设备属性的当前值，但这个当前值是从用户设备数据库中获得的，而不是从设备直接获得的。
--D：显示属性的名称，属性的默认值，描述和用户是否可以修改属性值的标志。
--R：递归的操作方式；
--V：显示指令的版本信息；
--a：列出目录中的所有文件，包括隐藏文件。
+lsattr [OPTION]... [FILE]...
 ```
 
-lsattr经常使用的几个选项-D，-E，-R这三个选项不可以一起使用，它们是互斥的，经常使用的还有-l,-H，使用lsattr时，必须指出具体的设备名，用-l选项指出要显示设备的逻辑名称，否则要用-c，-s，-t等选项唯一的确定某个已存在的设备。
+### Options
 
-###  参数
+```shell
+-E: Displays the current values of the device attributes.
+-D: Displays the attribute name, default value, description, and a flag indicating whether the user can modify the attribute value.
+-R: Recursively list attributes of directories and their contents.
+-V: Display the program version.
+-a: List all files in directories, including dot files.
+```
 
-文件：指定显示文件系统属性的文件名。
+The frequently used options -D, -E, and -R are mutually exclusive and cannot be used together. When using `lsattr`, a specific device name must be provided. Use the -l option to specify the logical name of the device, or use -c, -s, -t options to uniquely identify an existing device.
 
-###  实例
+### Parameters
+
+File: The file(s) for which to display file system attributes.
+
+### Examples
 
 ```shell
 lsattr -E -l rmt0 -H
 lsattr -EO -l rmt0
 ```
-
-

@@ -1,77 +1,76 @@
 hcitool
 ===
 
-hcitool是一个Linux命令行工具，用于管理和调试蓝牙设备。它可以用于扫描周围的蓝牙设备、连接到蓝牙设备发送命令和数据包等。
+`hcitool` is a Linux command-line tool used for managing and debugging Bluetooth devices. It can be used to scan for nearby Bluetooth devices, connect to them, and send HCI (Host Controller Interface) commands and data packets.
 
-## 安装
+## Installation
 
-hcitool是一个Linux命令行工具，通常已经预装在大多数Linux行版中。如果您的系统中没有安装hcitool，可以使用以下命令进行安装(debian系列发行示例)
+`hcitool` is a standard Linux command-line utility and is typically pre-installed on most Linux distributions. If it is not installed, you can install it using the following command (example for Debian-based distributions):
 
 ```bash
 sudo apt-get install bluez
 ```
 
-## 使用
-注意事项：
-1. 使用ble相关命令需要提权如:lescan
+## Usage
+Note: Using Bluetooth Low Energy (BLE) related commands typically requires elevated privileges (e.g., `sudo hcitool lescan`).
 
-
-### 语法
+### Syntax
 
 `hcitool [options] <command> [command parameters]`
 
-### 命令
+### Commands
 
-```bash
-    dev  显示本地设备
-    inq  查询远程设备
-    scan 扫描远程设备
-    name 从远程设备获取名称
-    info 从远程设备获取信息
-    spinq   启动定期查询
-    epinq   退出定期查询
-    cmd 提交任意HCI命令
-    con 显示活动连接
-    cc 创建到远程设备的连接
-    dc 断开与远程设备的连接
-    sr 交换机中心/外围角色
-    cpt 更改连接数据包类型
-    rssi 显示连接rssi
-    lq 显示链路质量
-    tpl 显示发射功率电平
-    afh 显示afh通道图
-    lp 设置/显示链接策略设置
-    lst 设置/显示链接监控超时
-    auth 请求身份验证
-    enc 设置连接加密
-    key 更改连接链接键
-    clkoff 读取时钟偏移
-    clock 读取本地或远程时钟
-    lescan 启动LE扫描
-    leinfo 获取LE远程信息
-    lealadd 将设备添加到LE接受列表
-    lealrm 从LE接受列表中删除设备
-    lealsz LE接受列表的读取大小
-    lealclr 清除LE接受列表 
-
+```text
+    dev     Display local devices
+    inq     Inquire remote devices
+    scan    Scan for remote devices
+    name    Get name from remote device
+    info    Get information from remote device
+    spinq   Start periodic inquiry
+    epinq   Exit periodic inquiry
+    cmd     Submit arbitrary HCI commands
+    con     Display active connections
+    cc      Create a connection to a remote device
+    dc      Disconnect from a remote device
+    sr      Switch central/peripheral role
+    cpt     Change connection packet type
+    rssi    Display connection RSSI
+    lq      Display link quality
+    tpl     Display transmit power level
+    afh     Display AFH channel map
+    lp      Set/display link policy settings
+    lst     Set/display link supervision timeout
+    auth    Request authentication
+    enc     Set connection encryption
+    key     Change connection link key
+    clkoff  Read clock offset
+    clock   Read local or remote clock
+    lescan  Start LE scan
+    leinfo  Get LE remote information
+    lealadd Add device to LE accept list
+    lealrm  Remove device from LE accept list
+    lealsz  Read size of LE accept list
+    lealclr Clear LE accept list
 ```
-### 常用简单示例
-1.扫描周围的蓝牙设备
+
+### Common Examples
+
+1. Scan for nearby Bluetooth devices:
 
 `hcitool scan`
 
-2.通过mac地址连接到蓝牙设备
+2. Connect to a Bluetooth device via its MAC address:
 
-`hcitool cc <MAC地址>`
+`hcitool cc <MAC_ADDRESS>`
 
-3.显示当前蓝牙适配器信息
+3. Display information about local Bluetooth adapters:
 
 `hcitool dev`
 
-4.通过mac地址找到蓝牙名称
+4. Retrieve the Bluetooth name for a specific MAC address:
 
-`hcitool name <MAC地址>`
+`hcitool name <MAC_ADDRESS>`
 
-5.显示当前蓝牙活动连接信息
+5. Display current active Bluetooth connections:
 
 `hcitool con`

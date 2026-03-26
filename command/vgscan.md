@@ -1,40 +1,38 @@
 vgscan
 ===
 
-扫描并显示系统中的卷组
+Scan and display volume groups in the system.
 
-## 补充说明
+## Description
 
-**vgscan命令** 查找系统中存在的LVM卷组，并显示找到的卷组列表。vgscan命令仅显示找到的卷组的名称和LVM元数据类型，要得到卷组的详细信息需要使用vgdisplay命令。
+The **vgscan command** searches for existing LVM volume groups in the system and displays a list of the groups found. The vgscan command only displays the names and LVM metadata types of the volume groups found; to get detailed information about a volume group, the vgdisplay command must be used.
 
-### 语法
-
-```shell
-vgscan(选项)
-```
-
-### 选项
+### Syntax
 
 ```shell
--d：调试模式；
---ignorerlockingfailure：忽略锁定失败的错误。
+vgscan (option)
 ```
 
-### 实例
-
-使用vgscan命令扫描系统中所有的卷组。在命令行中输入下面的命令：
+### Options
 
 ```shell
-[root@localhost ~]# vgscan     #扫描并显示LVM卷组列表
+-d: Debug mode;
+--ignorerlockingfailure: Ignore errors related to locking failures.
 ```
 
-输出信息如下：
+### Examples
+
+Use the vgscan command to scan all volume groups in the system. Enter the following command at the command line:
+
+```shell
+[root@localhost ~]# vgscan     # Scan and display the list of LVM volume groups
+```
+
+The output information is as follows:
 
 ```shell
 Found volume group "vg2000" using metadata type lvm2  
 Found volume group "vg1000" using metadata type lvm2 
 ```
 
-说明：本例中，vgscan指令找到了两个LVM2卷组"vg1000"和"vg2000"。
-
-
+Note: In this example, the vgscan command found two LVM2 volume groups, "vg1000" and "vg2000".

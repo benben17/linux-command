@@ -1,30 +1,26 @@
-quotaon
-===
+# quotaon
 
-激活Linux内核中指定文件系统的磁盘配额功能
+Activate the disk quota function for the specified file systems in the Linux kernel.
 
-## 补充说明
+## Description
 
-**quotaon命令** 执行quotaon指令可开启磁盘对用户和群组的空间使用限制，但在开启前，各分区的文件系统根目录必须存在通过quotacheck命令创建的quota配置文件。
+Executing the **quotaon** command enables disk space usage limits for users and groups. However, before enabling them, the root directory of each partition's file system must contain the quota configuration files created by the `quotacheck` command.
 
-###  语法
-
-```shell
-quotaon(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--a：开启在/ect/fstab文件里，有加入quota设置的分区的空间限制；
--g：开启群组的磁盘空间限制；
--u：开启用户的磁盘空间限制；
--v：显示指令指令执行过程。
+quotaon [options] [parameters]
 ```
 
-###  参数
+### Options
 
-文件系统：指定要激活磁盘配额功能的文件系统。
+```shell
+-a: Enable space limits for partitions in /etc/fstab that have quota settings included.
+-g: Enable disk space limits for groups.
+-u: Enable disk space limits for users.
+-v: Display the process of command execution (verbose mode).
+```
 
+### Parameters
 
-
+File system: Specifies the file system for which the disk quota functionality should be activated.

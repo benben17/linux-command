@@ -1,78 +1,72 @@
 bc
 ===
 
-算术操作精密运算工具
+An arbitrary precision calculator language.
 
-## 补充说明
+## Description
 
-**bc命令** 是一种支持任意精度的交互执行的计算器语言。bash内置了对整数四则运算的支持，但是并不支持浮点运算，而bc命令可以很方便的进行浮点运算，当然整数运算也不再话下。
+The **bc command** is a calculator language that supports arbitrary-precision interactive execution. `bash` built-in support for integer arithmetic exists, but it does not support floating-point operations. The `bc` command can easily perform floating-point calculations, and of course, integer calculations are also supported.
 
-###  语法
-
-```shell
-bc(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--i：强制进入交互式模式；
--l：定义使用的标准数学库；
--w：对POSIX bc的扩展给出警告信息；
--q：不打印正常的GNU bc环境信息；
--v：显示指令版本信息；
--h：显示指令的帮助信息。
+bc [options] [parameters]
 ```
 
-###  参数
+### Options
 
-文件：指定包含计算任务的文件。
+```shell
+-i: Force interactive mode.
+-l: Define the standard math library to be used.
+-w: Give warnings for extensions to POSIX bc.
+-q: Do not print the normal GNU bc welcome message.
+-v: Display version information.
+-h: Display help information.
+```
 
-###  实例
+### Parameters
 
-算术操作高级运算bc命令它可以执行浮点运算和一些高级函数：
+File: Specify a file containing calculation tasks.
+
+### Examples
+
+Advanced arithmetic operations using the `bc` command; it can perform floating-point calculations and some advanced functions:
 
 ```shell
 echo "1.212*3" | bc 
 3.636
-
 ```
 
-设定小数精度（数值范围）
+Set decimal precision (scale):
 
 ```shell
 echo "scale=2;3/8" | bc
 0.37
-
 ```
 
-参数`scale=2`是将bc输出结果的小数位设置为2位。
+The parameter `scale=2` sets the number of decimal places in the `bc` output to 2.
 
-进制转换
+Base conversion:
 
 ```shell
 #!/bin/bash
 abc=192
 echo "obase=2;$abc" | bc
-
 ```
 
-执行结果为：11000000，这是用bc将十进制转换成二进制。
+The result is `11000000`, which is using `bc` to convert decimal to binary.
 
 ```shell
 #!/bin/bash
 abc=11000000
 echo "obase=10;ibase=2;$abc" | bc
-
 ```
 
-执行结果为：192，这是用bc将二进制转换为十进制。
+The result is `192`, which is using `bc` to convert binary to decimal.
 
-计算平方和平方根：
+Calculate square and square root:
 
 ```shell
 echo "10^10" | bc
 echo "sqrt(100)" | bc
 ```
-
-

@@ -1,48 +1,45 @@
 bg
 ===
 
-将前台终端作业移动到后台运行
+Move foreground jobs to the background.
 
-## 概要
+## Synopsis
 
 ```shell
 bg [job_spec ...]
 ```
 
-## 主要用途
+## Main Purpose
 
-- 用于将作业放到后台运行，使前台可以执行其他任务。该命令的运行效果与在指令后面添加符号`&`的效果是相同的，都是将其放到系统后台执行。
+- Used to place jobs in the background, allowing other tasks to be executed in the foreground. The effect of running this command is the same as adding the symbol `&` after a command, both of which execute it in the system background.
 
-- 若后台任务中只有一个，则使用该命令时可以省略任务号。
+- If there is only one job in the background, the job ID can be omitted when using this command.
 
-## 参数
+## Parameters
 
-job_spec（可选）：指定要移动到后台执行的作业标识符，可以是一到多个。
+job_spec (optional): Specifies the identifier of the job(s) to be moved to the background for execution. Multiple identifiers can be specified.
 
-## 返回值
+## Return Value
 
-返回成功除非未开启作业控制或发生了错误。
+Returns success unless job control is not enabled or an error occurs.
 
-## 例子
+## Examples
 
 ```shell
-# 运行sleep命令，然后按下ctrl+z。
+# Run the sleep command, then press Ctrl+z.
 sleep 60
 ^Z
 [1]+  Stopped                 sleep 60
 
-# 使用bg命令使得作业在后台运行。
+# Use the bg command to make the job run in the background.
 bg %1
 
-# 返回信息：
+# Return information:
 [1]+ sleep 60 &
 ```
 
-### 注意
+### Notes
 
-1. `bash`的作业控制命令包括`bg fg kill wait disown suspend`。
-2. 该命令需要`set`选项`monitor`处于开启状态时才能执行；查看作业控制状态：输入`set -o`查看`monitor`行；执行`set -o monitor`或`set -m`开启该选项。
-3. 该命令是bash内建命令，相关的帮助信息请查看`help`命令。
-
-
-
+1. Bash's job control commands include `bg`, `fg`, `kill`, `wait`, `disown`, and `suspend`.
+2. This command requires the `monitor` option of `set` to be enabled; check the job control status by typing `set -o` and looking for the `monitor` line; execute `set -o monitor` or `set -m` to enable this option.
+3. This command is a bash built-in; for related help information, please use the `help` command.

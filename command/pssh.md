@@ -1,23 +1,23 @@
 pssh
 ===
 
-批量管理执行
+Parallel SSH for batch management
 
-## 补充说明
+## Description
 
-**pssh命令** 是一个python编写可以在多台服务器上执行命令的工具，同时支持拷贝文件，是同类工具中很出色的，类似pdsh，个人认为相对pdsh更为简便，使用必须在各个服务器上配置好密钥认证访问。
+The **pssh command** is a tool written in Python for executing commands on multiple servers simultaneously. It also supports copying files and is considered an excellent tool in its class, similar to `pdsh` but often seen as simpler. It requires SSH key authentication to be configured on each server.
 
-### 安装pssh
+### Installing pssh
 
-在CentOS系统环境下，介绍yum的安装和源码安装的方式：
+On CentOS systems, you can install it via yum or from source:
 
- **yum方法** 
+ **Using yum** 
 
 ```shell
 yum install pssh
 ```
 
- **编译安装** 
+ **Installing from source** 
 
 ```shell
 wget http://parallel-ssh.googlecode.com/files/pssh-2.3.1.tar.gz
@@ -26,30 +26,30 @@ cd pssh-2.3.1/
 python setup.py install
 ```
 
-### 选项
+### Options
 
 ```shell
---version：查看版本
---help：查看帮助，即此信息
--h：主机文件列表，内容格式”[user@]host[:port]”
--H：主机字符串，内容格式”[user@]host[:port]”
--：登录使用的用户名
--p：并发的线程数【可选】
--o：输出的文件目录【可选】
--e：错误输入文件【可选】
--t：TIMEOUT 超时时间设置，0无限制【可选】
--O：SSH的选项
--v：详细模式
--A：手动输入密码模式
--x：额外的命令行参数使用空白符号，引号，反斜线处理
--X：额外的命令行参数，单个参数模式，同-x
--i：每个服务器内部处理信息输出
--P：打印出服务器返回信息
+--version: View version.
+--help: View help/this information.
+-h: Hosts file list, format "[user@]host[:port]".
+-H: Host string, format "[user@]host[:port]".
+-l: User name for login.
+-p: Number of concurrent threads [optional].
+-o: Output directory [optional].
+-e: Error output file [optional].
+-t: TIMEOUT setting, 0 for unlimited [optional].
+-O: SSH options.
+-v: Verbose mode.
+-A: Manual password input mode.
+-x: Extra command-line arguments, handling white spaces, quotes, and backslashes.
+-X: Extra command-line arguments, single argument mode, same as -x.
+-i: Output internal processing information for each server.
+-P: Print information returned by the server.
 ```
 
-### 实例
+### Examples
 
-获取每台服务器的uptime：
+Get uptime for each server:
 
 ```shell
 # pssh -h ip.txt -i uptime
@@ -61,7 +61,7 @@ python setup.py install
 11:15:12 up 4 days, 16:26,  2 users,  load average: 0.08, 0.02, 0.01
 ```
 
-查看每台服务器上mysql复制IO/SQL线程运行状态信息：
+Check MySQL replication IO/SQL thread status on each server:
 
 ```shell
 # pssh -h IP.txt -i "/usr/local/mysql/bin/mysql -e 'show slave status \G'"|grep Running:
@@ -73,7 +73,7 @@ python setup.py install
             Slave_SQL_Running: Yes
 ```
 
-保存每台服务器运行的结果：
+Save results from each server:
 
 ```shell
 # pssh -h IP.txt -i -o /tmp/pssh/ uptime
@@ -85,14 +85,14 @@ python setup.py install
 11:19:56 up 4 days, 16:30,  1 user,  load average: 0.00, 0.00, 0.00
 ```
 
-我们来看一下/tmp/pssh/下的文件及其内容
+Let's look at the files and contents in /tmp/pssh/
 
 ```shell
 # ll /tmp/pssh/
-总用量 12
--rw-r--r--. 1 root root 70 12月  1 11:19 Feb.mars.he
--rw-r--r--. 1 root root 70 12月  1 11:19 Jan.mars.he
--rw-r--r--. 1 root root 69 12月  1 11:19 Mar.mars.he
+Total 12
+-rw-r--r--. 1 root root 70 Dec  1 11:19 Feb.mars.he
+-rw-r--r--. 1 root root 70 Dec  1 11:19 Jan.mars.he
+-rw-r--r--. 1 root root 69 Dec  1 11:19 Mar.mars.he
 
 # cat /tmp/pssh/*
 11:19:55 up 4 days, 16:31,  2 users,  load average: 0.02, 0.03, 0.00
@@ -100,6 +100,4 @@ python setup.py install
 11:19:56 up 4 days, 16:30,  1 user,  load average: 0.00, 0.00, 0.00
 ```
 
-上面介绍的是pssh命令很少的一部分，大家可以将其用到适合自己的场景，发挥它的最大功效。
-
-
+The above covers only a small part of the pssh command. You can adapt it to your specific scenarios for maximum effectiveness.

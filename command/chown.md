@@ -1,45 +1,43 @@
 chown
 ===
 
-用来变更文件或目录的拥有者或所属群组
+Used to change the owner or group ownership of files or directories
 
-## 补充说明
+## Description
 
-**chown命令** 改变某个文件或目录的所有者和所属的组，该命令可以向某个用户授权，使该用户变成指定文件的所有者或者改变文件所属的组。用户可以是用户或者是用户D，用户组可以是组名或组id。文件名可以使由空格分开的文件列表，在文件名中可以包含通配符。
+The **chown command** changes the owner and group of a file or directory. This command can authorize a user to become the owner of a specified file or change the group the file belongs to. The user can be a username or a user ID, and the group can be a group name or a group ID. The filename can be a space-separated list of files and can include wildcards.
 
-只有文件主和超级用户才可以使用该命令。
+Only the owner of the file and the superuser can use this command.
 
-###  语法
-
-```shell
-chown(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--c或——changes：效果类似“-v”参数，但仅回报更改的部分；
--f或--quite或——silent：不显示错误信息；
--h或--no-dereference：只对符号连接的文件作修改，而不更改其他任何相关文件；
--R或——recursive：递归处理，将指定目录下的所有文件及子目录一并处理；
--v或——verbose：显示指令执行过程；
---dereference：效果和“-h”参数相同；
---help：在线帮助；
---reference=<参考文件或目录>：把指定文件或目录的拥有者与所属群组全部设成和参考文件或目录的拥有者与所属群组相同；
---version：显示版本信息。
+chown [options] [arguments]
 ```
 
-###  参数
+### Options
 
-用户：组：指定所有者和所属工作组。当省略“：组”，仅改变文件所有者；  
-文件：指定要改变所有者和工作组的文件列表。支持多个文件和目标，支持shell通配符。
+```shell
+-c or --changes: Like verbose but report only when a change is made.
+-f or --quiet or --silent: Suppress most error messages.
+-h or --no-dereference: Affect symbolic links instead of any referenced file.
+-R or --recursive: Change files and directories recursively.
+-v or --verbose: Output a diagnostic for every file processed.
+--dereference: Same as -h (Note: in some versions --dereference means follow symlinks).
+--help: Online help.
+--reference=<reference_file_or_directory>: Use the owner and group of the reference file/directory for the target.
+--version: Display version information.
+```
 
-###  实例
+### Arguments
 
-将目录`/usr/meng`及其下面的所有文件、子目录的文件主改成 liu：
+User:Group: Specify the owner and group. If ":Group" is omitted, only the owner is changed.
+File: Specify the list of files to change. Supports multiple files, directories, and shell wildcards.
+
+### Examples
+
+Change the owner of the directory `/usr/meng` and all its contents to `liu`:
 
 ```shell
 chown -R liu /usr/meng
 ```
-
-

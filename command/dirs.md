@@ -1,42 +1,42 @@
 dirs
 ===
 
-显示目录堆栈。
+Display the directory stack.
 
-## 语法
+## Syntax
 
 ```shell
 dirs [-clpv] [+N] [-N]
 ```
 
-## 主要用途
+## Description
 
-- 显示目录堆栈。
-- 清空目录堆栈。
+- Display the directory stack.
+- Clear the directory stack.
 
-## 选项
+## Options
 
 ```shell
--c    清空目录堆栈。
--l    堆栈内以~开头的目录在显示时展开。
--p    将目录堆栈内的每一个目录按行显示。
--v    将目录堆栈内的每一个目录按行显示并在每行前加上堆栈内的位置编号。
+-c    Clear the directory stack by deleting all of the entries.
+-l    Produce a listing using full pathnames; the default listing format uses a tilde to denote the home directory.
+-p    Print the directory stack with one entry per line.
+-v    Print the directory stack with one entry per line, prefixing each entry with its index in the stack.
 ```
 
-## 参数
+## Parameters
 
-+N（可选）：不带参数执行`dirs`命令显示的列表中，左起的第N个目录将被显示。（从0开始计数）
++N (Optional): Displays the Nth entry counting from the left of the list printed by `dirs` when invoked without options, starting with zero.
 
--N（可选）：不带参数执行`dirs`命令显示的列表中，右起的第N个目录将被显示。（从0开始计数）
+-N (Optional): Displays the Nth entry counting from the right of the list printed by `dirs` when invoked without options, starting with zero.
 
-## 返回值
+## Return Value
 
-返回成功除非提供了非法选项或执行出现错误。
+Returns success unless an invalid option is provided or an error occurs.
 
-## 例子
+## Examples
 
 ```shell
-# 添加目录到堆栈。
+# Add directories to the stack.
 [user2@pc ~]$ dirs
 ~
 [user2@pc ~]$ pushd -n ~/Desktop
@@ -46,7 +46,7 @@ dirs [-clpv] [+N] [-N]
 [user2@pc ~]$ pushd -n ~/bin
 ~ ~/bin ~/Pictures ~/Desktop
 
-# 选项和参数的示例：
+# Examples of options and parameters:
 [user2@pc ~]$ dirs -l
 /home/user2 /home/user2/bin /home/user2/Pictures /home/user2/Desktop
 [user2@pc ~]$ dirs -p
@@ -68,10 +68,8 @@ dirs [-clpv] [+N] [-N]
 ~
 ```
 
-### 注意
+### Notes
 
-1. `bash`的目录堆栈命令包括`dirs popd pushd`。
-2. 当前目录始终是目录堆栈的顶部。
-3. 该命令是bash内建命令，相关的帮助信息请查看`help`命令。
-
-
+1. Bash directory stack commands include `dirs`, `popd`, and `pushd`.
+2. The current directory is always at the top of the directory stack.
+3. This is a Bash built-in command. For more help, use the `help` command.

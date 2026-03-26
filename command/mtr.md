@@ -1,34 +1,34 @@
 mtr
 ===
 
-`mtr` 结合了 `traceroute` 和 `ping` 程序的功能，是一款简单的网络诊断工具
+Network diagnostic tool that combines the functionality of `traceroute` and `ping`
 
-## 补充说明
+## Description
 
-用于调查 mtr 运行的主机与用户指定的目标主机之间的网络连接。在确定机器之间每个网络跳转的地址后，它会向每台机器发送一系列 ICMP ECHO 请求，以确定与每台机器的链路质量。在此过程中，它会打印每台机器的运行统计数据。
+**mtr** is used to investigate the network connection between the host it is running on and a user-specified destination host. After determining the address of each network hop between machines, it sends a series of ICMP ECHO requests to each machine to determine the quality of the link. During this process, it prints performance statistics for each hop.
 
-Debian 发行版已经内置了 `mtr`,其它发行版可自行安装，支持主流操作系统。
-可以访问其[官网](https://www.bitwizard.nl/mtr)详细了解。
+The `mtr` command is often built-in on Debian-based distributions and can be installed on other distributions. it supports most major operating systems.
+For more details, visit the [official website](https://www.bitwizard.nl/mtr).
 
-###  语法
+### Syntax
 
 ```shell
-mtr (参数) (目标ip/域名)
+mtr [options] [target_ip/domain]
 ```
 
-###  参数
+### Parameters
 
-| 参数 | 解释  
----- | ----  
-`-r` | 以报告模式显示
-`-c` | 发送数据包大小
-`-n` | 不用主机名解释
-`-s` | 指定ping数据包的大小
-`--report` | 不动态显示结果
+| Parameter | Description |
+| --------- | ----------- |
+| `-r`      | Report mode: displays a report after the specified number of cycles. |
+| `-c`      | Number of pings to send to each hop (default is 10). |
+| `-n`      | No DNS resolution: displays IP addresses instead of hostnames. |
+| `-s`      | Specify the size of the ping packets. |
+| `--report`| Same as `-r`, output results in report mode instead of interactive display. |
 
-###  实例
+### Examples
 
-使用 `-r` 参数显示报告：
+Use the `-r` parameter to display a report:
 
 ```shell
 [root@localhost ~]# mtr -r github.com
@@ -51,7 +51,7 @@ HOST: WIKIHOST                    Loss%   Snt   Last   Avg  Best  Wrst  StDev
  15.|-- 20.205.243.166             0.0%    10   35.7  35.8  35.7  35.9   0.0
 ```
 
-使用 `-c` 参数设置每秒发送数据包数量：
+Use the `-c` parameter to set the number of packets sent:
 
 ```shell
 [root@localhost ~]# mtr -r -c 30 github.com
@@ -74,7 +74,7 @@ HOST: WIKIHOST                    Loss%   Snt   Last   Avg  Best  Wrst  StDev
  15.|-- 20.205.243.166             0.0%    30   35.7  35.8  35.6  35.8   0.0
 ```
 
-使用 `-s` 参数指定 `ping` 数据包的大小：
+Use the `-s` parameter to specify the size of `ping` packets:
 
 ```shell
 [root@localhost ~]# mtr -r -c 30 -s 1024 github.com

@@ -1,39 +1,37 @@
 groupadd
 ===
 
-用于创建一个新的工作组
+Create a new group.
 
-## 补充说明
+## Supplemental Information
 
-**groupadd命令** 用于创建一个新的工作组，新工作组的信息将被添加到系统文件中。
+The **groupadd command** is used to create a new group. The information for the new group will be added to the system files.
 
-###  语法
-
-```shell
-groupadd(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--g：指定新建工作组的id；
--r：创建系统工作组，系统工作组的组ID小于500；
--K：覆盖配置文件“/etc/login.defs”；
--o：允许添加组ID号不唯一的工作组。
+groupadd (options) (parameters)
 ```
 
-###  参数
+### Options
 
-组名：指定新建工作组的组名。
+```shell
+-g: Specify the numerical value of the group's ID (GID);
+-r: Create a system group (typically with a GID less than 500 or 1000, depending on the system);
+-K: Overwrite configuration defaults from /etc/login.defs;
+-o: Allow the creation of a group with a non-unique GID.
+```
 
-###  实例
+### Parameters
 
-建立一个新组，并设置组ID加入系统：
+Group Name: The name of the group to be created.
+
+### Examples
+
+Create a new group with a specific group ID:
 
 ```shell
 groupadd -g 344 jsdigname
 ```
 
-此时在`/etc/passwd`文件中产生一个组ID（GID）是344的项目。
-
-
+This will create an entry in the `/etc/group` file with a GID of 344.

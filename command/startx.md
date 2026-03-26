@@ -1,56 +1,56 @@
 startx
 ===
 
-用来启动X Window
+Used to start X Window
 
-## 补充说明
+## Description
 
-**startx命令** 用来启动X Window，实际上启动X Window的程序为xinit。
+The **startx command** is used to start X Window. In reality, the program that starts X Window is `xinit`.
 
-###  语法
+### Syntax
 
 ```shell
-startx(参数)
+startx (parameters)
 ```
 
-###  参数
+### Parameters
 
-*   客户端及选项：X客户端及选项；
-*   服务器及选项：X服务器及选项。
+* Client and options: X client and its options.
+* Server and options: X server and its options.
 
-###  实例
+### Examples
 
-要在工作站上或 X 终端上启动 X 会话，请输入：
+To start an X session on a workstation or X terminal, enter:
 
 ```shell
 startx
 ```
 
-要在工作站上强制启动 X 会话，请输入： 
+To force start an X session on a workstation, enter:
 
 ```shell
 startx -w
 ```
 
-要为 X 终端启动 X 会话，并注销用户的 telnet 会话，请输入：
+To start an X session for an X terminal and log out the user's telnet session, enter:
 
 ```shell
 startx; kill -9 $
 ```
 
-要使用 .xinitrc 脚本启动 X 会话，请输入：
+To start an X session using a `.xinitrc` script, enter:
 
 ```shell
 startx -x .xinitrc
 ```
 
-要使用 mwm 窗口管理器启动 X 会话，请输入：
+To start an X session using the `mwm` window manager, enter:
 
 ```shell
 startx -m mwm
 ```
 
-但是，如果找到启动脚本文件，则忽略`-w`选项。在启动脚本中，启动窗口管理器、装入X资源以及产生X客户机是用户的责任。以下是.xsession脚本的一个示例。
+However, if a startup script file is found, the `-w` option is ignored. In the startup script, it is the user's responsibility to start the window manager, load X resources, and spawn X clients. Below is an example of a `.xsession` script:
 
 ```shell
 #!/bin/csh
@@ -65,26 +65,24 @@ startx -m mwm
  endif
 ```
 
-对于工作站，startup脚本中的最后一行应该是前台aixterm命令，该命令带有`-C`选项表示控制台信息。对于X终端，startup脚本中的最后一行应该是不带有`-C`选项的前台aixterm命令。另外，由于某些X终端在关闭时不终止telnet会话，所以用户必须在使用热键切换至X会话前退出当前的telnet会话。
+For workstations, the last line in the startup script should be a foreground `aixterm` command with the `-C` option for console messages. For X terminals, the last line should be a foreground `aixterm` command without the `-C` option. Additionally, since some X terminals do not terminate the telnet session when closed, users must exit the current telnet session before switching to the X session using a hotkey.
 
-`/usr/lib/X11/xdm/Xsession`文件中的xdm命令也可以使用startx命令。这为xdm命令提供了startx命令的功能。
+The `xdm` command in the `/usr/lib/X11/xdm/Xsession` file can also use the `startx` command. This provides the `xdm` command with the functionality of the `startx` command.
 
-以下是启动X会话一贯使用的文件名。
+The following are file names consistently used to start X sessions:
 
 ```shell
-$HOME/.xerrors 其中，startx 用来重定向错误消息。在缺省情况下，startx 将错误重定向至用户主目录中的 .xerrors 文件中。
+$HOME/.xerrors     File where startx redirects error messages. By default, startx redirects errors to the .xerrors file in the user's home directory.
 $HOME/.Xinit,  
 $HOME/.xinit,  
 $HOME/.Xinitrc,  
 $HOME/.xinitrc,  
-$HOME/.xsession 作为包含 shell 命令的“启动文件”来启动窗口管理器、装入 X 资源并产生 X 客户机。
+$HOME/.xsession    Acts as a "startup file" containing shell commands to start the window manager, load X resources, and spawn X clients.
 $HOME/.Xdefaults,  
-$HOME/.xresources 作为装入的 X 资源文件来设置 X 客户机的用户首选项。
-$HOME/.mwmrc mwm 配置文件。
-$HOME/.twmrc twm 配置文件。
-$HOME/.awmrc awm 配置文件。
-$HOME/.uwmrc uwm 配置文件。
-/dev/lft* 终端或 tty、工作站初始 login shell 的界面。
+$HOME/.xresources  Acts as a loaded X resource file to set user preferences for X clients.
+$HOME/.mwmrc       mwm configuration file.
+$HOME/.twmrc       twm configuration file.
+$HOME/.awmrc       awm configuration file.
+$HOME/.uwmrc       uwm configuration file.
+/dev/lft*          Interface for terminal or tty, workstation initial login shell.
 ```
-
-

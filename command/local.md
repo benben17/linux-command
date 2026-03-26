@@ -1,50 +1,41 @@
 local
 ===
 
-在函数内定义局部变量。
+Define local variables within a function.
 
-## 概要
+## Synopsis
 
 ```shell
 local [-aAfFgilnrtux] [-p] [name[=value] ...]
 ```
 
-## 主要用途
+## Main Purpose
 
-- 在函数内定义局部变量
-- 显示局部变量
-- 在函数内定义全局变量
+- Define local variables within a function.
+- Display local variables.
+- Define global variables within a function (depending on attributes).
 
-## 选项
+## Options
 
-```shell
-local命令的选项与declare命令的相同，请参考declare命令的选项。
-```
+The options for `local` are the same as those for `declare`; please refer to the `declare` command for details.
 
-## 参数
+## Parameters
 
-name（可选）：变量名或已定义函数名。
+name (optional): Variable name or defined function name.
+value (optional): The value to assign to the variable.
 
-value（可选）：变量的值。
+## Return Value
 
-## 返回值
+`local` returns true unless an invalid option is provided, an assignment error occurs, or the command is used outside of a function.
 
-`local`返回true除非你提供了非法选项、赋值错误或是在函数外使用`local`命令。
+## Examples
 
-## 例子
+Please refer to the `declare` command for relevant examples.
 
-```shell
-相关例子请参考declare命令
-```
+## Incorrect Usage
 
-## 错误用法
+- Using this command outside of a function.
 
-- 在函数外使用该命令。
+### Notes
 
-
-### 注意
-
-1. 该命令是bash内建命令，相关的帮助信息请查看`help`命令以及`man bash`、`info bash`的相应部分。
-
-
-
+1. This command is a Bash built-in; refer to the `help` command or the Bash manual (`man bash`, `info bash`) for more information.

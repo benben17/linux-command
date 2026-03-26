@@ -1,35 +1,35 @@
 arping
 ===
 
-通过发送ARP协议报文测试网络
+Test the network by sending ARP protocol packets
 
-## 补充说明
+## Additional Information
 
-**arping命令** 是用于发送arp请求到一个相邻主机的工具，arping使用arp数据包，通过ping命令检查设备上的硬件地址。能够测试一个ip地址是否是在网络上已经被使用，并能够获取更多设备信息。功能类似于ping。
+The **arping command** is a tool used to send ARP requests to an adjacent host. `arping` uses ARP packets to check the hardware address on a device via a mechanism similar to the `ping` command. It can test whether an IP address is already in use on the network and retrieve more device information. Its functionality is similar to `ping`.
 
-###  语法
-
-```shell
-arping(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--b：用于发送以太网广播帧（FFFFFFFFFFFF）。arping一开始使用广播地址，在收到响应后就使用unicast地址。
--q：quiet output不显示任何信息；
--f：表示在收到第一个响应报文后就退出；
--w timeout：设定一个超时时间，单位是秒。如果到了指定时间，arping还没到完全收到响应则退出；
--c count：表示发送指定数量的ARP请求数据包后就停止。如果指定了deadline选项，则arping会等待相同数量的arp响应包，直到超时为止；
--s source：设定arping发送的arp数据包中的SPA字段的值。如果为空，则按下面处理，如果是DAD模式（冲突地址探测），则设置为0.0.0.0，如果是Unsolicited ARP模式（Gratuitous ARP）则设置为目标地址，否则从路由表得出；
--I interface：设置ping使用的网络接口。
+arping (options) (parameters)
 ```
 
-###  参数
+### Options
 
-目的主机：指定发送ARP报文的目的主机。
+```shell
+-b: Used to send Ethernet broadcast frames (FFFFFFFFFFFF). arping starts with a broadcast address and uses a unicast address after receiving a response.
+-q: Quiet output; do not display any information.
+-f: Exit after receiving the first response packet.
+-w timeout: Set a timeout in seconds. If the specified time is reached and arping has not fully received a response, it exits.
+-c count: Stop after sending the specified number of ARP request packets. If the deadline option is specified, arping waits for the same number of ARP response packets until the timeout occurs.
+-s source: Set the value of the SPA field in the ARP packets sent by arping. If empty, it is handled as follows: in DAD mode (Duplicate Address Detection), it is set to 0.0.0.0; in Unsolicited ARP mode (Gratuitous ARP), it is set to the target address; otherwise, it is derived from the routing table.
+-I interface: Set the network interface used for pinging.
+```
 
-###  实例
+### Parameters
+
+Destination host: Specifies the destination host to which the ARP packets are sent.
+
+### Examples
 
 ```shell
 [root@localhost ~]# arping www.baidu.com 
@@ -45,5 +45,3 @@ Unicast reply from 220.181.111.147 [00:D0:03:BC:48:00]  2.042ms
 Sent 8 probes (1 broadcast(s))
 Received 8 response(s)
 ```
-
-

@@ -1,38 +1,36 @@
 tempfile
 ===
 
-shell中给临时文件命名
+Naming temporary files in the shell
 
-## 补充说明
+## Description
 
-有时候在写Shell脚本的时候需要一些临时存储数据的才做，最适合存储临时文件数据的位置就是`/tmp`，因为该目录中所有的内容在系统重启后就会被清空。下面是两种方法为临时数据生成标准的文件名。
+Sometimes when writing shell scripts, you need temporary storage for data. The most suitable location for temporary file data is `/tmp`, because all content in this directory is cleared after a system reboot. Below are two methods for generating standard filenames for temporary data.
 
-###  tempfile命令
+### tempfile command
 
-`tempfile命令`只有在基于Debian的发行版中才默认自带，比如Ubuntu，其他发行版没有这个命令。
+The `tempfile` command is only included by default in Debian-based distributions, such as Ubuntu. Other distributions may not have this command.
 
-用tempfile命令为一个临时文件命名：
+Use the `tempfile` command to name a temporary file:
 
 ```shell
 temp_file_name=$(tempfile)
 ```
 
-用一个加带了随机数的文件名作为临时文件命名：
+Name a temporary file with a filename that includes a random number:
 
 ```shell
 temp_file_name="/tmp/file_$RANDOM"
 ```
 
-$RANDOM是一个返回随机数的环境变量。
+`$RANDOM` is an environment variable that returns a random number.
 
-###  $$变量
+### $$ variable
 
-如果没有tempfile命令的Linux发行版，也可以使用自己的临时文件名：
+In Linux distributions without the `tempfile` command, you can use your own temporary filename:
 
 ```shell
-temp_file_name="/tmp/file.$"
+temp_file_name="/tmp/file.$$"
 ```
 
-`$$`是系统预定义变量，显示当前所在进程的进程号，用`.$$`作为添加的后缀会被扩展成当前运行脚本的进程id。
-
-
+`$$` is a pre-defined system variable that displays the process ID of the current process. Using `.$$` as a suffix will expand to the process ID of the currently running script.

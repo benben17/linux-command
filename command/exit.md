@@ -1,51 +1,52 @@
 exit
 ===
 
-退出当前的shell。
+Exit the current shell.
 
-## 概要
+## Synopsis
 
 ```shell
 exit [n]
 ```
 
-## 主要用途
+## Description
 
-- 执行exit可使shell以指定的状态值退出。若不设置参数，则以最后一条命令的返回值作为exit的返回值退出。
+- Executing `exit` causes the shell to terminate with the specified exit status `n`.
+- If `n` is omitted, the exit status is that of the last command executed.
 
-## 参数
+## Parameters
 
-n（可选）：指定的shell返回值（整数）。
+n (optional): The specified shell return value (an integer).
 
-## 返回值
+## Return Value
 
-返回值为你指定的参数n的值，如果你指定的参数大于255或小于0，那么会通过加或减256的方式使得返回值总是处于0到255之间。
+Returns the value specified by `n`. If `n` is greater than 255 or less than 0, the value is normalized to the range 0 to 255 (e.g., by adding or subtracting 256).
 
-## 例子
+## Examples
 
-退出当前shell：
+Exit the current shell:
 
 ```shell
 [root@localhost ~]# exit
 logout
 ```
 
-也可以使用`ctrl+d`退出当前终端，下面列出了打开或关闭该功能的方法：
+You can also use `Ctrl+D` to exit the terminal. Here is how to enable or disable this feature:
 
 ```shell
-# 打开ctrl+d退出终端
-set -o ignoreeof
-# 关闭ctrl+d退出终端
+# Enable Ctrl+D to exit terminal
 set +o ignoreeof
+# Disable Ctrl+D to exit terminal
+set -o ignoreeof
 ```
 
-在脚本中，进入脚本所在目录，否则退出：
+In a script, enter the script's directory or exit:
 
 ```shell
 cd $(dirname $0) || exit 1
 ```
 
-在脚本中，判断参数数量，不匹配就打印使用方式，退出：
+In a script, check the number of arguments; exit if it doesn't match:
 
 ```shell
 if [ "$#" -ne "2" ]; then
@@ -54,13 +55,13 @@ if [ "$#" -ne "2" ]; then
 fi
 ```
 
-在脚本中，退出时删除临时文件：
+In a script, delete temporary files upon exiting:
 
 ```shell
 trap "rm -f tmpfile; echo Bye." EXIT
 ```
 
-检查上一命令的退出码：
+Check the exit code of the previous command:
 
 ```shell
 ./mycommand.sh
@@ -70,8 +71,6 @@ if [ "$EXCODE" == "0" ]; then
 fi
 ```
 
-### 注意
+### Note
 
-1. 该命令是bash内建命令，相关的帮助信息请查看`help`命令。
-
-
+1. This is a bash built-in command. For more help, use the `help` command.

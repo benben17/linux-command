@@ -1,31 +1,29 @@
 smbpasswd
 ===
 
-samba用户和密码管理工具
+Samba user and password management tool.
 
-## 补充说明
+## Description
 
-**smbpasswd命令** 属于samba套件，能够实现添加或删除samba用户和为用户修改密码。
+The **smbpasswd command** is part of the Samba suite and is used to add or delete Samba users and change their passwords.
 
-###  语法
-
-```shell
-smbpasswd(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--a：向smbpasswd文件中添加用户；
--c：指定samba的配置文件；
--x：从smbpasswd文件中删除用户；
--d：在smbpasswd文件中禁用指定的用户；
--e：在smbpasswd文件中激活指定的用户；
--n：将指定的用户的密码置空。
+smbpasswd [option] [parameter]
 ```
 
-###  参数
+### Options
 
-用户名：指定要修改SMB密码的用户。
+```shell
+-a: Add a user to the smbpasswd file;
+-c: Specify the Samba configuration file;
+-x: Delete a user from the smbpasswd file;
+-d: Disable the specified user in the smbpasswd file;
+-e: Enable the specified user in the smbpasswd file;
+-n: Set the specified user's password to null.
+```
 
+### Parameters
 
+Username: Specify the user whose SMB password is to be modified.

@@ -1,44 +1,44 @@
 mpstat
 ===
 
-显示各个可用CPU的状态
+Display statistics for each available CPU
 
-## 补充说明
+## Description
 
-**mpstat命令** 主要用于多CPU环境下，它显示各个可用CPU的状态信息。这些信息存放在`/proc/stat`文件中。在多CPUs系统里，其不但能查看所有CPU的平均状况信息，而且能够查看特定CPU的信息。
+The **mpstat command** is primarily used in multi-processor environments to display statistics for each available CPU. This information is sourced from the `/proc/stat` file. In multi-CPU systems, it can display both average statistics across all CPUs and details for specific individual CPUs.
 
-###  语法
-
-```shell
-mpstat [选项] [<间隔时间> [<次数>]]
-```
-
-###  选项
+### Syntax
 
 ```shell
--P：指定CPU编号。
+mpstat [options] [<interval> [<count>]]
 ```
 
-###  参数
+### Options
 
-- 间隔时间：每次报告的间隔时间（秒）；
-- 次数：显示报告的次数。
+```shell
+-P: Specify the CPU number (or "ALL").
+```
 
-###  表头含义
-- %user：表示处理用户进程所使用CPU的百分比。
-- %nice：表示在用户级别处理经nice降级的程序所使用CPU的百分比。
-- %system：表示内核进程使用的CPU百分比。
-- %iowait：表示等待进行I/O所占用CPU时间百分比。
-- %irq：表示用于处理系统中断的CPU百分比。
-- %soft：表示用于处理软件中断的CPU百分比。
-- %steal：在管理程序为另一个虚拟处理器服务时，显示虚拟的一个或多个CPU在非自愿等待中花费的时间的百分比。
-- %guest：表示一个或多个CPU在运行虚拟处理器时所花费的时间百分比。
-- %gnice：表示一个或多个CPU在运行经nice降级后的虚拟处理器时所花费的时间百分比。
-- %idle：CPU的空闲时间百分比。
+### Parameters
 
-###  实例
+- interval: Time in seconds between each report.
+- count: Number of reports to generate.
 
-当mpstat不带参数时，输出为从系统启动以来的平均值。
+### Column Meanings
+- %user: Percentage of CPU utilization that occurred while executing at the user level (application).
+- %nice: Percentage of CPU utilization that occurred while executing at the user level with nice priority.
+- %system: Percentage of CPU utilization that occurred while executing at the system level (kernel).
+- %iowait: Percentage of time that the CPU or CPUs were idle during which the system had an outstanding disk I/O request.
+- %irq: Percentage of time spent by the CPU or CPUs to service hardware interrupts.
+- %soft: Percentage of time spent by the CPU or CPUs to service software interrupts.
+- %steal: Percentage of time spent in involuntary wait by the virtual CPU or CPUs while the hypervisor was servicing another virtual processor.
+- %guest: Percentage of time spent by the CPU or CPUs to run a virtual processor.
+- %gnice: Percentage of time spent by the CPU or CPUs to run a niced guest.
+- %idle: Percentage of time that the CPU or CPUs were idle and the system did not have an outstanding disk I/O request.
+
+### Examples
+
+When `mpstat` is run without parameters, it displays average values since system startup.
 
 ```shell
 mpstat
@@ -48,9 +48,9 @@ Linux 3.10.0-1160.71.1.el7.x86_64 (centos)      08/14/2022      _x86_64_        
 04:28:36 PM  all    0.03    0.00    0.07    0.00    0.00    0.01    0.00    0.00    0.00   99.89
 ```
 
- **每2秒产生了全部处理器的统计数据报告：** 
+**Generate reports for all processors every 2 seconds:**
 
-下面的命令可以每2秒产生全部处理器的统计数据报告，一共产生三个interval的信息，最后再给出这三个interval的平均信息。默认时，输出是按照CPU号排序。第一个行给出了2秒内所有处理器使用情况。接下来每行对应一个处理器使用情况。
+The following command generates statistics for all processors every 2 seconds, for a total of three intervals, followed by an average of those three intervals. By default, output is sorted by CPU number. The first line of each interval shows the combined utilization of all processors (`all`).
 
 ```shell
 mpstat -P ALL 2 3
@@ -85,15 +85,15 @@ Average:       2    0.00    0.00    0.00    0.00    0.00    0.17    0.00    0.00
 Average:       3    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00  100.00
 ```
 
- **比较带参数和不带参数的mpstat的结果：** 
+**Comparing results with and without parameters:**
 
-对localhost进行压力测试
+Performing a stress test on localhost:
 
 ```shell
 ping -f localhost
 ```
 
-然后在另一个终端运行mpstat命令
+Then run `mpstat` in another terminal:
 
 ```shell
 mpstat
@@ -103,17 +103,9 @@ Linux 3.10.0-1160.71.1.el7.x86_64 (centos)      08/15/2022      _x86_64_        
 09:34:20 AM  all    0.03    0.00    0.07    0.00    0.00    0.02    0.00    0.00    0.00   99.88
 ```
 
-上文说到：当mpstat不带参数时，输出为从系统启动以来的平均值，所以这看不出什么变化。
+As mentioned before, without parameters, `mpstat` displays the average since startup, so you might not see immediate changes.
 
-```shell
-mpstat
-Linux 3.10.0-1160.71.1.el7.x86_64 (centos)      08/15/2022      _x86_64_        (4 CPU)
-
-09:34:40 AM  CPU    %usr   %nice    %sys %iowait    %irq   %soft  %steal  %guest  %gnice   %idle
-09:34:40 AM  all    0.03    0.00    0.07    0.00    0.00    0.02    0.00    0.00    0.00   99.88
-```
-
-只有加上间隔时间才能显示某一段时间CPU的使用情况
+To see real-time CPU usage during a specific period, you must specify an interval:
 
 ```shell
 mpstat 3 10
@@ -133,4 +125,4 @@ Linux 3.10.0-1160.71.1.el7.x86_64 (centos)      08/15/2022      _x86_64_        
 Average:     all    3.44    0.00    7.28    0.00    0.00    6.52    0.00    0.00    0.00   82.76
 ```
 
-上两表显示出当要正确反映系统的情况，需要正确使用命令的参数。vmstat 和iostat 也需要注意这一问题。
+This demonstrates that to correctly reflect system status, you must use command parameters appropriately. The same applies to `vmstat` and `iostat`.

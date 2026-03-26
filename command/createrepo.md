@@ -1,147 +1,148 @@
 createrepo
 ===
 
-创建YUM仓库
+Create a YUM repository
 
-## 概要
+## Synopsis
 
 ```shell
-createrepo [选项] <目录>
+createrepo [options] <directory>
 ```
 
-## 描述
+## Description
 
-`createrepo`是一个程序，它从一组RPM创建一个RPM元数据存储库，即YUM仓库。
+`createrepo` is a program that creates RPM metadata from a set of RPMs, forming a RPM metadata repository (YUM repository).
 
-## 选项
+## Options
 
 ```shell
--u  --baseurl <url>
-# 指定Base URL的地址
+-u --baseurl <url>
+# Specify the base URL for the repository.
 
 -o --outputdir <url>
-# 指定元数据的输出位置
+# Specify the directory where the metadata should be generated.
 
 -x --excludes <packages>
-# 指定在形成元数据时需要排除的包
+# Specify packages to exclude when generating metadata.
 
 -i --pkglist <filename>
-# 指定一个文件，该文件内的包信息将被包含在即将生成的元数据中，格式为每个包信息独占一行，不含通配符、正则，以及范围表达式。
+# Specify a file containing a list of packages to include in the metadata. Each package name should be on its own line. Wildcards and regular expressions are not supported.
 
 -n --includepkg
-# 通过命令行指定要纳入本地库中的包信息，需要提供URL或本地路径。
+# Specify packages to include via command line (URL or local path).
 
 -q --quiet
-# 安静模式执行操作，不输出任何信息。
+# Quiet mode; suppress output.
 
 -g --groupfile <groupfile>
-# 指定本地软件仓库的组划分，示例：createrepo -g comps.xml /path/to/rpms
-# 注意：组文件需要和rpm包放置于同一路径下。
+# Specify a group file (e.g., comps.xml) for the repository. 
+# Note: The group file should be in the same directory as the RPM packages.
+# Example: createrepo -g comps.xml /path/to/rpms
 
 -v --verbose
-# 输出详细信息。
+# Output detailed information.
 
 -c --cachedir <path>
-# 指定一个目录，用作存放软件仓库中软件包的校验和信息。
-# 当createrepo在未发生明显改变的相同仓库文件上持续多次运行时，指定cachedir会明显提高其性能。
+# Specify a directory for caching package checksums.
+# This significantly improves performance when running createrepo repeatedly on the same repository with few changes.
 
 --basedir
-# Basedir为repodata中目录的路径，默认为当前工作目录。
+# The base directory path for directories in repodata. Defaults to the current working directory.
 
 --update
-# 如果元数据已经存在，且软件仓库中只有部分软件发生了改变或增减，
-# 则可用update参数直接对原有元数据进行升级，效率比重新分析rpm包依赖并生成新的元数据要高很多。
+# If metadata already exists and only some packages have changed, this option updates the existing metadata instead of re-analyzing everything. It is much faster.
 
 --skip-stat
-# 跳过--update上的stat()调用，假设如果文件名相同，则文件仍然相同(仅在您相当信任或容易受骗时使用此方法)。
+# Skip stat() calls when using --update. Assumes that if the filename hasn't changed, the file itself hasn't changed.
 
 --update-md-path
-# 从这个路径使用现有的repodata来升级。
+# Use existing repodata from this path to perform an update.
 
 -C --checkts
-# 不要生成回购元数据，如果它们的时间戳比rpm更新。如果您碰巧开启了该选项，则此选项将再次大幅减少处理时间一个未修改的回购，但它(目前)与——split选项互斥。注意:当包从repo中删除时，这个命令不会注意到。使用——update来处理这个。
+# Do not generate metadata if the existing metadata is newer than the RPMs. This reduces processing time for unmodified repositories but is incompatible with the --split option.
 
 --split
-# 在拆分媒体模式下运行。与其传递单个目录，不如获取一组对应于媒体集中不同卷的目录。
+# Run in split-media mode. Instead of a single directory, it processes a set of directories corresponding to different volumes in a media set.
 
 -p --pretty
-# 以整洁的格式输出xml文件。
+# Output formatted (pretty) XML files.
 
 --version
-# 输出版本。
+# Output version information.
 
 -h --help
-# 显示帮助菜单。
+# Display the help menu.
 
 -d --database
-# 该选项指定使用SQLite来存储生成的元数据，默认项。
+# Generate SQLite databases for the metadata (default).
 
 --no-database
-# 不要在存储库中生成sqlite数据库。
+# Do not generate SQLite databases.
 
 -S --skip-symlinks
-# 忽略包的符号链接
+# Ignore symbolic links to packages.
 
 -s --checksum
-# 选择repmed .xml中使用的校验和类型以及元数据中的包。默认值现在是“sha256”(如果python有hashlib)。旧的默认值是“sha”，它实际上是“sha1”，但是显式使用“sha1”在旧版本(3.0.x)的yum上不起作用，您需要指定“sha”。
+# Choose the checksum type (e.g., md5, sha1, sha256). The default is now "sha256" (if hashlib is available).
 
 --profile
-# 输出基于时间的分析信息。
+# Output time-based profiling information.
 
 --changelog-limit CHANGELOG_LIMIT
-# 只将每个rpm中的最后N个变更日志条目导入元数据
+# Include only the last N changelog entries from each RPM.
 
 --unique-md-filenames
-# 在元数据文件名中包含文件的校验和，有助于HTTP缓存(默认)
+# Include a checksum in the metadata filenames to help with HTTP caching (default).
 
 --simple-md-filenames
-# 不要在元数据文件名中包含文件的校验和。
+# Do not include checksums in metadata filenames.
 
 --retain-old-md
-# 保留旧repodata的最新(按时间戳)N个副本(这样使用旧repodata .xml文件的客户端仍然可以访问它)。默认为0。
+# Keep the N most recent versions of the metadata (so clients with old repomd.xml files can still access it). Default is 0.
 
 --distro
-指定发行版标签。可以多次指定。可选语法，指定cpeid(http://cpe.mitre.org/)——distro=cpeid,distrotag
+# Specify distribution tags. Can be specified multiple times.
 
 --content
-# 指定关于存储库内容的关键字/标记。可以多次指定。
+# Specify keywords/tags regarding the repository's content.
 
 --repo
-# 指定关于存储库本身的关键字/标签。可以多次指定。
+# Specify keywords/tags regarding the repository itself.
 
 --revision
-# 存储库修订的任意字符串。
+# An arbitrary string for the repository revision.
 
 --deltas
-# 告诉createrepo生成增量数据和增量元数据
+# Generate delta RPMs and delta metadata.
 
 --oldpackagedirs PATH
-# 寻找更老的PKGS来对抗的路径。可以指定多次吗
+# Path to look for older packages for delta generation.
 
 --num-deltas int
-# 要进行增量处理的旧版本的数量。默认为1
+# The number of old versions to process for deltas. Default is 1.
 
 --read-pkgs-list READ_PKGS_LIST
-# 使用——update将路径输出到PKGS实际读起来很有用
+# Useful with --update to output paths to packages that were actually read.
 
 --max-delta-rpm-size MAX_DELTA_RPM_SIZE
-# 要运行deltarpm的RPM的最大大小(以字节为单位)
+# Maximum size in bytes for RPMs to be processed for deltas.
 
 --workers WORKERS
-# 为读取RPMS而生成的工作线程数
+# Number of worker threads to spawn for reading RPMs.
 
 --compress-type
-# 指定要使用的压缩方法:compat(默认)，xz(可能不可用)，gz, bz2。
-
+# Specify the compression method: compat (default), xz, gz, bz2.
 ```
 
-## 返回值
+## Return Value
 
-返回状态为成功除非给出了非法选项或非法参数。
+Returns 0 on success, and non-zero on failure.
 
-## 例子
+## Examples
 
 ```shell
-# 生成带有groups文件的存储库。注意groups文件应该和rpm包在同一个目录下(即/path/to/rpms/comps.xml)。
+# Generate a repository with a groups file. 
+# Note that the groups file should be in the same directory as the RPMs.
 createrepo -g comps.xml /path/to/rpms
 ```
+观察

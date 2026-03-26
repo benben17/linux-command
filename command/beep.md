@@ -1,108 +1,104 @@
 beep
 ===
 
-用于控制 PC 扬声器发出蜂鸣声的命令行工具。
+A command-line tool to control the PC speaker to emit beeps.
 
-## 介绍
+## Introduction
 
-`beep` 是一个用于精确控制 PC 扬声器发出蜂鸣声的命令行工具。它可以生成不同频率、时长、重复次数和延迟的蜂鸣音，支持将多个音调组合成序列，或根据标准输入（stdin）的换行符/字符触发蜂鸣。该工具常用于 shell 或 Perl 脚本中，在特定事件发生时向用户发出音频提示。
+`beep` is a command-line utility for precise control of the PC speaker to emit beeps. It can generate beeps of different frequencies, durations, repetitions, and delays, supports combining multiple tones into sequences, or triggering beeps based on newlines/characters from standard input (stdin). This tool is commonly used in shell or Perl scripts to provide audio alerts to users when specific events occur.
 
-**注意**：`beep` 需要 PC 扬声器硬件支持，通常需要加载 `pcspkr` 内核模块，并且对输出设备具有写入权限。
+**Note**: `beep` requires PC speaker hardware support, usually needs the `pcspkr` kernel module loaded, and requires write permission to the output device.
 
-## 安装
+## Installation
 Debian/Ubuntu:
 ```bash
 sudo apt install beep
 ```
 
-RedHel/Centos/Fedora:
+RedHat/Centos/Fedora:
 ```bash
 sudo yum install beep
 ```
 
-## 语法
+## Syntax
 ```bash
-beep [全局选项] [音调选项] [-n|--new 音调选项...]...
+beep [global options] [tone options] [-n|--new tone options...]...
 beep [-h|--help]
 beep [-v|-V|--version]
 ```
 
-## 选项说明
+## Options
 
-### 信息选项
-| 选项            | 描述                               |
+### Information Options
+| Option            | Description                               |
 |----------------|-----------------------------------|
-| `-h, --help`   | 显示帮助信息并退出。                 |
-| `-v, -V, --version` | 显示版本信息并退出。           |
+| `-h, --help`   | Display help information and exit.                 |
+| `-v, -V, --version` | Display version information and exit.           |
 
-### 全局选项
-| 选项                       | 描述                                                         |
+### Global Options
+| Option                       | Description                                                         |
 |---------------------------|-------------------------------------------------------------|
-| `-e, --device=DEVICE`     | 显式指定用于输出蜂鸣的设备。若不指定，`beep` 会依次尝试内部设备列表直到成功。 |
-| `--debug, --verbose`      | 启用详细输出，显示调试信息。                                 |
+| `-e, --device=DEVICE`     | Explicitly specify the device used for beep output. If not specified, `beep` will try an internal list of devices until successful. |
+| `--debug, --verbose`      | Enable detailed output, showing debug information.                                 |
 
-### 音调选项
-每个音调可以由以下选项组合定义。若未指定，使用默认值。
+### Tone Options
+Each tone can be defined by a combination of the following options. If not specified, default values are used.
 
-| 选项                | 描述                                                                 |
+| Option                | Description                                                                 |
 |--------------------|---------------------------------------------------------------------|
-| `-f FREQ`          | 设置蜂鸣频率（单位：Hz）。必须满足 0 < FREQ < 20000。可接受浮点数，但内核 API 会取整为整数。默认值：440 Hz。 |
-| `-l LEN`           | 设置蜂鸣时长（单位：ms）。默认值：200 ms。                          |
-| `-r REPEATS`       | 设置当前音调的重复次数（包括延迟）。默认值：1（仅一次，无重复）。    |
-| `-d DELAY`         | 设置重复之间的延迟（单位：ms），**不**在最后一次重复后添加延迟。默认值：100 ms。 |
-| `-D DELAY`         | 设置重复之间的延迟（单位：ms），**并**在最后一次重复后也添加该延迟。默认无延迟。 |
-| `-n, --new`        | 开始定义一个新的音调。每个 `-n` 之后可以跟一组新的音调选项，新音调继承所有默认值，直到被显式选项覆盖。 |
-| `-s`               | 将 `beep` 置于输入处理模式：从标准输入读取数据，每遇到一个**换行符**就发出当前定义的音调一次，同时将输入数据原样复制到标准输出。 |
-| `-c`               | 与 `-s` 类似，但每遇到一个**字符**就触发一次蜂鸣。                  |
+| `-f FREQ`          | Set beep frequency (unit: Hz). Must satisfy 0 < FREQ < 20000. Floating point numbers are accepted, but the kernel API will round them to integers. Default: 440 Hz. |
+| `-l LEN`           | Set beep duration (unit: ms). Default: 200 ms.                          |
+| `-r REPEATS`       | Set the number of repetitions for the current tone (including delays). Default: 1 (only once, no repetition).    |
+| `-d DELAY`         | Set the delay between repetitions (unit: ms), **not** adding delay after the last repetition. Default: 100 ms. |
+| `-D DELAY`         | Set the delay between repetitions (unit: ms), **and** adding the delay after the last repetition. Default: no delay. |
+| `-n, --new`        | Start defining a new tone. Each `-n` can be followed by a new set of tone options; the new tone inherits all default values until overridden by explicit options. |
+| `-s`               | Put `beep` in input processing mode: read data from stdin, emit the currently defined tone once for every **newline** encountered, while copying the input data to stdout as is. |
+| `-c`               | Similar to `-s`, but triggers a beep for every **character** encountered.                  |
 
-**注意**：
-- `-d` 和 `-D` 的区别：`-r 3 -d 100` 产生：蜂鸣、延迟、蜂鸣、延迟、蜂鸣（结束）；`-r 3 -D 100` 产生：蜂鸣、延迟、蜂鸣、延迟、蜂鸣、延迟（结束）。
-- 在一个由 `-n` 连接的多个音调序列中，**只能有一个音调**带有 `-s` 或 `-c`。`beep` 会先播放该音调之前的所有音调，然后进入输入处理模式，根据输入重复该音调，直到输入结束（EOF），最后再播放剩余的音调（如果有）。
-- 如果某个选项在命令行中重复出现，后面的选项会覆盖前面的。
+**Note**:
+- Difference between `-d` and `-D`: `-r 3 -d 100` produces: beep, delay, beep, delay, beep (end); `-r 3 -D 100` produces: beep, delay, beep, delay, beep, delay (end).
+- In a sequence of multiple tones connected by `-n`, **only one tone** can have `-s` or `-c`. `beep` will first play all tones before that tone, then enter input processing mode, repeat that tone according to input until EOF, and finally play any remaining tones.
+- If an option appears multiple times on the command line, the later one overrides the earlier one.
 
-
-## 环境变量
-| 变量名            | 描述                                                                 |
+## Environment Variables
+| Variable Name            | Description                                                                 |
 |------------------|---------------------------------------------------------------------|
-| `BEEP_LOG_LEVEL` | 设置日志级别（取值范围 -999 到 999）。若未在命令行使用 `--debug`，则以此值为默认日志级别。 |
+| `BEEP_LOG_LEVEL` | Set log level (range -999 to 999). If `--debug` is not used on the command line, this value is used as the default log level. |
 
+## Files
+`beep` tries to open the following devices in order until successful:
+- `/dev/input/by-path/platform-pcspkr-event-spkr` (using evdev API)
+- `/dev/tty0` (using console API)
+- `/dev/vc/0` (using console API)
 
-## 文件
-`beep` 默认依次尝试打开以下设备，直到成功为止：
-- `/dev/input/by-path/platform-pcspkr-event-spkr`（使用 evdev API）
-- `/dev/tty0`（使用 console API）
-- `/dev/vc/0`（使用 console API）
-
-
-## 退出状态
-| 状态码 | 含义                     |
+## Exit Status
+| Status Code | Meaning                     |
 |--------|--------------------------|
-| 0      | 成功执行                 |
-| 非0    | 发生错误（如设备无法打开、无效参数等） |
+| 0      | Successful execution                 |
+| Non-zero    | Error occurred (e.g., device cannot be opened, invalid parameters, etc.) |
 
+## Notes
 
-## 注意事项
+### Device and Permissions
+- **Non-root users**: By default, `/dev/tty0` and `/dev/vc/0` require root privileges or ownership of the current TTY. It is recommended to use the evdev device `/dev/input/by-path/platform-pcspkr-event-spkr`, where appropriate permissions can be set via udev rules so that normal users can also use `beep`.
+- `beep` **does not support** running as setuid root or via `sudo`. Please authorize through file permissions or udev rules.
+- If the command does not execute correctly, please check if the `pcspkr` module is loaded.
 
-### 设备和权限
-- **非 root 用户**：默认情况下，`/dev/tty0` 和 `/dev/vc/0` 需要 root 权限或拥有当前 TTY。推荐使用 evdev 设备 `/dev/input/by-path/platform-pcspkr-event-spkr`，可以通过 udev 规则为该设备设置适当的权限，使普通用户也能使用 `beep`。
-- `beep` **不支持**以 setuid root 或通过 `sudo` 运行。请通过文件权限或 udev 规则授权。
-- 如果命令不能正常执行，请检查 `pcspkr` 模块是否加载。
+### API Description
+- **evdev**: Uses the input event device driver via `write()` operations. Opening the device takes about 20ms, so to play a melody, it's recommended to use multiple tones in a single `beep` command (via `-n`) rather than multiple calls to `beep`.
+- **console**: Uses the old `KIOCSOUND ioctl` interface, which is only available without root when the user is logged into a virtual console (e.g., `/dev/tty4`) and owns that terminal. Not applicable for users logged in via SSH or a graphical interface.
 
-### API 说明
-- **evdev**：使用输入事件设备驱动，通过 `write()` 操作。打开设备耗时约 20ms，因此若要演奏旋律，建议在单个 `beep` 命令中使用多个音调（通过 `-n`），而不是多次调用 `beep`。
-- **console**：使用古老的 `KIOCSOUND ioctl` 接口，仅当用户登录到虚拟控制台（如 `/dev/tty4`）且拥有该终端时才可无 root 使用。对通过 SSH 或图形界面登录的用户不适用。
+### Concurrent Calls
+`beep` does not support concurrent execution. The PC speaker hardware has only one sound generator; multiple `beep` processes will interfere with each other. For example, while a long beep process is running, another short beep process will interrupt it, and the former will silently turn off the speaker afterwards, leading to unexpected silence.
 
-### 并发调用
-`beep` 不支持并发运行。PC 扬声器硬件只有一个发声器，多个 `beep` 进程会相互干扰。例如，一个长蜂鸣进程正在运行时，另一个短蜂鸣进程会中断前者，且前者之后会静默关闭扬声器，导致预期外的静音。
+### Volume Control
+- Independent PCs usually use piezo buzzers, whose volume is frequency-dependent and loudest near the resonance frequency (about 2000 Hz). Try around 2050 Hz for maximum volume.
+- Laptops may route PC speaker output to built-in speakers; in this case, the volume can be adjusted via the "Beeper" or "PC Speaker" channel in the sound card mixer.
 
-### 音量控制
-- 独立 PC 通常使用压电蜂鸣器，其音量与频率相关，接近共振频率（约 2000 Hz）时最响。可尝试 2050 Hz 左右获得最大音量。
-- 笔记本电脑可能将 PC 扬声器输出路由到内置扬声器，此时可通过声卡混音器调节“Beeper”或“PC Speaker”通道的音量。
+### Frequency Reference Table
+Below is the relationship between musical notes and frequencies.
 
-### 频率参考表
-以下是音乐音符与频率的对应关系。
-
-| 音符 | 八度 3 | 八度 4 | 八度 5 | 八度 6 |
+| Note | Octave 3 | Octave 4 | Octave 5 | Octave 6 |
 |------|--------|--------|--------|--------|
 | C    | 131    | 262    | 523    | 1047   |
 | C#   | 139    | 277    | 554    | 1109   |
@@ -118,71 +114,69 @@ beep [-v|-V|--version]
 | B    | 247    | 494    | 988    | 1976   |
 | C    | 262    | 523    | 1047   | 2093   |
 
+## Examples
 
-## 实例
-
-### 1. 简单蜂鸣
+### 1. Simple Beep
 ```bash
 beep
 ```
-发出默认蜂鸣（440 Hz，200 ms）。
+Emits the default beep (440 Hz, 200 ms).
 
-### 2. 指定频率和时长
+### 2. Specify Frequency and Duration
 ```bash
 beep -f 800 -l 500
 ```
-发出 800 Hz 的蜂鸣，持续 500 毫秒。
+Emits an 800 Hz beep for 500 milliseconds.
 
-### 3. 重复蜂鸣
+### 3. Repeated Beeps
 ```bash
 beep -f 600 -l 100 -r 3 -d 50
 ```
-重复 3 次，每次 100 毫秒，间隔 50 毫秒，最后一次后无延迟。
+Repeats 3 times, 100 ms each, with a 50 ms interval, no delay after the last one.
 
 ```bash
 beep -f 600 -l 100 -r 3 -D 50
 ```
-重复 3 次，每次 100 毫秒，间隔 50 毫秒，且最后一次后也有 50 毫秒延迟。
+Repeats 3 times, 100 ms each, with a 50 ms interval, and a 50 ms delay after the last one.
 
-### 4. 两个不同音调
+### 4. Two Different Tones
 ```bash
 beep -f 400 -l 200 -n -f 800 -l 200
 ```
-先发 400 Hz 音（200 ms），紧接着发 800 Hz 音（200 ms），音调间无额外延迟。
+Emits a 400 Hz tone (200 ms), followed immediately by an 800 Hz tone (200 ms) with no additional delay between them.
 
-### 5. 音调间加入延迟（通过前一个音调的 -D）
+### 5. Adding Delay Between Tones (via -D on the previous tone)
 ```bash
 beep -f 400 -l 200 -D 100 -n -f 800 -l 200
 ```
-先发 400 Hz 音，然后延迟 100 ms（因为 -D 使该音调最后附加了延迟），再发 800 Hz 音。
+Emits a 400 Hz tone, then delays for 100 ms (because `-D` appends a delay to that tone), then emits an 800 Hz tone.
 
-### 6. 每次换行蜂鸣
+### 6. Beep on Each New Line
 ```bash
 tail -f /var/log/syslog | beep -s
 ```
-每当日志有新行写入，就发出当前定义的音调（默认 440 Hz）。
+Emits the currently defined tone (default 440 Hz) whenever a new line is written to the log.
 
-### 7. 每输入一个字符蜂鸣（打字机效果）
+### 7. Beep for Each Character Entered (Typewriter effect)
 ```bash
 cat /dev/stdin | beep -c
 ```
-在终端输入字符，每按一个键（包括回车）就会蜂鸣一次，输入内容同时显示。
+Emits a beep for every key pressed (including Enter) in the terminal; the input content is also displayed.
 
-### 8. 使用自定义设备
+### 8. Using a Custom Device
 ```bash
 beep -e /dev/input/by-path/platform-pcspkr-event-spkr -f 1000
 ```
-通过指定 evdev 设备发出 1000 Hz 蜂鸣。
+Emits a 1000 Hz beep by specifying the evdev device.
 
-### 9. 复杂序列：先奏一段音调，然后根据输入重复某个音调，最后收尾
+### 9. Complex Sequence: Play a series of tones, then repeat a tone based on input, and finish
 ```bash
 beep -f 523 -l 200 -n -f 659 -l 200 -n -f 784 -l 200 -n -s -f 440 -l 100 -r 3 -n -f 523 -l 400
 ```
-先播放 C5（523 Hz）、E5（659 Hz）、G5（784 Hz）各 200 ms（音调间无延迟）；然后进入输入处理模式，每遇到一个换行符就播放 A4（440 Hz）三次（每次 100 ms，间隔默认 100 ms）；输入结束后（Ctrl+D），最后播放一个长的 C5（523 Hz，400 ms）。
+First plays C5 (523 Hz), E5 (659 Hz), G5 (784 Hz) for 200 ms each (no delay between them); then enters input processing mode, playing A4 (440 Hz) three times (100 ms each, default 100 ms interval) for every newline; after input ends (Ctrl+D), finally plays a long C5 (523 Hz, 400 ms).
 
-
-## 相关文档
-更详细的信息可以参考`man`：
+## Related Documentation
+For more detailed information, refer to the `man` page:
 ```bash
 man beep
 ```

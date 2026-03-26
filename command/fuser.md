@@ -1,72 +1,70 @@
 fuser
 ===
 
-使用文件或文件结构识别进程
+Identify processes using files or sockets.
 
-## 补充说明
+## Description
 
-**fuser命令** 用于报告进程使用的文件和网络套接字。fuser命令列出了本地进程的进程号，那些本地进程使用file，参数指定的本地或远程文件。对于阻塞特别设备，此命令列出了使用该设备上任何文件的进程。
+The **fuser command** is used to report which processes are using specific files or network sockets. It lists the Process IDs (PIDs) of local processes that are using the files specified by the `file` parameter. For block special devices, it lists processes using any file on that device.
 
-每个进程号后面都跟随一个字母，该字母指示进程如何使用文件。
+Each PID is followed by a letter indicating the type of access:
 
-* `c` ：指示进程的工作目录。
-* `e` ：指示该文件为进程的可执行文件(即进程由该文件拉起)。
-* `f` ：指示该文件被进程打开，默认情况下f字符不显示。
-* `F` ：指示该文件被进程打开进行写入，默认情况下F字符不显示。
-* `r` ：指示该目录为进程的根目录。
-* `m` ：指示进程使用该文件进行内存映射，抑或该文件为共享库文件，被进程映射进内存。
+* `c`: Current directory.
+* `e`: Executable being run.
+* `f`: Open file (not shown by default).
+* `F`: Open file for writing (not shown by default).
+* `r`: Root directory.
+* `m`: Memory-mapped file or shared library.
 
-###  语法
-
-```shell
-fuser(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--a：显示命令行中指定的所有文件；
--k：杀死访问指定文件的所有进程；
--i：杀死进程前需要用户进行确认；
--l：列出所有已知信号名；
--m：指定一个被加载的文件系统或一个被加载的块设备；
--n：选择不同的名称空间；
--u：在每个进程后显示所属的用户名。
+fuser (options) (parameters)
 ```
 
-###  参数
+### Options
 
-文件：可以是文件名或者TCP、UDP端口号。
+```shell
+-a: Display all files specified on the command line.
+-k: Kill all processes accessing the specified files.
+-i: Ask for user confirmation before killing a process.
+-l: List all known signal names.
+-m: Specify a mounted filesystem or a mounted block device.
+-n: Select a different name space (file, tcp, or udp).
+-u: Display the user name of the process owner after each PID.
+```
 
-###  实例
+### Parameters
 
-要列出使用`/etc/passwd`文件的本地进程的进程号，请输入：
+File: Can be a filename or a TCP/UDP port number.
+
+### Examples
+
+To list the PIDs of local processes using the `/etc/passwd` file:
 
 ```shell
 fuser /etc/passwd
 ```
 
-要列出使用`/etc/filesystems`文件的进程的进程号和用户登录名，请输入：
+To list the PIDs and usernames of processes using the `/etc/filesystems` file:
 
 ```shell
 fuser -u /etc/filesystems
 ```
 
-要终止使用给定文件系统的所有进程，请输入：
+To terminate all processes using a given filesystem:
 
 ```shell
-fuser -k -x -u -c /dev/hd1  或者  fuser -kxuc /home
+fuser -k -x -u -c /dev/hd1  # OR
+fuser -kxuc /home
 ```
 
-任一命令都列出了进程号和用户名，然后终止每个正在使用`/dev/hd1 (/home)`文件系统的进程。仅有root用户能终止属于另一用户的进程。如果您正在试图卸下`/dev/hd1`文件系统，而一个正在访问`/dev/hd1`文件系统的进程不允许这样，您可能希望使用此命令。
+Either command lists the PIDs and usernames and then terminates every process using the `/dev/hd1` (or `/home`) filesystem. Only the root user can terminate processes belonging to another user. This command is useful if you are trying to unmount a filesystem that is currently busy.
 
-要列出正在使用已从给定文件系统删除的文件的全部进程，请输入：
+To list all processes using files that have been deleted from a given filesystem:
 
 ```shell
-fuser -d /usr文件
+fuser -d /usr
 ```
 
-`/dev/kmem` 用于系统映像。  
-`/dev/mem`  也用于系统映像。
-
-
+Note: `/dev/kmem` and `/dev/mem` are used for system images.

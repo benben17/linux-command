@@ -1,29 +1,27 @@
 rsh
 ===
 
-连接远程主机并执行命令
+Connect to a remote host and execute commands.
 
-## 补充说明
+## Description
 
-**rsh命令** 用于连接到远程的指定主机并执行指定的命令。
+The **rsh command** is used to connect to a specified remote host and execute specified commands.
 
-###  语法
-
-```shell
-rsh(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--d：使用Socket层级的排错功能；
--l<用户名称>：指定要登入远端主机的用户名称；
--n：把输入的指令号向代号为/dev/null的特殊外围设备。
+rsh(options)(parameters)
 ```
 
-###  参数
+### Options
 
-*   远程主机：指定要连接的远程主机；
-*   指令：指定要在远程主机上执行的命令。
+```shell
+-d: Use socket-level debugging.
+-l<username>: Specifies the username for logging into the remote host.
+-n: Redirects input from the special device /dev/null.
+```
 
+### Parameters
 
+*   Remote host: Specifies the remote host to connect to.
+*   Command: Specifies the command to be executed on the remote host.

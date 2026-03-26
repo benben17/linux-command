@@ -1,30 +1,30 @@
 lastlog
 ===
 
-显示系统中所有用户最近一次登录信息
+Display the most recent login information for all users in the system
 
-## 补充说明
+## Description
 
-**lastlog命令** 用于显示系统中所有用户最近一次登录信息。
+The **lastlog** command is used to display the most recent login information for all users in the system.
 
-lastlog文件在每次有用户登录时被查询。可以使用lastlog命令检查某特定用户上次登录的时间，并格式化输出上次登录日志`/var/log/lastlog`的内容。它根据UID排序显示登录名、端口号（tty）和上次登录时间。如果一个用户从未登录过，lastlog显示` **Never logged** `。注意需要以root身份运行该命令。
+The `lastlog` file is queried every time a user logs in. You can use the `lastlog` command to check when a specific user last logged in, and format the output of the `/var/log/lastlog` file. It displays the login name, port (tty), and the last login time, sorted by UID. If a user has never logged in, `lastlog` displays `**Never logged in**`. Note that this command usually needs to be run as root.
 
-###  语法
-
-```shell
-lastlog(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
--b<天数>：显示指定天数前的登录信息；
--h：显示召集令的帮助信息；
--t<天数>：显示指定天数以来的登录信息；
--u<用户名>：显示指定用户的最近登录信息。
+lastlog (options)
 ```
 
-###  实例
+### Options
+
+```shell
+-b <days>: Display login information from more than the specified number of days ago;
+-h: Display help information;
+-t <days>: Display login information from within the specified number of days;
+-u <username>: Display the most recent login information for the specified user.
+```
+
+### Examples
 
 ```shell
 lastlog
@@ -54,5 +54,3 @@ postfix                                     **Never logged in**
 www                                         **Never logged in** 
 mysql                                       **Never logged in** 
 ```
-
-

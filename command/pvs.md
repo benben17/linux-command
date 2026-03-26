@@ -1,43 +1,41 @@
 pvs
 ===
 
-输出物理卷信息报表
+Output a report of physical volume information.
 
-## 补充说明
+## Description
 
-**pvs命令** 用于输出格式化的物理卷信息报表。使用pvs命令仅能得到物理卷的概要信息，如果要得到更加详细的信息可以使用pvdisplay命令。
+The **pvs command** is used to output a formatted report of physical volume information. It provides a summary of physical volumes; for more detailed information, use the `pvdisplay` command.
 
-###  语法
-
-```shell
-pvs(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
---noheadings：不输出标题头；
---nosuffix：不输出空间大小的单位。
+pvs(options)(parameters)
 ```
 
-###  参数
-
-物理卷：要显示报表的物理卷列表。
-
-###  实例
-
-使用pvs命令显示系统中所有物理卷的信息报表。在命令行中输入下面的命令：
+### Options
 
 ```shell
-pvs # 输出物理卷信息报表 
+--noheadings: Do not output column headers;
+--nosuffix: Do not output units for space sizes.
 ```
 
-输出信息如下：
+### Parameters
+
+Physical Volume: A list of physical volumes for which to display the report.
+
+### Example
+
+Use the `pvs` command to display a report of all physical volumes in the system. Enter the following command:
+
+```shell
+pvs # Output physical volume information report 
+```
+
+Output information:
 
 ```shell
 PV         VG     fmt  Attr PSize   PFree  
 /dev/sdb1  vg1000 lvm2 --   100.00M 100.00M  
 /dev/sdb2         lvm2 --   101.98M 101.98M
 ```
-
-

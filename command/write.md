@@ -1,43 +1,41 @@
 write
 ===
 
-向指定登录用户终端上发送信息
+Send a message to another user
 
-## 补充说明
+## Description
 
-**write命令** 用于向指定登录用户终端上发送信息。通过write命令可传递信息给另一位登入系统的用户，当输入完毕后，键入EOF表示信息结束，write命令就会将信息传给对方。如果接收信息的用户不只登入本地主机一次，你可以指定接收信息的终端机编号。
+The **write command** is used to send a message to another user currently logged into the system. You can interactively type your message, and once you are finished, sending an EOF (usually `Ctrl+D`) will end the session and deliver the message. If the recipient is logged into more than one terminal, you can specify the terminal ID to send the message to.
 
-###  语法
-
-```shell
-write(参数)
-```
-
-###  参数
+### Syntax
 
 ```shell
-用户：指定要接受信息的登录用户；
-登陆终端：指定接收信息的用户的登录终端。
+write <user> [terminal]
 ```
 
-###  实例
+### Parameters
 
-传信息给Rollaend，此时Rollaend只有一个连线 : 
+```shell
+user: The login name of the recipient.
+terminal: The terminal name (e.g., pts/2) if the user is logged into multiple terminals.
+```
+
+### Examples
+
+Send a message to Rollaend (who is only logged in once):
 
 ```shell
 write Rollaend
 ```
 
-接下来就是将信息打上去，结束请Ctrl+C：
+Then type your message. Use `Ctrl+D` to send/finish.
 
-传信息给Rollaend、Rollaend的连线有pts/2、pts/3：
+Send a message to Rollaend's specific terminal (e.g., `pts/2`):
 
 ```shell
 write Rollaend pts/2
 ```
 
-接下来就是将信息打上去，结束请Ctrl+C：
+Then type your message.
 
-若对方设定`mesg n`，则此时信息将无法传给对方。
-
-
+Note: If the recipient has set `mesg n`, they will not receive your message.

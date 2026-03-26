@@ -1,16 +1,14 @@
 kernelversion
 ===
 
-打印当前内核的主版本号
+Prints the major version number of the current kernel
 
-## 补充说明
+## Description
 
-**kernelversion命令** 用于打印当前内核的主版本号。
+The **kernelversion** command is used to print the major version number of the current kernel.
 
-###  语法
+### Syntax
 
 ```shell
 kernelversion
 ```
-
-

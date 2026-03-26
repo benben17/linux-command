@@ -1,39 +1,37 @@
 grpconv
 ===
 
-用来开启群组的投影密码
+Convert group passwords to shadow group passwords.
 
-## 补充说明
+## Supplemental Information
 
-**grpconv命令** 用来开启群组的投影密码。Linux系统里的用户和群组密码，分别存放在`/etc`目录下的passwd和group文件中。因系统运作所需，任何人都得以读取它们，造成安全上的破绽。投影密码将文件内的密码改存在`/etc`目录下的shadow和gshadow文件内，只允许系统管理者读取，同时把原密码置换为"x"字符。投影密码的功能可随时开启或关闭，您只需执行grpconv指令就能开启群组投影密码。
+The **grpconv command** is used to enable shadow group passwords. In Linux, user and group passwords are traditionally stored in `/etc/passwd` and `/etc/group`. Since these files must be readable by all users for the system to function, they present a security risk. Shadow passwords move the encrypted passwords to `/etc/shadow` and `/etc/gshadow`, which are only readable by the system administrator, while replacing the original password fields with an "x" character. This functionality can be enabled or disabled at any time; simply execute `grpconv` to enable shadow group passwords.
 
-###  语法
+### Syntax
 
 ```shell
 grpconv
 ```
 
-###  实例
+### Examples
 
-设置cdy组密码
+Set a group password for `cdy`:
 
 ```shell
 groupmod --password 123456 cdy
 cat /etc/group | grep cdy
-cdy:123456:1000:     # 看出密码是123456
+cdy:123456:1000:     # The password '123456' is visible
 ```
 
-启动影子系统
+Enable shadow passwords:
 
 ```shell
 grpconv
-cat /etc/group |  grep cdy
-cdy:x:1000:      # 看出密码段已经被x替代
+cat /etc/group | grep cdy
+cdy:x:1000:      # The password field is replaced by 'x'
 
 cat /etc/gshadow | grep cdy
-cdy:123456::      # 已经移到影子文件了
+cdy:123456::      # The password has moved to the shadow file
 ```
 
-注：gshadow, shadow只有root权限才可以查看。
-
-
+Note: `/etc/gshadow` and `/etc/shadow` can only be viewed with root privileges.

@@ -1,53 +1,53 @@
 file
 ===
 
-用来探测给定文件的类型
+Used to determine the type of a given file.
 
-## 补充说明
+## Description
 
-**file命令** 用来探测给定文件的类型。file命令对文件的检查分为文件系统、魔法幻数检查和语言检查3个过程。
+The **file command** is used to detect the type of a given file. It examines files through three sets of tests: filesystem tests, magic number tests, and language tests.
 
-###  语法
-
-```shell
-file(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--b：列出辨识结果时，不显示文件名称；
--c：详细显示指令执行过程，便于排错或分析程序执行的情形；
--f<名称文件>：指定名称文件，其内容有一个或多个文件名称时，让file依序辨识这些文件，格式为每列一个文件名称；
--L：直接显示符号连接所指向的文件类别；
--m<魔法数字文件>：指定魔法数字文件；
--v：显示版本信息；
--z：尝试去解读压缩文件的内容。
+file (options) (parameters)
 ```
 
-###  参数
+### Options
 
-文件：要确定类型的文件列表，多个文件之间使用空格分开，可以使用shell通配符匹配多个文件。
+```shell
+-b: Do not prepend filenames to output lines (brief mode).
+-c: Display the detailed execution process of the command, useful for debugging or analyzing how files are being identified.
+-f <namefile>: Read the names of the files to be examined from <namefile> (one per line) before identifying them.
+-L: Follow symbolic links and identify the type of the file the link points to.
+-m <magicfile>: Specify an alternate magic number file.
+-v: Display version information.
+-z: Attempt to look inside compressed files.
+```
 
-###  实例
+### Parameters
 
-显示文件类型
+File: A list of files to be typed, separated by spaces. Shell wildcards can be used to match multiple files.
+
+### Examples
+
+Display file type:
 
 ```shell
 [root@localhost ~]# file install.log
 install.log: UTF-8 Unicode text
 
-[root@localhost ~]# file -b install.log      <== 不显示文件名称
+[root@localhost ~]# file -b install.log      <== Do not display the filename
 UTF-8 Unicode text
 
-[root@localhost ~]# file -i install.log      <== 显示MIME类别。
+[root@localhost ~]# file -i install.log      <== Display MIME type.
 install.log: text/plain; charset=utf-8
 
 [root@localhost ~]# file -b -i install.log
 text/plain; charset=utf-8
 ```
 
-显示符号链接的文件类型
+Display the file type of a symbolic link:
 
 ```shell
 [root@localhost ~]# ls -l /var/mail
@@ -65,5 +65,3 @@ lrwxrwxrwx 1 root root 10 08-13 00:11 /var/mail -> spool/mail
 [root@localhost ~]# file -L /var/spool/mail
 /var/spool/mail: directory
 ```
-
-

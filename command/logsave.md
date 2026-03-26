@@ -1,27 +1,25 @@
 logsave
 ===
 
-将命令的输出信息保存到指定的日志文件
+Save the output of a command to a specified log file
 
-## 补充说明
+## Description
 
-**logsave命令** 运行给定的命令，并将命令的输出信息保存到指定的日志文件中。
+The **logsave** command runs a specified command and saves its output to a designated log file.
 
-###  语法
-
-```shell
-logsave(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--a：追加信息到指定的日志文件中。
+logsave (options) (parameters)
 ```
 
-###  参数
+### Options
 
-*   日志文件：指定记录运行信息的日志文件；
-*   指令：需要执行的指令。
+```shell
+-a: Append the output to the specified log file instead of overwriting it.
+```
 
+### Parameters
 
+*   Log file: Specify the file where the command output will be recorded;
+*   Command: The command to be executed.

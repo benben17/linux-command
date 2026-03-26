@@ -1,50 +1,48 @@
 strings
 ===
 
-在对象文件或二进制文件中查找可打印的字符串
+Find printable strings in object files or binary files
 
-## 补充说明
+## Description
 
-**strings命令** 在对象文件或二进制文件中查找可打印的字符串。字符串是4个或更多可打印字符的任意序列，以换行符或空字符结束。 strings命令对识别随机对象文件很有用。
+The **strings command** searches for printable strings in object files or binary files. A string is any sequence of 4 or more printable characters ending with a newline or null character. The `strings` command is useful for identifying the content of random object files or binaries.
 
-###  语法
+### Syntax
 
 ```shell
 strings [ -a ] [ - ] [ -o ] [ -t Format ] [ -n Number ] [ -Number ]  [file ... ]
 ```
 
-###  选项
+### Options
 
 ```shell
--a --all：扫描整个文件而不是只扫描目标文件初始化和装载段
--f –print-file-name：在显示字符串前先显示文件名
--n –bytes=[number]：找到并且输出所有NUL终止符序列
-- ：设置显示的最少的字符数，默认是4个字符
--t --radix={o,d,x} ：输出字符的位置，基于八进制，十进制或者十六进制
--o ：类似--radix=o
--T --target= ：指定二进制文件格式
--e --encoding={s,S,b,l,B,L} ：选择字符大小和排列顺序:s = 7-bit, S = 8-bit, {b,l} = 16-bit, {B,L} = 32-bit
-@ ：读取中选项
+-a --all: Scan the entire file instead of just the initialized and loaded sections of the object file.
+-f --print-file-name: Display the file name before each string.
+-n --bytes=[number]: Find and output all sequences that are at least [number] characters long.
+- : Set the minimum number of characters to display (default is 4).
+-t --radix={o,d,x}: Output the offset of the string in octal, decimal, or hexadecimal.
+-o: Similar to --radix=o.
+-T --target=: Specify the binary file format.
+-e --encoding={s,S,b,l,B,L}: Choose the character size and endianness: s = 7-bit, S = 8-bit, {b,l} = 16-bit, {B,L} = 32-bit.
+@: Read options from a file.
 ```
 
-###  实例
+### Examples
 
-列出ls中所有的ASCII文本：
+List all ASCII text in `ls`:
 
 ```shell
 strings /bin/ls
 ```
 
-列出ls中所有的ASCII文本：
+Pipe output to strings:
 
 ```shell
 cat /bin/ls | strings
 ```
 
-查找ls中包含libc的字符串，不区分大小写：
+Find strings in `ls` that contain "libc", case-insensitive:
 
 ```shell
 strings /bin/ls | grep -i libc
 ```
-
-

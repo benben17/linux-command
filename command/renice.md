@@ -1,38 +1,36 @@
 renice
 ===
 
-修改正在运行的进程的调度优先级
+Modifies the scheduling priority of running processes.
 
-## 补充说明
+## Description
 
-**renice命令** 可以修改正在运行的进程的调度优先级。预设是以程序识别码指定程序调整其优先权，您亦可以指定程序群组或用户名称调整优先权等级，并修改所有隶属于该程序群组或用户的程序的优先权。只有系统管理者可以改变其他用户程序的优先权，也仅有系统管理者可以设置负数等级。
+The **renice command** can modify the scheduling priority of running processes. By default, processes are specified by their process ID (PID). You can also specify process groups or usernames to adjust the priority level for all processes belonging to that group or user. Only the system administrator can change the priority of other users' processes, and only the system administrator can set negative priority levels.
 
-###  语法
-
-```shell
-renice(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--g：指定进程组id；
--p<程序识别码>：改变该程序的优先权等级，此参数为预设值。
--u：指定开启进程的用户名。
+renice(options)(parameters)
 ```
 
-###  参数
+### Options
 
-进程号：指定要修改优先级的进程。
+```shell
+-g: Specifies the process group ID;
+-p <PID>: Changes the priority level of the specified process; this is the default.
+-u: Specifies the username of the user who started the processes.
+```
 
-###  实例
+### Parameters
 
-将行程id为987及32的行程与行程拥有者为daemon及root的优先序号码加1：
+Process ID: Specifies the process whose priority is to be modified.
+
+### Examples
+
+Add 1 to the priority of processes with IDs 987 and 32, and processes owned by users `daemon` and `root`:
 
 ```shell
 renice 1 987 -u daemon root -p 32
 ```
 
-注意：每一个行程都有一个唯一的id。
-
-
+Note: Every process has a unique ID.

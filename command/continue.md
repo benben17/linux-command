@@ -1,42 +1,41 @@
 continue
 ===
 
-结束本次循环，继续执行下一个for，while或until循环。
+Ends the current iteration of a loop and continues with the next iteration of a `for`, `while`, or `until` loop.
 
-## 概要
+## Synopsis
 
 ```shell
 continue [n]
 ```
 
-## 主要用途
+## Main Purpose
 
-- 结束本次循环，继续执行下一个for，while或until循环；可指定从第几层循环继续执行。
+- Ends the current iteration of the loop and starts the next one; can specify which nested level to continue from.
 
+## Arguments
 
-## 参数
+n (optional): An integer greater than or equal to 1, specifying the nested level of the loop to continue.
 
-n（可选）：大于等于1的整数，用于指定从第几层循环继续执行。
+## Return Value
 
-## 返回值
+Returns success unless `n` is less than 1.
 
-返回状态为成功除非n小于1。
-
-## 例子
+## Examples
 
 ```shell
-# continue的可选参数n缺省值为1。
+# The default value of the optional parameter n is 1.
 for((i=3;i>0;i--)); do
-  # 跳到内层for循环继续执行。
+  # Skip to the next iteration of the inner for loop.
   for((j=3;j>0;j--)); do
     if((j==2)); then
-      # 换成continue 1时结果一样
+      # continue 1 produces the same result.
       continue
     fi
   printf "%s %s\n" ${i} ${j}
   done
 done
-# 输出结果
+# Output
 3 3
 3 1
 2 3
@@ -46,8 +45,8 @@ done
 ```
 
 ```shell
-# 当n为2时：
-# 跳到外层for循环继续执行。
+# When n is 2:
+# Skip to the next iteration of the outer for loop.
 for((i=3;i>0;i--)); do
   for((j=3;j>0;j--)); do
     if((j==2)); then
@@ -56,15 +55,13 @@ for((i=3;i>0;i--)); do
   printf "%s %s\n" ${i} ${j}
   done
 done
-# 输出结果
+# Output
 3 3
 2 3
 1 3
 ```
 
-### 注意
+### Note
 
-1. 该命令是bash内建命令，相关的帮助信息请查看`help`命令。
-
-
-
+1. This is a bash built-in command. For more help, use the `help` command.
+观察

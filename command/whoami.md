@@ -1,40 +1,38 @@
 whoami
 ===
 
-打印当前有效的用户ID对应的名称
+Print the user name associated with the current effective user ID
 
-## 概要
+## Synopsis
 
 ```shell
 whoami [OPTION]...
 ```
 
-## 主要用途
+## Description
 
-- 打印当前有效的用户ID对应的名称。
+- Prints the user name associated with the current effective user ID.
 
-## 选项
+## Options
 
 ```shell
---help       显示帮助信息并退出。
---version    显示版本信息并退出。
+--help       Display help and exit.
+--version    Display version and exit.
 ```
 
-## 返回值
+## Return Value
 
-返回0表示成功，返回非0值表示失败。
+Returns 0 on success and non-zero on failure.
 
-## 例子
+## Examples
 
 ```shell
 [root@localhost ~]# whoami
 root
 ```
 
-### 注意
+### Note
 
-1. 该命令等价于 `id -un`。
-2. 注意区分 `whoami` 和 `logname` 这两个命令；比如我们以用户 `root` 打开的终端，然后切换到了用户 `user2`。此时， `whoami`返回的是当前用户 `user2`, `logname` 返回的是 `root`，大家可以自行实践验证一下。
-3. 该命令是`GNU coreutils`包中的命令，相关的帮助信息请查看`man -s 1 whoami`，`info coreutils 'whoami invocation'`。
-
-
+1. This command is equivalent to `id -un`.
+2. `whoami` vs `logname`: If you log in as `root` and then `su` to `user2`, `whoami` will return `user2`, while `logname` will still return `root`.
+3. This command is part of the `GNU coreutils` package. For more help, see `man -s 1 whoami`.

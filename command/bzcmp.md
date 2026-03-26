@@ -1,21 +1,19 @@
 bzcmp
 ===
 
-比较两个压缩包中的文件
+Compare two compressed files in .bz2 format.
 
-## 补充说明
+## Description
 
-**bzcmp命令** 主要功能是在不真正解压缩.bz2压缩包的情况下，比较两个压缩包中的文件，省去了解压缩后在调用cmp命令的过程。
+The **bzcmp command** is primarily used to compare files within two `.bz2` compressed packages without actually decompressing them, saving the step of calling the `cmp` command after decompression.
 
-###  语法
+### Syntax
 
 ```shell
-bzcmp(参数)
+bzcmp [parameters]
 ```
 
-###  参数
+### Parameters
 
-* 文件1：指定要比较的第一个.bz2压缩包；
-* 文件2：指定要比较的第二个.bz2压缩包。
-
-
+* File 1: Specify the first `.bz2` compressed package to compare.
+* File 2: Specify the second `.bz2` compressed package to compare.

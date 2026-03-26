@@ -1,42 +1,42 @@
 fping
 ===
 
-fping检测主机是否存在
+A tool to check if hosts are alive.
 
-## 补充说明
+## Description
 
-**fping命令** fping类似于ping，但比ping强大。与ping要等待某一主机连接超时或发回反馈信息不同，fping给一个主机发送完数据包后，马上给下一个主机发送数据包，实现多主机同时ping，fping还可以在命令行中指定要ping的主机数量范围。
+The **fping command** is similar to `ping` but much more powerful. Unlike `ping`, which waits for a response or a timeout from a single host before moving to the next, `fping` sends a packet to one host and immediately moves to the next. This allows it to ping multiple hosts simultaneously. `fping` also allows specifying a range of IP addresses or a list of hosts via the command line.
 
-### 语法
+### Syntax
 
 ```shell
-fping(选项)(参数)
+fping (options) (parameters)
 ```
 
-### 选项
+### Options
 
 ```shell
--a  # 显示存活的主机
--b  # ping 数据包的大小。（默认为56）
--c  # ping每个目标的次数 (默认为1)
--f  # 从文件获取目标列表(不能与 -g 同时使用)
--l  # 循环发送ping
--g  # 通过指定开始和结束地址来生成目标列表,可以使网段
--u  # 显示不可到达的目标
+-a  # Show systems that are alive.
+-b  # Size of the ping packet (default is 56 bytes).
+-c  # Number of pings to send to each target (default is 1).
+-f  # Read a list of targets from a file (cannot be used with -g).
+-l  # Loop mode (send pings continuously).
+-g  # Generate a target list by specifying start and end addresses (can be a network range).
+-u  # Show targets that are unreachable.
 ```
 
-### 实例
+### Examples
 
-安装fping命令：
+Installing `fping`:
 
 ```shell
-# 先安装epel源：
+# Install EPEL repository first:
 yum install epel* -y
-# 安装fping包：
+# Install fping package:
 yum install fping -y
 ```
 
-选择性ping指定ip：
+Ping specific IP addresses:
 
 ```shell
 ~]# fping 192.168.0.1 192.168.0.125 192.168.0.126 2>/dev/null
@@ -45,7 +45,7 @@ yum install fping -y
 192.168.0.126 is unreachable
 ```
 
-ping整个网段：
+Ping an entire network segment:
 
 ```bash
 ~]# fping -g 192.168.0.0/24 2>/dev/null
@@ -56,7 +56,7 @@ ping整个网段：
 192.168.0.254 is unreachable
 ```
 
-ping整个网段，只显示存活的主机：
+Ping a network segment and show only alive hosts:
 
 ```shell
 ~]# fping -ag 192.168.0.0/24 2>/dev/null
@@ -65,7 +65,7 @@ ping整个网段，只显示存活的主机：
 ...
 ```
 
-ping某一段ip：
+Ping a specific range of IPs:
 
 ```shell
 ~]# fping -ag 192.168.0.5 192.168.0.130 2>/dev/null
@@ -74,6 +74,3 @@ ping某一段ip：
 192.168.0.125
 192.168.0.130
 ```
-
-
-

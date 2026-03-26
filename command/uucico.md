@@ -1,49 +1,47 @@
 uucico
 ===
 
-UUCP文件传输服务程序
+UUCP file transfer service program.
 
-## 补充说明
+## Description
 
-**uucico命令** 命令UUCP文件传输服务程序。 uucico是用来处理uucp或uux送到队列的文件传输工具。uucico有两种工作模式：主动模式和附属模式。当在主动模式下时，uucico会调用远端主机；在附属模式下时，uucico则接受远端主机的调用。
+The **uucico command** is the UUCP file transfer service program. uucico is used to process file transfers sent to the queue by uucp or uux. uucico has two working modes: master mode and slave mode. In master mode, uucico calls the remote host; in slave mode, uucico accepts calls from the remote host.
 
-###  语法
-
-```shell
-uucico [-cCDefqvwz][-i<类型>][-I<文件>][-p<连接端口号码>][-][-rl][-s<主机>][-S<主机>][-u<用户>][-x<类型>][--help]
-```
-
-###  选项
+### Syntax
 
 ```shell
--c或--quiet 当不执行任何工作时，不要更改记录文件的内容及更新目前的状态。
--C或--ifwork 当有工作要执行时，才调用-s或-S参数所指定主机。
--D或--nodetach 不要与控制终端机离线。
--e或--loop 在附属模式下执行，并且出现要求登入的提示画面。
--f或--force 当执行错误时，不等待任何时间即重新调用主机。
--i<类型>或--stdin<类型> 当使用到标准输入设备时，指定连接端口的类型。
--I<文件>--config<文件> 指定使用的配置文件。
--l或--prompt 出现要求登入的提示画面。
--p<连接端口号码>或-port<连接端口号码> 指定连接端口号码。
--q或--quiet 不要启动uuxqt服务程序。
--r0或--slave 以附属模式启动。
--s<主机>或--system<主机> 调用指定的主机。
--u<用户>或--login<用户> 指定登入的用户帐号，而不允许输入任意的登入帐号。
--v或--version 显示版本信息，并且结束程序。
--w或--wait 在主动模式下，当执行调用动作时，则出现要求登入的提示画面。
--x<类型>或-X<类型>或outgoing-debug<类型> 启动指定的排错模式。
--z或--try-next 当执行不成功时，尝试下一个选择而不结束程序。
---help 显示帮助，并且结束程序。
+uucico [-cCDefqvwz][-i<type>][-I<file>][-p<port>][-][-rl][-s<system>][-S<system>][-u<user>][-x<type>][--help]
 ```
 
-### 实例
-
-使用主动模式启动uucico服务。在命令提示符下直接输入如下命令：
+### Options
 
 ```shell
-uucico-r1
+-c or --quiet: Do not change the log file or update current status when no work is performed.
+-C or --ifwork: Call the host specified by -s or -S only when there is work to be performed.
+-D or --nodetach: Do not detach from the controlling terminal.
+-e or --loop: Execute in slave mode and display a login prompt.
+-f or --force: If an error occurs, call the host again without waiting.
+-i<type> or --stdin<type>: Specify the connection port type when standard input is used.
+-I<file> or --config<file>: Specify the configuration file to use.
+-l or --prompt: Display a login prompt.
+-p<port> or --port<port>: Specify the connection port number.
+-q or --quiet: Do not start the uuxqt service program.
+-r0 or --slave: Start in slave mode.
+-s<system> or --system<system>: Call the specified host.
+-u<user> or --login<user>: Specify the login user account, preventing arbitrary login accounts.
+-v or --version: Display version information and exit.
+-w or --wait: In master mode, display a login prompt when a call is performed.
+-x<type> or -X<type> or --outgoing-debug<type>: Start the specified debug mode.
+-z or --try-next: If execution fails, try the next option without ending the program.
+--help: Display help and exit.
 ```
 
-提示：该命令一般没有输出。
+### Examples
 
+Start the uucico service in master mode. Enter the following command directly at the command prompt:
 
+```shell
+uucico -r1
+```
+
+Note: This command generally produces no output.

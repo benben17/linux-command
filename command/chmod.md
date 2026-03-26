@@ -1,9 +1,9 @@
 chmod
 ===
 
-用来变更文件或目录的权限
+Used to change the permissions of files or directories
 
-## 概要
+## Synopsis
 
 ```shell
 chmod [OPTION]... MODE[,MODE]... FILE...
@@ -11,91 +11,89 @@ chmod [OPTION]... OCTAL-MODE FILE...
 chmod [OPTION]... --reference=RFILE FILE...
 ```
 
-## 主要用途
+## Main Purpose
 
-- 通过符号组合的方式更改目标文件或目录的权限。
-- 通过八进制数的方式更改目标文件或目录的权限。
-- 通过参考文件的权限来更改目标文件或目录的权限。
+- Change the permissions of target files or directories using symbolic combinations.
+- Change the permissions of target files or directories using octal numbers.
+- Change the permissions of target files or directories based on a reference file's permissions.
 
-## 参数
+## Arguments
 
-mode：八进制数或符号组合。
+mode: Octal mode or symbolic combination.
 
-file：指定要更改权限的一到多个文件。
+file: One or more files to change permissions for.
 
-## 选项 
+## Options
 
 ```shell
--c, --changes：当文件的权限更改时输出操作信息。
---no-preserve-root：不将'/'特殊化处理，默认选项。
---preserve-root：不能在根目录下递归操作。
--f, --silent, --quiet：抑制多数错误消息的输出。
--v, --verbose：无论文件是否更改了权限，一律输出操作信息。
---reference=RFILE：使用参考文件或参考目录RFILE的权限来设置目标文件或目录的权限。
--R, --recursive：对目录以及目录下的文件递归执行更改权限操作。
---help：显示帮助信息并退出。
---version：显示版本信息并退出。
+-c, --changes: Like verbose but report only when a change is made.
+--no-preserve-root: Do not treat '/' specially (the default).
+--preserve-root: Fail to operate recursively on '/'.
+-f, --silent, --quiet: Suppress most error messages.
+-v, --verbose: Output a diagnostic for every file processed.
+--reference=RFILE: Use RFILE's mode instead of MODE values.
+-R, --recursive: Change files and directories recursively.
+--help: Display help information and exit.
+--version: Display version information and exit.
 ```
 
-## 返回值
+## Return Value
 
-返回状态为成功除非给出了非法选项或非法参数。
+Returns success unless invalid options or arguments are provided.
 
-## 例子 
+## Examples
 
-> 参考`man chmod`文档的`DESCRIPTION`段落得知：
-> - `u`符号代表当前用户。
-> - `g`符号代表和当前用户在同一个组的用户，以下简称组用户。
-> - `o`符号代表其他用户。
-> - `a`符号代表所有用户。
-> - `r`符号代表读权限以及八进制数`4`。
-> - `w`符号代表写权限以及八进制数`2`。
-> - `x`符号代表执行权限以及八进制数`1`。
-> - `X`符号代表如果目标文件是可执行文件或目录，可给其设置可执行权限。
-> - `s`符号代表设置权限suid和sgid，使用权限组合`u+s`设定文件的用户的ID位，`g+s`设置组用户ID位。
-> - `t`符号代表只有目录或文件的所有者才可以删除目录下的文件。
-> - `+`符号代表添加目标用户相应的权限。
-> - `-`符号代表删除目标用户相应的权限。
-> - `=`符号代表添加目标用户相应的权限，删除未提到的权限。
+> Referring to the `DESCRIPTION` section of `man chmod`:
+> - `u` represents the current user (owner).
+> - `g` represents users in the same group as the owner.
+> - `o` represents other users.
+> - `a` represents all users.
+> - `r` represents read permission (octal 4).
+> - `w` represents write permission (octal 2).
+> - `x` represents execute permission (octal 1).
+> - `X` represents execute permission only if the file is a directory or already has execute permission for some user.
+> - `s` represents set user or group ID on execution (SUID/SGID).
+> - `t` represents the restricted deletion flag or sticky bit.
+> - `+` adds specified permissions.
+> - `-` removes specified permissions.
+> - `=` sets specified permissions and removes others.
 
 ```shell
-linux文件的用户权限说明：
+Explanation of Linux file permissions:
 
-# 查看当前目录（包含隐藏文件）的长格式。
+# View current directory (including hidden files) in long format.
 ls -la
   -rw-r--r--   1 user  staff   651 Oct 12 12:53 .gitmodules
 
-# 第1位如果是d则代表目录，是-则代表普通文件。
-# 更多详情请参阅info coreutils 'ls invocation'（ls命令的info文档）的'-l'选项部分。
-# 第2到4位代表当前用户的权限。
-# 第5到7位代表组用户的权限。
-# 第8到10位代表其他用户的权限。
+# The 1st character: 'd' for directory, '-' for regular file.
+# For more details, see 'info coreutils 'ls invocation'' section for '-l' option.
+# Characters 2-4: Owner permissions.
+# Characters 5-7: Group permissions.
+# Characters 8-10: Other users' permissions.
 ```
 
 ```shell
-# 添加组用户的写权限。
+# Add write permission for the group.
 chmod g+w ./test.log
-# 删除其他用户的所有权限。
+# Remove all permissions for other users.
 chmod o= ./test.log
-# 使得所有用户都没有写权限。
+# Remove write permission for all users.
 chmod a-w ./test.log
-# 当前用户具有所有权限，组用户有读写权限，其他用户只有读权限。
-chmod u=rwx, g=rw, o=r ./test.log
-# 等价的八进制数表示：
+# Owner has all permissions, group has read/write, others have read only.
+chmod u=rwx,g=rw,o=r ./test.log
+# Equivalent octal representation:
 chmod 764 ./test.log
-# 将目录以及目录下的文件都设置为所有用户拥有读写权限。
-# 注意，使用'-R'选项一定要保留当前用户的执行和读取权限，否则会报错！
+# Set directory and its contents to read/write for all users.
+# Note: When using '-R', ensure the current user retains execute and read permissions!
 chmod -R a=rw ./testdir/
-# 根据其他文件的权限设置文件权限。
-chmod --reference=./1.log  ./test.log
+# Set file permissions based on another file.
+chmod --reference=./1.log ./test.log
 ```
 
-### 注意
+### Note
 
-1. 该命令是`GNU coreutils`包中的命令，相关的帮助信息请查看`man chmod`或`info coreutils 'chmod invocation'`。
+1. This command is part of the `GNU coreutils` package. For related help, see `man chmod` or `info coreutils 'chmod invocation'`.
 
-2. 符号连接的权限无法变更，如果用户对符号连接修改权限，其改变会作用在被连接的原始文件。
+2. Permissions of symbolic links cannot be changed; changes applied to a symbolic link affect the target file.
 
-3. 使用`-R`选项一定要保留当前用户的执行和读取权限，否则会报错！
-
-
+3. When using the `-R` option, ensure the current user retains execute and read permissions, otherwise an error will occur!

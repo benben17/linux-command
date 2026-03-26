@@ -1,31 +1,29 @@
 znew
 ===
 
-将.Z压缩包重新转化为gzip命令压缩的.gz压缩包
+Convert .Z archives to .gz archives
 
-## 补充说明
+## Description
 
-**znew命令** 用于将使用compress命令压缩的“.Z”压缩包重新转化为使用gzip命令压缩的“.gz”压缩包。
+The **znew** command is used to re-compress files from the compress (.Z) format to the gzip (.gz) format.
 
-###  语法
-
-```shell
-znew(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--f：# 强制执行转换操作，即是目标“.gz”已经存在；
--t：# 删除原文件前测试新文件；
--v：# 显示文件名和每个文件的压缩比；
--9：# 使用最高压缩率，速度较慢；
--P：# 使用管道完成转换操作，以降低磁盘空间使用；
--K：# 当“.Z”文件比“.gz”文件小时，保留“.Z”文件。
+znew [options] [parameters]
 ```
 
-###  参数
+### Options
 
-文件：指定compress指令压缩生成的“.Z”压缩包。
+```shell
+-f, --force: Force conversion even if the target .gz file already exists;
+-t, --test: Test the new files before deleting the originals;
+-v, --verbose: Display filenames and compression ratios for each file;
+-9, --best: Use the maximum compression ratio (slower);
+-P, --pipe: Use pipes for the conversion to reduce disk space usage;
+-K, --keep: Keep the original .Z file if it is smaller than the .gz file.
+```
 
+### Parameters
 
+File: Specifies the .Z archive created by the compress command.

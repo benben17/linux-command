@@ -1,53 +1,49 @@
 hexdump
 ===
 
-显示文件十六进制格式
+Display file contents in hexadecimal format.
 
-## 补充说明
+## Supplemental Information
 
-**hexdump命令** 一般用来查看“二进制”文件的十六进制编码，但实际上它能查看任何文件，而不只限于二进制文件。
+The **hexdump command** is typically used to view the hexadecimal encoding of binary files, but it can actually be used to view any file.
 
-###  语法
-
-```shell
-hexdump [选项] [文件]...
-```
-
-###  选项
+### Syntax
 
 ```shell
--n length 只格式化输入文件的前length个字节。
--C 输出规范的十六进制和ASCII码。
--b 单字节八进制显示。
--c 单字节字符显示。
--d 双字节十进制显示。
--o 双字节八进制显示。
--x 双字节十六进制显示。
--s 从偏移量开始输出。
--e 指定格式字符串，格式字符串包含在一对单引号中，格式字符串形如：'a/b "format1" "format2"'。
+hexdump [options] [file]...
 ```
 
-每个格式字符串由三部分组成，每个由空格分隔，第一个形如a/b，b表示对每b个输入字节应用format1格式，a表示对每a个输入字节应用format2格式，一般a>b，且b只能为1，2，4，另外a可以省略，省略则a=1。format1和format2中可以使用类似printf的格式字符串，如：
+### Options
 
 ```shell
-%02d：两位十进制
-%03x：三位十六进制
-%02o：两位八进制
-%c：单个字符等
+-n length    # Interpret only length bytes of input.
+-C           # Canonical hex+ASCII display.
+-b           # One-byte octal display.
+-c           # One-byte character display.
+-d           # Two-byte decimal display.
+-o           # Two-byte octal display.
+-x           # Two-byte hexadecimal display.
+-s offset    # Skip offset bytes from the beginning of the input.
+-e format    # Specify a format string for displaying data. The format string is enclosed in single quotes and follows the pattern: 'a/b "format1" "format2"'.
 ```
 
-还有一些特殊的用法：
+Each format string consists of three parts separated by spaces:
+1. `a/b`: `b` specifies the number of bytes to apply `format1` to, and `a` specifies the number of bytes to apply `format2` to. Typically `a > b`, and `b` can only be 1, 2, or 4. `a` is optional; if omitted, it defaults to 1.
+2. `format1` and `format2` can use `printf`-style format strings:
+   - `%02d`: Two-digit decimal
+   - `%03x`: Three-digit hexadecimal
+   - `%02o`: Two-digit octal
+   - `%c`: Single character
 
-```shell
-%_ad：标记下一个输出字节的序号，用十进制表示。
-%_ax：标记下一个输出字节的序号，用十六进制表示。
-%_ao：标记下一个输出字节的序号，用八进制表示。
-%_p：对不能以常规字符显示的用 . 代替。
-```
+Special sequences:
+- `%_ad`: Display the address (byte offset) in decimal.
+- `%_ax`: Display the address in hexadecimal.
+- `%_ao`: Display the address in octal.
+- `%_p`: For non-printing characters, display a dot (.).
 
-同一行如果要显示多个格式字符串，则可以跟多个`-e`选项。
+Multiple `-e` options can be used to display multiple format strings per line.
 
-###  实例
+### Examples
 
 ```shell
 hexdump -e '16/1 "%02X " "  |  "' -e '16/1 "%_p" "\n"' test
@@ -55,5 +51,3 @@ hexdump -e '16/1 "%02X " "  |  "' -e '16/1 "%_p" "\n"' test
 10 11 12 13 14 15 16 17 18 19 1A 1B 1C 1D 1E 1F  |  ................  
 20 21 22 23 24 25 26 27 28 29 2A 2B 2C 2D 2E 2F  |   !"#$%&'()*+,-./ 
 ```
-
-

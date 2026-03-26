@@ -1,36 +1,34 @@
 dpkg-preconfigure
 ===
 
-Debian Linux中软件包安装之前询问问题
+Pre-configure Debian packages before they are installed.
 
-## 补充说明
+## Description
 
-**dpkg-preconfigure命令** 用于在Debian Linux中软件包安装之前询问问题。
+The **dpkg-preconfigure** command is used in Debian Linux to ask configuration questions before a package is actually installed.
 
-###  语法
-
-```shell
-dpkg-preconfigure(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--f：选择使用的前端；
--p：感兴趣的最低的优先级问题；
---apt：在apt模式下运行。
+dpkg-preconfigure (options) (parameters)
 ```
 
-###  参数
+### Options
 
-软件包：指定“.deb”软件包。
+```shell
+-f       Select the frontend to use.
+-p       Specify the minimum priority of questions to ask.
+--apt    Run in APT mode.
+```
 
-###  实例
+### Parameters
 
-导入debconf模板：
+Package: Specifies the ".deb" package file(s).
+
+### Examples
+
+Import debconf templates:
 
 ```shell
 dpkg-preconfigure /var/cache/apt/archives/mysql-server-5.5*.deb
 ```
-
-

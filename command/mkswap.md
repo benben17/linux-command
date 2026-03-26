@@ -1,113 +1,93 @@
 mkswap
 ===
 
-建立和设置SWAP交换分区
+Set up a Linux swap area
 
-## 补充说明
+## Description
 
-**mkswap命令** 用于在一个文件或者设备上建立交换分区。在建立完之后要使用sawpon命令开始使用这个交换区。最后一个选择性参数指定了交换区的大小，但是这个参数是为了向后兼容设置的，没有使用的必要，一般都将整个文件或者设备作为交换区。
+The **mkswap command** is used to set up a Linux swap area on a device or in a file. After creating the swap area, use the `swapon` command to start using it. While an optional parameter allows specifying the swap area size, it is provided for backward compatibility and is usually unnecessary, as the command defaults to using the entire device or file.
 
-###  语法
-
-```shell
-mkswap(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--c：建立交换区前，先检查是否有损坏的区块；
--f：在SPARC电脑上建立交换区时，要加上此参数；
--v0：建立旧式交换区，此为预设值；
--v1：建立新式交换区。
+mkswap [OPTION]... DEVICE [SIZE]
 ```
 
-###  参数
+### Options
 
-设备：指定交换空间对应的设备文件或者交换文件。
+```shell
+-c：Check for bad blocks before creating the swap area.
+-f：Force execution. Required when creating a swap area on SPARC machines.
+-v0：Create an old-style swap area (default).
+-v1：Create a new-style swap area.
+```
 
-###  实例
+### Parameters
 
- **查看系统swap space大小：** 
+Device: The device file or regular file to be used as swap space.
+
+### Examples
+
+**Check system swap space size:**
 
 ```shell
 free -m
-total used free shared buffers cached
-Mem: 377 180 197 0 19 110
--/+ buffers/cache: 50 327
-Swap: 572 0 572
 ```
 
- **查看当前的swap空间(file(s)/partition(s))：** 
+**View current swap space (files/partitions):**
 
 ```shell
 swapon -s
-
-等价于
-
+# or
 cat /proc/swaps
 ```
 
- **添加交换空间** 
+**Add swap space**
 
-添加一个 **交换分区** 或添加一个 **交换文件** 。推荐你添加一个交换分区；不过，若你没有多少空闲空间可用，则添加交换文件。
+You can add a **swap partition** or a **swap file**. A partition is generally recommended, but a file is useful if you have limited free space.
 
-添加一个交换分区，步骤如下：
+**Steps to add a swap partition:**
 
-使用fdisk来创建交换分区（假设 /dev/sdb2 是创建的交换分区），使用 mkswap 命令来设置交换分区：
-
+1. Use `fdisk` to create a partition (e.g., `/dev/sdb2`).
+2. Set up the swap area:
 ```shell
 mkswap /dev/sdb2
 ```
-
-启用交换分区：
-
+3. Enable the swap partition:
 ```shell
 swapon /dev/sdb2
 ```
-
-写入`/etc/fstab`，以便在引导时启用：
-
+4. Add it to `/etc/fstab` to enable it at boot:
 ```shell
 /dev/sdb2 swap swap defaults 0 0
 ```
 
-添加一个交换文件，步骤如下：
+**Steps to add a swap file:**
 
-创建大小为512M的交换文件：
-
+1. Create a 512MB file:
 ```shell
 dd if=/dev/zero of=/swapfile1 bs=1024 count=524288
 ```
-
-使用mkswap命令来设置交换文件：
-
+2. Set up the swap file:
 ```shell
 mkswap /swapfile1
 ```
-
-启用交换分区：
-
+3. Enable the swap file:
 ```shell
 swapon /swapfile1
 ```
-
-写入`/etc/fstab`，以便在引导时启用：
-
+4. Add it to `/etc/fstab`:
 ```shell
 /swapfile1 swap swap defaults 0 0
 ```
 
-新添了交换分区并启用它之后，请查看`cat /proc/swaps`或free命令的输出来确保交换分区已被启用了。
+After adding and enabling the swap space, verify it using `free -m` or `cat /proc/swaps`.
 
- **删除交换空间：** 
+**Remove swap space:**
 
-禁用交换分区：
-
+1. Disable the swap area:
 ```shell
 swapoff /dev/sdb2
 ```
-
-从`/etc/fstab`中删除项目，使用fdisk或yast工具删除分区。
-
-
+2. Remove the corresponding entry from `/etc/fstab`.
+3. Use `fdisk` or other tools to delete the partition or `rm` to delete the swap file.

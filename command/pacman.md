@@ -1,55 +1,53 @@
 pacman
 ===
 
-Arch Linux 系统及其衍生系统中默认使用的包管理器
+The default package manager for Arch Linux and its derivatives.
 
-## 安装
+## Installation
 
-在安装 Arch Linux 时，会需要安装 base 包组，其中包括 pacman 包，具体 Arch Linux 安装流程请参见 [Arch Wiki(CN)](https://wiki.archlinuxcn.org/wiki/%E5%AE%89%E8%A3%85%E6%8C%87%E5%8D%97)
+When installing Arch Linux, you are required to install the `base` package group, which includes `pacman`. For detailed Arch Linux installation procedures, please refer to the [Arch Wiki](https://wiki.archlinux.org/title/Installation_guide).
 
-## 实例
+## Examples
 
-### 安装软件包
-官方软件包
+### Install Packages
+Official packages:
 ```bash
 pacman -S p7zip
 ```
 
-非官方软件包（用户制作）
+Unofficial packages (User-made, e.g., via AUR):
 ```bash
 yay -S package_name1 package_name2 ...
 ```
 
-### 查询软件包
-
+### Search for Packages
+Search the remote repositories:
 ```bash
 pacman -Ss package_name1 package_name2 ...
 ```
 
-### 列出所有软件包
-
+### List All Installed Packages
 ```bash
 pacman -Q
 ```
 
-### 删除某个软件包
-
+### Remove a Package
+Remove a specific package:
 ```bash
 pacman -R p7zip
 ```
 
-或者是同时删除他的依赖
-
+Remove a package and its dependencies (which are not required by any other packages):
 ```bash
 pacman -Rsc p7zip
 ```
 
-### 开始滚动更新
-
+### System Upgrade
+Perform a full system upgrade (rolling release):
 ```bash
-pacman -Syyu
+pacman -Syu
 ```
 
-## 参考资料
+## References
 
-- Archlinux 中文维基<https://wiki.archlinuxcn.org/zh-hans/Pacman>
+- Arch Linux Wiki: [Pacman](https://wiki.archlinux.org/title/Pacman)

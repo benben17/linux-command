@@ -1,50 +1,48 @@
 mke2fs
 ===
 
-创建磁盘分区上的“etc2/etc3”文件系统
+Create an ext2, ext3, or ext4 filesystem
 
-## 补充说明
+## Description
 
-**mke2fs命令** 被用于创建磁盘分区上的“etc2/etc3”文件系统。
+The **mke2fs command** is used to create an ext2, ext3, or ext4 filesystem, usually on a disk partition.
 
-###  语法
-
-```shell
-mke2fs(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--b<区块大小>：指定区块大小，单位为字节；
--c；检查是否有损坏的区块；
--f<不连续区段大小>：指定不连续区段的大小，单位为字节；
--F：不管指定的设备为何，强制执行mke2fs；
--i<字节>：指定"字节/inode"的比例；
--N<inode数>：指定要建立的inode数目；
--l<文件>：从指定的文件中，读取文件西中损坏区块的信息；
--L<标签>：设置文件系统的标签名称；
--m<百分比值>：指定给管理员保留区块的比例，预设为5%；
--M：记录最后一次挂入的目录；
--q：执行时不显示任何信息；
--r：指定要建立的ext2文件系统版本；
--R=<区块数>：设置磁盘阵列参数；
--S：仅写入superblock与group descriptors，而不更改inode able inode bitmap以及block bitmap；
--v：执行时显示详细信息；
--V：显示版本信息。
+mke2fs [OPTION]... DEVICE [BLOCKS-COUNT]
 ```
 
-###  参数
+### Options
 
-*   设备文件：指定要创建的文件系统的分区设备文件名；
-*   块数：指定要创建的文件系统的磁盘块数量。
+```shell
+-b <block-size>：Specify the size of blocks in bytes.
+-c：Check the device for bad blocks before creating the filesystem.
+-f <fragment-size>：Specify the size of fragments in bytes.
+-F：Force mke2fs to run, even if the specified device is not a partition on a block special device.
+-i <bytes-per-inode>：Specify the bytes/inode ratio.
+-N <number-of-inodes>：Overrides the default calculation of the number of inodes that should be reserved for the filesystem.
+-l <filename>：Read the bad blocks list from <filename>.
+-L <volume-label>：Set the volume label for the filesystem.
+-m <reserved-blocks-percentage>：Specify the percentage of the filesystem blocks reserved for the super-user. Default is 5%.
+-M <last-mounted-directory>：Set the last mounted directory for the filesystem.
+-q：Quiet execution; do not show any output.
+-r <revision>：Set the filesystem revision for the new filesystem.
+-R <raid-options>：Set RAID-related options.
+-S：Write only the superblock and group descriptors. Useful for recovering from corruption.
+-v：Verbose execution; show detailed information.
+-V：Print the version number and exit.
+```
 
-###  实例
+### Parameters
 
-创建指定的ext2文件系统。
+*   Device: The special file corresponding to the device (e.g., `/dev/hda1`).
+*   Blocks-count: The number of blocks on the device.
+
+### Examples
+
+Create an ext2 filesystem on `/dev/hda1` quietly:
 
 ```shell
 mke2fs -q /dev/hda1
 ```
-
-

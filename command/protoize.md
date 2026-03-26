@@ -1,27 +1,25 @@
 protoize
 ===
 
-GNU-C代码转换为ANSI-C代码
+Convert GNU-C code to ANSI-C code
 
-## 补充说明
+## Description
 
-**protoize命令** 属于gcc套件，用于为C语言源代码文件添加函数原型，将GNU-C代码转换为ANSI-C代码。
+The **protoize command** is part of the GCC suite and is used to add function prototypes to C source files, converting GNU-C code to ANSI-C code.
 
-### 语法
-
-```shell
-protoize(选项)(参数)
-```
-
-### 选项
+### Syntax
 
 ```shell
--d：设置需要转换代码的目录；
--x：转换代码时排除的文件。
+protoize(options)(parameters)
 ```
 
-### 参数
+### Options
 
-文件：需要转换代码的C语言源文件。
+```shell
+-d: Set the directory for code conversion;
+-x: Files to exclude during conversion.
+```
 
+### Parameters
 
+File: C source files to be converted.

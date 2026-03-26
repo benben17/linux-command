@@ -1,31 +1,31 @@
 batch
 ===
 
-在系统不繁忙的时候执行定时任务
+Execute commands when system load levels permit.
 
-## 补充说明
+## Description
 
-**batch命令** 用于在指定时间，当系统不繁忙时执行任务，用法与at相似。
+The **batch command** is used to execute tasks at a specified time when the system is not busy. Its usage is similar to `at`.
 
-###  语法
-
-```shell
-batch(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--f：指定包含具体指令的任务文件；
--q：指定新任务的队列名称；
--m：任务执行完后向用户发送E-mail。
+batch [options] [parameters]
 ```
 
-###  参数
+### Options
 
-日期时间：指定任务执行的日期时间。
+```shell
+-f: Specify a file containing the task commands.
+-q: Specify the queue name for the new task.
+-m: Send an email to the user after the task is completed.
+```
 
-###  实例
+### Parameters
+
+Date and Time: Specify the date and time for the task to be executed.
+
+### Examples
 
 ```shell
 batch 
@@ -33,5 +33,3 @@ at> echo 1234
 at> <EOT>
 job 5 at Sun Apr 28 08:49:00 2013
 ```
-
-

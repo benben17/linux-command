@@ -1,31 +1,29 @@
 fmt
 ===
 
-读取文件后优化处理并输出
+Format text files for optimal output.
 
-## 补充说明
+## Description
 
-**fmt命令** 读取文件的内容，根据选项的设置对文件格式进行简单的优化处理，并将结果送到标准输出设备。
+The **fmt command** reads the content of a file, performs simple formatting optimizations based on specified options, and sends the result to standard output.
 
-###  语法
-
-```shell
-fmt(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--c或--crown-margin：每段前两列缩排；
--p<列起始字符串>或-prefix=<列起始字符串>：仅合并含有指定字符串的列，通常运用在程序语言的注解方面；
--s或--split-only：只拆开字数超出每列字符数的列，但不合并字数不足每列字符数的列；
--t或--tagged-paragraph：每列前两列缩排，但第1列和第2列的缩排格式不同；
--u或--uniform-spacing：每列字符之间都以一个空格字符间隔，每个句子之间则两个空格字符分隔；
--w<每列字符数>或--width=<每列字符数>或-<每列字符数>：设置每列的最大字符数。
+fmt (options) (parameters)
 ```
 
-###  参数
+### Options
 
-指定要优化格式的文件。
+```shell
+-c, --crown-margin: Preserve the indentation of the first two lines of each paragraph.
+-p <string>, --prefix=<string>: Only reformat lines beginning with the specified string. This is often used for formatting comments in source code.
+-s, --split-only: Split long lines but do not join short lines.
+-t, --tagged-paragraph: Indentation of the first line of a paragraph is different from the rest.
+-u, --uniform-spacing: Use one space between words and two spaces between sentences.
+-w <width>, --width=<width>: Set the maximum line width (default is 75).
+```
 
+### Parameters
 
+Specifies the file to be reformatted.

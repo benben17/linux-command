@@ -1,36 +1,34 @@
 dhclient
 ===
 
-动态获取或释放IP地址
+Dynamic Host Configuration Protocol (DHCP) client.
 
-## 补充说明
+## Description
 
-**dhclient命令** 使用动态主机配置协议动态的配置网络接口的网络参数。
+The **dhclient** command provides a means for configuring one or more network interfaces using the Dynamic Host Configuration Protocol.
 
-###  语法
-
-```shell
-dhclient(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
-0：指定dhcp客户端监听的端口号；
--d：总是以前台方式运行程序；
--q：安静模式，不打印任何错误的提示信息；
--r：释放ip地址。
+dhclient (options) (parameters)
 ```
 
-###  参数
-
-网络接口：操作的网络接口。
-
-###  实例
+### Options
 
 ```shell
-dhclient -r     #释放IP
-dhclient        #获取IP
+-p <port>  Specify the port number on which the DHCP client listens.
+-d         Force dhclient to run as a foreground process.
+-q         Quiet mode, suppress all terminal output except for error messages.
+-r         Release the current lease and stop the running DHCP client.
 ```
 
+### Parameters
 
+Network Interface: The network interface to operate on.
+
+### Examples
+
+```shell
+dhclient -r     # Release IP address
+dhclient        # Obtain IP address
+```

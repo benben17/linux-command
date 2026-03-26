@@ -1,18 +1,17 @@
 neofetch
 ===
 
-显示带有发行徽标的系统信息的工具
+A tool to display system information with a distribution logo
 
-## 补充说明
+## Description
 
-**neofetch** 支持Linux/Unix、Windows、macOS。各发行版均已集成包可直接进行安装
+**neofetch** supports Linux/Unix, Windows, and macOS. It is integrated into the package repositories of most distributions and can be installed directly.
 
-Neofetch是一个在终端上显示带有发行徽标的系统信息工具，neofetch命令将显示有关相应系统的简要信息。 
-显示的信息包括: 型号、操作系统、内核、CPU、GPU、内存、正常运行时间、程序包、shell、分辨率、DE、WM、WM主题、主题、图标和终端等
+Neofetch is a tool that displays system information in the terminal alongside the distribution's logo. The `neofetch` command provides a brief summary of the system. Information displayed includes: Model, OS, Kernel, CPU, GPU, Memory, Uptime, Packages, Shell, Resolution, DE, WM, WM Theme, Theme, Icons, and Terminal.
 
-Neofetch是一个开源工具，[项目地址](https://github.com/dylanaraps/neofetch)
+Neofetch is an open-source tool. [Project Address](https://github.com/dylanaraps/neofetch)
 
-### 安装
+### Installation
 
 Debian/Ubuntu
 
@@ -27,16 +26,15 @@ sudo yum install neofetch -y
 sudo dnf install neofetch -y
 ```
 
-[更多系统安装](https://github.com/dylanaraps/neofetch/wiki/Installation)
-###  语法
+[More installation options](https://github.com/dylanaraps/neofetch/wiki/Installation)
 
+### Syntax
+
+```shell
+neofetch
 ```
-neofetach
-```
 
-###  返回
-
-**回显**
+### Output Examples
 
 macOS:
 ```shell
@@ -83,5 +81,3 @@ ossyNMMMNyMMhsssssssssssssshmmmhssssssso   Theme: Arc-Darker [GTK3]
         `:+ssssssssssssssssss+:`
             .-/+oossssoo+/-.
 ```
-
-

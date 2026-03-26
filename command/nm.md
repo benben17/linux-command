@@ -1,29 +1,27 @@
 nm
 ===
 
-显示二进制目标文件的符号表
+List symbols from object files
 
-## 补充说明
+## Description
 
-**nm命令** 被用于显示二进制目标文件的符号表。
+The **nm command** is used to display the symbol table from binary object files.
 
-###  语法
-
-```shell
-nm(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--A：每个符号前显示文件名；
--D：显示动态符号；
--g：仅显示外部符号；
--r：反序显示符号表。
+nm [options] [file...]
 ```
 
-###  参数
+### Options
 
-目标文件：二进制目标文件，通常是库文件和可执行文件。
+```shell
+-A: Precede each symbol by the name of the input file.
+-D: Display dynamic symbols instead of normal symbols.
+-g: Display only external (global) symbols.
+-r: Sort symbols in reverse order.
+```
 
+### Parameters
 
+Object file: Binary object files, typically library files (.a, .so) or executables.

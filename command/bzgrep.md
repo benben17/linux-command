@@ -1,21 +1,19 @@
 bzgrep
 ===
 
-使用正则表达式搜索.bz2压缩包中文件
+Search for regular expressions in .bz2 compressed files.
 
-## 补充说明
+## Description
 
-**bzgrep命令** 使用正则表达式搜索“.bz2”压缩包中文件，将匹配的行显示到标注输出。
+The **bzgrep command** searches for regular expressions within `.bz2` compressed files and displays the matching lines to standard output.
 
-###  语法
+### Syntax
 
 ```shell
-bzgrep(参数)
+bzgrep [parameters]
 ```
 
-###  参数
+### Parameters
 
-*   搜索模式：指定要搜索的模式；
-*   .bz2文件：指定要搜索的.bz2压缩包。
-
-
+* Search Pattern: Specify the pattern to search for.
+* .bz2 File: Specify the `.bz2` compressed package to search.

@@ -1,45 +1,42 @@
 return
 ===
 
-从函数中退出并返回数值。
+Exit from a function and return a value.
 
-## 概要
+## Synopsis
 
 ```shell
 return [n]
 ```
 
-## 主要用途
+## Main Purpose
 
-- 使得shell函数退出并返回数值，如果没有指定n的值，则默认为函数最后一条命令执行的返回状态。
+- Causes a shell function to exit and return a value. If the value of `n` is not specified, the default return status is that of the last command executed within the function.
 
-## 参数
+## Parameters
 
-n（可选）：整数。
+n (optional): An integer.
 
-## 返回值
+## Return Value
 
-返回值为你指定的参数n的值，如果你指定的参数大于255或小于0，那么会通过加或减256的方式使得返回值总是处于0到255之间。
+The return value is the value of the parameter `n` you specified. If the parameter you specify is greater than 255 or less than 0, the return value will always be between 0 and 255 by adding or subtracting 256.
 
-在函数外执行return语句会返回失败。
+Executing a `return` statement outside of a function will result in a failure.
 
-## 例子
+## Examples
 
 ```shell
 #!/usr/bin/env bash
-# 定义一个返回值大于255的函数
+# Define a function that returns a value greater than 255
 example() {
   return 259
 }
-# 执行函数
+# Execute the function
 example
-# 显示3
+# Displays 3 (259 - 256)
 echo $?
 ```
 
-### 注意
+### Note
 
-1. 该命令是bash内建命令，相关的帮助信息请查看`help`命令。
-
-
-
+1. This command is a bash built-in; for related help information, please use the `help` command.

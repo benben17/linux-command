@@ -1,53 +1,48 @@
 ping6
 ===
 
-测试主机之间网络的连通性(ipv6)
+Tests network connectivity between hosts (IPv6).
 
-## 补充说明
+## Description
 
-**ping6命令** ping6 是 ICMPv6 版的 ping 实现。正确使用、访问 IPv6 网站需要您提前配置本地环境，选择支持 v6 的网站进行访问(ping)。
-执行 ping6 指令会使用 ICMPv6 传输(OSI)协议，发出要求回应的信息，若远端主机的网络功能没有问题，就会回应该信息，因而得知该主机运作正常。
+The **ping6 command** is the IPv6 version of the `ping` utility. It uses ICMPv6 to send Echo Request messages and receive Echo Replies to verify if an IPv6 destination is reachable. To use it successfully, your local environment must be configured for IPv6.
 
-###  语法
-
-```bash
-ping6 (选项) (地址) [网络接口名称]
-```
-
-###  选项
+### Syntax
 
 ```bash
--a [addrtype]: 生成 ICMPv6 节点信息节点地址查询;
--b [bufsiz]: 设置套接字缓冲区大小;
--c [count]: 在发送(和接收)ECHO_RESPONSE数据包后停止;
--h [hoplimit]: 设置 IPv6 跳数限制;
--I [interface]: 具有给定接口地址的源数据包;
--i [wait]: 在发送每个数据包之间等待几秒钟，默认是 1 秒;
--p [policy]: policy 指定要用于探测的 IPsec 策略;
+ping6 [options] [destination] [interface]
 ```
-###  地址
 
-目的主机：指定发送 ICMPv6 报文的目的主机。
+### Options
 
-###  实例
+```bash
+-a [addrtype]: Generate ICMPv6 Node Information Node Address Queries.
+-b [bufsiz]: Set the socket buffer size.
+-c [count]: Stop after sending (and receiving) <count> ECHO_RESPONSE packets.
+-h [hoplimit]: Set the IPv6 hop limit.
+-I [interface]: Send packets via the specified interface.
+-i [wait]: Wait <wait> seconds between sending each packet (default is 1 second).
+-p [policy]: Specify an IPsec policy for the probe.
+```
+
+### Parameters
+
+Destination: The IPv6 address or hostname of the target host.
+
+### Examples
 
 ```bash
 $ ping6 -c4 ipw.cn
 
 PING6(56=40+8+8 bytes) 2409:xxxx:xxxx:85c0::2 --> 2409:8c70:3a00:42:3a::1
 16 bytes from 2409:8c70:3a00:42:3a::1, icmp_seq=0 hlim=54 time=31.236 ms
-16 bytes from 2409:8c70:3a00:42:3a::1, icmp_seq=1 hlim=54 time=29.382 ms
-16 bytes from 2409:8c70:3a00:42:3a::1, icmp_seq=2 hlim=54 time=29.571 ms
-16 bytes from 2409:8c70:3a00:42:3a::1, icmp_seq=3 hlim=54 time=28.973 ms
-
---- 66f782g2.slt-dk.sched.tdnsv8.com ping6 statistics ---
+...
+--- ipw.cn ping6 statistics ---
 4 packets transmitted, 4 packets received, 0.0% packet loss
 round-trip min/avg/max/std-dev = 28.973/29.791/31.236/0.862 ms
 ```
 
-### 服务器 IPv6 Ping 失败可能原因
+### Common Reasons for IPv6 Ping Failure
 
-1. 服务器未开启 IPv6。
-2. 服务器已开启 IPv6，但防火墙(安全组)未对源地址是 IPv6 地址(::/0)的 ICMPv6 协议开放访问，
-
-
+1.  IPv6 is not enabled on the server.
+2.  The firewall or security group does not allow ICMPv6 traffic from the source address (e.g., `::/0`).

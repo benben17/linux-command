@@ -1,35 +1,35 @@
 cdrecord
 ===
 
-Linux系统下光盘刻录功能命令
+Record audio or data Compact Discs from a command line.
 
-## 补充说明
+## Description
 
-**cdrecord命令** 用于Linux系统下光盘刻录，它支持cd和DVD格式。linux下一般都带有cdrecord软件。
+The **cdrecord command** is used for burning optical discs in Linux systems, supporting both CD and DVD formats. Linux systems typically come with the `cdrecord` software installed.
 
-###  语法
-
-```shell
-cdrecord(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--v：显示刻录光盘的详细过程；
--eject：刻录完成后弹出光盘；
-speed=<刻录倍速>：指定光盘刻录的倍速；
-dev=<刻录机设备号>：指定使用“-scanbus”参数扫描到的刻录机的设备号；
--scanbus：扫描系统中可用的刻录机。
+cdrecord [options] [parameters]
 ```
 
-###  参数
+### Options
 
-ISO文件：指定刻录光盘使用的ISO映像文件。
+```shell
+-v: Show the detailed process of burning the disc.
+-eject: Eject the disc after burning is complete.
+speed=<burning_speed>: Specify the speed for burning the disc.
+dev=<device_id>: Specify the device ID of the burner found using the "-scanbus" parameter.
+-scanbus: Scan for available burners in the system.
+```
 
-###  实例
+### Parameters
 
-查看系统所有 CD-R(w) 设备：
+ISO file: Specify the ISO image file to be used for burning the disc.
+
+### Examples
+
+View all CD-R(w) devices in the system:
 
 ```shell
 cdrecord -scanbus
@@ -40,22 +40,20 @@ scsibus0:
   0,3,0     3) 'HP      ' 'CD-Writer+ 9200 ' '1.0c' Removable CD-ROM
 ```
 
-用iso文件刻录一张光盘：
+Burn a disc using an ISO file:
 
 ```shell
 cdrecord -v -eject speed=4 dev=0,3,0 backup.iso
 ```
 
-参数解释
+Parameter explanation:
 
-* -v：显示刻录光盘的详细过程
-* -eject：刻完自动弹出光盘
-* speed=4 dev=0,3,0：四速刻录到HP CD-writer设备上。
+* -v: Show the detailed process of burning the disc.
+* -eject: Automatically eject the disc after burning.
+* speed=4 dev=0,3,0: Burn at 4x speed to the HP CD-writer device.
 
-擦写光驱：
+Blank a rewritable disc:
 
 ```shell
 cdrecord --dev=0,3,0 --blank=fast
 ```
-
-

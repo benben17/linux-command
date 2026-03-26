@@ -1,738 +1,735 @@
 find
 ===
 
-在指定目录下查找文件
+Search for files in a directory hierarchy.
 
-## 解释
+## Explanation
 
-从每个指定的起始点 (目录) 开始，搜索以该点为根的目录树，并按照运算符优先级规则**从左至右**评估给定的表达式，直到结果确定，此时`find`会继续处理下一个文件名。
+Starting from each specified starting point (directory), search the directory tree rooted at that point, evaluating the given expression from **left to right** according to operator precedence rules until the result is determined, at which point `find` moves on to the next filename.
 
-## 补充说明
+## Description
 
-本文列出的选项指的是**表达式列表中的选项**。这些选项控制了`find`的行为，需在**最后一个路径名之后**立即指定。
+The options listed in this document refer to **options in the expression list**. These options control the behavior of `find` and must be specified immediately **after the last path name**.
 
-五个真实选项: `-H、-L、-P、-D 和 -O`。如果出现，**必须位于第一个路径名之前**。关于这部分内容本文不做描述，具体内容可参考[man7.org中的find](https://man7.org/linux/man-pages/man1/find.1.html#top_of_page)
+There are five "real" options: `-H, -L, -P, -D, and -O`. If present, they **must appear before the first path name**. This section does not describe those; for more details, refer to the [find man page on man7.org](https://man7.org/linux/man-pages/man1/find.1.html#top_of_page).
 
-如果使用该命令时，不设置任何参数，则`find`命令将在当前目录下查找子目录与文件，并且将查找到的子目录和文件全部进行显示。等效于以下命令:
+If no parameters are provided, the `find` command searches for subdirectories and files in the current directory and displays them all. This is equivalent to:
 ```shell
 find . -print
 ```
 
-## 语法
+## Syntax
 
 ```shell
-find [-H] [-L] [-P] [-D debugopts] [-Olevel] [起始点...] [表达式]
+find [-H] [-L] [-P] [-D debugopts] [-Olevel] [starting-point...] [expression]
 ```
 
-忽略真实选项后 (更为常见): 
+Excluding real options (more common):
 ```shell
-find [起始点...] [表达式]
+find [starting-point...] [expression]
 ```
 
-## 表达式分类
-起始点（列表）之后的部分是表达式。这是一种**查询规范**，描述了我们如何匹配文件（返回**真**或者**假**）以及对匹配到的文件进行何种操作。表达式由一系列元素组成：
-- 测试（Tests）：测试返回一个真或假值，通常基于我们正在考虑的文件的某个属性。例如，`-empty`测试仅在当前文件为空时为真。
-- 操作（Actions）：操作具有副作用（例如在标准输出上打印内容），并返回真或假，通常基于它们是否成功。例如，`-print`操作会在标准输出上打印当前文件的名称。
-- 全局（Global）：全局选项影响命令行中任何部分指定的测试和操作的执行。全局选项始终返回真值。例如，`-depth`选项使find以深度优先的顺序遍历文件系统。
-- 位置（Positional）：位置选项仅影响其后的测试或操作。位置选项始终返回真值。例如，`-regextype`选项是位置选项，用于指定命令行中后续正则表达式所使用的正则表达式方言。
-- 操作符（Operators）：运算符将表达式中的其他项连接起来。例如，它们包括`-o`（表示逻辑或）和`-a`（表示逻辑与）。如果缺少运算符，则默认使用`-a`。
+## Expression Categories
+The part after the starting points (list) is the expression. This is a **query specification** describing how we match files (returning **true** or **false**) and what actions to perform on the matched files. An expression consists of a series of elements:
+- Tests: Tests return a true or false value, usually based on some property of the file being considered. For example, the `-empty` test is true only if the current file is empty.
+- Actions: Actions have side effects (such as printing to standard output) and return true or false, usually based on whether they were successful. For example, the `-print` action prints the name of the current file to standard output.
+- Global Options: Global options affect the execution of tests and actions specified in any part of the command line. Global options always return true. For example, the `-depth` option causes `find` to traverse the filesystem in a depth-first order.
+- Positional Options: Positional options affect only subsequent tests or actions. Positional options always return true. For example, the `-regextype` option is a positional option used to specify the regular expression dialect used by subsequent regular expressions in the command line.
+- Operators: Operators connect other items in the expression. They include `-o` (logical OR) and `-a` (logical AND). If no operator is specified, `-a` is used by default.
 
-## 表达式选项
+## Expression Options
 
-### 测试选项
+### Tests
 ```shell
--amin<分钟>：查找在指定时间曾被存取过的文件或目录，单位以分钟计算；
--anewer<参考文件或目录>：查找其存取时间较指定文件或目录的存取时间更接近现在的文件或目录；
--atime<24小时数>：查找在指定时间曾被存取过的文件或目录，单位以24小时计算；
--cmin<分钟>：查找在指定时间之时被更改过的文件或目录；
--cnewer<参考文件或目录>查找其更改时间较指定文件或目录的更改时间更接近现在的文件或目录；
--ctime<24小时数>：查找在指定时间之时被更改的文件或目录，单位以24小时计算；
--empty：寻找文件大小为0 Byte的文件，或目录下没有任何子目录或文件的空目录；
--executable 匹配当前用户可执行的文件和可搜索的目录。
--false：将find指令的回传值皆设为False；
--fstype<文件系统类型>：只寻找该文件系统类型下的文件或目录；
--gid<群组识别码>：查找符合指定之群组识别码的文件或目录；
--group<群组名称>：查找符合指定之群组名称的文件或目录；
--ilname<范本样式>：此参数的效果和指定“-lname”参数类似，但忽略字符大小写的差别；
--iname<范本样式>：此参数的效果和指定“-name”参数类似，但忽略字符大小写的差别；
--inum<inode编号>：查找符合指定的inode编号的文件或目录；
--ipath<范本样式>：此参数的效果和指定“-path”参数类似，但忽略字符大小写的差别；
--iregex<范本样式>：此参数的效果和指定“-regexe”参数类似，但忽略字符大小写的差别；
--iwholename 模式参见`-ipath`。此选项的可移植性较`-ipath`差。
--links<连接数目>：查找符合指定的硬连接数目的文件或目录；
--lname<范本样式>：指定字符串作为寻找符号连接的范本样式；
--mmin<分钟>：查找在指定时间曾被更改过的文件或目录，单位以分钟计算；
--mtime<24小时数>：查找在指定时间曾被更改过的文件或目录，单位以24小时计算；
--name<范本样式>：指定字符串作为寻找文件或目录的范本样式；
--newer<参考文件或目录>：查找其更改时间较指定文件或目录的更改时间更接近现在的文件或目录；
--newerXY<引用>：如果正在考虑的文件的时间戳 X 比文件引用的时间戳 Y 更新则成功。
--nogroup：找出不属于本地主机群组识别码的文件或目录；
--nouser：找出不属于本地主机用户识别码的文件或目录；
--path<范本样式>：指定字符串作为寻找目录的范本样式；
--perm<权限数值>：查找符合指定的权限数值的文件或目录；
--readable：匹配当前用户可读的文件
--regex<范本样式>：指定字符串作为寻找文件或目录的范本样式；
--samefile 名称 文件与名称指向相同的 inode。
--size<文件大小>：查找符合指定的文件大小的文件；
--type<文件类型>：只寻找符合指定的文件类型的文件；
--uid<用户识别码>：查找符合指定的用户识别码的文件或目录；
--used<日数>：查找文件或目录被更改之后在指定时间曾被存取过的文件或目录，单位以日计算；
--user<拥有者名称>：查找符和指定的拥有者名称的文件或目录；
--writable：匹配当前用户可写入的文件。
--xtype<文件类型>：此参数的效果和指定“-type”参数类似，差别在于它针对符号连接检查。
--context<表达式>：仅限 SELinux。文件的安全上下文与全局模式匹配
+-amin <minutes>: Find files or directories accessed exactly <minutes> ago.
+-anewer <reference-file>: Find files or directories whose access time is more recent than the access time of the specified reference file or directory.
+-atime <n-24-hour-periods>: Find files or directories accessed exactly n*24 hours ago.
+-cmin <minutes>: Find files or directories changed exactly <minutes> ago.
+-cnewer <reference-file>: Find files or directories whose status change time is more recent than the status change time of the specified reference file or directory.
+-ctime <n-24-hour-periods>: Find files or directories changed exactly n*24 hours ago.
+-empty: Find files with a size of 0 bytes, or empty directories.
+-executable: Match files that are executable and directories that are searchable by the current user.
+-false: Always return false.
+-fstype <type>: Search only on filesystems of the specified type.
+-gid <gid>: Find files or directories with the specified group ID.
+-group <group-name>: Find files or directories belonging to the specified group name.
+-ilname <pattern>: Like -lname, but case-insensitive.
+-iname <pattern>: Like -name, but case-insensitive.
+-inum <inode-number>: Find files or directories with the specified inode number.
+-ipath <pattern>: Like -path, but case-insensitive.
+-iregex <pattern>: Like -regex, but case-insensitive.
+-iwholename <pattern>: See -ipath. This option is less portable than -ipath.
+-links <n>: Find files or directories with exactly <n> hard links.
+-lname <pattern>: Find symbolic links whose target matches the specified pattern.
+-mmin <minutes>: Find files or directories modified exactly <minutes> ago.
+-mtime <n-24-hour-periods>: Find files or directories modified exactly n*24 hours ago.
+-name <pattern>: Find files or directories matching the specified pattern.
+-newer <reference-file>: Find files or directories whose modification time is more recent than the modification time of the specified reference file.
+-newerXY <reference>: Succeeds if the timestamp 'X' of the file being considered is newer than the timestamp 'Y' of the reference file.
+-nogroup: Find files or directories that do not belong to a valid group ID on the local system.
+-nouser: Find files or directories that do not belong to a valid user ID on the local system.
+-path <pattern>: Match the full file path against the specified pattern.
+-perm <mode>: Find files or directories with the specified permissions.
+-readable: Match files readable by the current user.
+-regex <pattern>: Match the full file path against a regular expression.
+-samefile <name>: Match files that point to the same inode as <name>.
+-size <n>: Find files of the specified size.
+-type <type>: Find files of the specified type.
+-uid <uid>: Find files or directories with the specified user ID.
+-used <days>: Find files or directories accessed <days> after their status was last changed.
+-user <username>: Find files or directories belonging to the specified user.
+-writable: Match files writable by the current user.
+-xtype <type>: Like -type, but checks the type of the file pointed to by a symbolic link.
+-context <pattern>: SELinux only. Match the file's security context against a glob pattern.
 ```
 
-### 操作选项
+### Actions
 
-#### -delete 删除文件或目录。
-> :warning:警告：find 命令会将命令行作为表达式进行解析，因此将`-delete`放在首位会将指定的起始点下的**所有内容删除**。且`-delete`操作无法删除一个目录，除非它是空的。
+#### -delete Delete files or directories.
+> :warning: Warning: Since find parses the command line as an expression, putting `-delete` first will **delete everything** under the specified starting point. Furthermore, `-delete` cannot delete a directory unless it is empty.
 
-##### *无参数*
+##### *No Parameters*
 
-##### 描述
-如果删除成功则返回真。若删除失败，将显示错误消息，并且 find 最终退出时的状态码将为非零。
+##### Description
+Returns true if the deletion was successful. If the deletion fails, an error message is displayed, and find will exit with a non-zero status code.
 
-##### 相关选项
-- **-depth**：在命令行中使用`-delete`操作会自动启用`-depth`选项。为了避免意外情况，通常最好在早期的**Tests选项**中**明确使用**`-depth`选项。
-- **-prune**：由于`-depth`会使`-prune`失效，因此`-delete`操作无法与`-prune`有效结合使用。通常，用户可能希望在实际删除操作前，先用带有`-print`的查找命令行进行测试，以确保在添加`-delete`进行实际删除时不会出现意外结果。
-- **-ignore_readdir_race**：`-delete`与此选项一起使用时，find 会忽略自父目录读取以来文件已消失的情况下`-delete`操作的错误：它不会输出错误诊断，不会将退出代码更改为非零，并且`-delete`操作的返回代码将为真。
+##### Related Options
+- **-depth**: Using the `-delete` action automatically enables the `-depth` option. To avoid unexpected behavior, it is usually better to **explicitly use** the `-depth` option earlier in the **Tests**.
+- **-prune**: Since `-depth` invalidates `-prune`, the `-delete` action cannot be effectively combined with `-prune`. It is generally advisable to test the find command line with `-print` before adding `-delete` to perform the actual deletion.
+- **-ignore_readdir_race**: When used with this option, find will ignore errors from the `-delete` action if the file has disappeared since the parent directory was read: it will not output an error diagnostic, will not change the exit code to non-zero, and the return code of the `-delete` action will be true.
 
-#### -exec 执行命令
+#### -exec Execute a command
 
-> :warning:警告：使用`-exec`操作存在不可避免的安全问题，应改用`-execdir`选项。
+> :warning: Warning: There are unavoidable security issues with using the `-exec` action; the `-execdir` option should be used instead.
 
-##### 参数
-`command ;` 或 `command {} +`
+##### Parameters
+`command ;` or `command {} +`
 
-##### 描述
-如果返回状态为 0，则结果为真。**注意**：find 命令会将**所有后续参数**视为`command`的参数，直到遇到包含`;`的参数为止。字符串`{}`会在`command`的参数中所有出现的位置被替换为当前正在处理的文件名，而不仅仅是在它单独出现的参数中，这与某些版本的 find 不同。这两种结构可能需要使用反斜杠`\`或引号来转义，以防止被 shell 扩展。指定的命令会为每个匹配的文件运行一次。命令在起始目录中执行。
+##### Description
+The result is true if the return status is 0. **Note**: find treats **all subsequent arguments** as arguments to the `command` until it encounters an argument containing `;`. The string `{}` is replaced by the current file name being processed everywhere it occurs in the arguments to the `command`, not just in arguments where it stands alone, unlike some versions of find. Both constructions may need to be escaped with a backslash `\` or quoted to prevent expansion by the shell. The specified command is run once for each matched file. The command is executed in the starting directory.
 
-#### -execdir 在包含匹配文件的子目录中执行命令
+#### -execdir Execute a command in the subdirectory containing the matched file
 
-##### 参数
+##### Parameters
 `command ;` | `command {} +`
 
-##### 描述
-类似于`-exec`，但指定的`command`会在包含匹配文件的**子目录中运行**，而非find的起始点目录。与`-exec`一样，如果从shell调用find，`{}`应加引号。这是一种更安全的调用`command`方式，因为它避免了在解析匹配文件路径时出现的竞争条件。与`-exec`操作类似，`+`形式的`-execdir`会构建一个命令行来处理多个匹配文件，但任何给定的`command`调用只会列出存在于同一子目录中的文件。如果使用此选项，必须确保 PATH 环境变量未引用`.`，否则攻击者可以通过在您将运行`-execdir`的目录中留下一个适当命名的文件来运行任何命令。同样，PATH 中的条目**不应为空**或**非绝对目录名**。如果使用`+`形式的任何调用以非零值作为退出状态返回，则 find 也会返回非零退出状态。如果 find 遇到错误，有时会导致立即退出，**因此某些待处理的command可能根本不会运行**。 操作结果取决于使用的是`+`还是`;`变体。`-execdir command {} + `总是返回真，而  `-execdir command {} ;`仅在命令返回 0 时返回真。
+##### Description
+Similar to `-exec`, but the specified `command` is **run in the subdirectory** containing the matched file, rather than find's starting directory. As with `-exec`, `{}` should be quoted if calling find from a shell. This is a more secure way to invoke `command` as it avoids race conditions during path resolution. Like the `-exec` action, the `+` form of `-execdir` builds a command line to process multiple matched files, but any given `command` invocation will only list files that exist in the same subdirectory. If using this option, ensure the PATH environment variable does not refer to `.`, otherwise an attacker could run any command by leaving a suitably named file in a directory where you will run `-execdir`. Similarly, entries in PATH **should not be empty** or **non-absolute directory names**. If any invocation of the `+` form returns a non-zero exit status, find will also return a non-zero exit status. If find encounters an error, it may exit immediately, **meaning some pending commands might not run at all**. The result of the action depends on whether the `;` or `+` variant is used. `-execdir command {} +` always returns true, while `-execdir command {} ;` returns true only if the command returns 0.
 
-#### -fls 创建文件并将结果写入文件
+#### -fls Create a file and write the result to it
 
-##### 参数
+##### Parameters
 `file`
 
-##### 描述
-此选项始终返回真。`-fls`类似于`-ls`和`-fprint`，但`-fls`会将结果写入文件中。无论谓词是否匹配，输出文件始终会被创建。有关文件名中特殊字符处理的信息，请参阅“特殊文件名处理”部分。
+##### Description
+This option always returns true. `-fls` is similar to `-ls` and `-fprint`, but it writes the results to a file. The output file is always created even if the predicate never matches. For information on how special characters in filenames are handled, see the "UNUSUAL FILENAMES" section in the man page.
 
-#### -fprint 将完整文件名打印到指定文件中
+#### -fprint Print full filename to a specified file
 
-##### 参数
+##### Parameters
 `file`
 
-##### 描述
-此选项始终返回真。若运行 find 时`file`不存在，则创建该`file`；若`file`已存在，则截断其内容。文件名`/dev/stdout`和`/dev/stderr`有特殊处理，分别指向标准输出和标准错误输出。即使谓词从未匹配，输出文件也会始终创建。
+##### Description
+This option always returns true. If `file` does not exist when find is run, it is created; if it already exists, its content is truncated. Filenames `/dev/stdout` and `/dev/stderr` are handled specially and refer to standard output and standard error, respectively. The output file is always created even if the predicate never matches.
 
 #### -fprint0
 
-##### 参数
+##### Parameters
 `file`
 
-##### 描述
-此选项始终返回真。类似于`-print0`，但将输出写入文件；类似于`-fprint`。即使谓词从未匹配，输出文件也始终会被创建。
+##### Description
+This option always returns true. Similar to `-print0`, but writes the output to a file; similar to `-fprint`. The output file is always created even if the predicate never matches.
 
 #### -fprintf
 
-##### 参数
+##### Parameters
 `file`
 
-##### 描述
-此选项始终返回真。类似于`-printf`，但将输出写入文件；类似于`-fprint`，即使谓词从未匹配，输出文件也会始终创建。
+##### Description
+This option always returns true. Similar to `-printf`, but writes the output to a file; similar to `-fprint`. The output file is always created even if the predicate never matches.
 
-#### -ls 列出当前文件并输出到标准输出
+#### -ls List current file to standard output
 
-##### *无参数*
+##### *No Parameters*
 
-##### 描述
-此选项始终返回真。以`ls -dils`格式列出当前文件并输出到标准输出。块计数为 1 KB 块，除非设置了环境变量 POSIXLY_CORRECT，此时使用 512 字节块。
+##### Description
+This option always returns true. List the current file in `ls -dils` format on standard output. The block counts are in 1 KB blocks unless the POSIXLY_CORRECT environment variable is set, in which case 512-byte blocks are used.
 
-#### -ok 执行命令前询问用户
+#### -ok Prompt the user before executing a command
 
-##### 参数
+##### Parameters
 `command ;`
 
-##### 描述
-类似于`-exec`，但首先会询问用户。如果用户同意，则运行该命令；否则仅返回 false。若运行该命令，其标准输入将被重定向至`/dev/null`。对提示的响应会与一对正则表达式进行匹配，以确定其为肯定或否定回答。若设置POSIXLY_CORRECT 环境变量，则该正则表达式从系统获取；否则，从 find 的消息翻译中获取。如果系统没有合适的定义，将使用 find 自身的定义。无论哪种情况，正则表达式本身的解释都会受到环境变量 LC_CTYPE（字符类）和 LC_COLLATE（字符范围和等价类）的影响。
+##### Description
+Similar to `-exec`, but prompts the user first. If the user agrees, the command is run; otherwise, it returns false. If the command is run, its standard input is redirected from `/dev/null`. Responses to the prompt are matched against a pair of regular expressions to determine if they are affirmative or negative. If the POSIXLY_CORRECT environment variable is set, these regular expressions are obtained from the system; otherwise, they are obtained from find's message translations. If the system has no suitable definition, find's own definitions will be used. In either case, the interpretation of the regular expression itself is affected by the environment variables LC_CTYPE (character classes) and LC_COLLATE (character ranges and equivalence classes).
 
-##### 相关选项
-- **-files0-from**：不能与`-ok`同时指定。
+##### Related Options
+- **-files0-from**: Cannot be specified simultaneously with `-ok`.
 
 #### -okdir
 
-##### 参数
+##### Parameters
 `command ;`
 
-##### 描述
-类似于`-execdir`，但在执行前会以与`-ok`相同的方式询问用户。如果用户不同意，则直接返回 false。如果命令被执行，其标准输入将从`/dev/null`重定向。
+##### Description
+Similar to `-execdir`, but prompts the user in the same manner as `-ok` before execution. If the user does not agree, it returns false. If the command is executed, its standard input is redirected from `/dev/null`.
 
-##### 相关选项
-- **-files0-from**：不能与`-okdir`同时指定。
+##### Related Options
+- **-files0-from**: Cannot be specified simultaneously with `-okdir`.
 
-#### -print 打印完整文件名，后跟一个换行符
+#### -print Print the full file name, followed by a newline
 
-##### *无参数*
+##### *No Parameters*
 
-##### 描述
-此选项始终返回真。如果你将 find 的输出通过管道传输到另一个程序，并且你正在搜索的文件可能包含换行符，那么应该考虑使用`-print0`而不是`-print`。
+##### Description
+This option always returns true. If you are piping the output of find into another program and the files you are searching for might contain newlines, you should consider using `-print0` instead of `-print`.
 
-#### -print0 打印完整文件名，后跟一个空字符
+#### -print0 Print the full file name, followed by a null character
 
-##### *无参数*
+##### *No Parameters*
 
-##### 描述
-此选项始终返回真。包含换行符或其他类型空白字符的文件名能被正确解析，以便处理 find 输出的程序能正确理解。此选项对应于`xargs`的`-0`选项。
+##### Description
+This option always returns true. This allows filenames that contain newlines or other types of whitespace to be correctly interpreted by programs that process the find output. This option corresponds to the `-0` option of `xargs`.
 
-#### -printf 打印格式
+#### -printf Format output
 
-##### 参数
+##### Parameters
 `format`
 
-可用的转义字符和指令包括：
-- \a 警报。
-- \b 退格键。
-- \c 立即停止打印并清空输出。
-- \f 换页。
-- \n 换行。
-- \r 回车符。
-- \t 水平制表符。
-- \v 垂直制表符。
-- \0 空字符。
-- \\\ 一个字面的反斜杠`\`。
-- \NNN 字符，其 ASCII 码为 NNN（八进制）。
-- A 一个反斜杠字符`\`后跟任何其他字符，都会被视为普通字符，因此它们都会被打印出来。
-- %% 一个字面的百分号。
-- %a 文件的最后访问时间，格式为 C 语言 ctime(3)函数返回的样式。
- .....更多内容待补充
+Available escape characters and directives include:
+- \a Alarm.
+- \b Backspace.
+- \c Stop printing immediately and flush output.
+- \f Form feed.
+- \n Newline.
+- \r Carriage return.
+- \t Horizontal tab.
+- \v Vertical tab.
+- \0 Null character.
+- \\\ A literal backslash `\`.
+- \NNN The character whose ASCII code is NNN (octal).
+- A backslash character `\` followed by any other character is treated as an ordinary character, so both are printed.
+- %% A literal percent sign.
+- %a File's last access time in the format returned by the C ctime(3) function.
+ ..... (More directives available in the man page)
 
-##### 描述
-*暂无*
+##### Description
+*Not available*
 
-#### -prune 如果文件是目录，则不进入该目录
+#### -prune If the file is a directory, do not descend into it
 
-##### *无参数*
+##### *No Parameters*
 
-##### 描述
-此选项始终返回真。
+##### Description
+This option always returns true.
 
-##### 相关选项
-- **-depth**：如果指定了`-depth`，那么`-prune`将无效。
-- **-delete**：因为`-delete`隐含了`-depth`，所以不能有效地同时使用两者。
+##### Related Options
+- **-depth**: If `-depth` is specified, `-prune` will have no effect.
+- **-delete**: Because `-delete` implies `-depth`, you cannot effectively use both.
 
-#### -quit 立即退出
+#### -quit Exit immediately
 
-##### *无参数*
+##### *No Parameters*
 
-##### 描述
-如果没有发生错误，则返回值为零。这与`-prune `不同，因为`-prune`仅适用于被修剪目录的内容，而`-quit`则使 find 立即停止。不会有任何子进程继续运行。在程序退出之前，任何通过`-exec ... +`或`-execdir ... +`构建的命令行都会被调用。执行`-quit`后，命令行中指定的文件将不再被处理。例如，`find /tmp/foo /tmp/bar -print -quit`将仅打印 `/tmp/foo`。`-quit`的一个常见用途是在找到所需内容后停止搜索文件系统。
+##### Description
+Returns zero if no errors have occurred. This is different from `-prune`, as `-prune` only applies to the contents of pruned directories, while `-quit` causes find to stop immediately. No child processes will continue to run. Any command lines built by `-exec ... +` or `-execdir ... +` are invoked before the program exits. After `-quit` is executed, files specified on the command line will no longer be processed. For example, `find /tmp/foo /tmp/bar -print -quit` will only print `/tmp/foo`. A common use of `-quit` is to stop searching the filesystem once you have found what you are looking for.
 
-### 全局选项
-始终返回真值。全局选项对命令行中较早出现的测试也会生效。为避免混淆，全局选项应在命令行上列出**起始点之后、第一个测试选项、位置选项或操作选项之前指定**。若在其他位置指定全局选项，find 会发出警告消息，说明这可能引起混淆。
+### Global Options
+Always return true. Global options also affect tests that appear earlier in the command line. To avoid confusion, global options should be specified **after the starting points and before the first test, positional option, or action**. If global options are specified elsewhere, find will issue a warning message explaining that this may be confusing.
 
-> 全局选项出现在起始点列表之后，因此与例如`-L` 这样的选项不属于同一类别。
+> Global options appear after the list of starting points and are therefore not in the same category as options like `-L`.
 
-#### -d `-depth`的同义词
+#### -d Synonym for `-depth`
 
-##### *无参数*
+##### *No Parameters*
 
-##### 描述
-仅用于与 FreeBSD、NetBSD、MacOS X 和 OpenBSD 兼容。
+##### Description
+Used for compatibility with FreeBSD, NetBSD, MacOS X, and OpenBSD.
 
-#### -depth 遍历级别
+#### -depth Process directory contents before the directory itself
 
-##### 参数
+##### Parameters
 `levels`
 
-##### 描述
-在处理目录本身之前，先处理目录中的内容。`-delete`操作也隐含了`-depth`。
+##### Description
+Process the contents of each directory before the directory itself. The `-delete` action also implies `-depth`.
 
-#### -files0-from 从文件中读取起始点，而非通过命令行获取。
+#### -files0-from Read starting points from a file instead of the command line
 
-##### 参数
+##### Parameters
 `file`
 
-##### 描述
+##### Description
+Use this option to safely pass an arbitrary number of starting points to the find command. Using this option is **mutually exclusive** with passing starting points on the command line. The file parameter is mandatory. Starting points in the file must be separated by ASCII NUL characters. Two consecutive NUL characters (i.e., a starting point with a zero-length filename) are not allowed and will result in an error diagnostic and a non-zero exit code.
 
-使用此选项可以安全地给 find 命令传递任意数量的起始点。使用此选项和在命令行中传递起始点**是互斥的**，因此不允许同时进行。文件参数是强制性的。文件中的起始点必须用 ASCII NUL 字符分隔。两个连续的 NUL 字符，即带有零长度文件名的起始点是不允许的，这将导致错误诊断，并随后产生非零退出码。
+Unlike standard calls where find defaults to the current directory if no path is passed, this option requires the file to be present. Starting points are processed the same way as otherwise; for example, find will recursively enter subdirectories unless prevented. To process only the starting points, pass `-maxdepth 0`.
 
-与标准调用不同，在标准调用中，如果没有传递路径参数，find 会默认将当前目录作为起始点。起始点的处理方式与其他情况相同，例如，find 命令会递归进入子目录，除非另有阻止。若要仅处理起始点，可以额外传递`-maxdepth 0`参数。
+**Note**: If a file is listed multiple times in the input file, it is unspecified whether it will be visited multiple times. If the file is modified during the find operation, the result is also unspecified. Finally, the seek position in the named file when find exits (via `-quit` or otherwise) is also unspecified. **Unspecified** means it **may or may not work**, or **might not do anything specific**, and the behavior may vary across platforms or findutils versions.
 
-**其他说明**：如果一个文件在输入文件中被列出多次，则其是否会被多次访问未作规定。如果在查找操作期间文件被修改，结果同样未作规定。最后，find 退出时（无论是通过`-quit`还是其他方式），命名文件中的查找位置也未作规定。此处**未作规定**意味着它**可能有效也可能无效**，**或者不做任何特定的事情**，并且该行为可能因平台或 findutils 版本而异。
+> :bulb: You can use `-files0-from -` to **read the list of starting points from standard input**, for example from a pipe. In this case, `-ok` and `-okdir` actions are not allowed because they would interfere with reading from standard input for user confirmation.
 
-> :bulb:可以使用`-files0-from`**从标准输入流中读取起始点列表**，例如从管道中读取。在这种情况下，不允许使用`-ok`和`-okdir`操作，因为它们会干扰从标准输入读取以获取用户确认。
+> :warning: Warning: If the given file is empty, find will not process any starting points and will exit immediately after parsing the arguments.
 
-> :warning:警告：如果给定文件为空，find 不会处理任何起始点，因此在解析完程序参数后会立即退出。
+#### -help, --help Print a summary of find command line usage and exit.
 
-#### -help 和 --help 打印 find 命令行用法的摘要并退出。
+##### *No Parameters*
 
-##### *无参数*
-
-##### 描述
-*无描述*
+##### Description
+*No description*
 
 #### -ignore_readdir_race
 
-##### *无参数*
+##### *No Parameters*
 
-##### 描述
-通常情况下，当 find 无法对文件进行状态检查（stat）时，会发出错误消息。如果您**启用此选项**，并且在 find 从目录读取文件名，到尝试进行状态检查**之间的时间内文件被删除**，则不会发出任何错误消息。这也适用于命令行中指定的文件或目录。此选项在命令行读取时生效，这意味着您不能在文件系统的某部分启用此选项，而在另一部分禁用它（如果需要这样做，您需要发出两个 find 命令，一个启用选项，一个不启用）。此外，使用`-ignore_readdir_race`选项时，如果在读取父目录后文件已消失，find 命令将忽略`-delete`操作的错误：它不会输出错误诊断信息，并且`-delete`操作的返回码将为真。
+##### Description
+Normally, find will issue an error message when it cannot stat a file. If you **enable this option** and a file is **deleted between the time find reads the filename from the directory and the time it attempts to stat it**, no error message will be issued. This also applies to files or directories specified on the command line. This option takes effect when the command line is read, meaning you cannot enable it for one part of the filesystem and disable it for another (if you need to do this, you need to issue two find commands). Additionally, with `-ignore_readdir_race`, find will ignore errors from the `-delete` action if the file has disappeared after the parent directory was read: it will not output error diagnostics, and the return code of the `-delete` action will be true.
 
-####  -maxdepth 最大遍历级别
+#### -maxdepth Maximum traversal level
 
-##### 参数
+##### Parameters
 `levels`
 
-##### 描述
-最多向下遍历 levels 级（一个非负整数）目录层级。使用`-maxdepth 0`表示**仅对起始点本身**应用测试和操作。
+##### Description
+Descend at most `levels` (a non-negative integer) levels of directories below the starting points. `-maxdepth 0` means **apply the tests and actions only to the starting points themselves**.
 
-#### -mindepth 最小遍历级别
+#### -mindepth Minimum traversal level
 
-##### 参数
+##### Parameters
 `levels`
 
-##### 描述
-在小于指定级别（非负整数）的层级上不执行任何测试或操作。使用`-mindepth 1`表示处理**除起始点外的所有文件**。
+##### Description
+Do not apply any tests or actions at levels less than `levels` (a non-negative integer). `-mindepth 1` means **process all files except the starting points**.
 
-#### -mount 不在其他文件系统中下降目录
+#### -mount Do not descend directories on other filesystems
 
-##### *无参数*
+##### *No Parameters*
 
-##### 描述
-这是`-xdev`的替代名称，用于与其他一些版本的 find 兼容。
+##### Description
+This is an alternative name for `-xdev`, for compatibility with some other versions of find.
 
 #### -noignore_readdir_race
 
-##### *无参数*
+##### *No Parameters*
 
-##### 描述
-关闭了`-ignore_readdir_race`的效果。
+##### Description
+Turns off the effect of `-ignore_readdir_race`.
 
-#### -noleaf 不进行优化。
+#### -noleaf Do not optimize by assuming directories contain 2 fewer subdirectories than their hard link count.
 
-##### *无参数*
+##### *No Parameters*
 
-##### 描述
-不通过假设目录包含比其硬链接数少 2 个子目录来进行优化。在搜索不遵循 Unix 目录链接惯例的文件系统时，需要此选项，例如 CD-ROM、MS-DOS 文件系统或 AFS 卷挂载点。在正常的 Unix 文件系统上，每个目录至少有 2 个硬链接：其名称及其`.`条目。此外，其子目录（如果有）各自有一个指向该目录的`..`条目。当 find 检查一个目录时，在它已经统计了比目录链接数少 2 个子目录之后，它知道该目录中的其余条目是非目录（目录树中的“叶”文件）。如果只需要检查文件的名称，则无需对其进行状态检查；这可以显著提高搜索速度。
+##### Description
+Required when searching filesystems that do not follow Unix directory-link conventions, such as CD-ROMs, MS-DOS filesystems, or AFS volume mount points. On a normal Unix filesystem, each directory has at least 2 hard links: its name and its `.` entry. Additionally, its subdirectories (if any) each have a `..` entry pointing to that directory. When find examines a directory, after it has statted 2 fewer subdirectories than the directory's link count, it knows that the remaining entries in the directory are non-directories ("leaf" files in the directory tree). If only the files' names need to be examined, there is no need to stat them; this can significantly speed up the search.
 
-#### -version 和 --version 打印 find 的版本号并退出。
+#### -version, --version Print the find version number and exit.
 
-##### *无参数*
+##### *No Parameters*
 
-##### 描述
-*无描述*
+##### Description
+*No description*
 
-#### -xdev 不进入其他文件系统的目录。
+#### -xdev Do not descend into directories on other filesystems.
 
-##### *无参数*
+##### *No Parameters*
 
-##### 描述
-*无描述*
+##### Description
+*No description*
 
-### 位置选项
-始终返回真值。它们仅影响命令行中后续的测试。
+### Positional Options
+Always return true. They only affect subsequent tests in the command line.
 
-#### -daystart 从今天开始
+#### -daystart Measure times from the beginning of today
 
-> 用于 `-amin`、`-atime`、`-cmin`、`-ctime`、`-mmin` 和 `-mtime`
+> Used for `-amin`, `-atime`, `-cmin`, `-ctime`, `-mmin`, and `-mtime`.
 
-##### *无参数*
+##### *No Parameters*
 
-##### 描述
-从今天开始而非从 24 小时前开始。此选项仅影响命令行中后续出现的测试。
+##### Description
+Measure times from the beginning of today rather than from 24 hours ago. This option only affects tests that appear later in the command line.
 
-#### ~~-follow~~ 解引用符号链接。
+#### ~~-follow~~ Dereference symbolic links.
 
-##### *无参数*
+##### *No Parameters*
 
-##### 描述
-**已弃用，请改用`-L`选项**。隐含`-noleaf`。`-follow`选项仅影响命令行中出现在其后的那些测试。除非已指定`-H`或`-L`选项，否则`-follow`选项的位置会改变`-newer`谓词的行为；作为`-newer`参数列出的任何文件，如果它们是符号链接，则会被解引用。同样的情况适用于`-newerXY`、`-anewer`和`-cnewer`。类似地，`-type `谓词将始终匹配符号链接所指向的文件类型，而非链接本身。使用`-follow`会导致  `-lname`和`-ilname`谓词始终返回 false。
+##### Description
+**Deprecated; use the `-L` option instead.** Implies `-noleaf`. The `-follow` option only affects tests that appear after it in the command line. Unless the `-H` or `-L` option has been specified, the position of the `-follow` option changes the behavior of the `-newer` predicate; any files listed as arguments to `-newer` will be dereferenced if they are symbolic links. The same applies to `-newerXY`, `-anewer`, and `-cnewer`. Similarly, the `-type` predicate will always match against the type of the file a symbolic link points to rather than the link itself. Using `-follow` causes the `-lname` and `-ilname` predicates to always return false.
 
-#### -regextype 更改正则表达式语法
+#### -regextype Change regular expression syntax
 
-##### 参数
+##### Parameters
 `type`
 
-##### 描述
-更改`-regex`和`-iregex`测试在命令行后续部分所理解的正则表达式语法。要查看已知的正则表达式类型，请使用`-regextype help`。Texinfo 文档解释了各种正则表达式类型的含义及其差异。如果您不使用此选项，find 的行为如同已指定正则表达式类型为`emacs`。
+##### Description
+Changes the regular expression syntax understood by `-regex` and `-iregex` tests that appear later in the command line. To see known regular expression types, use `-regextype help`. The Texinfo documentation explains the meanings and differences between various regular expression types. If you do not use this option, find behaves as if `emacs` were specified.
 
-#### -warn 和 -nowarn 开启或关闭警告消息。
+#### -warn, -nowarn Turn warning messages on or off.
 
-##### *无参数*
+##### *No Parameters*
 
-##### 描述
-这些警告仅适用于命令行使用，不适用于 find 在搜索目录时可能遇到的情况。默认行为是：如果标准输入是`tty`，则对应`-warn`；否则对应`-nowarn`。如果产生与命令行使用相关的警告消息，find 的退出状态不受影响。如果设置了 POSIXLY_CORRECT 环境变量，并且也使用了`-warn`，则未指定哪些（如果有）警告会被激活。
+##### Description
+These warnings apply only to command line usage, not to conditions find might encounter while searching directories. The default behavior is `-warn` if standard input is a `tty`, and `-nowarn` otherwise. If a warning message related to command line usage is produced, find's exit status is not affected. If the POSIXLY_CORRECT environment variable is set and `-warn` is also used, it is unspecified which (if any) warnings will be active.
 
-### 运算符选项
-运算符按优先级递减顺序列出：
-- `(expr)` 强制优先级。由于括号对 shell 有特殊含义，通常需要对它们进行引用。许多示例为此使用了反斜杠：`\(...\)` 而非 `(...)`。
-- `! expr` 若表达式为假则结果为真（取反）。此字符通常也需要防止被 shell 解释。
+### Operators
+Operators are listed in order of decreasing precedence:
+- `(expr)` Force precedence. Since parentheses have special meaning to the shell, they usually need to be quoted. Many examples use backslashes for this: `\(...\)` instead of `(...)`.
+- `! expr` True if the expression is false (negation). This character also usually needs to be protected from shell interpretation.
 
-> :bulb:提示：当`-a`隐式指定（例如两个测试之间没有显式运算符）或显式指定时，其优先级高于`-o`。例如，`find . -name foo -o -name bar -print`永远不会打印`foo`。
+> :bulb: Tip: When `-a` is specified implicitly (e.g., no explicit operator between two tests) or explicitly, it has higher precedence than `-o`. For example, `find . -name foo -o -name bar -print` will never print `foo`.
 
 #### -not
 
-##### 参数
+##### Parameters
 `expr`
 
-##### 描述
-等同于`! expr`，但不符合 POSIX 标准。
+##### Description
+Equivalent to `! expr`, but not POSIX-compliant.
 
 #### -a 
 
-##### 参数
+##### Parameters
 `expr1` -a `expr2`
 
-##### 描述
-两个连续的表达式被视为隐含地用`-a`连接；如果`expr1`为假，则不评估`expr2`。等同于`expr1 expr2`。
+##### Description
+Two consecutive expressions are treated as implicitly connected by `-a`; if `expr1` is false, `expr2` is not evaluated. Equivalent to `expr1 expr2`.
 
 #### -and
 
-##### 参数
+##### Parameters
 `expr1` -and `expr2`
 
-##### 描述
-与`-a`相同。但不符合 POSIX 标准。
+##### Description
+Same as `-a`. Not POSIX-compliant.
 
 #### -o
 
-##### 参数
+##### Parameters
 `expr1` -o `expr2`
 
-##### 描述
-`expr1`和`expr2`始终都会被评估。`expr1`的值会被丢弃；列表的值即为`expr2`的值。逗号运算符（`,`）在搜索多种不同类型的事物时非常有用，但只会遍历文件系统层次结构一次。`-fprintf`动作可用于将各种匹配项列出到多个不同的输出文件中。若`expr1`为真，则不评估`expr2`。
+##### Description
+Both `expr1` and `expr2` are always evaluated. The value of `expr1` is discarded; the value of the list is the value of `expr2`. The comma operator (`,`) is useful for searching for several different types of things but only traversing the filesystem hierarchy once. The `-fprintf` action can be used to list various matches into several different output files. If `expr1` is true, `expr2` is not evaluated.
+
 #### -or
 
-##### 参数
+##### Parameters
 `expr1` -or `expr2`
 
-##### 描述
-与`-o`相同。但不符合 POSIX 标准。
+##### Description
+Same as `-o`. Not POSIX-compliant.
 
-## 例子
+## Examples
 
-当前目录搜索所有文件，且文件内容包含 “140.206.111.111” 
+Search all files in the current directory whose content contains "140.206.111.111":
 ```shell
 find . -type f -name "*" | xargs grep "140.206.111.111"
 ```
 
-#### 根据文件或者正则表达式进行匹配
+#### Match by Filename or Regular Expression
 
-列出当前目录及子目录下所有文件和文件夹
+List all files and folders in the current directory and its subdirectories:
 
 ```shell
 find .
 ```
 
-在`/home`目录下查找以.txt结尾的文件名
+Find files ending in `.txt` in the `/home` directory:
 
 ```shell
 find /home -name "*.txt"
 ```
 
-同上，但忽略大小写
+Same as above, but case-insensitive:
 
 ```shell
 find /home -iname "*.txt"
 ```
 
-当前目录及子目录下查找所有以.txt和.pdf结尾的文件
+Find all files ending in `.txt` and `.pdf` in the current directory and subdirectories:
 
 ```shell
 find . \( -name "*.txt" -o -name "*.pdf" \)
 
-或
+# OR
 
 find . -name "*.txt" -o -name "*.pdf"
 ```
 
-匹配文件路径或者文件
+Match by file path or name:
 
 ```shell
 find /usr/ -path "*local*"
 ```
 
-基于正则表达式匹配文件路径
+Match file path based on regular expressions:
 
 ```shell
 find . -regex ".*\(\.txt\|\.pdf\)$"
 ```
 
-同上，但忽略大小写
+Same as above, but case-insensitive:
 
 ```shell
 find . -iregex ".*\(\.txt\|\.pdf\)$"
 ```
 
-#### 否定参数
+#### Negation
 
-找出/home下不是以.txt结尾的文件
+Find files in `/home` that do not end in `.txt`:
 
 ```shell
 find /home ! -name "*.txt"
 ```
 
-#### 根据文件类型进行搜索
+#### Search by File Type
 
 ```shell
-find . -type 类型参数
+find . -type <type_parameter>
 ```
 
-类型参数列表：
+Type parameter list:
 
-*    **f**  普通文件
-*    **l**  符号连接
-*    **d**  目录
-*    **c**  字符设备
-*    **b**  块设备
-*    **s**  套接字
-*    **p**  Fifo
+*    **f**  Regular file
+*    **l**  Symbolic link
+*    **d**  Directory
+*    **c**  Character device
+*    **b**  Block device
+*    **s**  Socket
+*    **p**  FIFO
 
-#### 基于目录深度搜索
+#### Search Based on Directory Depth
 
-向下最大深度限制为3
+Limit maximum depth to 3:
 
 ```shell
 find . -maxdepth 3 -type f
 ```
 
-搜索出深度距离当前目录至少2个子目录的所有文件
+Search for files at least 2 levels deep from the current directory:
 
 ```shell
 find . -mindepth 2 -type f
 ```
 
-#### 根据文件时间戳进行搜索
+#### Search Based on File Timestamps
 
 ```shell
-find . -type f 时间戳
+find . -type f <timestamp_option>
 ```
 
-UNIX/Linux文件系统每个文件都有三种时间戳：
+Each file in a UNIX/Linux filesystem has three timestamps:
 
-*    **访问时间** （-atime/天，-amin/分钟）：用户最近一次访问时间。
-*    **修改时间** （-mtime/天，-mmin/分钟）：文件最后一次修改时间。
-*    **变化时间** （-ctime/天，-cmin/分钟）：文件数据元（例如权限等）最后一次修改时间。
+*    **Access time** (-atime/days, -amin/minutes): The last time the file was accessed.
+*    **Modification time** (-mtime/days, -mmin/minutes): The last time the file's content was modified.
+*    **Change time** (-ctime/days, -cmin/minutes): The last time the file's metadata (e.g., permissions) was changed.
 
-搜索最近七天内被访问过的所有文件
+Search for all files accessed in the last 7 days:
 
 ```shell
 find . -type f -atime -7
 ```
 
-搜索恰好在七天前被访问过的所有文件
+Search for all files accessed exactly 7 days ago:
 
 ```shell
 find . -type f -atime 7
 ```
 
-搜索超过七天内被访问过的所有文件
+Search for all files accessed more than 7 days ago:
 
 ```shell
 find . -type f -atime +7
 ```
 
-搜索访问时间超过10分钟的所有文件
+Search for all files accessed more than 10 minutes ago:
 
 ```shell
 find . -type f -amin +10
 ```
 
-找出比file.log修改时间更长的所有文件
+Find all files modified more recently than `file.log`:
 
 ```shell
 find . -type f -newer file.log
 ```
 
-#### 根据文件大小进行匹配
+#### Match Based on File Size
 
 ```shell
-find . -type f -size 文件大小单元
+find . -type f -size <size_unit>
 ```
 
-文件大小单元：
+File size units:
 
-*    **b**  —— 块（512字节）
-*    **c**  —— 字节
-*    **w**  —— 字（2字节）
-*    **k**  —— 千字节
-*    **M**  —— 兆字节
-*    **G**  —— 吉字节
+*    **b**  —— Blocks (512 bytes)
+*    **c**  —— Bytes
+*    **w**  —— Words (2 bytes)
+*    **k**  —— Kilobytes
+*    **M**  —— Megabytes
+*    **G**  —— Gigabytes
 
-搜索大于10KB的文件
+Search for files larger than 10 KB:
 
 ```shell
 find . -type f -size +10k
 ```
 
-搜索小于10KB的文件
+Search for files smaller than 10 KB:
 
 ```shell
 find . -type f -size -10k
 ```
 
-搜索等于10KB的文件
+Search for files exactly 10 KB in size:
 
 ```shell
 find . -type f -size 10k
 ```
 
-#### 删除匹配文件
+#### Delete Matching Files
 
-删除当前目录下所有.txt文件
+Delete all `.txt` files in the current directory:
 
 ```shell
 find . -type f -name "*.txt" -delete
 ```
 
-#### 根据文件权限/所有权进行匹配
+#### Match Based on File Permissions/Ownership
 
-当前目录下搜索出权限为777的文件
+Search for files with 777 permissions in the current directory:
 
 ```shell
 find . -type f -perm 777
 ```
 
-找出当前目录下权限不是644的php文件
+Find `.php` files in the current directory that do not have 644 permissions:
 
 ```shell
 find . -type f -name "*.php" ! -perm 644
 ```
 
-找出当前目录用户tom拥有的所有文件
+Find all files owned by user `tom` in the current directory:
 
 ```shell
 find . -type f -user tom
 ```
 
-找出当前目录用户组sunk拥有的所有文件
+Find all files belonging to group `sunk` in the current directory:
 
 ```shell
 find . -type f -group sunk
 ```
 
-#### 借助`-exec`选项与其他命令结合使用
+#### Using `-exec` with Other Commands
 
-找出当前目录下所有root的文件，并把所有权更改为用户tom
+Find all files owned by `root` in the current directory and change ownership to `tom`:
 
 ```shell
-find .-type f -user root -exec chown tom {} \;
+find . -type f -user root -exec chown tom {} \;
 ```
 
-上例中， **{}**  用于与 **-exec** 选项结合使用来匹配所有文件，然后会被替换为相应的文件名。
+In the example above, **{}** is used with the **-exec** option to match each file, which is then replaced by the corresponding filename.
 
-找出自己家目录下所有的.txt文件并删除
+Find all `.txt` files in your home directory and delete them:
 
 ```shell
 find $HOME/. -name "*.txt" -ok rm {} \;
 ```
 
-上例中， **-ok** 和 **-exec** 行为一样，不过它会给出提示，是否执行相应的操作。
+In the example above, **-ok** behaves like **-exec** but prompts the user for confirmation before performing the action.
 
-查找当前目录下所有.txt文件并把他们拼接起来写入到all.txt文件中
+Find all `.txt` files in the current directory and concatenate them into `all.txt`:
 
 ```shell
-find . -type f -name "*.txt" -exec cat {} \;> /all.txt
+find . -type f -name "*.txt" -exec cat {} \; > /all.txt
 ```
 
-将30天前的.log文件移动到old目录中
+Move `.log` files older than 30 days to the `old` directory:
 
 ```shell
 find . -type f -mtime +30 -name "*.log" -exec cp {} old \;
 ```
 
-找出当前目录下所有.txt文件并以“File:文件名”的形式打印出来
+Find all `.txt` files in the current directory and print them in the format "File: filename":
 
 ```shell
 find . -type f -name "*.txt" -exec printf "File: %s\n" {} \;
 ```
 
-因为单行命令中-exec参数中无法使用多个命令，以下方法可以实现在-exec之后接受多条命令
+Since multiple commands cannot be used directly within a single `-exec` parameter, you can invoke a script:
 
 ```shell
--exec ./text.sh {} \;
+-exec ./test.sh {} \;
 ```
 
-#### 搜索但跳过指定的目录
+#### Search while Skipping Specified Directories
 
-查找当前目录或者子目录下所有.txt文件，但是跳过子目录sk
+Find all `.txt` files in the current directory or subdirectories, but skip the `sk` subdirectory:
 
 ```shell
 find . -path "./sk" -prune -o -name "*.txt" -print
 ```
 
-> :warning: ./sk 不能写成 ./sk/ ，否则没有作用。
+> :warning: `./sk` cannot be written as `./sk/`, otherwise it will not work.
 
-忽略两个目录
+Ignore two directories:
 
 ```shell
-find . \( -path ./sk -o  -path ./st \) -prune -o -name "*.txt" -print
+find . \( -path ./sk -o -path ./st \) -prune -o -name "*.txt" -print
 ```
 
-> :warning: 如果写相对路径必须加上`./`
+> :warning: If using relative paths, you must prepend them with `./`.
 
-#### find其他技巧收集
+#### Other find Tips
 
-要列出所有长度为零的文件
+List all files with zero length:
 
 ```shell
 find . -empty
 ```
 
-#### 其它实例
+#### Other Examples
 
 ```shell
-find ~ -name '*jpg' # 主目录中找到所有的 jpg 文件。 -name 参数允许你将结果限制为与给定模式匹配的文件。
-find ~ -iname '*jpg' # -iname 就像 -name，但是不区分大小写
-find ~ ( -iname 'jpeg' -o -iname 'jpg' ) # 一些图片可能是 .jpeg 扩展名。幸运的是，我们可以将模式用“或”（表示为 -o）来组合。
-find ~ \( -iname '*jpeg' -o -iname '*jpg' \) -type f # 如果你有一些以 jpg 结尾的目录呢？ （为什么你要命名一个 bucketofjpg 而不是 pictures 的目录就超出了本文的范围。）我们使用 -type 参数修改我们的命令来查找文件。
-find ~ \( -iname '*jpeg' -o -iname '*jpg' \) -type d # 也许你想找到那些命名奇怪的目录，以便稍后重命名它们
+find ~ -name '*jpg' # Find all jpg files in the home directory. The -name parameter allows you to limit results to files matching a given pattern.
+find ~ -iname '*jpg' # -iname is like -name, but case-insensitive.
+find ~ \( -iname 'jpeg' -o -iname 'jpg' \) # Some images might have .jpeg extensions. We can combine patterns with OR (-o).
+find ~ \( -iname '*jpeg' -o -iname '*jpg' \) -type f # Use -type f to ensure you are finding only files, in case there are directories ending in jpg.
+find ~ \( -iname '*jpeg' -o -iname '*jpg' \) -type d # Find directories with these names instead.
 ```
 
-最近拍了很多照片，所以让我们把它缩小到上周更改的文件
+Filter for files modified in the last week:
 
 ```shell
 find ~ \( -iname '*jpeg' -o -iname '*jpg' \) -type f -mtime -7
 ```
 
-你可以根据文件状态更改时间 （ctime）、修改时间 （mtime） 或访问时间 （atime） 来执行时间过滤。 这些是在几天内，所以如果你想要更细粒度的控制，你可以表示为在几分钟内（分别是 cmin、mmin 和 amin）。 除非你确切地知道你想要的时间，否则你可能会在 + （大于）或 - （小于）的后面加上数字。
+You can filter by status change time (`ctime`), modification time (`mtime`), or access time (`atime`). These are in days; for finer control, use minutes (`cmin`, `mmin`, and `amin`). Use `+` (greater than) or `-` (less than) before the number unless you want an exact match.
 
-但也许你不关心你的照片。也许你的磁盘空间不够用，所以你想在 log 目录下找到所有巨大的（让我们定义为“大于 1GB”）文件：
+Find large files (e.g., greater than 1 GB) in the `/var/log` directory:
 
 ```shell
 find /var/log -size +1G
 ```
 
-或者，也许你想在 /data 中找到 bcotton 拥有的所有文件：
+Find all files owned by `bcotton` in `/data`:
 
 ```shell
 find /data -owner bcotton
 ```
 
-你还可以根据权限查找文件。也许你想在你的主目录中找到对所有人可读的文件，以确保你不会过度分享。
+Find files based on permissions. For example, find files in your home directory that are readable by everyone:
 
 ```shell
 find ~ -perm -o=r
 ```
 
-删除 mac 下自动生成的文件
+Delete automatically generated files under macOS:
 
 ```shell
 find ./ -name '__MACOSX' -depth -exec rm -rf {} \;
 ```
 
-统计代码行数
+Count lines of code, excluding empty lines:
 
 ```shell
-find . -name "*.java"|xargs cat|grep -v ^$|wc -l # 代码行数统计, 排除空行
+find . -name "*.java" | xargs cat | grep -v ^$ | wc -l
 ```
-
-
-

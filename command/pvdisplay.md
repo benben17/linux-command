@@ -1,45 +1,43 @@
 pvdisplay
 ===
 
-显示物理卷的属性
+Display physical volume attributes.
 
-## 补充说明
+## Description
 
-**pvdisplay命令** 用于显示物理卷的属性。pvdisplay命令显示的物理卷信息包括：物理卷名称、所属的卷组、物理卷大小、PE大小、总PE数、可用PE数、已分配的PE数和UUID。
+The **pvdisplay command** is used to display the attributes of physical volumes. The information shown includes: physical volume name, the volume group it belongs to, physical volume size, PE size, total number of PEs, free PEs, allocated PEs, and UUID.
 
-###  语法
-
-```shell
-pvdisplay(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--s：以短格式输出；
--m：显示PE到LE的映射。
+pvdisplay(options)(parameters)
 ```
 
-###  参数
-
-物理卷：要显示的物理卷对应的设备文件名。
-
-###  实例
-
-使用pvdisplay命令显示指定的物理卷的基本信息。在命令行中输入下面的命令：
+### Options
 
 ```shell
-[root@localhost ~]# pvdisplay /dev/sdb1    #显示物理卷基本信息
+-s: Output in short format;
+-m: Display mapping of PEs to LEs.
 ```
 
-输出信息如下：
+### Parameters
+
+Physical Volume: The device file name of the physical volume to be displayed.
+
+### Example
+
+Use the `pvdisplay` command to show basic information for a specified physical volume. Enter the following command:
+
+```shell
+[root@localhost ~]# pvdisplay /dev/sdb1    # Display basic physical volume info
+```
+
+Output information:
 
 ```shell
 "/dev/sdb1" is a new physical volume of "101.94 MB"  
 --- NEW Physical volume ---  
 PV Name               /dev/sdb1  
-....省略部分输出内容......  
+....part of output omitted......  
 PV UUID         FOXiS2-Ghaj-Z0Mf- cdVZ-pfpk- dP9p-ifIZXN
 ```
-
-

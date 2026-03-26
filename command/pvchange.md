@@ -1,42 +1,40 @@
 pvchange
 ===
 
-修改物理卷属性
+Change physical volume attributes
 
-## 补充说明
+## Description
 
-**pvchange命令** 允许管理员改变物理卷的分配许可。如果物理卷出现故障，可以使用pvchange命令禁止分配物理卷上的PE。
+The **pvchange command** allows an administrator to change the allocation permissions for physical volumes. If a physical volume fails, the `pvchange` command can be used to prohibit the allocation of Physical Extents (PEs) on that volume.
 
-### 语法
-
-```shell
-pvchange(选项)(参数)
-```
-
-### 选项
+### Syntax
 
 ```shell
--u：生成新的UUID；
--x：是否允许分配PE。
+pvchange(options)(parameters)
 ```
 
-### 参数
-
-物理卷：指定要修改属性的物理卷所对应的设备文件。
-
-### 实例
-
-使用pvchange命令禁止分配指定物理卷上的PE。在命令行中输入下面的命令：
+### Options
 
 ```shell
-pvchange -x n /dev/sdb1     #禁止分配"/dev/sdb1"上的PE
+-u: Generate a new UUID;
+-x: Whether to allow PE allocation.
 ```
 
-输出信息如下：
+### Parameters
+
+Physical Volume: Specifies the device file for the physical volume whose attributes are to be modified.
+
+### Example
+
+Use the `pvchange` command to prohibit PE allocation on a specified physical volume. Enter the following command:
+
+```shell
+pvchange -x n /dev/sdb1     # Prohibit PE allocation on "/dev/sdb1"
+```
+
+Output information:
 
 ```shell
 Physical volume "/dev/sdb1" changed  
 1 physical volume changed / 0 physical volumes not changed
 ```
-
-

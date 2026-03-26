@@ -1,45 +1,43 @@
 e2label
 ===
 
-设置第二扩展文件系统的卷标
+Set the label of an ext2, ext3, or ext4 file system.
 
-## 补充说明
+## Description
 
-**e2label命令** 用来设置第二扩展文件系统的卷标。
+The **e2label** command is used to set the label of a second extended file system.
 
-###  语法
+### Syntax
 
 ```shell
-e2label(参数)
+e2label [parameters]
 ```
 
-###  参数
+### Parameters
 
-*   文件系统：指定文件系统所对应的设备文件名；
-*   新卷标：为文件系统指定新卷标。
+*   File system: Specify the device file name corresponding to the file system;
+*   New label: Specify a new label for the file system.
 
-###  实例
+### Examples
 
-许多用了多年Linux的人可能也没有用过e2label命令。但是这个命令相当有效。在介绍它之前,我们先看看`/etc/fstab文`件：
+Many people who have used Linux for years may have never used the `e2label` command, but it is quite effective. Before introducing it, let's look at the `/etc/fstab` file:
 
 ```shell
-label=//ext3 defaults 1 1
+LABEL=/ / ext3 defaults 1 1
 /dev/hda7 /usr ext3 defaults 1 1
 ```
 
-第二行的意思很容易懂，就是把`/dev/hda7` mount到`/usr`上。第一行没有指明分区，意思是把label(卷标)为/ 的分区mount到/上。这样写的好处在于即使如果把硬盘从主板上的ide0(hda) 换到ide2(hdc)上，系统仍然可以自动挂载正确的分区。通常Linux安装的时候已经自动指定了卷标。如果是手动增加的新分区，可以用下边的命令为 其指定卷标：
+The meaning of the second line is easy to understand: mount `/dev/hda7` to `/usr`. The first line does not specify a partition; it means mount the partition with the label `/` to `/`. The advantage of writing it this way is that even if the hard disk is moved from `ide0 (hda)` to `ide2 (hdc)` on the motherboard, the system can still automatically mount the correct partition. Usually, the label is automatically assigned when Linux is installed. If a new partition is added manually, you can use the following command to assign a label to it:
 
 ```shell
 e2label /dev/hdax /new
 mkdir /new
 ```
 
-然后在`/etc/fstab`里加入：
+Then add it to `/etc/fstab`:
 
 ```shell
-label=/new  /new  ext3  defaults  1 1
+LABEL=/new  /new  ext3  defaults  1 1
 ```
 
-下次重新起动机器的时候，就会把卷标为`/new`的分区挂接到`/new`上。
-
-
+The next time the machine is restarted, the partition with the label `/new` will be mounted to `/new`.

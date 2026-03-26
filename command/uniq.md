@@ -1,51 +1,50 @@
 uniq
 ===
 
-显示或忽略重复的行。
+Report or omit repeated lines.
 
-## 概要
+## Synopsis
 
 ```shell
 uniq [OPTION]... [INPUT [OUTPUT]]
 ```
 
-## 主要用途
+## Main Uses
 
-- 将输入文件（或标准输入）中邻近的重复行写入到输出文件（或标准输出）中。
-- 当没有选项时，邻近的重复行将合并为一个。
+- Write adjacent duplicate lines from the input file (or standard input) to the output file (or standard output).
+- When no options are provided, adjacent duplicate lines are merged into one.
 
-
-## 选项
+## Options
 
 ```shell
--c, --count                在每行开头增加重复次数。
--d, --repeated             所有邻近的重复行只被打印一次。
--D                         所有邻近的重复行将全部打印。
---all-repeated[=METHOD]    类似于 -D，但允许每组之间以空行分割。METHOD取值范围{none(默认)，prepend，separate}。
--f, --skip-fields=N        跳过对前N个列的比较。
---group[=METHOD]           显示所有行，允许每组之间以空行分割。METHOD取值范围：{separate(默认)，prepend，append，both}。
--i, --ignore-case          忽略大小写的差异。
--s, --skip-chars=N         跳过对前N个字符的比较。
--u, --unique               只打印非邻近的重复行。
--z, --zero-terminated      设置行终止符为NUL（空），而不是换行符。
--w, --check-chars=N        只对每行前N个字符进行比较。
---help                     显示帮助信息并退出。
---version                  显示版本信息并退出。
+-c, --count                Prefix lines by the number of occurrences.
+-d, --repeated             Only print duplicate lines, one for each group.
+-D                         Print all duplicate lines.
+--all-repeated[=METHOD]    Like -D, but allow groups to be delimited by an empty line. METHOD={none(default), prepend, separate}.
+-f, --skip-fields=N        Avoid comparing the first N fields.
+--group[=METHOD]           Show all lines, separating groups with an empty line. METHOD={separate(default), prepend, append, both}.
+-i, --ignore-case          Ignore differences in case when comparing.
+-s, --skip-chars=N         Avoid comparing the first N characters.
+-u, --unique               Only print unique lines (those that are not repeated adjacently).
+-z, --zero-terminated      Line delimiter is NUL, not newline.
+-w, --check-chars=N        Compare no more than N characters in lines.
+--help                     Display help information and exit.
+--version                  Display version information and exit.
 ```
 
-## 参数
+## Parameters
 
-INPUT（可选）：输入文件，不提供时为标准输入。
+INPUT (optional): Input file; if not provided, standard input is used.
 
-OUTPUT（可选）：输出文件，不提供时为标准输出。
+OUTPUT (optional): Output file; if not provided, standard output is used.
 
-## 返回值
+## Return Value
 
-返回0表示成功，返回非0值表示失败。
+Returns 0 on success, and a non-zero value on failure.
 
-## 例子
+## Examples
 
-注意：命令2和命令3结果一样，命令1仅作了相邻行的去重。
+Note: Commands 2 and 3 produce the same result; command 1 only de-duplicates adjacent lines.
 
 ```shell
 uniq file.txt
@@ -53,30 +52,27 @@ sort file.txt | uniq
 sort -u file.txt
 ```
 
-只显示单一行，区别在于是否执行排序：
+Only display unique lines; the difference is whether sorting is performed:
 
 ```shell
 uniq -u file.txt
 sort file.txt | uniq -u
 ```
 
-统计各行在文件中出现的次数：
+Count the number of occurrences of each line in the file:
 
 ```shell
 sort file.txt | uniq -c
 ```
 
-在文件中找出重复的行：
+Find duplicate lines in a file:
 
 ```shell
 sort file.txt | uniq -d
 ```
 
+### Note
 
-### 注意
+1. `uniq` only detects if adjacent lines are duplicates; `sort -u` sorts the input file before processing duplicate lines.
 
-1. `uniq`只检测邻近的行是否重复，`sort -u`将输入文件先排序然后再处理重复行。 
-
-2. 该命令是`GNU coreutils`包中的命令，相关的帮助信息请查看`man -s 1 uniq`，`info coreutils 'uniq invocation'`。
-
-
+2. This command is part of the `GNU coreutils` package. For related help information, please see `man -s 1 uniq` or `info coreutils 'uniq invocation'`.

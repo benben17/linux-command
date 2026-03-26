@@ -1,28 +1,27 @@
 accept
 ===
 
-指示打印系统接受发往指定目标打印机的打印任务
+Instructs the printing system to accept print jobs sent to a specific target printer.
 
-## 补充说明
 
-**accept命令** 属于CUPS套件，用于指示打印系统接受发往指定目标打印机的打印任务。
+## Description
 
-###  语法
+The **accept command** is part of the CUPS suite and is used to instruct the printing system to accept print jobs sent to the specified destination printer.
 
-```
-accept(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```
--E：当连接到服务器时强制加密；
--U：指定连接服务器时使用的用户名；
--h：指定连接服务器名和端口号。
+accept [options] [parameters]
 ```
 
-###  参数
+### Options
 
-目标：指定目标打印机。
+```
+-E: Force encryption when connecting to the server.
+-U: Specify the username to use when connecting to the server.
+-h: Specify the server name and port number to connect to.
+```
 
+### Parameters
 
+Destination: Specifies the target printer.

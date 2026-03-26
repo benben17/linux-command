@@ -1,47 +1,45 @@
 ldd
 ===
 
-打印程序或者库文件所依赖的共享库列表
+Print shared library dependencies of a program or library
 
-## 补充说明
+## Description
 
-**ldd命令** 用于打印程序或者库文件所依赖的共享库列表。
+The **ldd** command is used to print the list of shared libraries that a program or library file depends on.
 
-###  语法
-
-```shell
-ldd(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
---version：打印指令版本号；
--v：详细信息模式，打印所有相关信息；
--u：打印未使用的直接依赖；
--d：执行重定位和报告任何丢失的对象；
--r：执行数据对象和函数的重定位，并且报告任何丢失的对象和函数；
---help：显示帮助信息。
+ldd (options) (parameters)
 ```
 
-###  参数
+### Options
 
-文件：指定可执行程序或者文库。
+```shell
+--version: Print the version number;
+-v: Verbose mode, print all related information;
+-u: Print unused direct dependencies;
+-d: Perform relocations and report any missing objects;
+-r: Perform relocations for both data objects and functions, and report any missing objects or functions;
+--help: Display help information.
+```
 
-###  其他介绍
+### Parameters
 
-首先ldd不是一个可执行程序，而只是一个shell脚本
+File: Specify the executable program or library file.
 
-ldd能够显示可执行模块的dependency，其原理是通过设置一系列的环境变量，如下：`LD_TRACE_LOADED_OBJECTS、LD_WARN、LD_BIND_NOW、LD_LIBRARY_VERSION、LD_VERBOSE`等。当`LD_TRACE_LOADED_OBJECTS`环境变量不为空时，任何可执行程序在运行时，它都会只显示模块的dependency，而程序并不真正执行。要不你可以在shell终端测试一下，如下：
+### Further Information
+
+First, `ldd` is not an executable binary, but a shell script.
+
+`ldd` displays the dependencies of an executable module by setting a series of environment variables, such as: `LD_TRACE_LOADED_OBJECTS`, `LD_WARN`, `LD_BIND_NOW`, `LD_LIBRARY_VERSION`, `LD_VERBOSE`, etc. When the `LD_TRACE_LOADED_OBJECTS` environment variable is not empty, any executable program will only display its module dependencies upon execution, without actually running the program. You can test this in a shell terminal:
 
 ```shell
 export LD_TRACE_LOADED_OBJECTS=1
 ```
 
-再执行任何的程序，如ls等，看看程序的运行结果。
+Then try running any program, like `ls`, and observe the result.
 
-ldd显示可执行模块的dependency的工作原理，其实质是通过ld-linux.so（elf动态库的装载器）来实现的。我们知道，ld-linux.so模块会先于executable模块程序工作，并获得控制权，因此当上述的那些环境变量被设置时，ld-linux.so选择了显示可执行模块的dependency。
+The principle behind `ldd`'s dependency display is actually implemented by `ld-linux.so` (the ELF dynamic library loader). We know that the `ld-linux.so` module runs before the executable program and gains control; therefore, when the aforementioned environment variables are set, `ld-linux.so` chooses to display the executable's dependencies.
 
-实际上可以直接执行ld-linux.so模块，如：`/lib/ld-linux.so.2 --list program`（这相当于ldd program）
-
-
+In fact, you can execute the `ld-linux.so` module directly, for example: `/lib/ld-linux.so.2 --list program` (which is equivalent to `ldd program`).

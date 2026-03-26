@@ -1,94 +1,93 @@
 ag
 ===
 
-ack 的升级版，C语言编写，更快更人性化
+An upgraded version of ack, written in C. Faster and more user-friendly.
 
-## 补充说明
 
-> 摘自 <https://github.com/ggreer/the_silver_searcher> 项目的 Readme.md
+## Description
 
-- 它比ack快一个数量级。
-- 它忽略了你的 `.gitignore` 和 `.hgignore` 中的文件模式。
-- 如果你的源码库里有你不想搜索的文件，只要把它们的模式添加到一个.ignore文件里。(*cough* *.min.js*cough*)
-- 这个命令的名字比ack短33%，而且所有的键都在主行上!
+> Excerpted from the Readme.md of the <https://github.com/ggreer/the_silver_searcher> project.
 
-### 语法
+- It is an order of magnitude faster than ack.
+- It ignores file patterns in your `.gitignore` and `.hgignore`.
+- If there are files in your source repository you don't want to search, just add their patterns to a `.ignore` file. (*cough* *.min.js* *cough*)
+- The command name is 33% shorter than ack, and all the keys are on the home row!
+
+### Syntax
 
 ```shell
 ag [options] pattern [path ...]
-ag [可选项] 匹配模式 [路径...]
 ```
 
-### 选项
+### Options
 
 ```shell
-输出选项:
-     --ackmate            以 AckMate-parseable 的格式显示结果
-  -A --after [LINES]      显示匹配行之后的行（默认2行）
-  -B --before [LINES]     显示匹配行之前的行（默认2行）
-     --[no]break          不同文件中匹配到的内容新建一行显示（默认开启）
-  -c --count              只显示每个文件中匹配到的数量 （通常与匹配行数不同）
-     --[no]color          在结果中打印颜色代码（默认启用）
-     --color-line-number  行号的颜色代码（默认值为：1;33）。
-     --color-match        匹配结果的颜色代码（默认值为：30;43）。
-     --color-path         路径名称的颜色代码（默认值为：1;32）
-     --column             打印结果中的列号
-     --[no]filename       打印文件名（除非搜索单个文件，否则启用）。
-  -H --[no]heading        在每个文件匹配前输出文件名（默认开启）
-  -C --context [LINES]    显示匹配行上下两行（默认2行）
-     --[no]group          和这些一样： --[no]break --[no]heading
-  -g --filename-pattern PATTERN 打印匹配PATTERN的文件名
-  -l --files-with-matches 显示包含匹配的文件名（不显示匹配的行）
-  -L --files-without-matches  只显示不包含匹配项的文件名
-     --print-all-files    打印所有搜索到的文件的标题，甚至那些不包含匹配的文件。
-     --[no]numbers        打印行号。默认情况是在搜索流时省略行号。
-  -o --only-matching      只输出每行匹配的部分
-     --print-long-lines   在很长的行上打印匹配信息（默认：>2k字符）。
-     --passthrough        当搜索一个流时，打印所有的行，即使它们不匹配。
-     --silent             抑制所有的日志信息，包括错误
-     --stats              打印统计（扫描的文件、花费的时间等）。
-     --stats-only         打印统计信息，不打印其他信息（与搜索单个文件时的--计数相同）。
-     --vimgrep            像vim的:vimgrep /pattern/g那样打印结果（它报告每一行的匹配结果）
-  -0 --null --print0      用null分隔文件名（用于'xargs -0'）。
+Output Options:
+     --ackmate            Display results in AckMate-parseable format.
+  -A --after [LINES]      Print LINES of context after matches. (Default: 2)
+  -B --before [LINES]     Print LINES of context before matches. (Default: 2)
+     --[no]break          Print a newline between matches in different files. (Enabled by default)
+  -c --count              Only print the number of matches in each file. (This often differs from the number of matching lines)
+     --[no]color          Print color codes in results. (Enabled by default)
+     --color-line-number  Color code for line numbers. (Default: 1;33)
+     --color-match        Color code for result matches. (Default: 30;43)
+     --color-path         Color code for path names. (Default: 1;32)
+     --column             Print column numbers in results.
+     --[no]filename       Print file names (enabled unless searching a single file).
+  -H --[no]heading        Print file names above each file's results. (Enabled by default)
+  -C --context [LINES]    Print LINES of context above and below matches. (Default: 2)
+     --[no]group          Same as: --[no]break --[no]heading.
+  -g --filename-pattern PATTERN Print filenames matching PATTERN.
+  -l --files-with-matches Only print filenames that contain matches.
+  -L --files-without-matches Only print filenames that do not contain matches.
+     --print-all-files    Print headings for all files searched, even those without matches.
+     --[no]numbers        Print line numbers. Default is to omit line numbers when searching a stream.
+  -o --only-matching      Only print the matching part of each line.
+     --print-long-lines   Print matches on very long lines (Default: >2k characters).
+     --passthrough        When searching a stream, print all lines even if they don't match.
+     --silent             Suppress all log messages, including errors.
+     --stats              Print statistics (files scanned, time taken, etc.).
+     --stats-only         Print statistics and nothing else (same as --count when searching a single file).
+     --vimgrep            Print results like vim's :vimgrep /pattern/g (reports every match on every line).
+  -0 --null --print0      Separate filenames with a null character (useful for 'xargs -0').
 
-搜索选项:
-  -a --all-types          搜索所有文件（包括隐藏文件）
-  -D --debug              可笑的调试（可能没有用）
-     --depth NUM          目录搜索最大深度（默认25）
-  -f --follow             跟随链接进行搜索
-  -F --fixed-strings      为了与grep兼容，--literal的别名。
-  -G --file-search-regex  根据正则匹配搜索指定类型的文件
-     --hidden             搜索隐藏文件 （但遵从 .*ignore 文件）
-  -i --ignore-case        不区分大小写匹配
-     --ignore PATTERN     忽略匹配 PATTERN 的文件/目录（也允许使用文字文件/目录名称）
-     --ignore-dir NAME    为了与ack兼容，--ignore的别名
-  -m --max-count NUM      在一个文件中最大匹配的数量（默认: 10,000）
-     --one-device         不跟随其他设备的链接搜索
-  -p --path-to-ignore STRING 在STRING使用.ignore文件
-  -Q --literal            不要将PATTERN解析为正则表达式
-  -s --case-sensitive     敏感地匹配案例
-  -S --smart-case         不区分大小写匹配，除非 PATTERN 包含大写字符
-     --search-binary      搜索二进制文件
-  -t --all-text           搜索所有文本文件（不包括隐藏文件）
-  -u --unrestricted       搜索所有文件 （忽略 .ignore, .gitignore, 比如：搜索二进制和隐藏文件）
-  -U --skip-vcs-ignores   忽略VCS的忽略文件（指的是 .gitignore，.hgignore；仍然遵从.ignore）。
-  -v --invert-match       反向匹配
-  -w --word-regexp        只匹配整个单词
-  -W --width NUM          在NUM字符后截断匹配行
-  -z --search-zip         搜索压缩文件中的内容
+Search Options:
+  -a --all-types          Search all files (including hidden files).
+  -D --debug              Ridiculous debugging (likely not useful).
+     --depth NUM          Maximum directory search depth. (Default: 25)
+  -f --follow             Follow symlinks.
+  -F --fixed-strings      Alias for --literal for compatibility with grep.
+  -G --file-search-regex  Search files whose names match a regex.
+     --hidden             Search hidden files (but respect .*ignore files).
+  -i --ignore-case        Match case-insensitively.
+     --ignore PATTERN     Ignore files/directories matching PATTERN (literal names also allowed).
+     --ignore-dir NAME    Alias for --ignore for compatibility with ack.
+  -m --max-count NUM      Maximum number of matches in a single file. (Default: 10,000)
+     --one-device         Do not follow links to other devices.
+  -p --path-to-ignore STRING Use .ignore file at STRING.
+  -Q --literal            Do not parse PATTERN as a regular expression.
+  -s --case-sensitive     Match case-sensitively.
+  -S --smart-case         Match case-insensitively unless PATTERN contains uppercase characters.
+     --search-binary      Search binary files.
+  -t --all-text           Search all text files (excludes hidden files).
+  -u --unrestricted       Search all files (ignores .ignore, .gitignore, etc.; searches binary and hidden files).
+  -U --skip-vcs-ignores   Ignore VCS ignore files (.gitignore, .hgignore, etc.; still respects .ignore).
+  -v --invert-match       Invert match (select non-matching lines).
+  -w --word-regexp        Only match whole words.
+  -W --width NUM          Truncate matching lines after NUM characters.
+  -z --search-zip         Search contents of compressed files.
 
-文件类型:
-搜索可以限制在某些类型的文件中，例如:
-   ag --html needle   结果输出到指定类型文件
-   - 在后缀为 .htm、.html、.shtml 或 .xhtml 的文件中搜索“needle”
+File Types:
+Search can be limited to certain types of files, for example:
+   ag --html needle   # Search for "needle" in files ending in .htm, .html, .shtml, or .xhtml
 
-有关支持的文件类型的列表，可以运行:
-  ag --list-file-types  列出支持的文件类型
+For a list of supported file types, run:
+  ag --list-file-types
 ```
 
-### 实例
+### Examples
 
-列出当前目录下包含 `npm` 的文件
+List files in the current directory containing `npm`:
 
 ```shell
 ➜  vue-project ag npm ./
@@ -97,4 +96,3 @@ README.md
 22:npm run dev
 28:npm run build
 ```
-

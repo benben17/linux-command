@@ -1,37 +1,36 @@
 convertquota
 ===
 
-把老的配额文件转换为新的格式
+Converts old quota files to the new format
 
-## 补充说明
+## Description
 
-**convertquota命令** 用于将老的磁盘额数据文件（“quota.user”和“quota.group”）转换为新格式的文件（“quota.user”和“quota.group”）。
+The **convertquota command** is used to convert old disk quota data files ("quota.user" and "quota.group") into the new format.
 
-###  语法
-
-```shell
-convertquota(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--u：仅转换用户磁盘配额数据文件；
--g：仅转换组磁盘配额数据文件；
--f：将老的磁盘配额文件转换为新的格式；
--e：将新的文件格式从大字节序换为小字节序。
+convertquota [options] [arguments]
 ```
 
-###  参数
-
-文件系统：指定要转换磁盘配额数据文件格式的文件系统（硬盘分区）。
-
-###  实例
-
-使用convertquota指令转换指定文件系统`/data`的磁盘配额数据文件。在命令行中输入下面的命令：
+### Options
 
 ```shell
-convertquota -u /data     //转换文件系统"/data"上的用户磁盘配额文件
+-u: Only convert user disk quota data files;
+-g: Only convert group disk quota data files;
+-f: Convert old disk quota files to the new format;
+-e: Change the new file format from big-endian to little-endian.
 ```
 
+### Arguments
 
+Filesystem: Specify the filesystem (partition) for which the disk quota data files should be converted.
+
+### Examples
+
+To convert the user disk quota data files on the `/data` filesystem, use the following command:
+
+```shell
+convertquota -u /data     # Convert user disk quota files on the "/data" filesystem
+```
+观察

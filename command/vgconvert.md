@@ -1,50 +1,47 @@
 vgconvert
 ===
 
-转换卷组元数据格式
+Convert volume group metadata format.
 
-## 补充说明
+## Description
 
-**vgconvert命令** 用于转换指定LVM卷组的元数据格式，通常将“LVM1”格式的卷组转换为“LVM2”格式。转换卷组元数据前必须保证卷组处于非活动状态，否则无法完成转换操作。
+The **vgconvert command** is used to convert the metadata format of a specified LVM volume group, typically from "LVM1" format to "LVM2" format. Before converting the metadata, the volume group must be in an inactive state; otherwise, the conversion cannot be completed.
 
-###  语法
+### Syntax
 
 ```shell
-vgconvert(选项)(参数)
+vgconvert (option) (parameter)
 ```
 
-###  选项
+### Options
 
 ```shell
--M：要转换的卷组格式。
+-M: The volume group format to convert to.
 ```
 
-###  参数
+### Parameters
 
-卷组：指定要转换格式的卷组。
+Volume Group: Specifies the volume group to be converted.
 
-###  实例
+### Examples
 
-转换卷组元数据格式前，使用vgchange命令将卷组设置为非活动状态。在命令行中输入下面的命令：
-
-```shell
-[root@localhost lvm]# vgchange -an vg1000    #设置卷组状态为非活动状态
-0 logical volume(s) in volume group "vg1000" now active 
+Before converting the metadata format, use the vgchange command to set the volume group to an inactive state. Enter the following command at the command line:
 
 ```shell
-
-使用vgconvert命令将卷组"vg1000"从"LVM1"格式转换为"LVM2"格式。在命令行中输入下面的命令：
-
-```shell
-[root@localhost lvm]# vgconvert -M2 vg1000    #转换卷组为"LVM2"格式
-Volume group vg1000 successfully converted
-```
-
-使用vgchange命令将卷组设置为活动状态。在命令行中输入下面的命令：
-
-```shell
-[root@localhost lvm]# vgchange -ay vg1000     #设置卷组状态为活动状态
+[root@localhost lvm]# vgchange -an vg1000    # Set volume group status to inactive
 0 logical volume(s) in volume group "vg1000" now active
 ```
 
+Use the vgconvert command to convert the volume group "vg1000" from "LVM1" format to "LVM2" format. Enter the following command at the command line:
 
+```shell
+[root@localhost lvm]# vgconvert -M2 vg1000    # Convert volume group to "LVM2" format
+Volume group vg1000 successfully converted
+```
+
+Use the vgchange command to set the volume group back to an active state. Enter the following command at the command line:
+
+```shell
+[root@localhost lvm]# vgchange -ay vg1000     # Set volume group status to active
+0 logical volume(s) in volume group "vg1000" now active
+```

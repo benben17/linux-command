@@ -1,22 +1,20 @@
 ypdomainname
 ===
 
-显示主机的NIS的域名
+Display the host's NIS domain name.
 
-## 补充说明
+## Supplemental Information
 
-**ypdomainname命令** 显示主机的NIS的域名。
+The **ypdomainname command** displays the host's NIS domain name.
 
-###  语法
-
-```shell
-ypdomainname(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
--v：详细信息模式。
+ypdomainname (options)
 ```
 
+### Options
 
+```shell
+-v: Verbose mode.
+```

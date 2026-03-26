@@ -1,30 +1,28 @@
 mailq
 ===
 
-显示待发送的邮件队列
+Display the mail queue
 
-## 补充说明
+## Description
 
-**mailq命令** 用户显示待发送的邮件队列，显示的每一个条目包括邮件队列id、邮件大小、加入队列时间、邮件发送者和接受者。如果邮件最后一次尝试后还没有将邮件投递出去，则显示发送失败的原因。
+The **mailq command** displays a list of messages that are waiting to be sent. Each entry includes the queue ID, size, arrival time, sender, and recipients. If a message failed to be delivered during the last attempt, the reason for the failure is also shown.
 
-###  语法
-
-```shell
-mailq(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
--v：显示详细的信息。
+mailq [OPTION]
 ```
 
-###  实例
+### Options
+
+```shell
+-v: Display detailed information.
+```
+
+### Examples
 
 ```shell
 [root@localhost ~]# mailq -v
 /var/spool/mqueue is empty
                 Total requests: 0
 ```
-
-

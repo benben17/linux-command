@@ -1,108 +1,108 @@
 tput
 ===
 
-通过terminfo数据库对终端会话进行初始化和操作
+Initialize and manipulate terminal sessions via the terminfo database
 
-## 补充说明
+## Description
 
-**tput命令** 将通过 terminfo 数据库对您的终端会话进行初始化和操作。通过使用 tput，您可以更改几项终端功能，如移动或更改光标、更改文本属性，以及清除终端屏幕的特定区域。
+The **tput command** initializes and manipulates your terminal session using the terminfo database. With tput, you can change several terminal features, such as moving or changing the cursor, changing text attributes, and clearing specific areas of the terminal screen.
 
-###  什么是 terminfo 数据库？
+### What is the terminfo database?
 
-UNIX 系统上的 terminfo 数据库用于定义终端和打印机的属性及功能，包括各设备（例如，终端和打印机）的行数和列数以及要发送至该设备的文本的属性。UNIX 中的几个常用程序都依赖 terminfo 数据库提供这些属性以及许多其他内容，其中包括 vi 和 emacs 编辑器以及 curses 和 man 程序。
+The terminfo database on UNIX systems is used to define the attributes and capabilities of terminals and printers, including the number of rows and columns for each device and the attributes of text sent to that device. Several common programs in UNIX depend on the terminfo database for these attributes and many others, including the vi and emacs editors, as well as the curses and man programs.
 
-与 UNIX 中的大多数命令一样，tput 命令既可以用在 shell 命令行中也可以用在 shell 脚本中。为让您更好地理解 tput，本文首先从命令行讲起，然后紧接着讲述 shell 脚本示例。
+Like most commands in UNIX, tput can be used both on the shell command line and in shell scripts. To help you better understand tput, this article starts with the command line and follows with shell script examples.
 
- **光标属性** 
+**Cursor Attributes**
 
-在 UNIX shell 脚本中或在命令行中，移动光标或更改光标属性可能是非常有用的。有些情况下，您可能需要输入敏感信息（如密码），或在屏幕上两个不同的区域输入信息。在此类情况下，使用 tput 可能会对您有所帮助。
+In UNIX shell scripts or on the command line, moving the cursor or changing cursor attributes can be very useful. In some cases, you may need to enter sensitive information (like passwords) or enter information in two different areas on the screen. In such cases, using tput can be helpful.
 
 ```shell
-tput clear # 清屏
-tput sc # 保存当前光标位置
-tput cup 10 13 # 将光标移动到 row col
-tput civis # 光标不可见
-tput cnorm # 光标可见
-tput rc # 显示输出
+tput clear # Clear screen
+tput sc # Save current cursor position
+tput cup 10 13 # Move cursor to row 10, col 13
+tput civis # Make cursor invisible
+tput cnorm # Make cursor visible
+tput rc # Restore cursor position
 exit 0
 ```
 
- **移动光标** 
+**Moving the Cursor**
 
-使用 tput 可以方便地实现在各设备上移动光标的位置。通过在 tput 中使用 cup 选项，或光标位置，您可以在设备的各行和各列中将光标移动到任意 X 或 Y 坐标。设备左上角的坐标为 (0,0)。
+tput makes it easy to move the cursor position on various devices. By using the `cup` (cursor position) option in tput, you can move the cursor to any X or Y coordinate across the rows and columns of the device. The top-left corner of the device is (0,0).
 
-要在设备上将光标移动到第 5 列 (X) 的第 1 行 (Y)，只需执行 tput cup 5 1。另一个示例是 tput cup 23 45，此命令将使光标移动到第 23 列上的第 45 行。
+To move the cursor to column 5 (X) of row 1 (Y) on the device, simply execute `tput cup 1 5`. Another example is `tput cup 23 45`, which moves the cursor to row 23, column 45.
 
- **移动光标并显示信息** 
+**Moving the Cursor and Displaying Information**
 
-另一种有用的光标定位技巧是移动光标，执行用于显示信息的命令，然后返回到前一光标位置：
+Another useful cursor positioning trick is to move the cursor, execute a command to display information, and then return to the previous cursor position:
 
 ```shell
-(tput sc ; tput cup 23 45 ; echo “Input from tput/echo at 23/45” ; tput rc)
+(tput sc ; tput cup 23 45 ; echo "Input from tput/echo at 23/45" ; tput rc)
 ```
 
-下面我们分析一下 subshell 命令：
+Let's analyze the subshell command:
 
 ```shell
 tput sc
 ```
 
-必须首先保存当前的光标位置。要保存当前的光标位置，请包括 sc 选项或“save cursor position”。
+The current cursor position must be saved first using the `sc` (save cursor position) option.
 
 ```shell
 tput cup 23 45
 ```
 
-在保存了光标位置后，光标坐标将移动到 (23,45)。
+After saving the cursor position, the cursor coordinates move to (23,45).
 
 ```shell
-echo “Input from tput/echo at 23/45”
+echo "Input from tput/echo at 23/45"
 ```
 
-将信息显示到 stdout 中。
+Display information to stdout.
 
 ```shell
 tput rc
 ```
 
-在显示了这些信息之后，光标必须返回到使用 tput sc 保存的原始位置。要使光标返回到其上次保存的位置，请包括 rc 选项或“restore cursor position”。
+After displaying this information, the cursor must return to the original position saved with `tput sc`. To return the cursor to its last saved position, include the `rc` (restore cursor position) option.
 
-注意：由于本文首先详细介绍了通过命令行执行 tput，因此您可能会觉得在自己的 subshell 中执行命令要比单独执行每条命令然后在每条命令执行之前显示提示更简洁。
+Note: Since this article first introduces executing tput via the command line, you might find executing commands in your own subshell cleaner than executing each command individually.
 
- **更改光标的属性** 
+**Changing Cursor Attributes**
 
-在向某一设备显示数据时，很多时候您并不希望看到光标。将光标转换为不可见可以使数据滚动时的屏幕看起来更整洁。要使光标不可见，请使用 civis 选项（例如，tput civis）。在数据完全显示之后，您可以使用 cnorm 选项将光标再次转变为可见。
+When displaying data to a device, you often don't want to see the cursor. Making the cursor invisible can make the screen look cleaner as data scrolls. To make the cursor invisible, use the `civis` option (e.g., `tput civis`). After the data is fully displayed, you can make the cursor visible again using the `cnorm` option.
 
- **文本属性** 
+**Text Attributes**
 
-更改文本的显示方式可以让用户注意到菜单中的一组词或警惕用户注意某些重要的内容。您可以通过以下方式更改文本属性：使文本加粗、在文本下方添加下划线、更改背景颜色和前景颜色，以及逆转颜色方案等。
+Changing the way text is displayed can draw a user's attention to a group of words in a menu or alert them to something important. You can change text attributes by making text bold, underlining it, changing background and foreground colors, and reversing the color scheme.
 
-要更改文本的颜色，请使用 setb 选项（用于设置背景颜色）和 setf 选项（用于设置前景颜色）以及在 terminfo 数据库中分配的颜色数值。通常情况下，分配的数值与颜色的对应关系如下，但是可能会因 UNIX 系统的不同而异：
+To change text color, use the `setb` option (to set background color) and the `setf` option (to set foreground color) along with color numeric values assigned in the terminfo database. Typically, the mapping of values to colors is as follows, though it may vary across UNIX systems:
 
-*   0：黑色
-*   1：蓝色
-*   2：绿色
-*   3：青色
-*   4：红色
-*   5：洋红色
-*   6：黄色
-*   7：白色
+*   0: Black
+*   1: Blue
+*   2: Green
+*   3: Cyan
+*   4: Red
+*   5: Magenta
+*   6: Yellow
+*   7: White
 
-执行以下示例命令可以将背景颜色更改为黄色，将前景颜色更改为红色：
+Executing the following example command changes the background color to yellow and the foreground color to red:
 
 ```shell
-tput setb 6 tput setf 4
+tput setb 6; tput setf 4
 ```
 
-要反显当前的颜色方案，只需执行`tput rev`。
+To reverse the current color scheme, simply execute `tput rev`.
 
-有时，仅为文本着色还不够，也就是说，您想要通过另一种方式引起用户的注意。可以通过两种方式达到这一目的：一是将文本设置为粗体，二是为文本添加下划线。
+Sometimes, coloring text isn't enough; you may want to catch the user's attention in another way. This can be achieved in two ways: by setting the text to bold or by underlining it.
 
-要将文本更改为粗体，请使用 bold 选项。要开始添加下划线，请使用 smul 选项。在完成显示带下划线的文本后，请使用 rmul 选项。
+To change text to bold, use the `bold` option. To start underlining, use the `smul` option. After displaying underlined text, use the `rmul` option.
 
-###  实例
+### Examples
 
-使输出的字符串有颜色，底色，加粗：
+Coloring output string, background, and bold:
 
 ```shell
 #!/bin/bash
@@ -121,16 +121,16 @@ done
 exit 0
 ```
 
-输出格式控制函数：
+Output format control function:
 
 ```shell
 #!/bin/bash
 
 # $1 str       print string
-# $2 color     0-7 设置颜色
-# $3 bgcolor   0-7 设置背景颜色
-# $4 bold      0-1 设置粗体
-# $5 underline 0-1 设置下划线
+# $2 color     0-7 set color
+# $3 bgcolor   0-7 set background color
+# $4 bold      0-1 set bold
+# $5 underline 0-1 set underline
 
 function format_output(){
     str=$1
@@ -174,7 +174,7 @@ format_output "Yesterday Once more" 2 5 1 1
 exit 0
 ```
 
-光标属性例子：
+Cursor attribute example:
 
 ```shell
 #!/bin/bash
@@ -192,13 +192,13 @@ tput rev
 echo "M A I N - M E N U"
 tput sgr0
 tput cup 7 15
-echo "1\. User Management"
+echo "1. User Management"
 tput cup 8 15
-echo "2\. service Management"
+echo "2. Service Management"
 tput cup 9 15
-echo "3\. Process Management"
+echo "3. Process Management"
 tput cup 10 15
-echo "4\. Backup"
+echo "4. Backup"
 # Set bold mode
 tput bold
 tput cup 12 15
@@ -209,5 +209,3 @@ tput rc
 
 exit 0
 ```
-
-

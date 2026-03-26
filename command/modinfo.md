@@ -1,36 +1,38 @@
 modinfo
 ===
 
-显示给定模块的详细信息
+Show information about a Linux kernel module
 
-## 补充说明
+## Description
 
-**modinfo命令** 用于显示给定模块的详细信息。
+The **modinfo command** extracts and displays information from Linux kernel modules. It can show details such as the module's author, description, license, parameters, and more.
 
-###  语法
-
-```shell
-modinfo(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--a：显示模块作者；
--d：显示模块的描述信息；
--l：显示模块的许可信息；
--p：显示模块的参数信息；
--n：显示模块对应的文字信息；
--0：用ASCII码的0字符分割字段值，而不使用新行。
+modinfo [OPTION]... [MODULE_NAME|FILENAME]
 ```
 
-###  参数
+### Options
 
-模块名：要显示详细信息的模块名称。
+```shell
+-a, --author：Display the module's author.
+-d, --description：Display the module's description.
+-l, --license：Display the module's license.
+-p, --parameters：Display the parameters that the module accepts.
+-n, --filename：Display the module's filename.
+-0, --null：Use the ASCII NULL character to separate fields instead of a newline.
+-F, --field <field>：Only display the value of the specified field.
+```
 
-###  实例
+### Parameters
 
-显示sg模块的信息：
+Module Name: The name of the kernel module (e.g., `sg`).
+Filename: The path to a module file (e.g., `/path/to/module.ko`).
+
+### Examples
+
+Display information for the `sg` (SCSI generic) module:
 
 ```shell
 [root@localhost ~]# modinfo sg
@@ -45,5 +47,3 @@ alias:     char-major-21-*
 vermagic:    2.6.9-42.ELsmp SMP 686 REGPARM 4KSTACKS gcc-3.4
 depends:    scsi_mod
 ```
-
-

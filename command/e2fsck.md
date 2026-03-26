@@ -1,64 +1,62 @@
 e2fsck
 ===
 
-用于检查第二扩展文件系统的完整性
+Used to check the integrity of ext2, ext3, or ext4 file systems.
 
-## 补充说明
+## Description
 
-**e2fsck命令** 用于检查第二扩展文件系统的完整性，通过适当的选项可以尝试修复出现的错误。
+The **e2fsck** command is used to check the integrity of ext2, ext3, or ext4 file systems. It can attempt to repair errors through appropriate options.
 
-e2fsck执行后的传回值及代表意义如下：
+The return values of e2fsck and their meanings are as follows:
 
-*   0 没有任何错误发生。
-*   1 文件系统发生错误，并且已经修正。
-*   2 文件系统发生错误，并且已经修正。
-*   4 文件系统发生错误，但没有修正。
-*   8 运作时发生错误。
-*   16 使用的语法发生错误。
-*   128 共享的函数库发生错误。
+*   0: No error occurred.
+*   1: File system error occurred and has been corrected.
+*   2: File system error occurred and has been corrected.
+*   4: File system error occurred but was not corrected.
+*   8: Operational error occurred.
+*   16: Usage or syntax error occurred.
+*   128: Shared library error occurred.
 
-### 语法
-
-```shell
-e2fsck(选项)(参数)
-```
-
-### 选项
+### Syntax
 
 ```shell
--a：不询问使用者意见，便自动修复文件系统；
--b<superblock>：指定superblock，而不使用预设的superblock；
--B<区块大小>：指定区块的大小，单位为字节；
--c：一并执行badblocks，以标示损坏的区块；
--C：将检查过程的信息完整记录在file descriptor中，使得整个检查过程都能完整监控；
--d：显示排错信息；
--f：即使文件系统没有错误迹象，仍强制地检查正确性；
--F：执行前先清除设备的缓冲区；
--l<文件>：将文件中指定的区块加到损坏区块列表；
--L<文件>：先清除损坏区块列表，再将文件中指定的区块加到损坏区块列表。因此损坏区块列表的区块跟文件中指定的区块是一样的；
--n：以只读模式开启文件系统，并采取非互动方式执行，所有的问题对话均设置以"no"回答；
--p：不询问使用者意见，便自动修复文件系统；
--r：此参数只为了兼容性而存在，并无实际作用；
--s：如果文件系统的字节顺序不适当，就交换字节顺序，否则不做任何动作；
--S：不管文件系统的字节顺序，一律交换字节顺序；
--t：显示时间信息；
--v：执行时显示详细的信息；
--V：显示版本信息；
--y：采取非互动方式执行，所有的问题均设置以"yes"回答。
+e2fsck [options] [parameters]
 ```
 
-### 参数
+### Options
 
-文件系统或者分区：指定文件系统或者分区所对应的设备文件名。
+```shell
+-a: Automatically repair the file system without asking the user.
+-b<superblock>: Use an alternative superblock instead of the default one.
+-B<block size>: Specify the block size in bytes.
+-c: Run badblocks to mark bad blocks.
+-C: Write completion information to a file descriptor so that the entire check process can be monitored.
+-d: Display debugging information.
+-f: Force checking even if the file system seems clean.
+-F: Flush the device's buffers before starting.
+-l<file>: Add the blocks specified in the file to the bad block list.
+-L<file>: Clear the bad block list first, then add the blocks specified in the file to the bad block list.
+-n: Open the file system in read-only mode and perform a non-interactive execution, answering "no" to all questions.
+-p: Automatically repair the file system without asking the user.
+-r: This parameter exists for compatibility and has no actual effect.
+-s: Swap the byte order if the file system's byte order is inappropriate; otherwise, do nothing.
+-S: Swap the byte order regardless of the file system's byte order.
+-t: Display timing information.
+-v: Display detailed information during execution.
+-V: Display version information.
+-y: Perform a non-interactive execution, answering "yes" to all questions.
+```
 
-### 实例
+### Parameters
 
-检查`/dev/sda1`是否有问题，如发现问题便自动修复：
+File system or partition: Specify the device file name corresponding to the file system or partition.
+
+### Examples
+
+Check if `/dev/sda1` has any problems and repair them automatically if found:
 
 ```shell
 e2fsck -a -y /dev/sda1
 ```
 
-执行e2fsck或fsck前请先umount partition，否则有机会令档案系统毁损。如果需要对根目录`/`进行检查及修复，便需要进入singal user mode执行。
-
-
+Before executing `e2fsck` or `fsck`, please `umount` the partition first, otherwise there is a risk of damaging the file system. If you need to check and repair the root directory `/`, you need to enter single-user mode to execute it.

@@ -1,32 +1,30 @@
 sendmail
 ===
 
-著名电子邮件服务器
+Famous email server.
 
-## 补充说明
+## Description
 
-**sendmail命令** 是一款著名的电子邮件传送代理程序，也就是平常说的电子邮件服务器，它基于标准的简单邮件传输协议（SMTP）。
+The **sendmail command** is a famous Mail Transfer Agent (MTA), commonly known as an email server. It is based on the standard Simple Mail Transfer Protocol (SMTP).
 
-### 语法
-
-```shell
-sendmail(选项)
-```
-
-### 选项
+### Syntax
 
 ```shell
--bd：以守护进程方式运行指令；
--bD：以前台运行方式运行；
--bi：初始化别名数据库；
--bm：以常规发送电子邮件；
--bp：显示邮件的发送队列；
--C：指定配置文件；
--D：将调试的输出信息保存到日志文件，而不显示在标准输出设备上；
--F：指定邮件发送者全名；
--n：禁止使用邮件别名功能；
--f：指定发件人的名字；
--q：设置处理邮件队列中邮件的时间间隔。
+sendmail(options)
 ```
 
+### Options
 
+```shell
+-bd: Run as a daemon.
+-bD: Run in the foreground.
+-bi: Initialize the alias database.
+-bm: Send email in the conventional way.
+-bp: Display the mail transfer queue.
+-C: Specify a configuration file.
+-D: Save debugging output to a log file instead of displaying it on the standard output.
+-F: Specify the sender's full name.
+-n: Disable the mail alias feature.
+-f: Specify the sender's name.
+-q: Set the interval for processing mail in the queue.
+```

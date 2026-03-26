@@ -1,47 +1,47 @@
 traceroute
 ===
 
-显示数据包到主机间的路径
+Display the path that data packets take to reach a host
 
-## 补充说明
+## Description
 
-**traceroute命令** 用于追踪数据包在网络上的传输时的全部路径，它默认发送的数据包大小是40字节。
+The **traceroute command** is used to trace the full path that data packets take while transmitting over the network. By default, it sends packets with a size of 40 bytes.
 
-通过traceroute我们可以知道信息从你的计算机到互联网另一端的主机是走的什么路径。当然每次数据包由某一同样的出发点（source）到达某一同样的目的地(destination)走的路径可能会不一样，但基本上来说大部分时候所走的路由是相同的。
+Through traceroute, we can understand the path information takes from your computer to a host on the other side of the Internet. While the path taken by packets from a specific source to a specific destination may vary, the route is usually the same.
 
-traceroute通过发送小的数据包到目的设备直到其返回，来测量其需要多长时间。一条路径上的每个设备traceroute要测3次。输出结果中包括每次测试的时间(ms)和设备的名称（如有的话）及其ip地址。
+traceroute measures how long it takes for small data packets to be sent to a destination device and returned. For each device on a path, traceroute performs three measurements. The output includes the time for each test (in ms), the name of the device (if available), and its IP address.
 
-###  语法 
-
-```shell
-traceroute(选项)(参数)
-```
-
-###  选项 
+### Syntax
 
 ```shell
--d：使用Socket层级的排错功能；
--f<存活数值>：设置第一个检测数据包的存活数值TTL的大小；
--F：设置勿离断位；
--g<网关>：设置来源路由网关，最多可设置8个；
--i<网络界面>：使用指定的网络界面送出数据包；
--I：使用ICMP回应取代UDP资料信息；
--m<存活数值>：设置检测数据包的最大存活数值TTL的大小；
--n：直接使用IP地址而非主机名称；
--p<通信端口>：设置UDP传输协议的通信端口；
--r：忽略普通的Routing Table，直接将数据包送到远端主机上。
--s<来源地址>：设置本地主机送出数据包的IP地址；
--t<服务类型>：设置检测数据包的TOS数值；
--v：详细显示指令的执行过程；
--w<超时秒数>：设置等待远端主机回报的时间；
--x：开启或关闭数据包的正确性检验。
+traceroute [options] [parameters]
 ```
 
-###  参数 
+### Options
 
-主机：指定目的主机IP地址或主机名。
+```shell
+-d: Enable socket-level debugging;
+-f<ttl>: Set the initial time-to-live (TTL) value for the first probe packet;
+-F: Set the "Don't Fragment" bit;
+-g<gateway>: Set source route gateways (up to 8);
+-i<interface>: Use the specified network interface to send packets;
+-I: Use ICMP ECHO instead of UDP datagrams;
+-m<max_ttl>: Set the maximum time-to-live (TTL) for probe packets;
+-n: Use IP addresses directly instead of hostnames;
+-p<port>: Set the UDP port for transmission;
+-r: Bypass normal routing tables and send directly to the remote host;
+-s<source_addr>: Set the source IP address for outgoing packets;
+-t<tos>: Set the Type of Service (TOS) value for probe packets;
+-v: Verbose output;
+-w<timeout>: Set the time (in seconds) to wait for a response;
+-x: Enable or disable packet checksum validation.
+```
 
-###  实例 
+### Parameters
+
+Host: Specifies the destination IP address or hostname.
+
+### Examples
 
 ```shell
 traceroute www.58.com
@@ -60,15 +60,15 @@ traceroute to www.58.com (211.151.111.30), 30 hops max, 40 byte packets
 12  211.151.111.30 (211.151.111.30)  35.161 ms  35.938 ms  36.005 ms
 ```
 
-记录按序列号从1开始，每个纪录就是一跳 ，每跳表示一个网关，我们看到每行有三个时间，单位是ms，其实就是`-q`的默认参数。探测数据包向每个网关发送三个数据包后，网关响应后返回的时间；如果用`traceroute -q 4 www.58.com`，表示向每个网关发送4个数据包。
+Records start with a sequence number from 1, each representing a "hop" or gateway. Each row displays three times in ms, which corresponds to the default parameter of `-q`. After sending three probe packets to each gateway, the gateway's response time is recorded. If you use `traceroute -q 4 www.58.com`, it sends four packets to each gateway.
 
-有时我们traceroute一台主机时，会看到有一些行是以星号表示的。出现这样的情况，可能是防火墙封掉了ICMP的返回信息，所以我们得不到什么相关的数据包返回数据。
+Sometimes, you may see rows represented by asterisks. This might happen because a firewall is blocking ICMP return messages, preventing any data from being returned.
 
-有时我们在某一网关处延时比较长，有可能是某台网关比较阻塞，也可能是物理设备本身的原因。当然如果某台DNS出现问题时，不能解析主机名、域名时，也会 有延时长的现象；您可以加`-n`参数来避免DNS解析，以IP格式输出数据。
+Sometimes, a long delay at a particular gateway might be due to congestion or hardware issues. DNS problems failing to resolve hostnames can also cause delays; you can add the `-n` parameter to avoid DNS resolution and output results in IP format.
 
-如果在局域网中的不同网段之间，我们可以通过traceroute 来排查问题所在，是主机的问题还是网关的问题。如果我们通过远程来访问某台服务器遇到问题时，我们用到traceroute 追踪数据包所经过的网关，提交IDC服务商，也有助于解决问题；但目前看来在国内解决这样的问题是比较困难的，就是我们发现问题所在，IDC服务商也不可能帮助我们解决。
+Traceroute can help troubleshoot issues between different network segments in a LAN, determining if a problem lies with a host or a gateway. When experiencing issues accessing a remote server, tracing the route to IDC providers can assist in resolution, though resolving such issues domestically can sometimes be challenging even when the problem location is identified.
 
-**跳数设置**
+**Setting Hops**
 
 ```shell
 [root@localhost ~]# traceroute -m 10 www.baidu.com
@@ -85,15 +85,13 @@ traceroute to www.baidu.com (61.135.169.105), 10 hops max, 40 byte packets
 10  * * *
 ```
 
-其它一些实例
+Other examples:
 
 ```shell
-traceroute -m 10 www.baidu.com # 跳数设置
-traceroute -n www.baidu.com    # 显示IP地址，不查主机名
-traceroute -p 6888 www.baidu.com  # 探测包使用的基本UDP端口设置6888
-traceroute -q 4 www.baidu.com  # 把探测包的个数设置为值4
-traceroute -r www.baidu.com    # 绕过正常的路由表，直接发送到网络相连的主机
-traceroute -w 3 www.baidu.com  # 把对外发探测包的等待响应时间设置为3秒
+traceroute -m 10 www.baidu.com # Set maximum hops
+traceroute -n www.baidu.com    # Display IP addresses, no hostname lookup
+traceroute -p 6888 www.baidu.com  # Set the base UDP port for probe packets to 6888
+traceroute -q 4 www.baidu.com  # Set the number of probe packets to 4
+traceroute -r www.baidu.com    # Bypass normal routing tables, send directly to connected host
+traceroute -w 3 www.baidu.com  # Set the wait time for a response to 3 seconds
 ```
-
-

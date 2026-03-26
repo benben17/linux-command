@@ -1,36 +1,36 @@
 chfn
 ===
 
-用来改变finger命令显示的信息
+Used to change the information displayed by the finger command
 
-## 补充说明
+## Description
 
-**chfn命令** 用来改变finger命令显示的信息。这些信息都存放在/etc目录里的passwd文件里。若不指定任何选项，则chfn命令会进入问答式界面。
+The **chfn command** is used to change the information displayed by the finger command. This information is stored in the `/etc/passwd` file. If no options are specified, the `chfn` command will enter an interactive mode.
 
-###  语法
-
-```shell
-chfn(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--f<真实姓名>或--full-name<真实姓名>：设置真实姓名；
--h<家中电话>或--home-phone<家中电话>：设置家中的电话号码；
--o<办公地址>或--office<办公地址>：设置办公室的地址；
--p<办公电话>或--office-phone<办公电话>：设置办公室的电话号码；
--u或--help：在线帮助；
--v或-version：显示版本信息。
+chfn [options] [arguments]
 ```
 
-###  参数
+### Options
 
-用户名：指定要改变finger信息的用户名。
+```shell
+-f <full_name> or --full-name <full_name>: Set the full name;
+-h <home_phone> or --home-phone <home_phone>: Set the home phone number;
+-o <office_address> or --office <office_address>: Set the office address;
+-p <office_phone> or --office-phone <office_phone>: Set the office phone number;
+-u or --help: Online help;
+-v or --version: Display version information.
+```
 
-###  实例
+### Arguments
 
-范例1，改变finger信息：
+Username: Specify the username for which the finger information should be changed.
+
+### Examples
+
+Example 1: Change finger information:
 
 ```shell
 [root@localhost Desktop]# chfn
@@ -43,7 +43,7 @@ Home Phone []: 9999999
 Finger information changed.
 ```
 
-范例2，改变账号真实姓名：
+Example 2: Change account full name:
 
 ```shell
 [root@localhost Desktop]# chfn -f jack
@@ -51,16 +51,14 @@ Changing finger information for root.
 Finger information changed.
 ```
 
-范例3：
+Example 3:
 
 ```shell
 shell>> chfn
 Changing finger information for user
 Password: [del]
-Name[]:linuxde ### 提供 finger 时的资料
+Name[]:linuxde ### Information provided for finger
 Office[]:NCCU
 Office Phone[]: [del]
 Home Phone[]: [del]
 ```
-
-

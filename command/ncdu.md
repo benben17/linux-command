@@ -1,24 +1,22 @@
 ncdu
 ===
 
-磁盘使用情况的交互式查看工具，可视为 du 的增强版本
+Interactive disk usage analyzer, regarded as an enhanced version of du
 
-## 补充说明
+## Description
 
-**ncdu**（**NC**urses **D**isk **U**sage）是 Unix 系统上一款基于 ncurses 的磁盘占用分析工具，可视为传统 `du` 命令的增强版本。
-与 `du` 输出静态文本不同，**ncdu 提供交互式 TUI 界面**，可通过方向键浏览目录树，并支持排序、查看文件信息、直接删除文件等功能。
-它非常适合用于快速定位大文件、分析磁盘空间占用以及磁盘清理。1.09+ 版本支持将扫描结果导出为 JSON。
+**ncdu** (**NC**urses **D**isk **U**sage) is a disk usage analyzer for Unix-like systems, based on ncurses. It is an enhanced version of the traditional `du` command. Unlike the static text output of `du`, **ncdu provides an interactive TUI interface**, allowing you to browse the directory tree with arrow keys, sort results, view file information, and delete files directly.
 
-官网
+It is ideal for quickly locating large files and analyzing disk space usage. Version 1.09 and later support exporting scan results as JSON.
 
-* 官方网站（作者主页）：[https://dev.yorhel.nl/ncdu](https://dev.yorhel.nl/ncdu)
-* Wikipedia：[https://en.wikipedia.org/wiki/Ncdu](https://en.wikipedia.org/wiki/Ncdu)
+### Official Resources
 
-### ncdu 安装
+*   Official Website: [https://dev.yorhel.nl/ncdu](https://dev.yorhel.nl/ncdu)
+*   Wikipedia: [https://en.wikipedia.org/wiki/Ncdu](https://en.wikipedia.org/wiki/Ncdu)
 
-在大多数的 Linux 发行版中你同样不会看到 **ncdu** 被默认预装，但作为最常用的磁盘分析工具之一，它几乎在所有主流发行版的官方仓库中都可以直接安装。
+### Installation
 
-不同系统的安装方式如下：
+**ncdu** is typically not pre-installed by default on most Linux distributions, but it is available in almost all major official repositories.
 
 #### **Debian/Ubuntu**
 
@@ -45,7 +43,7 @@ sudo dnf install ncdu
 sudo pacman -S ncdu
 ```
 
-#### **macOS（Homebrew）**
+#### **macOS (Homebrew)**
 
 ```shell
 brew install ncdu
@@ -57,69 +55,69 @@ brew install ncdu
 pkg install ncdu
 ```
 
-### 语法
+### Syntax
 
 ```shell
-ncdu [选项] [目录]
+ncdu [options] [directory]
 ```
 
-### 选项
+### Options
 
 ```shell
--h, --help             显示帮助信息。
--v, --version          显示版本号。
--x                     限制扫描在单一文件系统中（不跨挂载点）。
--q                     减少屏幕刷新次数（适合远程 SSH）。
--o FILE                将扫描结果导出为 FILE（JSON 格式，需 1.09+）。
--f FILE                从 JSON 文件加载扫描结果（需 1.09+）。
---exclude PATTERN      排除符合模式的文件或目录。
---exclude-from FILE    从文件读取排除模式。
---follow-symlinks      跟随符号链接。
---confirm-deletion     删除文件时要求确认。
+-h, --help             Display help information.
+-v, --version          Display version information.
+-x                     Stay on one file system (don't cross mount points).
+-q                     Quiet mode: reduce screen refresh rate (useful for SSH).
+-o FILE                Export scan results to FILE (JSON format, requires 1.09+).
+-f FILE                Load scan results from a JSON FILE (requires 1.09+).
+--exclude PATTERN      Exclude files or directories matching the pattern.
+--exclude-from FILE    Read exclude patterns from a file.
+--follow-symlinks      Follow symbolic links.
+--confirm-deletion     Ask for confirmation before deleting a file.
 ```
 
-### 交互说明
+### Interactive Commands
 
-↑, ↓, →, ← 代表键盘方向键
+↑, ↓, →, ← represent arrow keys.
 
-| 按键          | 功能                            |
-| ------------- | ------------------------------- |
-| ↑ / k         | 上移光标                        |
-| / j           | 下移光标                        |
-| → / Enter / l | 打开当前目录                    |
-| ← / h         | 返回父目录                      |
-| n             | 按名称排序（再次按切换升/降序） |
-| s             | 按大小排序（再次按切换升/降序） |
-| d             | 删除选中项                      |
-| g             | 显示百分比/图表                 |
-| t             | 排序时切换“目录优先”            |
-| c             | 显示或隐藏子项数量              |
-| b             | 在当前目录打开 shell            |
-| i             | 查看选中文件/目录的详细信息     |
-| r             | 刷新/重新扫描当前目录           |
-| q             | 退出 ncdu                       |
+| Key           | Function                                          |
+| ------------- | ------------------------------------------------- |
+| ↑ / k         | Move cursor up                                    |
+| ↓ / j         | Move cursor down                                  |
+| → / Enter / l | Open the selected directory                       |
+| ← / h         | Go back to the parent directory                   |
+| n             | Sort by name (press again to toggle asc/desc)     |
+| s             | Sort by size (press again to toggle asc/desc)     |
+| d             | Delete selected item                              |
+| g             | Toggle display of percentages and/or graph        |
+| t             | Toggle directory-first sorting                    |
+| c             | Toggle display of child item counts               |
+| b             | Open a shell in the current directory             |
+| i             | View detailed information for the selected item   |
+| r             | Refresh/rescan the current directory              |
+| q             | Exit ncdu                                         |
 
-### 实例
+### Examples
 
-#### 扫描当前目录
+#### Scan the current directory
 
 ```shell
 ncdu
 ```
 
-#### 扫描指定目录（示例：/var/log）
+#### Scan a specific directory (e.g., /var/log)
 
 ```shell
 ncdu /var/log
 ```
 
-#### 导出扫描结果为 JSON（1.09+）
+#### Export scan results to JSON (1.09+)
 
 ```shell
 ncdu -o result.json /
 ```
 
-#### 从 JSON 文件加载结果
+#### Load results from a JSON file
 
 ```shell
 ncdu -f result.json

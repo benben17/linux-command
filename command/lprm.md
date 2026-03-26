@@ -1,42 +1,40 @@
 lprm
 ===
 
-删除打印队列中的打印任务
+Remove jobs from the print queue
 
-## 补充说明
+## Description
 
-**lprm命令** 用于删除打印队列中的打印任务。尚未完成的打印机任务会被放在打印机贮列之中，这个命令可用来将常未送到打印机的任务取消。
+The **lprm** command is used to remove print jobs from the print queue. Jobs that have not yet been completed are kept in the queue; this command can be used to cancel those jobs.
 
-###  语法
-
-```shell
-lprm(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--E：与打印服务器连接时强制使用加密；
--P：指定接受打印任务的目标打印机；
--U：指定可选的用户名。
+lprm (options) (parameters)
 ```
 
-###  参数
-
-打印任务：指定需删除的打印任务号。
-
-###  实例
-
-将打印机hpprint中的第102号任务移除：
+### Options
 
 ```shell
-lprm -Phpprint 102
+-E: Force encryption when connecting to the print server;
+-P <printer>: Specify the destination printer for the job;
+-U <username>: Specify an optional username.
 ```
 
-将第101号任务由预设打印机中移除：
+### Parameters
+
+Job ID: Specify the print job ID to be removed.
+
+### Examples
+
+Remove job number 102 from printer `hpprint`:
+
+```shell
+lprm -P hpprint 102
+```
+
+Remove job number 101 from the default printer:
 
 ```shell
 lprm 101
 ```
-
-

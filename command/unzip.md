@@ -1,81 +1,79 @@
 unzip
 ===
 
-用于解压缩由zip命令压缩的压缩包
+Used to decompress archives compressed by the zip command.
 
-## 补充说明
+## Description
 
-**unzip命令** 用于解压缩由zip命令压缩的“.zip”压缩包。
+The **unzip command** is used to decompress ".zip" archives created by the zip command.
 
-### 语法
-
-```shell
-unzip(选项)(参数)
-```
-
-### 选项
+### Syntax
 
 ```shell
--c：将解压缩的结果显示到屏幕上，并对字符做适当的转换；
--f：更新现有的文件；
--l：显示压缩文件内所包含的文件；
--p：与-c参数类似，会将解压缩的结果显示到屏幕上，但不会执行任何的转换；
--t：检查压缩文件是否正确；
--u：与-f参数类似，但是除了更新现有的文件外，也会将压缩文件中的其他文件解压缩到目录中；
--v：执行时显示详细的信息；
--z：仅显示压缩文件的备注文字；
--a：对文本文件进行必要的字符转换；
--b：不要对文本文件进行字符转换；
--C：压缩文件中的文件名称区分大小写；
--j：不处理压缩文件中原有的目录路径；
--L：将压缩文件中的全部文件名改为小写；
--M：将输出结果送到more程序处理；
--n：解压缩时不要覆盖原有的文件；
--o：不必先询问用户，unzip执行后覆盖原有的文件；
--P<密码>：使用zip的密码选项；
--q：执行时不显示任何信息；
--s：将文件名中的空白字符转换为底线字符；
--V：保留VMS的文件版本信息；
--X：解压缩时同时回存文件原来的UID/GID；
--d<目录>：指定文件解压缩后所要存储的目录；
--x<文件>：指定不要处理.zip压缩文件中的哪些文件；
--Z：unzip-Z等于执行zipinfo指令。
+unzip (option) (parameter)
 ```
 
-### 参数
+### Options
 
-压缩包：指定要解压的“.zip”压缩包。
+```shell
+-c: Display decompression results on the screen and perform appropriate character conversion;
+-f: Update existing files;
+-l: List the files contained within the compressed file;
+-p: Similar to the -c parameter, displays decompression results on the screen but without any conversion;
+-t: Test the integrity of the compressed file;
+-u: Similar to the -f parameter, but in addition to updating existing files, it also decompresses other files from the archive into the directory;
+-v: Display detailed information during execution;
+-z: Display only the comments of the compressed file;
+-a: Perform necessary character conversion for text files;
+-b: Do not perform character conversion for text files;
+-C: Filenames in the compressed file are case-sensitive;
+-j: Do not process the original directory paths in the compressed file;
+-L: Convert all filenames in the compressed file to lowercase;
+-M: Pipe output through the more program;
+-n: Do not overwrite existing files during decompression;
+-o: Overwrite existing files without prompting the user;
+-P<password>: Use the password option for zip;
+-q: Run quietly, displaying no information;
+-s: Convert whitespace characters in filenames to underscores;
+-V: Retain VMS file version information;
+-X: Restore original file UID/GID during decompression;
+-d<directory>: Specify the directory where files should be stored after decompression;
+-x<file>: Specify files in the .zip archive that should not be processed;
+-Z: unzip -Z is equivalent to executing the zipinfo command.
+```
 
-### 实例
+### Parameters
 
-将压缩文件text.zip在当前目录下解压缩。
+Archive: Specifies the ".zip" archive to be decompressed.
+
+### Examples
+
+Decompress `test.zip` in the current directory:
 
 ```shell
 unzip test.zip
 ```
 
-将压缩文件text.zip在指定目录`/tmp`下解压缩，如果已有相同的文件存在，要求unzip命令不覆盖原先的文件。
+Decompress `test.zip` into the specified directory `/tmp`, and do not overwrite existing files:
 
 ```shell
 unzip -n test.zip -d /tmp
 ```
 
-查看压缩文件目录，但不解压。
+View the contents of the compressed file without decompressing:
 
 ```shell
 unzip -v test.zip
 ```
 
-将压缩文件test.zip在指定目录`/tmp`下解压缩，如果已有相同的文件存在，要求unzip命令覆盖原先的文件。
+Decompress `test.zip` into the specified directory `/tmp`, and overwrite existing files:
 
 ```shell
-unzip -o test.zip -d tmp/
+unzip -o test.zip -d /tmp/
 ```
 
-解压指定文件，* 用作通配符。
+Decompress specific files, using * as a wildcard:
+
 ```shell
 unzip test.zip "*.jpg"
 ```
-
-
-

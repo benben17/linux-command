@@ -1,75 +1,75 @@
 as
 ===
 
-汇编语言编译器
+Assembler for assembly language
 
-## 补充说明
+## Additional Information
 
-**as命令** 是GNU组织推出的一款汇编语言编译器，它支持多种不同类型的处理器。
+The **as command** is an assembly language compiler released by the GNU organization, supporting many different types of processors.
 
-### 语法
-
-```shell
-as [选项] [参数]
-```
-
-### 选项
+### Syntax
 
 ```shell
--ac：忽略失败条件；
--ad：忽略调试指令；
--ah：包括高级源；
--al：包括装配；
--am：包括宏扩展；
--an：忽略形式处理；
--as：包括符号；
-=file：设置列出文件的名字；
---alternate：以交互宏模式开始；
--f：跳过空白和注释预处理；
--g：产生调试信息；
--J：对于有符号溢出不显示警告信息；
--L：在符号表中保留本地符号；
--o：指定要生成的目标文件；
---statistics：打印汇编所用的最大空间和总时间。
+as [options] [parameters]
 ```
 
-### 参数
+### Options
 
-汇编文件：指定要汇编的源文件。
+```shell
+-ac: Ignore failure conditions.
+-ad: Ignore debug directives.
+-ah: Include high-level source.
+-al: Include assembly.
+-am: Include macro expansions.
+-an: Ignore formal processing.
+-as: Include symbols.
+=file: Set the name of the listing file.
+--alternate: Start in alternate macro mode.
+-f: Skip whitespace and comment preprocessing.
+-g: Generate debug information.
+-J: Do not display warnings for signed overflow.
+-L: Retain local symbols in the symbol table.
+-o: Specify the object file to generate.
+--statistics: Print the maximum space and total time used for assembly.
+```
 
-### 示例
+### Parameters
 
-编译一个汇编文件并生成目标文件
+Assembly file: Specifies the source file to be assembled.
+
+### Examples
+
+Assemble an assembly file and generate an object file:
 
 ```shell
 as -o output.o source.s
 ```
 
-忽略调试指令并生成目标文件
+Ignore debug directives and generate an object file:
 
 ```shell
 as -ad -o output.o source.s
 ```
 
-生成包含调试信息的目标文件
+Generate an object file with debug information:
 
 ```shell
 as -g -o output.o source.s
 ```
 
-包括宏扩展并生成目标文件
+Include macro expansions and generate an object file:
 
 ```shell
 as -am -o output.o source.s
 ```
 
-打印汇编所用的最大空间和总时间
+Print the maximum space and total time used for assembly:
 
 ```shell
 as --statistics -o output.o source.s
 ```
 
-跳过空白和注释预处理并生成目标文件
+Skip whitespace and comment preprocessing and generate an object file:
 
 ```shell
 as -f -o output.o source.s

@@ -1,45 +1,43 @@
 finger
 ===
 
-用于查找并显示用户信息
+Find and display user information.
 
-## 补充说明
+## Description
 
-**finger命令** 用于查找并显示用户信息。包括本地与远端主机的用户皆可，帐号名称没有大小写的差别。单独执行finger指令，它会显示本地主机现在所有的用户的登陆信息，包括帐号名称，真实姓名，登入终端机，闲置时间，登入时间以及地址和电话。
+The **finger command** is used to find and display user information. It can be used for users on both local and remote hosts, and account names are case-insensitive. When executed without arguments, `finger` displays login information for all users currently on the local host, including account name, real name, login terminal, idle time, login time, and office location/phone number if available.
 
-###  语法
-
-```shell
-finger(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--l：列出该用户的帐号名称，真实姓名，用户专属目录，登入所用的Shell，登入时间，转信地址，电子邮件状态，还有计划文件和方案文件内容；
--m：排除查找用户的真实姓名；
--s：列出该用户的帐号名称，真实姓名，登入终端机，闲置时间，登入时间以及地址和电话；
--p：列出该用户的帐号名称，真实姓名，用户专属目录，登入所用的Shell，登入时间，转信地址，电子邮件状态，但不显示该用户的计划文件和方案文件内容。
+finger (options) (parameters)
 ```
 
-不指定finger的选项如果提供操作者的话，缺省设为`-l`输出风格，否则为`-s`风格，注意在两种格式中，如果信息不足，都有一些域可能丢失，如果没有指定参数finger会为当前登录的每个用户打印一个条目。
+### Options
 
-###  参数
+```shell
+-l: List the user's account name, real name, home directory, login shell, login time, mail status, and the contents of the .plan and .project files.
+-m: Exclude searching by the user's real name.
+-s: List the user's account name, real name, login terminal, idle time, login time, and office location/phone number.
+-p: List the user's account name, real name, home directory, login shell, login time, and mail status, but omit the contents of the .plan and .project files.
+```
 
-用户名：指定要查询信息的用户。
+If no options are specified and a username is provided, the default output style is `-l`. Otherwise, it defaults to `-s`. Note that in either format, some fields may be missing if the information is unavailable. If no parameters are specified, `finger` prints an entry for each user currently logged in.
 
-###  实例
+### Parameters
 
-在计算机上使用finger：
+Username: Specifies the user whose information is to be queried.
+
+### Examples
+
+Using `finger` on the local machine:
 
 ```shell
 [root@localhost root]# finger
-login Name Tty Idle Login time Office Office Phone
-root root tty1 2 Dec 18 13
-root root pts/0 1 Dec 18 13
-root root *pts/1 Dec 18 13
+Login    Name       Tty      Idle  Login Time   Office     Office Phone
+root     root       tty1        2  Dec 18 13:00
+root     root       pts/0       1  Dec 18 13:05
+root     root      *pts/1          Dec 18 13:10
 ```
 
-如果要查询远程机上的用户信息，需要在用户名后面接`@主机名`，采用`用户名@主机名`的格式，不过要查询的网络主机需要运行finger守护进程的支持。
-
-
+To query user information on a remote machine, use the format `username@hostname`. Note that the remote host must be running a finger daemon (fingerd) to support this.

@@ -1,107 +1,107 @@
 rpm
 ===
 
-RPM软件包的管理工具
+RPM package management tool.
 
-## 补充说明
+## Description
 
-**rpm命令** 是RPM软件包的管理工具。rpm原本是Red Hat Linux发行版专门用来管理Linux各项套件的程序，由于它遵循GPL规则且功能强大方便，因而广受欢迎。逐渐受到其他发行版的采用。RPM套件管理方式的出现，让Linux易于安装，升级，间接提升了Linux的适用度。
+The **rpm command** is a management tool for RPM packages. Originally, `rpm` was a program specifically used by the Red Hat Linux distribution to manage various Linux packages. Due to its adherence to GPL rules and its powerful, convenient features, it has become widely popular and gradually adopted by other distributions. The emergence of the RPM package management system has made Linux easier to install and upgrade, indirectly enhancing its applicability.
 
-### 语法
-
-```shell
-rpm(选项)(参数)
-```
-
-### 选项
+### Syntax
 
 ```shell
--a：查询所有套件；
--b<完成阶段><套件档>+或-t <完成阶段><套件档>+：设置包装套件的完成阶段，并指定套件档的文件名称；
--c：只列出组态配置文件，本参数需配合"-l"参数使用；
--d：只列出文本文件，本参数需配合"-l"参数使用；
--e<套件档>或--erase<套件档>：删除指定的套件；
--f<文件>+：查询拥有指定文件的套件；
--h或--hash：套件安装时列出标记；
--i：显示套件的相关信息；
--i<套件档>或--install<套件档>：安装指定的套件档；
--l：显示套件的文件列表；
--p<套件档>+：查询指定的RPM套件档；
--q：使用询问模式，当遇到任何问题时，rpm指令会先询问用户；
--R：显示套件的关联性信息；
--s：显示文件状态，本参数需配合"-l"参数使用；
--U<套件档>或--upgrade<套件档>：升级指定的套件档；
--v：显示指令执行过程；
--vv：详细显示指令执行过程，便于排错。
+rpm(options)(parameters)
 ```
 
-### 参数
+### Options
 
-软件包：指定要操纵的rpm软件包。
+```shell
+-a: Query all packages.
+-b<stage><package_file>+ or -t <stage><package_file>+: Set the completion stage for packaging and specify the package filename.
+-c: List only configuration files; this parameter must be used with the "-l" parameter.
+-d: List only documentation files; this parameter must be used with the "-l" parameter.
+-e<package> or --erase<package>: Delete the specified package.
+-f<file>+: Query the package that owns the specified file.
+-h or --hash: List hash marks during package installation.
+-i: Display related information about the package.
+-i<package_file> or --install<package_file>: Install the specified package file.
+-l: Display the file list for the package.
+-p<package_file>+: Query the specified RPM package file.
+-q: Use query mode; for any issues, the rpm command will prompt the user first.
+-R: Display dependency information for the package.
+-s: Display file status; this parameter must be used with the "-l" parameter.
+-U<package_file> or --upgrade<package_file>: Upgrade the specified package file.
+-v: Display the execution process of the command.
+-vv: Display the execution process in detail for troubleshooting.
+```
 
-### 实例
+### Parameters
 
- **如何安装rpm软件包**
+Package: Specifies the RPM package to be operated on.
 
-rpm软件包的安装可以使用程序rpm来完成。执行下面的命令：
+### Examples
+
+**How to install an RPM package**
+
+RPM package installation can be completed using the `rpm` program. Execute the following command:
 
 ```shell
 rpm -ivh your-package.rpm
 ```
 
-其中your-package.rpm是你要安装的rpm包的文件名，一般置于当前目录下。
+Where `your-package.rpm` is the name of the RPM package you want to install, generally located in the current directory.
 
-安装过程中可能出现下面的警告或者提示：
+During installation, the following warnings or prompts may appear:
 
 ```shell
 ... conflict with ...
 ```
 
-可能是要安装的包里有一些文件可能会覆盖现有的文件，缺省时这样的情况下是无法正确安装的可以用`rpm --force -i`强制安装即可
+This may mean that some files in the package to be installed would overwrite existing files. By default, installation will not proceed. You can use `rpm --force -i` to force the installation.
 
 ```shell
 ... is needed by ...
 ... is not installed ...
 ```
 
-此包需要的一些软件你没有安装可以用`rpm --nodeps -i`来忽略此信息，也就是说`rpm -i --force --nodeps`可以忽略所有依赖关系和文件问题，什么包都能安装上，但这种强制安装的软件包不能保证完全发挥功能。
+This indicates that some software required by this package is not installed. You can use `rpm --nodeps -i` to ignore this message. In other words, `rpm -i --force --nodeps` can ignore all dependencies and file issues, allowing any package to be installed. However, such a forced installation cannot guarantee full functionality.
 
- **如何安装.src.rpm软件包**
+**How to install a .src.rpm package**
 
-有些软件包是以.src.rpm结尾的，这类软件包是包含了源代码的rpm包，在安装时需要进行编译。这类软件包有两种安装方法：
+Some packages end in `.src.rpm`. These packages contain source code and need to be compiled during installation. There are two methods to install these packages:
 
-方法一：
+Method 1:
 
 ```shell
 rpm -i your-package.src.rpm
 cd /usr/src/redhat/SPECS
-rpmbuild -bp your-package.specs             #一个和你的软件包同名的specs文件
-cd /usr/src/redhat/BUILD/your-package/      #一个和你的软件包同名的目录
-./configure                                 #这一步和编译普通的源码软件一样，可以加上参数
+rpmbuild -bp your-package.specs             # A specs file with the same name as your package
+cd /usr/src/redhat/BUILD/your-package/      # A directory with the same name as your package
+./configure                                 # This step is the same as compiling normal source software
 make
 make install
 ```
 
-方法二：
+Method 2:
 
 ```shell
-rpm -i you-package.src.rpm
+rpm -i your-package.src.rpm
 cd /usr/src/redhat/SPECS
 ```
 
-前两步和方法一相同
+The first two steps are the same as Method 1.
 
 ```shell
-rpmbuild -bb your-package.specs       #一个和你的软件包同名的specs文件
+rpmbuild -bb your-package.specs       # A specs file with the same name as your package
 ```
 
-这时在`/usr/src/redhat/RPM/i386/`（根据具体包的不同，也可能是i686,noarch等等）在这个目录下，有一个新的rpm包，这个是编译好的二进制文件。
+At this point, in `/usr/src/redhat/RPM/i386/` (or i686, noarch, etc., depending on the package), there will be a new RPM package, which is the compiled binary.
 
-执行`rpm -i new-package.rpm`即可安装完成。
+Execute `rpm -i new-package.rpm` to complete the installation.
 
- **如何卸载rpm软件包**
+**How to uninstall an RPM package**
 
-使用命令`rpm -e`包名，包名可以包含版本号等信息，但是不可以有后缀.rpm，比如卸载软件包proftpd-1.2.8-1，可以使用下列格式：
+Use the command `rpm -e package_name`. The package name can include version information but cannot have the `.rpm` suffix. For example, to uninstall `proftpd-1.2.8-1`, you can use the following formats:
 
 ```shell
 rpm -e proftpd-1.2.8-1
@@ -110,7 +110,7 @@ rpm -e proftpd-
 rpm -e proftpd
 ```
 
-不可以是下列格式：
+The following formats are NOT allowed:
 
 ```shell
 rpm -e proftpd-1.2.8-1.i386.rpm
@@ -119,17 +119,17 @@ rpm -e proftpd-1.2
 rpm -e proftpd-1
 ```
 
-有时会出现一些错误或者警告：
+Sometimes errors or warnings may appear:
 
 ```shell
 ... is needed by ...
 ```
 
-这说明这个软件被其他软件需要，不能随便卸载，可以用rpm -e --nodeps强制卸载
+This indicates that this software is required by other software and cannot be uninstalled casually. You can use `rpm -e --nodeps` to force uninstallation.
 
- **如何不安装但是获取rpm包中的文件**
+**How to extract files from an RPM package without installing it**
 
-使用工具rpm2cpio和cpio
+Use the tools `rpm2cpio` and `cpio`:
 
 ```shell
 rpm2cpio xxx.rpm | cpio -vi
@@ -137,67 +137,67 @@ rpm2cpio xxx.rpm | cpio -idmv
 rpm2cpio xxx.rpm | cpio --extract --make-directories
 ```
 
-参数i和extract相同，表示提取文件。v表示指示执行进程，d和make-directory相同，表示根据包中文件原来的路径建立目录，m表示保持文件的更新时间。
+The `i` and `extract` parameters are the same, meaning extract files. `v` indicates showing the execution process. `d` and `make-directory` are the same, meaning create directories based on the original paths of the files in the package. `m` means maintain the modification time of the files.
 
- **如何查看与rpm包相关的文件和其他信息**
+**How to view files and other information related to an RPM package**
 
-下面所有的例子都假设使用软件包mysql-3.23.54a-11
+All the following examples assume the use of the package `mysql-3.23.54a-11`.
 
-1、我的系统中安装了那些rpm软件包。
+1. What RPM packages are installed in my system?
 
 ```shell
-rpm -qa 讲列出所有安装过的包
+rpm -qa # Lists all installed packages
 ```
 
-如果要查找所有安装过的包含某个字符串sql的软件包
+To find all installed packages containing the string "sql":
 
 ```shell
 rpm -qa | grep sql
 ```
 
-2、如何获得某个软件包的文件全名。
+2. How to get the full name of a package?
 
 ```shell
 rpm -q mysql
 ```
 
-可以获得系统中安装的mysql软件包全名，从中可以获得当前软件包的版本等信息。这个例子中可以得到信息mysql-3.23.54a-11
+This gets the full name of the `mysql` package installed in the system, from which you can obtain the current version and other information. In this example, you might get `mysql-3.23.54a-11`.
 
-3、一个rpm包中的文件安装到那里去了？
+3. Where were the files in an RPM package installed?
 
 ```shell
-rpm -ql 包名
+rpm -ql package_name
 ```
 
-注意这里的是不包括.rpm后缀的软件包的名称，也就是说只能用mysql或者mysql-3.23.54a-11而不是mysql-3.23.54a-11.rpm。如果只是想知道可执行程序放到那里去了，也可以用which，比如：
+Note that this is the package name without the `.rpm` suffix. If you only want to know where the executable programs are, you can also use `which`, for example:
 
 ```shell
 which mysql
 ```
 
-4、一个rpm包中包含那些文件。
+4. What files does an RPM package contain?
 
-*   一个没有安装过的软件包，使用`rpm -qlp  **** .rpm`
-*   一个已经安装过的软件包，还可以使用`rpm -ql  **** .rpm`
+*   For an uninstalled package: `rpm -qlp ****.rpm`
+*   For an installed package: `rpm -ql ****`
 
-5、如何获取关于一个软件包的版本，用途等相关信息？
+5. How to get version, purpose, and other related information about a package?
 
-*   一个没有安装过的软件包，使用`rpm -qip  **** .rpm`
-*   一个已经安装过的软件包，还可以使用`rpm -qi  **** .rpm`
+*   For an uninstalled package: `rpm -qip ****.rpm`
+*   For an installed package: `rpm -qi ****`
 
-6、某个程序是哪个软件包安装的，或者哪个软件包包含这个程序。
+6. Which package installed a certain program, or which package contains this program?
 
 ```shell
-rpm -qf `which 程序名`    #返回软件包的全名
-rpm -qif `which 程序名`   #返回软件包的有关信息
-rpm -qlf `which 程序名`   #返回软件包的文件列表
+rpm -qf `which program_name`    # Returns the full name of the package
+rpm -qif `which program_name`   # Returns information about the package
+rpm -qlf `which program_name`   # Returns the file list of the package
 ```
 
-注意，这里不是引号，而是`，就是键盘左上角的那个键。也可以使用`rpm -qilf`，同时输出软件包信息和文件列表。
+Note: Use backticks (`` ` ``) for command substitution. You can also use `rpm -qilf` to output both package information and the file list.
 
-7、某个文件是哪个软件包安装的，或者哪个软件包包含这个文件。
+7. Which package installed a certain file, or which package contains this file?
 
-注意，前一个问题中的方法，只适用与可执行的程序，而下面的方法，不仅可以用于可执行程序，也可以用于普通的任何文件。前提是知道这个文件名。首先获得这个程序的完整路径，可以用whereis或者which，然后使用`rpm -qf`例如：
+The previous method only applies to executable programs. The following method can be used for any file, provided you know its path. First, get the full path of the file (using `whereis` or `which`), then use `rpm -qf`:
 
 ```shell
 whereis ftptop
@@ -210,32 +210,31 @@ rpm -qf /usr/share/doc/proftpd-1.2.8/rfc/rfc0959.txt
 proftpd-1.2.8-1
 ```
 
-## 更多实例
-> 库依赖: http://rpmfind.net/
+## More Examples
+> Library dependencies: http://rpmfind.net/
 
-源码包 -> 编译 -> 二进制包(rpm 包 / 系统默认包)
+Source package -> Compilation -> Binary package (RPM package / Default system package)
 
-rpm 命名规则: 软件(软件名, 软件版本) + 系统(os 版本, os 位数)
-rpm 校验: SM5DLUGT -> size modified(类型/权限) md5 device L(文件路径) user group time(modified time)
+RPM naming rules: Software (Name, Version) + System (OS Version, Architecture)
+RPM verification: `SM5DLUGT` -> Size, Mode (type/permissions), MD5, Device, Link path, User, Group, Time (modified time)
 
-yum: 解决 rpm 依赖的问题
+YUM: Solves RPM dependency issues.
 
 ```shell
 # rpm
-mysql57-community-release-el6-8.noarch.rpm # 一个 rpm 包的例子
-/var/lib/rpm/ # 包全名 -> 包名 的数据库
+mysql57-community-release-el6-8.noarch.rpm # An example of an RPM package name
+/var/lib/rpm/ # Database mapping full package names to package names
 
-rpm -Uivh --dodeps xxx # upgrade install verbose hash
-rpm -qilpfa|grep xxx # query info list(rpm包安装后的文件位置) package(rpm 包) file(文件属于哪个rpm文件) all
-rpm -e # erase
+rpm -Uivh --nodeps xxx # upgrade install verbose hash
+rpm -qilpfa | grep xxx # query info list(file locations) package(rpm file) file(belongs to) all
+rpm -e # erase (uninstall)
 rpm -V # verify
 rpm2cpio | cpio -idv
 
-# rpm 默认安装位置
-/etc/           配置文件
-/usr/bin/       可执行文件
-/urs/lib/       程序使用的函数库
-/usr/share/doc/ 使用手册
-/usr/share/man/ manual
+# Default RPM installation locations
+/etc/           Configuration files
+/usr/bin/       Executable files
+/usr/lib/       Libraries used by programs
+/usr/share/doc/ Documentation/Manuals
+/usr/share/man/ Manual pages
 ```
-

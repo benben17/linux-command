@@ -1,16 +1,14 @@
 ppp-off
 ===
 
-关闭ppp连线
+Close the PPP connection
 
-## 补充说明
+## Description
 
-这是Slackware发行版内附的程序，让用户切断PPP的网络连线。
+This is a program included in the Slackware distribution that allows users to disconnect PPP network connections.
 
-###  语法
+### Syntax
 
 ```shell
 ppp-off
 ```
-
-

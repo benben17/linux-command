@@ -1,36 +1,33 @@
 hostid
 ===
 
-显示当前主机的十六进制数字标识。
+Display the hexadecimal identifier for the current host.
 
-## 概要
+## Synopsis
 
 ```shell
 hostid [OPTION]...
 ```
 
-## 主要用途
+## Description
 
-- 显示当前主机的十六进制标识符。
-- 用来限制软件的使用权限，不可改变。
+- Displays the unique hexadecimal identifier of the current host.
+- Often used to limit software licensing or permissions; this ID is typically constant.
 
-## 选项
+## Options
 
 ```shell
---help       显示帮助信息并退出。
---version    显示版本信息并退出。
+--help       # Display help information and exit.
+--version    # Display version information and exit.
 ```
 
-## 例子
+## Examples
 
 ```shell
 [root@localhost ~]# hostid
 007f0100
 ```
 
-### 注意
+### Note
 
-1. 该命令是`GNU coreutils`包中的命令，相关的帮助信息请查看`man -s 1 hostid`，`info coreutils 'hostid invocation'`。
-
-
-
+1. This command is part of the `GNU coreutils` package. For more information, see `man -s 1 hostid` or `info coreutils 'hostid invocation'`.

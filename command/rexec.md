@@ -1,61 +1,58 @@
 rexec
 ===
 
-远程执行Linux系统下命令
+Execute commands on a remote Linux system.
 
-## 补充说明
+## Description
 
-**rexec命令** 用于在指定的远程Linux系统主机上执行命令，向远程rexec服务器发出执行命令的请求。
+The **rexec command** is used to execute commands on a specified remote Linux host by sending an execution request to a remote rexec server.
 
-rexec命令通过检查`$HOME/.netrc`文件（包含远程主机上使用的用户名和密码）来提供自动登录的功能。如果没有发现此类项或系统在安全方式下操作（参阅 securetcpip 命令），rexec命令提示输入一个远程主机的有效用户名和密码。这两种情况下，rexec均导致远程系统上的rexecd使用缺省的compat用户登录认证方法。rexecd不会为了备用的认证方法去查找`/etc/security/user`文件。也可以指定`-n`标志到rexec命令行上来重设自动登录功能。
+The `rexec` command provides automatic login functionality by checking the `$HOME/.netrc` file (which contains the username and password used on the remote host). If no such entry is found or if the system is operating in a secure mode (see the `securetcpip` command), the `rexec` command prompts for a valid username and password for the remote host. In both cases, `rexec` causes `rexecd` on the remote system to use the default `compat` user login authentication method. `rexecd` does not look in the `/etc/security/user` file for alternative authentication methods. The `-n` flag can also be specified on the `rexec` command line to reset the automatic login feature.
 
-###  语法
-
-```shell
-rexec(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--a：表示远程命令的标准错误与标准输出相同，不支持发送任意信号到远程进程；
--l<用户名>：指定连接远程rexec服务器的用户名；
--p<密码>：指定连接远程rexec服务器的密码；
--n：明确地提示输入用户名和密码。
+rexec(options)(parameters)
 ```
 
-###  参数
+### Options
 
-*   远程主机：指定远程主机（ip地址或主机名）；
-*   命令：指定需要在远程主机上执行的命令。
+```shell
+-a: Standard error of the remote command is same as standard output; sending arbitrary signals to the remote process is not supported.
+-l<username>: Specifies the username for connecting to the remote rexec server.
+-p<password>: Specifies the password for connecting to the remote rexec server.
+-n: Explicitly prompts for a username and password.
+```
 
-###  实例
+### Parameters
 
-要在一个远程主机上执行date命令，输入：
+*   Remote host: Specifies the remote host (IP address or hostname).
+*   Command: Specifies the command to be executed on the remote host.
+
+### Examples
+
+To execute the `date` command on a remote host, enter:
 
 ```shell
 rexec host1 date
 ```
 
-date命令的输出现在显示在本地系统上。本示例中，在本地主机上的`$HOME/.netrc`文件包含远程主机上有效的用户名和密码。如果没有远程主机的`$HOME/.netrc`文件中的有效项，将提示输入登录标识和密码。输入所要求的登录信息后，date命令的输出显示在本地系统上。
+The output of the `date` command is now displayed on the local system. In this example, the `$HOME/.netrc` file on the local host contains a valid username and password for the remote host. If there is no valid entry in the `$HOME/.netrc` file for the remote host, you will be prompted for a login ID and password. After entering the required login information, the output of the `date` command is displayed on the local system.
 
-要重设自动登录功能并执行远程主机上的date命令，输入：
+To reset the automatic login feature and execute the `date` command on a remote host, enter:
 
 ```shell
 rexec -nhost1 date
 ```
 
-出现提示时输入用户名和密码，date命令的输出现在显示在本地系统上。
+Enter the username and password when prompted; the output of the `date` command is now displayed on the local system.
 
-列出远程主机上另一个用户的目录，输入：
+To list the directory of another user on a remote host, enter:
 
 ```shell
 rexec host1 ls -l /home/karen
 ```
 
-在远程主机host1上的karen 用户的目录列表显示在本地系统上。
+The directory listing for user `karen` on the remote host `host1` is displayed on the local system.
 
-如果没有远程主机的`$HOME/.netrc`文件中的有效项，将提示您输入登录标识和密码。输入要求的登录信息后，在远程主机host1上的karen用户的目录列表显示在本地系统上。
-
-
-
+If there is no valid entry in the `$HOME/.netrc` file for the remote host, you will be prompted for a login ID and password. After entering the required login information, the directory listing for user `karen` on the remote host `host1` is displayed on the local system.

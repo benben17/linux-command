@@ -1,42 +1,41 @@
 ntpdate
 ===
 
-使用网络计时协议（NTP）设置日期和时间
+Set the date and time using the Network Time Protocol (NTP).
 
-## 补充说明
+## Description
 
-**ntpdate命令** 是用来设置本地日期和时间。它从指定的每个服务器获得了一些样本，并应用标准 NTP 时钟过滤器和选择算法来选择最好的样本。
+The **ntpdate command** is used to set the local date and time. It polls the specified NTP servers to obtain a set of samples and applies the standard NTP clock filter and selection algorithms to choose the best sample.
 
-此 ntpdate 命令使用以下方法进行时间调整：
+The ntpdate command adjusts the clock using the following methods:
 
-*   如果它确定时钟偏差超过 0.5 秒，它通过调用 settimeofday 子例程设置时钟时间。在引导时间，这是一个首选的方法。
-*   如 果它确定时钟偏差小于 0.5 秒，它通过调用 adjtime 子例程和偏移量来调整时钟时间。此方法倾向于用牺牲一些稳定性来保持漂移时钟更加准确。 当不是通过运行一个守护程序而是从 cron 命令有规则的运行ntpdate 命令时，每一小时或两小时执行一次可以保证足够的走时精度，从而避免调整时钟。
+*   If the clock offset is greater than 0.5 seconds, it sets the clock time directly by calling the `settimeofday` subroutine. This is the preferred method at boot time.
+*   If the clock offset is less than 0.5 seconds, it adjusts the clock time by calling the `adjtime` subroutine with the offset. This method tends to maintain the drift clock more accurately at the expense of some stability. When ntpdate is run regularly from a cron command (e.g., every one or two hours) instead of running a daemon, it can ensure sufficient accuracy and avoid abrupt clock steps.
 
-使用很多服务器可以大幅度改善 ntpdate 命令的可靠性与精度。尽管能使用单一服务器，但您能通过提供至少三个或四个服务器以获得更好的性能。
+Using multiple servers significantly improves the reliability and accuracy of the ntpdate command. Although a single server can be used, providing at least three or four servers will yield better performance.
 
-如果一个类似 xntpd 守护程序的 NTP 服务器守护程序正在同一主机上运行，命令将拒绝ntpdate 设置日期。
+If an NTP daemon like `xntpd` is already running on the same host, ntpdate will refuse to set the date.
 
-你必须有 root 权限才能在主机上运行这个命令。
+You must have root privileges to run this command.
 
-###  语法
+### Syntax
 
 ```shell
 ntpdate [ -b] [ -d] [ -s] [ -u] [ -aKeyid] [ -eAuthenticationDelay] [ -kKeyFile] [ -oVersion] [ -pSamples] [ -tTimeOut] Server...
 ```
 
-###  选项
+### Options
 
 ```shell
--aKeyid               # 使用 Keyid 来认证全部数据包。
--b                    # 通过调用 settimeofday 子例程来增加时钟的时间。
--d                    # 指定调试方式。判断 ntpdate 命令会产生什么结果（不产生实际的结果）。结果再现在屏幕上。这个标志使用无特权的端口。
--eAuthenticationDelay # 指定延迟认证处理的时间秒数。
--kKeyFile             # 当不使用缺省值 /etc/ntp.keys 文件时，为包含密钥的文件指定一个不同的名称。 请参阅文件KeyFile的描述。
--oVersion             # 当轮询它的发出数据包时，指定使用的 NTP 版本实现。 Version 的值可以是 1，2，3。缺省值是 3。
--pSamples             # 指定从每个服务器获取的样本的数目。 Samples 的值在 1 和 8 之间，并包括 1 和 8。它的缺省值是 4。
--s                    # 指定日志操作 syslog 设施的使用，而不是使用标准输出。 当运行 ntpdate 命令和 cron命令时，它是很有用的。
--tTimeOut             # 指定等待响应的时间。给定 TimeOut 的值四舍五入为 0.2 秒的倍数。缺省值是 1 秒。
--u                    # 指定使用无特权的端口发送数据包。 当在一个对特权端口的输入流量进行阻拦的防火墙后是很有益的， 并希望在防火墙之外和主机同步。防火墙是一个系统或者计算机，它控制从外网对专用网的访问。
--q                    # 仅供查询，不设置时间。
+-aKeyid               # Use Keyid to authenticate all packets.
+-b                    # Force the time to be stepped using the settimeofday subroutine.
+-d                    # Enable debug mode. Determine what ntpdate would do without actually setting the clock. Results are displayed on the screen. This flag uses unprivileged ports.
+-eAuthenticationDelay # Specify the processing delay for authentication in seconds.
+-kKeyFile             # Specify a different name for the key file instead of the default /etc/ntp.keys.
+-oVersion             # Specify the NTP version to use (1, 2, or 3). The default is 3.
+-pSamples             # Specify the number of samples to acquire from each server (between 1 and 8). The default is 4.
+-s                    # Log messages to the syslog facility instead of standard output. Useful when running ntpdate via cron.
+-tTimeOut             # Specify the timeout for waiting for a response. The value is rounded to the nearest multiple of 0.2 seconds. The default is 1 second.
+-u                    # Use an unprivileged port for outgoing packets. This is useful when behind a firewall that blocks incoming traffic to privileged ports.
+-q                    # Query only - do not set the clock.
 ```
-

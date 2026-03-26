@@ -1,40 +1,37 @@
 dirname
 ===
 
-去除文件名中的非目录部分
+Strip the non-directory suffix from a file name.
 
-## 补充说明
+## Description
 
-**dirname命令** 去除文件名中的非目录部分，仅显示与目录有关的内容。dirname命令读取指定路径名保留最后一个`/`及其后面的字符，删除其他部分，并写结果到标准输出。如果最后一个`/`后无字符，dirname 命令使用倒数第二个`/`，并忽略其后的所有字符。dirname 和 basename 通常在 shell 内部命令替换使用，以指定一个与指定输入文件名略有差异的输出文件名。
+The **dirname** command removes the non-directory part of a file name, displaying only the content related to the directory. It reads the specified path, retains everything before the last `/`, deletes the rest, and writes the result to standard output. If there are no characters after the last `/`, dirname uses the second-to-last `/` and ignores everything after it. `dirname` and `basename` are commonly used in shell command substitution to specify an output filename slightly different from the input filename.
 
-###  语法
-
-```shell
-dirname(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
---help：显示帮助；
---version：显示版本号。
+dirname (options) (parameters)
 ```
 
-###  实例
+### Options
+
+```shell
+--help     Display help.
+--version  Display version information.
+```
+
+### Examples
 
 ```shell
 dirname //
-结果为 /
+Result: /
 
 dirname /a/b/
-结果为：/a
+Result: /a
 
 dirname a
-结果为 .
+Result: .
 
 dirname a/b
-结果为路径名 a
+Result: a
 ```
-
-
-

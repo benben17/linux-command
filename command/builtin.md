@@ -1,55 +1,55 @@
 builtin
 ===
 
-执行bash内建命令。
+Execute shell built-in commands.
 
-## 概要
+## Synopsis
 
 ```shell
 builtin [shell-builtin [arg ...]]
 ```
 
-## 主要用途
+## Main Purpose
 
-- 用于执行指定的bash内建命令。
-- `builtin`命令调用的bash内建命令优先于同名的外部命令及同名的shell函数。
+- Used to execute specified bash built-in commands.
+- The bash built-in commands called by the `builtin` command take precedence over external commands or shell functions with the same name.
 
-## 参数
+## Parameters
 
-shell-builtin（可选）：要调用的bash内建命令。
+shell-builtin (optional): The bash built-in command to be called.
 
-arg（可选）：传递给bash内建命令的一到多个参数。
+arg (optional): One or more arguments to be passed to the bash built-in command.
 
-## 返回值
+## Return Value
 
-返回该内建命令执行的返回值，除非传递的不是bash内建命令或该内建命令被禁用。
+Returns the exit status of the built-in command, unless the argument is not a bash built-in command or the built-in command is disabled.
 
-## 例子
+## Examples
 
-同名情况下的优先级顺序：
+Precedence order when names are identical:
 
-builtin 内建命令 > 函数 > 内建命令 > 外部命令
+`builtin` built-in > function > built-in > external command
 
 ```shell
-# 关于外部命令优先级最高的情况请参考enable命令。
-# 此时内建命令优先使用
+# For cases where external commands have the highest precedence, please refer to the enable command.
+# At this time, the built-in command is prioritized
 echo "the Great Wall"
-# 调用内建命令type，返回命令的类型（builtin）
+# Call the built-in command type, which returns the type of the command (builtin)
 type -t echo
-# 定义 echo 函数
+# Define an echo function
 echo(){
     printf "123\n"
 }
-# 此时同名函数优先使用，显示（123）
+# At this time, the function with the same name is prioritized, displaying (123)
 echo
-# 调用内建命令type，返回命令的类型（function）
+# Call the built-in command type, which returns the type of the command (function)
 type -t echo
-# 此时内建命令优先使用
+# Now use the built-in command directly
 builtin echo -e "backslash \\"
 ```
 
 ```shell
-# 执行shell内部指令，输出当前系统下的命令别名
+# Execute internal shell commands to output command aliases in the current system
 builtin alias
 alias cp='cp -i'
 alias l.='ls -d .* --color=tty'
@@ -60,11 +60,7 @@ alias rm='rm -i'
 alias which='alias | /usr/bin/which --tty-only --read-alias --show-dot --show-tilde'
 ```
 
-### 注意
+### Notes
 
-1. 该命令是bash内建命令，相关的帮助信息请查看`help`命令。
-
-2. 如果要调用的内建命令被禁用了（包括`builtin`），那么执行会报错；关于禁用和启用内建命令请参考`enable`命令。
-
-
-
+1. This command is a bash built-in; for related help information, please use the `help` command.
+2. If the built-in command to be called is disabled (including `builtin` itself), an error will occur. For information on disabling and enabling built-in commands, please refer to the `enable` command.

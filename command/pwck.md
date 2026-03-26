@@ -1,47 +1,47 @@
 pwck
 ===
 
-用来验证系统认证文件内容和格式的完整性
+Verify the integrity of system authentication file content and format.
 
-## 补充说明
+## Description
 
-**pwck命令** 用来验证系统认证文件`/etc/passwd`和`/etc/shadow`的内容和格式的完整性。
+The **pwck command** is used to verify the integrity of the content and format of the system authentication files `/etc/passwd` and `/etc/shadow`.
 
-###  语法
-
-```shell
-pwck(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--q：仅报告错误信息；
--s：以用户id排序文件“/etc/passwd”和“/etc/shadow”;
--r：只读方式运行指令；
--R：在指定的chroot环境下检查密码文件。
+pwck(options)(parameters)
 ```
 
-###  参数
+### Options
 
-*   密码文件：指定密码文件的路径；
-*   影子文件：指定影子文件的路径。
+```shell
+-q: Report errors only;
+-s: Sort `/etc/passwd` and `/etc/shadow` by user ID;
+-r: Run the command in read-only mode;
+-R: Check the password files in the specified chroot environment.
+```
 
-###  实例
+### Parameters
+
+*   Password file: Specifies the path to the password file.
+*   Shadow file: Specifies the path to the shadow file.
+
+### Example
 
 ```shell
 pwck
 user 'ftp': directory '/var/ftp' does not exist
 pwck: no changes
 ```
-执行`pwck`命令后显示了一些警告，提示有用户`lp`的主目录 `/var/spool/lpd`不存在。为了解决这个问题，你有几个选项：
-1. 如果你确定这些用户不会被使用，你可以考虑使用`userdel`命令来删除这些用户。
-2. 如果这些用户需要被使用，你应该创建相应的目录。例如，你可以使用以下命令：
+After executing the `pwck` command, warnings may be displayed, such as the home directory `/var/ftp` for user `ftp` not existing. To resolve this, you have several options:
+1. If you are certain these users will not be used, consider using the `userdel` command to delete them.
+2. If these users are needed, you should create the corresponding directory. For example:
 
 ```shell
-# 创建目录
+# Create the directory
 sudo mkdir /var/ftp
-# 将目录的所有权赋给相应的用户
+# Assign ownership of the directory to the corresponding user
 sudo chown ftp:ftp /var/ftp
 ```
-3. 如果这些用户对应的软件包还未安装，你可以考虑安装它们。软件包管理器（如`yum`或`apt`）通常会自动创建必要的用户和目录。
+3. If the packages corresponding to these users are not installed, consider installing them. Package managers (like `yum` or `apt`) typically create the necessary users and directories automatically.

@@ -1,16 +1,14 @@
 ftpcount
 ===
 
-显示目前已FTP登入的用户人数
+Display the number of users currently logged in via FTP.
 
-## 补充说明
+## Description
 
-显示目前已ftp登入的用户人数。执行这项指令可得知目前用FTP登入系统的人数以及FTP登入人数的上限。
+The `ftpcount` command displays the current number of users logged into the FTP server, as well as the maximum allowed number of concurrent logins.
 
-语法：
+### Syntax
 
 ```shell
 ftpcount
 ```
-
-

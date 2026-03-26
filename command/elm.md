@@ -1,28 +1,26 @@
 elm
 ===
 
-纯文本邮件客户端程序
+Text-based email client.
 
-## 补充说明
+## Description
 
-**elm命令** 是一个E-mail客户端管理程序，它提供了纯文本交互式全屏幕界面。
+The **elm** command is an E-mail client management program that provides a text-based interactive full-screen interface.
 
-###  语法
-
-```shell
-elm(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
--s<邮件主题>：指定新邮件的邮件主题；
--f<目录>：开启程序时，读取指定的目录；
--h：显示帮助；
--i<文件名>：将文件内容插入送出的邮件中；
--m：进入elm后，不显示指令说明；
--v：显示elm的版本信息；
--z：若收件信箱没有邮件，则不启动elm程序。
+elm [options]
 ```
 
+### Options
 
+```shell
+-s <subject>: Specify the subject for the new email.
+-f <folder>: Read the specified folder upon starting the program.
+-h: Display help.
+-i <filename>: Insert the contents of a file into the outgoing email.
+-m: Do not display instruction descriptions after entering elm.
+-v: Display the version information of elm.
+-z: Do not start the elm program if there are no emails in the mailbox.
+```

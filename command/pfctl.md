@@ -1,67 +1,55 @@
 pfctl
 ===
 
-PF防火墙的配置命令
+The configuration command for the PF firewall.
 
-## 补充说明
+## Description
 
-**pfctl命令** 是PF防火墙的配置命令，PF防火墙( 全称：Packet Filter )是UNIX LIKE系统上进行TCP/ip流量过滤和网络地址转换的软件系统。PF同样也能提供TCP/IP流量的整形和控制，并且提供带宽控制和数据包优先集控制。PF最早是由Daniel Hartmeier开发的，现在的开发和维护由Daniel和openBSD小组的其他成员负责。
+The **pfctl command** is the control utility for the Packet Filter (PF) firewall. PF is a software system used for TCP/IP traffic filtering and Network Address Translation (NAT) on Unix-like systems. It also provides traffic shaping, bandwidth control, and packet prioritization. PF was originally developed by Daniel Hartmeier and is now maintained by the OpenBSD team.
 
-PF防火墙的功能很多，本站只列举一些基本配置。
+### Activation
 
-### 激活
-
-要激活pf并且使它在启动时调用配置文件，编辑`/etc/rc.conf`文件，修改配置pf的一行：
+To activate PF and have it load its configuration at boot, edit `/etc/rc.conf` and set:
 
 ```shell
 pf=yes
 ```
 
-重启操作系统让配置生效。
-
-也可以通过pfctl程序启动和停止pf：
+You can also start and stop PF manually using `pfctl`:
 
 ```shell
-pfctl -e
-pfctl -d
+pfctl -e  # Enable PF
+pfctl -d  # Disable PF
 ```
 
-注意这仅仅是启动和关闭PF，实际它不会载入规则集，规则集要么在系统启动时载入，要在PF启动后通过命令单独载入。
+Note that enabling PF does not automatically load rules unless they were loaded at boot or are loaded manually.
 
-### 配置
+### Configuration
 
-系统引导到在rc脚本文件运行PF时PF从`/etc/pf.conf`文件载入配置规则。注意当`/etc/pf.conf`文件是默认配置文件，在系统调用rc脚本文件时，它仅仅是作为文本文件由pfctl装入并解释和插入pf的。对于一些应用来说，其他的规则集可以在系统引导后由其他文件载入。对于一些设计的非常好的unix程序，PF提供了足够的灵活性。
+PF loads its rules from `/etc/pf.conf` by default. The file is divided into seven main sections:
 
- **pf.conf文件有7个部分：** 
+1.  **Macros:** User-defined variables (e.g., IP addresses, interface names).
+2.  **Tables:** Structures to hold lists of IP addresses.
+3.  **Options:** Variables that control how PF operates.
+4.  **Scrubbing:** Normalizing packets (e.g., defragmentation).
+5.  **Queuing:** Bandwidth control and prioritization.
+6.  **Translation (NAT):** Network Address Translation and redirection.
+7.  **Filter Rules:** Selective filtering and blocking of packets.
 
-1.  宏：用户定义的变量，包括IP地址，接口名称等等。
-2.  表：一种用来保存IP地址列表的结构。
-3.  选项：控制PF如何工作的变量。
-4.  整形：重新处理数据包，进行正常化和碎片整理。
-5.  排队：提供带宽控制和数据包优先级控制。
-6.  转换：控制网络地址转换和数据包重定向。
-7.  过滤规则：在数据包通过接口时允许进行选择性的过滤和阻止。
+These sections should appear in this order in the configuration file.
 
-除去宏和表，其他的段在配置文件中也应该按照这个顺序出现，尽管对于一些特定的应用并不是所有的段都是必须的。
+### Control
 
-空行会被忽略，以#开头的行被认为是注释。
-
-### 控制
-
-引导之后，PF可以通过pfctl程序进行操作，以下是一些例子：
+After boot, PF can be managed using `pfctl`. Examples:
 
 ```shell
-pfctl -f /etc/pf.conf  # 载入 pf.conf 文件
-pfctl -nf /etc/pf.conf # 解析文件，但不载入
-pfctl -Nf /etc/pf.conf # 只载入文件中的NAT规则
-pfctl -Rf /etc/pf.conf # 只载入文件中的过滤规则
-pfctl -sn # 显示当前的NAT规则
-pfctl -sr # 显示当前的过滤规则
-pfctl -ss # 显示当前的状态表
-pfctl -si # 显示过滤状态和计数
-pfctl -sa # 显示任何可显示的
+pfctl -f /etc/pf.conf   # Load the pf.conf file
+pfctl -nf /etc/pf.conf  # Parse the file without loading it
+pfctl -sn               # Show current NAT rules
+pfctl -sr               # Show current filter rules
+pfctl -ss               # Show current state table
+pfctl -si               # Show filter statistics and counters
+pfctl -sa               # Show all available information
 ```
 
-完整的命令列表，请参阅pfctl的man手册页。
-
-
+For a full list of commands, refer to the `pfctl` man page.

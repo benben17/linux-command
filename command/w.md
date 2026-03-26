@@ -1,37 +1,37 @@
 w
 ===
 
-显示目前登入系统的用户信息
+Display information about the users currently logged into the system.
 
-## 补充说明
+## Description
 
-**w命令** 用于显示已经登陆系统的用户列表，并显示用户正在执行的指令。执行这个命令可得知目前登入系统的用户有那些人，以及他们正在执行的程序。单独执行w命令会显示所有的用户，您也可指定用户名称，仅显示某位用户的相关信息。
+The **w command** is used to display a list of users currently logged into the system and the commands they are executing. Running this command provides information on who is logged in and what programs they are running. Running `w` alone shows all users; you can also specify a username to show information for that user only.
 
-###  语法 
-
-```shell
-w(选项)(参数)
-```
-
-###  选项 
+### Syntax
 
 ```shell
- -h, --no-header     不打印头信息；
- -u, --no-current    当显示当前进程和cpu时间时忽略用户名；
- -s, --short         使用短输出格式；
- -f, --from          显示用户从哪登录；
- -o, --old-style     老式输出
- -i, --ip-addr       显示IP地址而不是主机名（如果可能）
-
-     --help     显示此帮助并退出
- -V, --version  显示版本信息。
+w (option) (parameter)
 ```
 
-###  参数 
+### Options
 
-用户：仅显示指定用户。
+```shell
+-h, --no-header     Do not print the header;
+-u, --no-current    Ignore the username when displaying current process and CPU time;
+-s, --short         Use the short output format;
+-f, --from          Show where the user logged in from;
+-o, --old-style     Old-style output;
+-i, --ip-addr       Display IP addresses instead of hostnames (if possible);
 
-###  实例 
+    --help          Display this help and exit;
+-V, --version       Display version information.
+```
+
+### Parameters
+
+User: Only display information for the specified user.
+
+### Examples
 
 ```shell
 w
@@ -39,6 +39,3 @@ w
 USER     TTY      FROM              login@   IDLE   JCPU   PCPU WHAT
 root     pts/0    222.94.97.122    20:39    1.00s  0.00s  0.00s w
 ```
-
-
-

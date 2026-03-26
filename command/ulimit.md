@@ -1,66 +1,63 @@
 ulimit
 ===
 
-控制shell程序的资源
+Control shell resources
 
-## 补充说明
+## Description
 
-**ulimit命令** 用来限制系统用户对shell资源的访问。如果不懂什么意思，下面一段内容可以帮助你理解：
+The **ulimit command** is used to limit system users' access to shell resources. If you're unsure what this means, the following explanation may help:
 
-假设有这样一种情况，当一台 Linux 主机上同时登陆了 10 个人，在系统资源无限制的情况下，这 10 个用户同时打开了 500 个文档，而假设每个文档的大小有 10M，这时系统的内存资源就会受到巨大的挑战。
+Consider a scenario where 10 users are logged into a Linux host simultaneously. Without system resource limits, if these 10 users each open 500 documents, and each document is 10 MB, the system's memory resources would face a massive challenge.
 
-而实际应用的环境要比这种假设复杂的多，例如在一个嵌入式开发环境中，各方面的资源都是非常紧缺的，对于开启文件描述符的数量，分配堆栈的大 小，CPU 时间，虚拟内存大小，等等，都有非常严格的要求。资源的合理限制和分配，不仅仅是保证系统可用性的必要条件，也与系统上软件运行的性能有着密不可分的联 系。这时，ulimit 可以起到很大的作用，它是一种简单并且有效的实现资源限制的方式。
+Actual application environments are often much more complex. For instance, in an embedded development environment, resources are extremely tight. There are strict requirements for the number of open file descriptors, stack size allocation, CPU time, virtual memory size, and more. Rational resource limitation and allocation are not only necessary for system availability but also closely linked to the performance of software running on the system. In such cases, `ulimit` plays a significant role as a simple and effective way to implement resource limits.
 
-ulimit 用于限制 shell 启动进程所占用的资源，支持以下各种类型的限制：所创建的内核文件的大小、进程数据块的大小、Shell 进程创建文件的大小、内存锁住的大小、常驻内存集的大小、打开文件描述符的数量、分配堆栈的最大大小、CPU 时间、单个用户的最大线程数、Shell 进程所能使用的最大虚拟内存。同时，它支持硬资源和软资源的限制。
+`ulimit` is used to limit the resources used by processes started by the shell, supporting various types of limits: core file size, process data segment size, shell process file creation size, locked-in-memory size, resident set size, number of open file descriptors, maximum stack size, CPU time, maximum number of threads per user, and maximum virtual memory used by the shell process. It supports both hard and soft resource limits.
 
-作为临时限制，ulimit 可以作用于通过使用其命令登录的 shell 会话，在会话终止时便结束限制，并不影响于其他 shell 会话。而对于长期的固定限制，ulimit 命令语句又可以被添加到由登录 shell 读取的文件中，作用于特定的 shell 用户。
+As a temporary limit, `ulimit` acts on the shell session through which its command was used; the limit ends when the session terminates and does not affect other shell sessions. For permanent limits, `ulimit` command statements can be added to files read by the login shell to apply to specific shell users.
 
-### 语法
-
-```shell
-ulimit(选项)
-```
-
-### 选项
+### Syntax
 
 ```shell
--a：显示目前资源限制的设定；
--c <core文件上限>：设定core文件的最大值，单位为区块；
--d <数据节区大小>：程序数据节区的最大值，单位为KB；
--e 默认进程优先级, 值越小优先级越高
--f <文件大小>：shell所能建立的最大文件，单位为区块；
--H：设定资源的硬性限制，也就是管理员所设下的限制；
--m <内存大小>：指定可使用内存的上限，单位为KB；
--n <文件数目>：指定同一时间最多可开启的文件数；
--p <缓冲区大小>：指定管道缓冲区的大小，单位512字节；
--s <堆叠大小>：指定堆叠的上限，单位为KB；
--S：设定资源的弹性限制；
--t <CPU时间>：指定CPU使用时间的上限，单位为秒；
--u <程序数目>：用户最多可开启的程序数目；
--v <虚拟内存大小>：指定可使用的虚拟内存上限，单位为KB。
+ulimit [options]
 ```
 
-### 实例
+### Options
+
+```shell
+-a: Display current resource limit settings;
+-c <core file limit>: Set the maximum size of core files, in blocks;
+-d <data segment size>: Maximum size of the program's data segment, in KB;
+-e: Default process priority; smaller values indicate higher priority;
+-f <file size>: Maximum file size the shell can create, in blocks;
+-H: Set hard resource limits (limits set by the administrator);
+-m <memory size>: Set the maximum physical memory usage, in KB;
+-n <number of files>: Set the maximum number of files that can be open simultaneously;
+-p <buffer size>: Set the pipe buffer size, in 512-byte units;
+-s <stack size>: Set the maximum stack size, in KB;
+-S: Set soft resource limits;
+-t <CPU time>: Set the maximum CPU usage time, in seconds;
+-u <number of processes>: Set the maximum number of processes (including threads) the user can open;
+-v <virtual memory size>: Set the maximum virtual memory usage, in KB.
+```
+
+### Example
 
 ```shell
 [root@localhost ~]# ulimit -a
-core file size          (blocks, -c) 0           #core文件的最大值为100 blocks。
-data seg size           (kbytes, -d) unlimited   #进程的数据段可以任意大。
+core file size          (blocks, -c) 0           # Max core file size is 0 blocks.
+data seg size           (kbytes, -d) unlimited   # Process data segment can be any size.
 scheduling priority             (-e) 0
-file size               (blocks, -f) unlimited   #文件可以任意大。
-pending signals                 (-i) 98304       #最多有98304个待处理的信号。
-max locked memory       (kbytes, -l) 32          #一个任务锁住的物理内存的最大值为32KB。
-max memory size         (kbytes, -m) unlimited   #一个任务的常驻物理内存的最大值。
-open files                      (-n) 1024        #一个任务最多可以同时打开1024的文件。
-pipe size            (512 bytes, -p) 8           #管道的最大空间为4096字节。
-POSIX message queues     (bytes, -q) 819200      #POSIX的消息队列的最大值为819200字节。
+file size               (blocks, -f) unlimited   # Files can be any size.
+pending signals                 (-i) 98304       # Max 98304 pending signals.
+max locked memory       (kbytes, -l) 32          # Max physical memory a task can lock is 32 KB.
+max memory size         (kbytes, -m) unlimited   # Max resident set size for a task.
+open files                      (-n) 1024        # A task can open up to 1024 files simultaneously.
+pipe size            (512 bytes, -p) 8           # Max pipe space is 4096 bytes (8 * 512).
+POSIX message queues     (bytes, -q) 819200      # Max POSIX message queue size is 819200 bytes.
 real-time priority              (-r) 0
-stack size              (kbytes, -s) 10240       #进程的栈的最大值为10240字节。
-cpu time               (seconds, -t) unlimited   #进程使用的CPU时间。
-max user processes              (-u) 98304       #当前用户同时打开的进程（包括线程）的最大个数为98304。
-virtual memory          (kbytes, -v) unlimited   #没有限制进程的最大地址空间。
-file locks                      (-x) unlimited   #所能锁住的文件的最大个数没有限制。
+stack size              (kbytes, -s) 10240       # Max stack size for a process is 10240 KB.
+cpu time               (seconds, -t) unlimited   # CPU time used by the process.
+max user processes              (-u) 98304       # Max concurrent processes (including threads) for the current user is 98304.
+virtual memory          (kbytes, -v) unlimited   # No limit on the process's maximum address space.
+file locks                      (-x) unlimited   # No limit on the maximum number of file locks.
 ```
-
-
-

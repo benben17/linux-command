@@ -1,40 +1,38 @@
 eject
 ===
 
-用来退出抽取式设备
+Eject removable media.
 
-## 补充说明
+## Description
 
-**eject命令** 用来退出抽取式设备。若设备已挂入，则eject命令会先将该设备卸除再退出。
+The **eject** command is used to eject removable media. If the device is mounted, `eject` will unmount it before ejecting.
 
-eject允许可移动介质（典型是cd-ROM、软盘、磁带、或者JAZ以及zip磁盘）在软件控制下弹出。该命令也可以控制一些多盘片CD-ROM控制器，控制一些设备支持的自动弹出功能，以及控制一些CD-ROM驱动器磁盘托盘的关闭。与name相应的设备将被弹出，name可以为设备文件或者其挂载点，也可以为完整路径或者省略前面的/dev或者/mnt设备文件名。如果没有指定name，缺省使用cdrom。
+`eject` allows removable media (typically CD-ROMs, floppy disks, tapes, or JAZ and ZIP disks) to be ejected under software control. The command can also control some multi-disc CD-ROM changers, automatic eject features supported by some devices, and the closing of CD-ROM drive trays. The device corresponding to `name` will be ejected; `name` can be a device file or its mount point, a full path, or the device file name omitting the leading `/dev` or `/mnt`. If no name is specified, `cdrom` is used by default.
 
-有四种不同的弹出的方法，具体要看设备是CD-ROM， SCSI设备，可移动软盘，还是磁带而定。默认的弹出会依次尝试所有四种方法，直到成功为止。如果设备当前是挂载上来的，那么在弹出前要先卸载。
+There are four different eject methods, depending on whether the device is a CD-ROM, SCSI device, removable floppy disk, or tape. The default behavior is to try all four methods in sequence until one succeeds. If the device is currently mounted, it will be unmounted before ejecting.
 
-###  语法
-
-```shell
-eject(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--a<开关>或--auto<开关>：控制设备的自动退出功能；
--c<光驱编号>或--changerslut<光驱编号>   选择光驱柜中的光驱；
--d或--default：显示预设的设备，而不是实际执行动作；
--f或--floppy：退出抽取式磁盘；
--h或--help：显示帮助；
--n或--noop：显示指定的设备；
--q或--tape：退出磁带；
--r或--cdrom：退出光盘；
--s或--scsi：以SCSI指令来退出设备；
--t或--trayclose：关闭光盘的托盘；
--v或--verbose：执行时，显示详细的说明。
+eject [options] [parameters]
 ```
 
-###  参数
+### Options
 
-设备名：指定弹出的设备名称。
+```shell
+-a <on|off> or --auto <on|off>: Control the auto-eject feature of the device.
+-c <slot> or --changerslot <slot>: Select a disc from a CD-ROM changer.
+-d or --default: Display the default device instead of performing an action.
+-f or --floppy: Eject a floppy disk.
+-h or --help: Display help.
+-n or --noop: Display the selected device but do not eject.
+-q or --tape: Eject a magnetic tape.
+-r or --cdrom: Eject a CD-ROM.
+-s or --scsi: Eject using SCSI commands.
+-t or --trayclose: Close the CD-ROM tray.
+-v or --verbose: Display detailed information during execution.
+```
 
+### Parameters
 
+Device Name: Specify the name of the device to be ejected.

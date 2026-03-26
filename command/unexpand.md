@@ -1,28 +1,26 @@
 unexpand
 ===
 
-将文件的空白字符转换为制表符
+Convert spaces in files to tabs.
 
-## 补充说明
+## Description
 
-**unexpand命令** 用于将给定文件中的空白字符（space）转换为制表符（TAB），并把转换结果显示在标准输出设备（显示终端）。
+The **unexpand command** is used to convert whitespace (spaces) in a given file into tabs (TAB) and display the conversion result on the standard output device (terminal).
 
-###  语法
-
-```shell
-unexpand(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--a或--all：转换文件中所有的空白字符；
---first-only：仅转换开头的空白字符；
--t<N>：指定TAB所代表的N个（N为整数）字符数，默认N值是8。
+unexpand (option) (parameter)
 ```
 
-###  参数
+### Options
 
-文件：指定要转换空白为TAB的文件列表。
+```shell
+-a or --all: Convert all whitespace characters in the file;
+--first-only: Only convert leading whitespace characters;
+-t<N>: Specify that a TAB represents N characters (N is an integer), the default value of N is 8.
+```
 
+### Parameters
 
+File: Specifies the list of files where spaces should be converted to tabs.

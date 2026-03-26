@@ -1,179 +1,157 @@
-read
-===
+# read
 
-从键盘读取变量值
+Read variable values from standard input (keyboard).
 
-## 补充说明
+## Description
 
-**read命令** 从键盘读取变量的值，通常用在shell脚本中与用户进行交互的场合。该命令可以一次读取多个变量的值，变量和输入的值都需要使用空格隔开。在read命令后面，如果没有指定变量名，读取的数据将被自动赋值给特定的变量REPLY
+The **read** command reads values from standard input and assigns them to variables. It is commonly used in shell scripts for user interaction. This command can read values for multiple variables at once; both the variables and the input values should be separated by spaces. If no variable name is specified, the input is automatically assigned to the built-in variable `REPLY`.
 
-###  语法
+### Syntax
 
 ```shell
-read(选项)(参数)
+read [options] [parameters]
 ```
 
-###  选项
+### Options
 
 ```shell
--p：指定读取值时的提示符；
--t：指定读取值时等待的时间（秒）。
+-a array: Assign the words read to sequential indices of the array variable `array`.
+-d delim: Continue reading until the first character of `delim` is read, rather than newline.
+-n nchars: Return after reading `nchars` characters rather than waiting for a complete line of input.
+-p prompt: Display the string `prompt` without a trailing newline before attempting to read.
+-r: Raw mode; do not treat backslashes as escape characters.
+-s: Silent mode; characters read from a terminal are not echoed (useful for passwords).
+-t timeout: Terminate and return failure if a complete line of input is not read within `timeout` seconds.
 ```
 
-###  参数
+### Parameters
 
-变量：指定读取值的变量名。
+Variable: Specifies the name of the variable to store the input value.
 
-###  实例
+### Examples
 
-下面的列表给出了read命令的常用方式：
+**Common usage of the read command:**
 
 ```shell
-read 1987name
-从标准输入读取输入并赋值给变量1987name。
+read myvar
+# Read from standard input and assign to variable 'myvar'.
 ```
 
 ```shell
 read first last
-从标准输入读取输入到第一个空格或者回车，将输入的第一个单词放到变量first中，并将该行其他的输入放在变量last中。
+# Read input until the first space or newline; put the first word into 'first', and the rest of the line into 'last'.
 ```
 
 ```shell
 read
-从标准输入读取一行并赋值给特定变量REPLY。
+# Read a line from standard input and assign to the built-in variable 'REPLY'.
 ```
 
 ```shell
-read -a arrayname
-把单词清单读入arrayname的数组里。
+read -a friends
+# Read a list of words into the array 'friends'.
 ```
 
 ```shell
-read -p "text"
-打印提示（text），等待输入，并将输入存储在REPLY中。
+read -p "Enter your name: " name
+# Display a prompt, wait for input, and store the result in 'name'.
 ```
 
 ```shell
 read -r line
-允许输入包含反斜杠。
+# Allow the input to contain backslashes literally.
 ```
 
 ```shell
 read -t 3
-指定读取等待时间为3秒。
+# Wait for input for a maximum of 3 seconds.
 ```
 
 ```shell
 read -n 2 var
-从输入中读取两个字符并存入变量var，不需要按回车读取。
+# Read exactly two characters into 'var' without needing to press Enter.
 ```
 
 ```shell
 read -d ":" var
-用定界符“:”结束输入行。
+# End the input when the character ':' is typed.
 ```
 
-## read命令示例  
+---
 
-从标准输入读取输入并赋值给变量1987name。
+**Detailed Examples:**
 
-```shell
-#read 1987name        #等待读取输入，直到回车后表示输入完毕，并将输入赋值给变量answer
-HelloWorld            #控制台输入Hello
-
-#echo $1987name       #打印变量
-HelloWorld
-```
-
-等待一组输入，每个单词之间使用空格隔开，直到回车结束，并分别将单词依次赋值给这三个读入变量。
+**Reading into multiple variables:**
 
 ```shell
-#read one two three
-1 2 3                   #在控制台输入1 2 3，它们之间用空格隔开。
+# read one two three
+1 2 3                   # Console input: 1 2 3 (separated by spaces)
 
-#echo "one = $one, two = $two, three = $three"
+# echo "one = $one, two = $two, three = $three"
 one = 1, two = 2, three = 3
 ```
 
-REPLY示例
+**Using the REPLY variable:**
 
 ```shell
-#read                  #等待控制台输入，并将结果赋值给特定内置变量REPLY。
-This is REPLY          #在控制台输入该行。 
+# read                  # Wait for input
+This is REPLY           # Input provided
 
-#echo $REPLY           #打印输出特定内置变量REPLY，以确认是否被正确赋值。
-
+# echo $REPLY
 This is REPLY
 ```
 
--p选项示例
+**Using the -p prompt option:**
 
 ```shell
-#read -p "Enter your name: "            #输出文本提示，同时等待输入，并将结果赋值给REPLY。
-Enter you name: stephen                 #在提示文本之后输入stephen
+# read -p "Enter your name: "
+Enter your name: stephen                 # Input 'stephen' after the prompt
 
-#echo $REPLY
+# echo $REPLY
 stephen
 ```
 
-等待控制台输入，并将输入信息视为数组，赋值给数组变量friends，输入信息用空格隔开数组的每个元素。
+**Reading into an array:**
 
 ```shell
-#read -a friends
+# read -a friends
 Tim Tom Helen
 
-#echo "They are ${friends[0]}, ${friends[1]} and ${friends[2]}."
+# echo "They are ${friends[0]}, ${friends[1]} and ${friends[2]}."
 They are Tim, Tom and Helen.
 ```
 
- **补充一个终端输入密码时候，不让密码显示出来的例子。** 
+**Masking password input:**
 
-方法1：
+Method 1: Using the `-s` (silent) option.
 
 ```shell
 #!/bin/bash
-read -p "输入密码：" -s pwd
+read -p "Enter password: " -s pwd
 echo
-echo password read, is "$pwd"
+echo "Password read successfully."
 ```
 
-方法2：
+Method 2: Using `stty` to disable echoing.
 
 ```shell
 #!/bin/bash
 stty -echo
-read -p "输入密码：" pwd
+read -p "Enter password: " pwd
 stty echo
 echo
-echo 输入完毕。
+echo "Input complete."
 ```
 
-其中，选项`-echo`禁止将输出发送到终端，而选项`echo`则允许发送输出。
+The `stty -echo` command disables echoing of characters to the terminal, while `stty echo` re-enables it.
 
-使用read命令从键盘读取变量值，并且将值赋给指定的变量，输入如下命令：
+**Basic assignment and verification:**
 
 ```shell
-read v1 v3          #读取变量值
+read v1 v2          # Read two variables
+# User enters: Linux Bash
+
+echo $v1 $v2        # Output: Linux Bash
 ```
 
-执行上面的指令以后，要求键入两个数据，如下所示：
-
-```shell
-Linux c+            #输入数据
-```
-
-完成之后，可以使用echo命令将指定的变量值输出查看，输入如下命令：
-
-```shell
-echo $v1 $v3       #输出变量的值
-```
-
-执行输出变量值的命令以后，将显示用户所输入的数据值，如下所示：
-
-```shell
-Linux c+           #输出变量值
-```
-
-注意：使用echo命令输出变量值时，必须在变量名前添加符号`$`。否则，echo将直接输出变量名。
-
-
+*Note: When using `echo` to output variable values, you must prefix the variable name with the `$` symbol; otherwise, `echo` will just print the name of the variable itself.*

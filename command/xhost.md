@@ -1,31 +1,28 @@
 xhost
 ===
 
-制哪些X客户端能够在X服务器上显示
+Control which X clients can connect to the X server
 
-## 补充说明
+## Description
 
-**xhost命令** 是X服务器的访问控制工具，用来控制哪些X客户端能够在X服务器上显示。该命令必须从有显示连接的机器上运行。可以通过使用`-host`参数，从访问列表中除去一个名称。不要从访问列表中除去当前的名称。如果已经这样做了，请在作出任何更改之前注销系统。
+The **xhost command** is an access control tool for the X server, used to control which X clients are allowed to display their windows on the server. This command must be run from a machine that has a display connection. You can remove a hostname from the access list using the `-host` parameter. Be careful not to remove the current hostname; if you do, log out before making further changes.
 
-###  语法
+### Syntax
 
 ```shell
-xhost(参数)
+xhost [+|-] [hostname]
 ```
 
-###  参数
+### Parameters
 
-* +：关闭访问控制，允许任何主机访问本地的X服务器；
-* -：打开访问控制，仅允许授权清单中的主机访问本地的X服务器。
+*   `+`: Disable access control, allowing any host to connect to the local X server.
+*   `-`: Enable access control, restricting access to only those hosts in the authorization list.
+*   `hostname`: Specify the name of the host to be added to or removed from the list.
 
-输入无变量的xhost命令将显示访问X服务器的当前主机名，并显示一条消息表明访问是否已启用。
+Running `xhost` without any arguments displays the current access control status and a list of authorized hosts.
 
-为了安全起见，只能从控制主机运行影响访问控制的选项。对于工作站来说，这台机器也就是服务器。对于X终端来说，这台机器是登录主机。
+For security reasons, options affecting access control should only be run from the controlling host (usually the server machine or login host).
 
-要在缺省情况下启用远程名称，可以在`/etc/X?.hosts`文件中定义名称，其中`?`为启用访问的显示器号。
+To enable remote access by default, you can define hostnames in the `/etc/X?.hosts` files, where `?` represents the display number (e.g., `/etc/X0.hosts` for display `:0`).
 
-例如，显示器`jeanne:0`可以由使用jeanne的缺省主机名的系统上的`/etc/X0.hosts`文件中定义的系统访问。在显示名称和文件名中，0表明已定义的远程系统允许通过增强X-Windows访问的显示器号。
-
-注意：`-name`参数，定义要从X服务器访问列表中除去的主机名。已有的连接没有被中断，但将拒绝新的连接请求。注意：可以除去当前的机器；然而，不允许进行进一步的连接（包括试图将其添加回来）。再一次启用本地连接的唯一方法就是将服务器复位（因此也会中断所有连接）。
-
-
+**Caution:** If you remove the current machine from the access list, new connections (including attempts to add it back) will be refused. The only way to re-enable local connections would be to reset the X server, which would also terminate all existing connections.

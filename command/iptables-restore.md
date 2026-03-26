@@ -1,32 +1,27 @@
 iptables-restore
 ===
 
-还原iptables表的配置
+Restore iptables tables from a file.
 
-## 补充说明
+## Description
 
-**iptables-restore命令** 用来还原iptables-save命令所备份的iptables配置。
+The `iptables-restore` command is used to restore IPv4 firewall tables from data specified on STDIN. It is typically used with files created by `iptables-save`.
 
-###  语法
-
-```shell
-iptables-restore(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
--c：指定在还原iptables表时候，还原当前的数据包计数器和字节计数器的值；
--t：指定要还原表的名称。
+iptables-restore [options]
 ```
 
-###  实例
+### Options
+
+```shell
+-c : Restore packet and byte counters.
+-t : Specify the name of the table to restore.
+```
+
+### Examples
 
 ```shell
 iptables-restore < iptables.bak
 ```
-
-iptables.bak是iptables-save命令所备份的文件。
-
-
-

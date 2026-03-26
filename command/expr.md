@@ -1,42 +1,40 @@
 expr
 ===
 
-一款表达式计算工具
+An expression evaluation tool.
 
-## 补充说明
+## Description
 
-**expr命令** 是一款表达式计算工具，使用它完成表达式的求值操作。
+The **expr command** is an expression evaluation tool used to evaluate expressions and output the results.
 
-expr的常用运算符：
+Common operators for expr:
 
-- 加法运算：`+`
-- 减法运算：`-`
-- 乘法运算：`\*`
-- 除法运算：`/`
-- 取模（取余）运算：`%`
+- Addition: `+`
+- Subtraction: `-`
+- Multiplication: `\*`
+- Division: `/`
+- Modulo (Remainder): `%`
 
-###  语法
-
-```shell
-expr(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
---help：显示指令的帮助信息；
---version：显示指令版本信息。
+expr (options) (parameters)
 ```
 
-###  参数
+### Options
 
-表达式：要求值的表达式。
+```shell
+--help: Display help information for the command.
+--version: Display the version information of the command.
+```
 
-###  实例
+### Parameters
+
+Expression: The expression to be evaluated.
+
+### Examples
 
 ```shell
 result=`expr 2 + 3`
 result=$(expr $no1 + 5)
 ```
-
-

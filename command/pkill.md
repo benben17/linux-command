@@ -1,41 +1,43 @@
 pkill
 ===
 
-可以按照进程名杀死进程
+Signals processes based on name and other attributes.
 
-## 补充说明
+## Description
 
-**pkill命令** 可以按照进程名杀死进程。pkill和killall应用方法差不多，也是直接杀死运行中的程序；如果您想杀掉单个进程，请用kill来杀掉。
+The **pkill command** allows you to kill or send signals to processes by their name. It works similarly to `killall`, targeting all running instances of a program. If you need to kill a specific single process, use its PID with the `kill` command.
 
-### 语法
-
-```shell
-pkill(选项)(参数)
-```
-
-### 选项
+### Syntax
 
 ```shell
--o：仅向找到的最小（起始）进程号发送信号；
--n：仅向找到的最大（结束）进程号发送信号；
--P：指定父进程号发送信号；
--g：指定进程组；
--t：指定开启进程的终端。
+pkill [options] [pattern]
 ```
 
-### 参数
+### Options
 
-进程名称：指定要查找的进程名称，同时也支持类似grep指令中的匹配模式。
+```shell
+-o: Signal only the oldest (least recently started) of the matching processes.
+-n: Signal only the newest (most recently started) of the matching processes.
+-P: Signal only processes whose parent process ID matches the given list.
+-g: Signal only processes in the specified process groups.
+-t: Signal only processes running on the specified terminal.
+```
 
-### 实例
+### Parameters
 
+Process Name: The pattern to match against the process names (supports regular expressions).
+
+### Examples
+
+**Find a process PID by name:**
 ```shell
 pgrep -l gaim
 2979 gaim
+```
 
+**Kill the process by name:**
+```shell
 pkill gaim
 ```
 
-也就是说：kill对应的是PID，pkill对应的是command。
-
-
+In summary: `kill` targets a PID, while `pkill` targets a command name or pattern.

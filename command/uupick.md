@@ -1,35 +1,33 @@
 uupick
 ===
 
-命令处理传送进来的文件
+Handle incoming files transmitted via UUCP.
 
-## 补充说明
+## Description
 
-**uupick命令** 处理传送进来的文件。 当其他主机通过UUCP将文件传送进来时，可利用uupick指令取出这些文件。
+The **uupick command** handles incoming files. When other hosts transmit files via UUCP, the uupick command can be used to retrieve these files.
 
-###  语法
-
-```shell
-uupick [-v][-I<配置文件>][-s<主机>][-x<层级>][--help]
-```
-
-###  选项
+### Syntax
 
 ```shell
--I<配置文件>或--config<配置文件> 指定配置文件。
--s<主机>或--system<主机> 处理由指定主机传送过来的文件。
--v或--version 显示版本信息。
---help 显示帮助。
+uupick [-v][-I<config_file>][-s<system>][-x<level>][--help]
 ```
 
-### 例子
-
-处理由主机localhost传送过来的文件。在命令行直接输入如下命令：
+### Options
 
 ```shell
-uupick-s localhost
+-I<config_file> or --config<config_file>: Specify the configuration file.
+-s<system> or --system<system>: Process files transmitted from the specified host.
+-v or --version: Display version information.
+--help: Display help information.
 ```
 
-该命令通常没有输出。
+### Examples
 
+Process files transmitted from the host `localhost`. Enter the following command directly at the command line:
 
+```shell
+uupick -s localhost
+```
+
+Note: This command typically produces no output.

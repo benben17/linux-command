@@ -1,71 +1,81 @@
 wc
 ===
 
-统计文件的字节数、字数、行数
+Print newline, word, and byte counts for each file
 
-## 补充说明
+## Description
 
-**wc命令** 统计指定文件中的字节数、字数、行数，并将统计结果显示输出。利用wc指令我们可以计算文件的Byte数、字数或是列数，若不指定文件名称，或是所给予的文件名为“-”，则wc指令会从标准输入设备读取数据。wc同时也给出所指定文件的总统计数。
+The **wc command** counts the number of bytes, words, and lines in each specified file and prints the results. If no file is specified, or if the file name is "-", it reads from standard input. It also provides a total count for all specified files.
 
-###  语法 
-
-```shell
-wc(选项)(参数)
-wc [选项]... [文件]...
-wc [选项]... --files0-from=F
-```
-
-###  选项 
+### Syntax
 
 ```shell
--c # 统计字节数，或--bytes：显示Bytes数。
--l # 统计行数，或--lines：显示列数。
--m # 统计字符数，或--chars：显示字符数。
--w # 统计字数，或--words：显示字数。一个字被定义为由空白、跳格或换行字符分隔的字符串。
--L # 打印最长行的长度，或--max-line-length。
--help     # 显示帮助信息。
---version # 显示版本信息。
+wc [options] [file]...
+wc [options] --files0-from=F
 ```
 
-###  参数 
-
-文件：需要统计的文件列表。
-
-## 例子
+### Options
 
 ```shell
-wc -l *       # 统计当前目录下的所有文件行数及总计行数。
-wc -l *.js    # 统计当前目录下的所有 .js 后缀的文件行数及总计行数。
-find  . * | xargs wc -l # 当前目录以及子目录的所有文件行数及总计行数。
+-c, --bytes  Print the byte counts.
+-l, --lines  Print the newline counts.
+-m, --chars  Print the character counts.
+-w, --words  Print the word counts. A word is a sequence of non-zero-length characters delimited by white space.
+-L, --max-line-length  Print the maximum display width (length of the longest line).
+--help       Display help information.
+--version    Display version information.
 ```
 
-查看文件的字节数、字数、行数
+### Parameters
+
+file: A list of files to be processed.
+
+### Examples
+
+Count lines, words, and bytes in a file:
 
 ```shell
 wc test.txt
-# 输出结果
+# Output:
 7     8     70     test.txt
-# 行数 单词数 字节数 文件名
+# Lines  Words  Bytes  Filename
 ```
 
-用wc命令怎么做到只打印统计数字不打印文件名
+Count lines in all files in the current directory:
+
+```shell
+wc -l *
+```
+
+Count lines in all `.js` files in the current directory:
+
+```shell
+wc -l *.js
+```
+
+Count total lines in current directory and subdirectories:
+
+```shell
+find . -type f | xargs wc -l
+```
+
+Print only the line count without the filename:
 
 ```shell
 wc -l < test.txt
-# 输出结果
+# Output:
 7
 ```
 
-用来统计当前目录下的文件数(不包含隐藏文件)
+Count the number of files in the current directory (excluding hidden files and total line):
 
 ```shell
-# 要去除TOTAL行
 expr $(ls -l | wc -l) - 1
-# 输出结果
+# Output:
 8
 ```
 
-统计当前目录下的所有文件行数及总计行数
+Example output for multiple files:
 
 ```shell
 [root@centos7 ~]# wc -l *
@@ -80,5 +90,3 @@ wc: node_modules: read: Is a directory
        3 renovate.json
    24786 total
 ```
-
-

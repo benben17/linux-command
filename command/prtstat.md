@@ -1,20 +1,20 @@
 prtstat
 ===
 
-显示进程信息
+Display process information
 
-## 补充说明
+## Description
 
-**prtstat命令**打印指定进程的统计信息。这个信息来自/proc/PID/stat文件。
+The **prtstat command** prints statistics of a specified process. This information is retrieved from the `/proc/PID/stat` file.
 
-## 语法
+## Syntax
 
 ```shell
 prtstat [-r|--raw] pid
 prtstat -V|--version
 ```
 
-## 例子
+## Example
 
 ```shell
 [root@localhost command]# ps -ef|grep nginx 
@@ -44,8 +44,7 @@ nobody   224313 224312  0 4月26 ?       00:00:00 nginx: worker process
   guest_time: 0                            cguest_time: 0
 ```
 
-### 注意
+### Note
 
-1. `prtstat`命令来自于psmisc包。此包来自于base源仓库。
-2. psmisc.x86_64 : 用于管理系统上进程的实用程序
-
+1. The `prtstat` command is from the `psmisc` package, available in the base repository.
+2. `psmisc.x86_64`: Utilities for managing processes on the system.

@@ -1,46 +1,44 @@
 killall
 ===
 
-使用进程的名称来杀死一组进程
+Kill a group of processes by their name
 
-## 补充说明
+## Description
 
-**killall命令** 使用进程的名称来杀死进程，使用此指令可以杀死一组同名进程。我们可以使用kill命令杀死指定进程PID的进程，如果要找到我们需要杀死的进程，我们还需要在之前使用ps等命令再配合grep来查找进程，而killall把这两个过程合二为一，是一个很好用的命令。
+The **killall** command kills processes by their name. It can be used to kill a group of processes with the same name. While we can use the `kill` command to kill a process with a specific PID, we often need to use commands like `ps` combined with `grep` to find the PID first. **killall** combines these two steps into one, making it a very useful command.
 
-###  语法
+### Syntax
 
 ```shell
-killall(选项)(参数)
+killall (options) (parameters)
 ```
 
-###  选项
+### Options
 
 ```shell
--e：对长名称进行精确匹配；
--l：忽略大小写的不同；
--p：杀死进程所属的进程组；
--i：交互式杀死进程，杀死进程前需要进行确认；
--l：打印所有已知信号列表；
--q：如果没有进程被杀死。则不输出任何信息；
--r：使用正规表达式匹配要杀死的进程名称；
--s：用指定的进程号代替默认信号“SIGTERM”；
--u：杀死指定用户的进程。
+-e: Exact match for long names;
+-I: Ignore case;
+-p: Kill the process group to which the process belongs;
+-i: Interactive kill, requires confirmation before killing each process;
+-l: Print a list of all known signals;
+-q: Quiet mode, do not output anything if no processes were killed;
+-r: Use regular expressions to match the names of processes to be killed;
+-s: Use the specified signal instead of the default "SIGTERM";
+-u: Kill processes belonging to the specified user.
 ```
 
-###  参数
+### Parameters
 
-进程名称：指定要杀死的进程名称。
+Process name: Specify the name of the process to be killed.
 
-###  实例
+### Examples
 
 ```shell
-# 杀死所有同名进程
+# Kill all processes with the same name
 killall vi
-# 指定向进程发送的信号
+# Specify the signal to send to the processes
 killall -9 vi
-# 0信号表示不向进程发送信号, 可通过返回值判断进程是否存在, 0(存在)1(不存在)
+# Signal 0 does not send a signal to the process, but can be used to check if the process exists (0 for exists, 1 for not)
 killall -0 vi
 echo $?
 ```
-
-

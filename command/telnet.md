@@ -1,47 +1,47 @@
 telnet
 ===
 
-登录远程主机和管理(测试ip端口是否连通)
+Login to remote hosts and manage (test IP port connectivity)
 
-## 补充说明
+## Description
 
-**telnet命令** 用于登录远程主机，对远程主机进行管理。telnet因为采用明文传送报文，安全性不好，很多Linux服务器都不开放telnet服务，而改用更安全的ssh方式了。但仍然有很多别的系统可能采用了telnet方式来提供远程登录，因此弄清楚telnet客户端的使用方式仍是很有必要的。
+The **telnet command** is used to log in to remote hosts and manage them. Because telnet uses cleartext to transmit messages, its security is poor. Many Linux servers do not enable the telnet service, opting instead for the more secure SSH method. However, many other systems may still use telnet to provide remote login, so it is still necessary to understand how to use the telnet client.
 
-### 语法
-
-```shell
-telnet(选项)(参数)
-```
-
-### 选项
+### Syntax
 
 ```shell
--8：允许使用8位字符资料，包括输入与输出；
--a：尝试自动登入远端系统；
--b<主机别名>：使用别名指定远端主机名称；
--c：不读取用户专属目录里的.telnetrc文件；
--d：启动排错模式；
--e<脱离字符>：设置脱离字符；
--E：滤除脱离字符；
--f：此参数的效果和指定"-F"参数相同；
--F：使用Kerberos V5认证时，加上此参数可把本地主机的认证数据上传到远端主机；
--k<域名>：使用Kerberos认证时，加上此参数让远端主机采用指定的领域名，而非该主机的域名；
--K：不自动登入远端主机；
--l<用户名称>：指定要登入远端主机的用户名称；
--L：允许输出8位字符资料；
--n<记录文件>：指定文件记录相关信息；
--r：使用类似rlogin指令的用户界面；
--S<服务类型>：设置telnet连线所需的ip TOS信息；
--x：假设主机有支持数据加密的功能，就使用它；
--X<认证形态>：关闭指定的认证形态。
+telnet [options] [parameters]
 ```
 
-### 参数
+### Options
 
-*   远程主机：指定要登录进行管理的远程主机；
-*   端口：指定TELNET协议使用的端口号。
+```shell
+-8: Allow the use of 8-bit character data, including input and output;
+-a: Attempt automatic login to the remote system;
+-b<host alias>: Use an alias to specify the remote host name;
+-c: Do not read the .telnetrc file in the user's home directory;
+-d: Enable debugging mode;
+-e<escape character>: Set the escape character;
+-E: Filter out the escape character;
+-f: This parameter has the same effect as specifying the "-F" parameter;
+-F: When using Kerberos V5 authentication, adding this parameter can upload the local host's authentication data to the remote host;
+-k<domain name>: When using Kerberos authentication, adding this parameter makes the remote host use the specified realm name instead of the host's domain name;
+-K: Do not automatically log in to the remote host;
+-l<username>: Specify the username to log in to the remote host;
+-L: Allow the output of 8-bit character data;
+-n<record file>: Specify a file to record relevant information;
+-r: Use a user interface similar to the rlogin command;
+-S<service type>: Set the IP TOS information required for the telnet connection;
+-x: Use data encryption if the host supports it;
+-X<auth type>: Disable the specified authentication type.
+```
 
-### 实例
+### Parameters
+
+*   Remote Host: Specifies the remote host to log in to for management;
+*   Port: Specifies the port number used by the TELNET protocol.
+
+### Examples
 
 ```shell
 $ telnet 192.168.2.10
@@ -56,7 +56,7 @@ Password:
 Login incorrect
 ```
 
-一般情况下不允许root从远程登录，可以先用普通账号登录，然后再用su -切到root用户。
+Generally, root is not allowed to log in remotely. You can log in with a regular account first and then switch to the root user using `su -`.
 
 ```shell
 $ telnet 192.168.188.132
@@ -65,73 +65,71 @@ telnet: connect to address 192.168.188.132: Connection refused
 telnet: Unable to connect to remote host
 ```
 
-处理这种情况方法：
+Troubleshooting this situation:
 
-1. 确认ip地址是否正确？
-1. 确认ip地址对应的主机是否已经开机？
-1. 如果主机已经启动，确认路由设置是否设置正确？（使用route命令查看）
-1. 如果主机已经启动，确认主机上是否开启了telnet服务？（使用netstat命令查看，TCP的23端口是否有LISTEN状态的行）
-1. 如果主机已经启动telnet服务，确认防火墙是否放开了23端口的访问？（使用iptables-save查看）
+1. Confirm if the IP address is correct.
+2. Confirm if the host corresponding to the IP address is powered on.
+3. If the host has started, confirm if the routing settings are correct (use the `route` command).
+4. If the host has started, confirm if the telnet service is enabled on the host (use the `netstat` command to see if there is a LISTEN status row for TCP port 23).
+5. If the host has started the telnet service, confirm if the firewall has opened access to port 23 (use `iptables-save`).
 
-**启动telnet服务**
+**Start the telnet service**
 
 ```shell
 service xinetd restart
 ```
 
-配置参数，通常的配置如下：
+Configuration parameters, usually as follows:
 
 ```shell
 service telnet
 {
-    disable = no #启用
-    flags = REUSE #socket可重用
-    socket_type = stream #连接方式为TCP
-    wait = no #为每个请求启动一个进程
-    user = root #启动服务的用户为root
-    server = /usr/sbin/in.telnetd #要激活的进程
-    log_on_failure += USERID #登录失败时记录登录用户名
+    disable = no # Enable
+    flags = REUSE # Socket reusable
+    socket_type = stream # Connection method is TCP
+    wait = no # Start a process for each request
+    user = root # User starting the service is root
+    server = /usr/sbin/in.telnetd # Process to be activated
+    log_on_failure += USERID # Record login username on failure
 }
 ```
 
-如果要配置允许登录的客户端列表，加入
+To configure a list of allowed clients, add:
 ```
-only_from = 192.168.0.2 #只允许192.168.0.2登录
+only_from = 192.168.0.2 # Only allow 192.168.0.2 to log in
 ```
-如果要配置禁止登录的客户端列表，加入
+To configure a list of forbidden clients, add:
 ```
-no_access = 192.168.0.{2,3,4} #禁止192.168.0.2、192.168.0.3、192.168.0.4登录
+no_access = 192.168.0.{2,3,4} # Forbid 192.168.0.2, 192.168.0.3, 192.168.0.4 from logging in
 ```
-如果要设置开放时段，加入
+To set open periods, add:
 ```
-access_times = 9:00-12:00 13:00-17:00 # 每天只有这两个时段开放服务（我们的上班时间：P）
+access_times = 9:00-12:00 13:00-17:00 # Service open only during these two periods daily
 ```
 
-如果你有两个IP地址，一个是私网的IP地址如192.168.0.2，一个是公网的IP地址如218.75.74.83，如果你希望用户只能从私网来登录telnet服务，那么加入
+If you have two IP addresses, one private (e.g., 192.168.0.2) and one public (e.g., 218.75.74.83), and you want users to only log in from the private network, add:
 ```
 bind = 192.168.0.2
 ```
 
-各配置项具体的含义和语法可参考xined配置文件属性说明（man xinetd.conf）
+Specific meanings and syntax of each configuration item can be found in the xinetd configuration file property description (`man xinetd.conf`).
 
-配置端口，修改services文件：
+Configure the port by modifying the services file:
 
 ```shell
 # vi /etc/services
 ```
 
-找到以下两句
+Find the following two lines:
 
 ```shell
 telnet 23/tcp
 telnet 23/udp
 ```
 
-如果前面有#字符，就去掉它。telnet的默认端口是23，这个端口也是黑客端口扫描的主要对象，因此最好将这个端口修改掉，修改的方法很简单，就是将23这个数字修改掉，改成大一点的数字，比如61123。注意，1024以下的端口号是internet保留的端口号，因此最好不要用，还应该注意不要与其它服务的端口冲突。
+If there is a `#` character in front, remove it. The default port for telnet is 23, which is a major target for hacker port scans. Therefore, it's best to change this port. The method is simple: change the number 23 to a larger number, such as 61123. Note that port numbers below 1024 are reserved by the internet and should ideally not be used. Also, ensure the port does not conflict with other services.
 
-启动服务：
+Restart the service:
 ```
 service xinetd restart
 ```
-
-

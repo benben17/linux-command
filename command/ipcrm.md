@@ -1,37 +1,35 @@
 ipcrm
 ===
 
-删除消息队列、信号集、或者共享内存标识
+Remove message queues, semaphore sets, or shared memory segments.
 
-## 补充说明
+## Description
 
-**ipcrm命令** 用来删除一个或更多的消息队列、信号量集或者共享内存标识。
+The `ipcrm` command is used to remove one or more System V interprocess communication (IPC) objects from the system.
 
-###  语法
+### Syntax
 
 ```shell
 ipcrm [ -m SharedMemoryID ] [ -M SharedMemoryKey ] [ -q MessageID ] [ -Q MessageKey ] [ -s SemaphoreID ] [ -S SemaphoreKey ]
 ```
 
-###  选项
+### Options
 
 ```shell
--m SharedMemory id 删除共享内存标识 SharedMemoryID。与 SharedMemoryID 有关联的共享内存段以及数据结构都会在最后一次拆离操作后删除。
--M SharedMemoryKey 删除用关键字 SharedMemoryKey 创建的共享内存标识。与其相关的共享内存段和数据结构段都将在最后一次拆离操作后删除。
--q MessageID 删除消息队列标识 MessageID 和与其相关的消息队列和数据结构。
--Q MessageKey 删除由关键字 MessageKey 创建的消息队列标识和与其相关的消息队列和数据结构。
--s SemaphoreID 删除信号量标识 SemaphoreID 和与其相关的信号量集及数据结构。
--S SemaphoreKey 删除由关键字 SemaphoreKey 创建的信号标识和与其相关的信号量集和数据结构。
+-m id : Remove the shared memory segment associated with ID.
+-M key : Remove the shared memory segment associated with key.
+-q id : Remove the message queue associated with ID.
+-Q key : Remove the message queue associated with key.
+-s id : Remove the semaphore set associated with ID.
+-S key : Remove the semaphore set associated with key.
 ```
 
-msgctl、shmctl 和 semctl 子例程提供了删除操作的细节。标识和关键字可以用 ipcs 命令找到。
+IDs and keys can be found using the `ipcs` command.
 
-###  示例
+### Examples
 
-如果要删除和 SharedMemoryID 18602 相关的共享内存段，请输入：
+To remove the shared memory segment with ID 18602:
 
 ```shell
 ipcrm -m 18602
 ```
-
-

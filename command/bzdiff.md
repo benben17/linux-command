@@ -1,21 +1,19 @@
 bzdiff
 ===
 
-直接比较两个.bz2压缩包中文件的不同
+Compare two compressed files in .bz2 format.
 
-## 补充说明
+## Description
 
-**bzdiff命令** 用于直接比较两个“.bz2”压缩包中文件的不同，省去了解压缩后再调用diff命令的过程。
+The **bzdiff command** is used to directly compare the differences between files in two `.bz2` compressed packages, saving the step of decompressing them before calling the `diff` command.
 
-###  语法
+### Syntax
 
 ```shell
-bzdiff(参数)
+bzdiff [parameters]
 ```
 
-###  参数
+### Parameters
 
-*   文件1：指定要比较的第一个.bz2压缩包；
-*   文件2：指定要比较的第二个.bz2压缩包。
-
-
+* File 1: Specify the first `.bz2` compressed package to compare.
+* File 2: Specify the second `.bz2` compressed package to compare.

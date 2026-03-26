@@ -1,25 +1,21 @@
 pwdx
 ===
 
-用于显示指定进程的当前工作目录
+Display the current working directory of specified processes.
 
-## 内建命令
-
-
-### 概要
+## Synopsis
 
 ```shell
-pwdx [进程ID]
+pwdx [PID]
 ```
 
-### 参数说明
+### Parameter Description
 
-- `进程ID`：要查询的进程ID，可以使用 `ps` 命令查看。
+- `PID`: The process ID to query. You can use the `ps` command to find PIDs.
 
-## 示例
+## Examples
 
-
-下面示例中，使用 `ps` 命令查看 `nginx` 进程的信息，然后使用 `pwdx` 命令查询进程ID为 `5678` 的进程的当前工作目录。
+In the following example, the `ps` command is used to view information about the `nginx` process, and then the `pwdx` command is used to query the current working directory of the process with ID `5678`.
 
 ```bash
 $ ps -ef | grep nginx
@@ -30,31 +26,31 @@ $ pwdx 5678
 # 5678: /var/www/html
 ```
 
-查看当前进程的工作目录：
+View the working directory of the current process:
 
 ```bash
 $ pwdx $$
 ```
 
-查看指定进程的工作目录：
+View the working directory of a specified process:
 
 ```bash
 $ pwdx 1234
 ```
 
-批量查看多个进程的工作目录：
+Batch view the working directories of multiple processes:
 
 ```bash
 $ ps aux | awk '{print $2}' | xargs pwdx
 ```
 
-结合其他命令，查看某个进程的工作目录和命令行：
+Combine with other commands to view a process's working directory and command line:
 
 ```bash
 $ ps -p 1234 -o cmd | tail -n 1 | awk '{print $1}' | xargs pwdx
 ```
 
-查看所有进程的工作目录：
+View the working directories of all processes:
 
 ```bash
 $ ps -eo pid | xargs pwdx

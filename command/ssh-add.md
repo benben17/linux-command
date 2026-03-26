@@ -1,13 +1,13 @@
 ssh-add
 ===
 
-把专用密钥添加到ssh-agent的高速缓存中
+Adds private key identities to the authentication agent (ssh-agent)
 
-## 补充说明
+## Description
 
-**ssh-add命令** 是把专用密钥添加到ssh-agent的高速缓存中。该命令位置在`/usr/bin/ssh-add`。
+The **ssh-add command** adds private keys to the `ssh-agent` cache. The command is located at `/usr/bin/ssh-add`.
 
-###  语法
+### Syntax
 
 ```shell
 ssh-add [-cDdLlXx] [-t life] [file ...]
@@ -15,38 +15,36 @@ ssh-add -s pkcs11
 ssh-add -e pkcs11
 ```
 
-###  选项
+### Options
 
 ```shell
--D：删除ssh-agent中的所有密钥.
--d：从ssh-agent中的删除密钥
--e pkcs11：删除PKCS#11共享库pkcs1提供的钥匙。
--s pkcs11：添加PKCS#11共享库pkcs1提供的钥匙。
--L：显示ssh-agent中的公钥
--l：显示ssh-agent中的密钥
--t life：对加载的密钥设置超时时间，超时ssh-agent将自动卸载密钥
--X：对ssh-agent进行解锁
--x：对ssh-agent进行加锁
+-D: Delete all identities from the agent.
+-d: Remove identity from the agent.
+-e pkcs11: Remove keys provided by the PKCS#11 shared library.
+-s pkcs11: Add keys provided by the PKCS#11 shared library.
+-L: List public key parameters of all identities currently represented by the agent.
+-l: List fingerprints of all identities currently represented by the agent.
+-t life: Set a maximum lifetime when adding identities to an agent. After this time, the identity will be automatically removed.
+-X: Unlock the agent.
+-x: Lock the agent with a password.
 ```
 
-###  实例
+### Examples
 
-1、把专用密钥添加到 ssh-agent 的高速缓存中：
+1. Add a private key to the `ssh-agent` cache:
 
 ```shell
 ssh-add ~/.ssh/id_dsa
 ```
 
-2、从ssh-agent中删除密钥：
+2. Remove a key from `ssh-agent`:
 
 ```shell
 ssh-add -d ~/.ssh/id_xxx.pub
 ```
 
-3、查看ssh-agent中的密钥：
+3. List keys currently in `ssh-agent`:
 
 ```shell
 ssh-add -l
 ```
-
-

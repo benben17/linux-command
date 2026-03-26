@@ -1,84 +1,84 @@
 nohup
 ===
 
-将程序以忽略挂起信号的方式运行起来
+Run a command immune to hangups, with output to a non-tty
 
-## 补充说明
+## Description
 
-**nohup命令** 可以将程序以忽略挂起信号的方式运行起来，被运行的程序的输出信息将不会显示到终端。
+The **nohup command** allows you to run a program in a way that ignores hangup (SIGHUP) signals, ensuring that the process continues running even after the user logs out. The output of the command is typically redirected away from the terminal.
 
-无论是否将 nohup 命令的输出重定向到终端，输出都将附加到当前目录的 nohup.out 文件中。如果当前目录的 nohup.out 文件不可写，输出重定向到`$HOME/nohup.out`文件中。如果没有文件能创建或打开以用于追加，那么 command 参数指定的命令不可调用。如果标准错误是一个终端，那么把指定的命令写给标准错误的所有输出作为标准输出重定向到相同的文件描述符。
+Whether or not the output is explicitly redirected by the user, `nohup` will attempt to append output to a file named `nohup.out` in the current directory. If the current directory is not writable, it redirects output to `$HOME/nohup.out`. If neither file can be created or opened, the command will not run. If standard error is a terminal, it is redirected to the same file descriptor as standard output.
 
-### 语法
-
-```shell
-nohup(选项)(参数)
-```
-
-### 选项
+### Syntax
 
 ```shell
---help：在线帮助；
---version：显示版本信息。
+nohup [options] [command [args]...]
 ```
 
-### 参数
+### Options
 
-程序及选项：要运行的程序及选项。
+```shell
+--help: Display help information.
+--version: Display version information.
+```
 
-### 实例
+### Parameters
 
-使用nohup命令提交作业，如果使用nohup命令提交作业，那么在缺省情况下该作业的所有输出都被重定向到一个名为nohup.out的文件中，除非另外指定了输出文件：
+Command and Options: The program to be executed and its arguments.
+
+### Examples
+
+Submit a job using `nohup`. By default, all output is redirected to `nohup.out` unless an output file is specified:
 
 ```shell
 nohup command > myout.file 2>&1 &
 ```
 
-在上面的例子中，输出被重定向到myout.file文件中。
+In the example above, output is redirected to `myout.file`.
 
-该指令表示不做挂断操作，后台下载
-
-```shell
-nohup wget site.com/file.zip
-```
-
-下面命令，会在同一个目录下生成一个名称为 `nohup.out` 的文件，其中包含了正在运行的程序的输出内容
+Download a file in the background without hanging up:
 
 ```shell
-nohup ping -c 10 baidu.com
+nohup wget site.com/file.zip &
 ```
 
-最简单的后台运行
+The following command generates a `nohup.out` file in the current directory containing the program's output:
+
+```shell
+nohup ping -c 10 baidu.com &
+```
+
+Simple background execution:
 
 ```shell
 nohup command &
 ```
 
-输出默认重定向到当前目录下 nohup.out 文件
+Redirect output to `nohup.out` in the current directory by default:
 
 ```shell
 nohup python main.py &
 ```
 
-自定义输出文件(标准输出和错误输出合并到 main.log)
+Specify a custom output file (merging standard output and standard error into `main.log`):
 
 ```shell
 nohup python main.py >> main.log 2>&1 &
 ```
 
-与上一个例子相同作用的简写方法
+Shorthand for the above (merging both outputs):
 
 ```shell
 nohup python main.py &> main.log &
 ```
 
-不记录输出信息
+Discard all output:
 
 ```shell
 nohup python main.py &> /dev/null &
 ```
 
-不记录输出信息并将程序的进程号写入 pidfile.txt 文件中，方便后续杀死进程
+Discard output and save the process ID (PID) to `pidfile.txt` for easier management:
 
 ```shell
 nohup python main.py &> /dev/null & echo $! > pidfile.txt

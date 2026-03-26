@@ -1,24 +1,21 @@
-rcconf
-===
+# rcconf
 
-Debian Linux下的运行等级服务配置工具
+A run-level service configuration tool for Debian Linux.
 
-## 补充说明
+## Description
 
-**rcconf命令** 是Debian Linux下的运行等级服务配置工具，用以设置在特定的运行等级下系统服务的启动配置。
+The **rcconf** command is a run-level service configuration tool for Debian Linux used to configure the startup behavior of system services at specific run levels.
 
-###  语法
-
-```shell
-rcconf(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
---help：打印帮助信息；
---dialog：使用对话命令显示菜单；
---notermcheck：不按照终端属性来设置窗口尺寸。
+rcconf [options]
 ```
 
+### Options
 
+```shell
+--help: Print help information.
+--dialog: Use the dialog command to display the menu.
+--notermcheck: Do not adjust window size according to terminal attributes.
+```

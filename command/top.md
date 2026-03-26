@@ -1,59 +1,59 @@
 top
 ===
 
-显示或管理执行中的程序
+Display or manage running processes
 
-## 补充说明
+## Description
 
-**top命令** 可以实时动态地查看系统的整体运行情况，是一个综合了多方信息监测系统性能和运行信息的实用工具。通过top命令所提供的互动式界面，用热键可以管理。
+The **top command** allows real-time dynamic viewing of the overall system operation. it is a comprehensive tool for monitoring system performance and operational information from multiple aspects. Through the interactive interface provided by the top command, you can manage processes using hotkeys.
 
-###  语法
-
-```shell
-top(选项)
-```
-
-###  选项
+### Syntax
 
 ```shell
--b：以批处理模式操作；
--c：显示完整的治命令；
--d：屏幕刷新间隔时间；
--I：忽略失效过程；
--s：保密模式；
--S：累积模式；
--i<时间>：设置间隔时间；
--u<用户名>：指定用户名；
--p<进程号>：指定进程；
--n<次数>：循环显示的次数；
--H：所有线程占用资源情况。
+top [options]
 ```
 
-###  top交互命令
-
-在top命令执行过程中可以使用的一些交互命令。这些命令都是单字母的，如果在命令行中使用了-s选项， 其中一些命令可能会被屏蔽。
+### Options
 
 ```shell
-h：显示帮助画面，给出一些简短的命令总结说明；
-k：终止一个进程；
-i：忽略闲置和僵死进程，这是一个开关式命令；
-q：退出程序；
-r：重新安排一个进程的优先级别；
-S：切换到累计模式；
-s：改变两次刷新之间的延迟时间（单位为s），如果有小数，就换算成ms。输入0值则系统将不断刷新，默认值是5s；
-f或者F：从当前显示中添加或者删除项目；
-o或者O：改变显示项目的顺序；
-l：切换显示平均负载和启动时间信息；
-m：切换显示内存信息；
-t：切换显示进程和CPU状态信息；
-c：切换显示命令名称和完整命令行；
-M：根据驻留内存大小进行排序；
-P：根据CPU使用百分比大小进行排序；
-T：根据时间/累计时间进行排序；
-w：将当前设置写入~/.toprc文件中。
+-b: Operate in batch mode;
+-c: Display complete command lines;
+-d: Screen refresh interval;
+-I: Ignore idle processes;
+-s: Secure mode;
+-S: Cumulative mode;
+-i <time>: Set interval time;
+-u <username>: Specify username;
+-p <pid>: Specify process ID;
+-n <count>: Number of iterations to display;
+-H: Resource usage for all threads.
 ```
 
-###  实例
+### top Interactive Commands
+
+Interactive commands available during top execution. These are single-letter commands. Some may be disabled if the `-s` option was used on the command line.
+
+```shell
+h: Display help screen with a brief command summary;
+k: Terminate a process;
+i: Ignore idle and zombie processes (toggle);
+q: Quit the program;
+r: Reschedule a process priority;
+S: Switch to cumulative mode;
+s: Change delay between refreshes (in seconds; decimals are converted to ms). Entering 0 causes continuous refresh. Default is 5s;
+f or F: Add or remove items from the current display;
+o or O: Change the order of displayed items;
+l: Toggle display of load average and uptime information;
+m: Toggle display of memory information;
+t: Toggle display of process and CPU status information;
+c: Toggle display of command name and full command line;
+M: Sort by resident memory size;
+P: Sort by CPU usage percentage;
+T: Sort by time/cumulative time;
+w: Write current settings to the ~/.toprc file.
+```
+
+### Example
 
 ```shell
 top - 09:44:56 up 16 days, 21:23,  1 user,  load average: 9.59, 4.75, 1.92
@@ -63,30 +63,29 @@ Mem:   4147888k total,  2493092k used,  1654796k free,   158188k buffers
 Swap:  5144568k total,       56k used,  5144512k free,  2013180k cached
 ```
 
- **解释：** 
+**Explanation:**
 
-*  top - 09:44:56[当前系统时间],
-*  16 days[系统已经运行了16天],
-*  1 user[个用户当前登录],
-*  load average: 9.59, 4.75, 1.92[系统负载，即任务队列的平均长度]
-*  Tasks: 145 total[总进程数],
-*  2 running[正在运行的进程数],
-*  143 sleeping[睡眠的进程数],
-*  0 stopped[停止的进程数],
-*  0 zombie[冻结进程数],
-*  Cpu(s): 99.8%us[用户空间占用CPU百分比],
-*  0.1%sy[内核空间占用CPU百分比],
-*  0.0%ni[用户进程空间内改变过优先级的进程占用CPU百分比],
-*  0.2%id[空闲CPU百分比], 0.0%wa[等待输入输出的CPU时间百分比],
-*  0.0%hi[],
-*  0.0%st[],
-*  Mem: 4147888k total[物理内存总量],
-*  2493092k used[使用的物理内存总量],
-*  1654796k free[空闲内存总量],
-*  158188k buffers[用作内核缓存的内存量]
-*  Swap:  5144568k total[交换区总量],
-*  56k used[使用的交换区总量],
-*  5144512k free[空闲交换区总量],
-*  2013180k cached[缓冲的交换区总量],
-
-
+* top - 09:44:56 [current system time],
+* 16 days [system uptime],
+* 1 user [number of logged-in users],
+* load average: 9.59, 4.75, 1.92 [system load; average length of the task queue]
+* Tasks: 145 total [total number of processes],
+* 2 running [number of running processes],
+* 143 sleeping [number of sleeping processes],
+* 0 stopped [number of stopped processes],
+* 0 zombie [number of zombie processes],
+* Cpu(s): 99.8%us [CPU percentage used by user space],
+* 0.1%sy [CPU percentage used by kernel space],
+* 0.0%ni [CPU percentage used by processes with changed priority in user space],
+* 0.2%id [CPU percentage idle],
+* 0.0%wa [CPU percentage waiting for I/O],
+* 0.0%hi [hardware interrupts],
+* 0.0%st [steal time],
+* Mem: 4147888k total [total physical memory],
+* 2493092k used [total physical memory used],
+* 1654796k free [total physical memory free],
+* 158188k buffers [memory used for kernel buffers]
+* Swap: 5144568k total [total swap space],
+* 56k used [total swap space used],
+* 5144512k free [total swap space free],
+* 2013180k cached [total swap space cached]

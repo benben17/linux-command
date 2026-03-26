@@ -1,111 +1,111 @@
 lftp
 ===
 
-优秀的文件客户端程序
+An excellent file client program
 
-## 补充说明
+## Description
 
-**lftp命令** 是一款优秀的文件客户端程序，它支持ftp、SETP、HTTP和FTPs等多种文件传输协议。lftp支持tab自动补全，记不得命令双击tab键，就可以看到可能的选项了。
+The **lftp** command is an excellent file client program that supports various file transfer protocols, including FTP, SFTP, HTTP, and FTPS. lftp supports tab completion; if you forget a command, double-pressing the Tab key will show the available options.
 
-###  语法
-
-```shell
-lftp(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--f：指定lftp指令要执行的脚本文件；
--c：执行指定的命令后退出；
---help：显示帮助信息；
---version：显示指令的版本号。
+lftp (options) (parameters)
 ```
 
-###  参数
-
-站点：要访问的站点的ip地址或者域名。
-
-###  实例
-
- **登录ftp** 
+### Options
 
 ```shell
-lftp 用户名:密码@ftp地址:传送端口（默认21）
+-f: Specify a script file for lftp to execute;
+-c: Execute the specified commands and then exit;
+--help: Display help information;
+--version: Display the version number.
 ```
 
-也可以先不带用户名登录，然后在接口界面下用login命令来用指定账号登录，密码不显示。
+### Parameters
 
- **查看文件与改变目录** 
+Site: The IP address or domain name of the site to visit.
+
+### Examples
+
+**Logging into FTP**
+
+```shell
+lftp username:password@ftp_address:port (default is 21)
+```
+
+You can also log in without a username first, and then use the `login` command within the lftp interface to log in with a specific account (password will not be displayed).
+
+**Viewing Files and Changing Directories**
 
 ```shell
 ls
-cd 对应ftp目录
+cd path/to/ftp/directory
 ```
 
- **下载** 
+**Downloading**
 
-get当然是可以的，还可以：
+While `get` works, you can also use:
 
 ```shell
-mget -c *.pdf    #把所有的pdf文件以允许断点续传的方式下载。
-mirror aaa/      #将aaa目录整个的下载下来，子目录也会自动复制。
-pget -c -n 10 file.dat   #以最多10个线程以允许断点续传的方式下载file.dat，可以通过设置pget:default-n的值而使用默认值。
+mget -c *.pdf    # Download all PDF files with resume support (continue).
+mirror aaa/      # Download the entire aaa directory, including subdirectories.
+pget -c -n 10 file.dat   # Download file.dat using up to 10 threads with resume support. The default thread count can be set via pget:default-n.
 ```
 
- **上传** 
+**Uploading**
 
-同样的put、mput都是对文件的操作，和下载类似。
+Similarly, `put` and `mput` are used for files.
 
 ```shell
-mirror -R 本地目录名
+mirror -R local_directory_name
 ```
 
-将本地目录以迭代（包括子目录）的方式反向上传到ftp site。
+Upload the local directory recursively (including subdirectories) to the FTP site.
 
- **模式设置** 
+**Mode Settings**
 
 ```shell
 set ftp:charset gbk
 ```
 
-远程ftp site用gbk编码，对应的要设置为utf8,只要替换gbk为utf8即可。
+If the remote FTP site uses GBK encoding, set this accordingly. Replace `gbk` with `utf8` if needed.
 
 ```shell
 set file:charset utf8
 ```
 
-本地的charset设定为utf8,如果你是gbk，相应改掉。
+Set the local charset to UTF-8.
 
 ```shell
 set ftp:passive-mode 1
 ```
 
-使用被动模式登录，有些site要求必须用被动模式或者主动模式才可以登录，这个开关就是设置这个的。0代表不用被动模式。
+Enable passive mode. Some sites require either passive or active mode to log in; this switch controls that. `0` means do not use passive mode.
 
- **书签** 
+**Bookmarks**
 
-其实命令行也可以有书签，在lftp终端提示符下：
+The command line also supports bookmarks. At the lftp prompt:
 
 ```shell
 bookmark add ustc
 ```
 
-就可以把当前正在浏览的ftp site用ustc作为标签储存起来。以后在shell终端下，直接`lftp ustc`就可以自动填好用户名和密码，进入对应的目录了。
+This saves the current FTP site with the label `ustc`. Later, from the shell terminal, you can simply run `lftp ustc` to automatically log in and enter the directory.
 
 ```shell
 bookmark edit
 ```
 
-会调用编辑器手动修改书签。当然，也可以看到，这个书签其实就是个简单的文本文件。密码，用户名都可以看到。
+Invokes an editor to manually modify bookmarks. Bookmarks are stored in a simple text file where usernames and passwords might be visible.
 
- **配置文件** 
+**Configuration File**
 
 ```shell
 vim /etc/lftp.conf
 ```
 
-一般，我会添加这几行：
+Typically, I add these lines:
 
 ```shell
 set ftp:charset gbk
@@ -113,6 +113,4 @@ set file:charset utf8
 set pget:default-n 5
 ```
 
-这样，就不用每次进入都要打命令了。其他的set可以自己tab然后help来看。
-
-
+This avoids having to enter these commands every time. You can use Tab and `help` within lftp to see other `set` options.

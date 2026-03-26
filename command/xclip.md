@@ -1,26 +1,39 @@
 xclip
 ===
 
-管理 X 粘贴板
+Command line interface to the X11 clipboard
 
-## 补充说明
+## Description
 
-在 X 系统里面，从一个窗口复制一段文字到另一个窗口，有两套机制，分别是 Selections 和 cut buffers。
+In the X Window System, there are two primary mechanisms for copying text between windows: **Selections** and **cut buffers**.
 
-常用的 copy & paste 是利用的 cut buffers 机制;另外用鼠标选中一段文字，然后在另一个窗口按鼠标中键实现复制，利用的是 selections 机制。selection 又可以分为 master 和 slave selection。
+The standard "copy & paste" typically uses cut buffers or the `CLIPBOARD` selection. However, selecting text with the mouse and then middle-clicking in another window uses the `PRIMARY` selection mechanism.
 
-当用鼠标选中一段文件，这段文字就自动被复制到 master selection。然后在另一个地方按鼠标中键，就自动把 master selection 的内容粘贴出来。
+When you select text with the mouse, it is automatically copied to the `PRIMARY` selection. Middle-clicking then pastes the content of this selection.
 
-当你想复制少量文字的时候，两种方法都是很方便的。但是当复制大段文字的时候就挺麻烦。另外就是你可能会频繁的执行一些复制粘贴工作，不停的用鼠标选中文字，然后再粘贴。这是对手指的折磨。
+While these methods are convenient for small snippets, they can be cumbersome for large blocks of text or repetitive tasks. **xclip** provides a convenient command-line interface to manage X selections and clipboards.
 
-我忍受不了这种折磨，所以发现了 xclip， 方便的管理 X selections 里面内容的工具。
-
-比如如下命令就把文件 /etc/passwd 的内容复制到 X master selections 里面了。
+For example, the following command copies the content of `/etc/passwd` to the `PRIMARY` selection:
 
 ```shell
 xclip -i /etc/passwd
 ```
 
-然后到别的地方就能复制出来，利用鼠标中键。或者是更舒服的 shift+insert。 我现在最常用的方法是通过键盘绑定来管理 X master selections 的内容。比如 alt+F1 就能把我的 ~/f1 的内容复制到 X master selections，alt+F2 复制 ~/f2 的内容。这样就能把你需要经常用到的内容方便的进行复制粘贴。比如常用的密码啥的。
+You can then paste it anywhere using the middle mouse button or `Shift+Insert`.
 
+A common use case is to bind `xclip` commands to keyboard shortcuts. For instance, you could bind `Alt+F1` to copy the content of `~/snippet1.txt` to the clipboard, and `Alt+F2` for `~/snippet2.txt`. This allows for efficient copying of frequently used strings, such as passwords or code snippets.
 
+### Syntax
+
+```shell
+xclip [options] [file]
+```
+
+### Common Options
+
+- `-i, -in`: Read text into X selection from standard input (default).
+- `-o, -out`: Print X selection to standard output.
+- `-selection <name>`: Specify which X selection to use (`primary`, `secondary`, or `clipboard`). Default is `primary`.
+- `-loops <count>`: Number of X selection requests to service before exiting.
+- `-display <display>`: Specify the X server to connect to.
+- `-h, -help`: Display help information.

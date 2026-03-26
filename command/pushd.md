@@ -1,44 +1,44 @@
 pushd
 ===
 
-将目录添加到目录堆栈顶部。
+Add a directory to the top of the directory stack.
 
-## 概要
+## Synopsis
 
 ```shell
 pushd [-n] [+N | -N | dir]
 ```
 
-## 主要用途
+## Main Usage
 
-- 将目录添加到目录堆栈顶部，切换当前工作目录到该目录。
+- Adds a directory to the top of the directory stack and switches the current working directory to that directory.
 
-- 旋转目录堆栈，使堆栈的新顶部成为当前工作目录。
+- Rotates the directory stack so that the new top of the stack becomes the current working directory.
 
-- 没有参数时，交换目录堆栈的前两个目录。
+- Without arguments, exchanges the top two directories on the stack.
 
-## 选项
+## Options
 
 ```shell
--n    抑制添加目录引起的当前工作目录变化。
+-n    Suppresses the normal change of directory when adding directories to the stack, so that only the stack is manipulated.
 ```
 
-## 参数
+## Parameters
 
-+N（可选）：不带参数执行`dirs`命令显示的列表中，左起的第N个目录将作为堆栈顶部，在它前面的会移动到底部。（从0开始计数）
++N (optional): Rotates the stack so that the N-th directory from the left (as shown by the `dirs` command) becomes the top. (Counting from 0)
 
--N（可选）：不带参数执行`dirs`命令显示的列表中，右起的第N个目录将作为堆栈顶部，在它前面的会移动到底部。（从0开始计数）
+-N (optional): Rotates the stack so that the N-th directory from the right (as shown by the `dirs` command) becomes the top. (Counting from 0)
 
-dir（可选）：要推送的目录。
+dir (optional): The directory to push onto the stack.
 
-## 返回值
+## Return Value
 
-返回成功除非提供了非法选项或执行出现错误。
+Returns success unless an invalid option is provided or an execution error occurs.
 
-## 例子
+## Examples
 
 ```shell
-# 添加目录到堆栈，改变了当前工作目录。
+# Add a directory to the stack and change the current working directory.
 [user2@pc ~]$ dirs
 ~
 [user2@pc ~]$ pushd ~/Desktop
@@ -47,7 +47,7 @@ dir（可选）：要推送的目录。
 ```
 
 ```shell
-# 添加目录到堆栈，当前工作目录不变。
+# Add a directory to the stack without changing the current working directory.
 [user2@pc ~]$ dirs
 ~
 [user2@pc ~]$ pushd -n ~/Desktop
@@ -55,7 +55,7 @@ dir（可选）：要推送的目录。
 [user2@pc ~]$ pushd -n ~/Pictures
 ~ ~/Pictures ~/Desktop
 
-# 调整顺序。
+# Adjust the order of the stack.
 [user2@pc ~]$ pushd +1
 ~/Pictures ~/Desktop ~
 [user2@pc ~]$ pushd -1
@@ -64,14 +64,12 @@ dir（可选）：要推送的目录。
 ~ ~/Desktop ~/Pictures
 ```
 
-### 注意
+### Note
 
-1. `bash`的目录堆栈命令包括`dirs popd pushd`。
-2. 当前目录始终是目录堆栈的顶部。
-3. 该命令是bash内建命令，相关的帮助信息请查看`help`命令。
+1. Bash's directory stack commands include `dirs`, `popd`, and `pushd`.
+2. The current directory is always the top of the directory stack.
+3. This is a bash builtin command; use the `help` command for related help information.
 
-### 参考链接
+### Reference Links
 
-- [popd、pushd命令'-n'选项的行为](https://superuser.com/questions/784450/popd-and-pushd-behavior-with-n-option)
-
-
+- [Behavior of popd and pushd with '-n' option](https://superuser.com/questions/784450/popd-and-pushd-behavior-with-n-option)

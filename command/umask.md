@@ -1,101 +1,97 @@
 umask
 ===
 
-显示或设置创建文件的权限掩码。
+Display or set the file mode creation mask.
 
-## 概要
+## Synopsis
 
 ```shell
 umask [-p] [-S] [mode]
 ```
 
-## 主要用途
+## Main Purpose
 
-- 显示当前的文件权限掩码。
-- 通过八进制数的方式设置创建文件的权限掩码。
-- 通过符号组合的方式设置创建文件的权限掩码。
+- Display the current file mode creation mask.
+- Set the file mode creation mask using an octal number.
+- Set the file mode creation mask using symbolic notation.
 
-## 参数
+## Parameters
 
-mode（可选）：八进制数或符号组合。
+mode (optional): Octal number or symbolic notation.
 
-## 选项 
+## Options
 
 ```shell
--p：当没有参数时指定该选项，执行产生的输出格式可复用为输入；
--S：以符号组合的方式输出创建文件的权限掩码，不使用该选项时以八进制数的形式输出。
+-p: When no parameters are provided, specifies that the output format should be reusable as input.
+-S: Output the creation mask in symbolic notation; otherwise, it is output in octal.
 ```
 
-## 返回值
+## Return Value
 
-返回状态为成功除非给出了非法选项或非法参数。
+Returns success unless an invalid option or parameter is provided.
 
-## 例子
+## Examples
 
-*以下的例子均假设文件权限掩码为0022。*
+*The following examples assume a file mode creation mask of 0022.*
 
 ```shell
-# 以八进制数的形式输出创建文件的权限掩码。
+# Output the creation mask in octal format.
 umask -p
-# 执行结果：
+# Result:
 umask 0022
-# 以符号组合的方式输出创建文件的权限掩码。
+# Output the creation mask in symbolic notation.
 umask -S
-# 执行结果：
+# Result:
 u=rwx,g=rx,o=rx
 ```
 
-> 参考`man chmod`文档的`DESCRIPTION`段落得知：
-> - `u`符号代表当前用户。
-> - `g`符号代表和当前用户在同一个组的用户，以下简称组用户。
-> - `o`符号代表其他用户。
-> - `a`符号代表所有用户。
-> - `r`符号代表读权限以及八进制数`4`。
-> - `w`符号代表写权限以及八进制数`2`。
-> - `x`符号代表执行权限以及八进制数`1`。
-> - `+`符号代表添加目标用户相应的权限。
-> - `-`符号代表删除目标用户相应的权限。
-> - `=`符号代表添加目标用户相应的权限，删除未提到的权限。
+> Referring to the `DESCRIPTION` section of `man chmod`:
+> - `u` represents the current user.
+> - `g` represents users in the same group as the current user (group users).
+> - `o` represents other users.
+> - `a` represents all users.
+> - `r` represents read permission (octal 4).
+> - `w` represents write permission (octal 2).
+> - `x` represents execute permission (octal 1).
+> - `+` adds the specified permissions to the target user(s).
+> - `-` removes the specified permissions from the target user(s).
+> - `=` adds the specified permissions and removes those not mentioned.
 
-那么刚才以符号形式输出的结果`u=rwx,g=rx,o=rx`转化为八进制数等于`0755`；
+The symbolic output `u=rwx,g=rx,o=rx` translates to octal `0755`.
 
-用八进制数来设置同样的权限，`umask`需要额外的执行减法`0777 - 0755`即`0022`，而`chmod`不需要。
+To set the same permissions using an octal mask, `umask` requires the subtraction `0777 - 0755`, which equals `0022` (whereas `chmod` does not).
 
-符号组合模式的添加、删除、赋值权限。
+Adding, removing, and assigning permissions in symbolic mode:
 
 ```shell
-# 添加权限：
-# 为组用户添加写权限。
+# Add permission:
+# Add write permission for group users.
 umask g+w
-# 删除权限：
-# 删除其他用户的写、执行权限
+# Remove permission:
+# Remove write and execute permissions for other users.
 umask o-wx
-# 赋值权限：
-# 赋值全部用户所有权限，等价于umask u=rwx,g=rwx,o=rwx
+# Assign permission:
+# Assign all permissions to all users (equivalent to umask u=rwx,g=rwx,o=rwx).
 umask a=rwx
-# 清除其他用户的读、写、执行权限。
+# Clear all permissions for other users.
 umask o=
 ```
 
-创建文件夹、文件（假设当前目录不存在）
+Creating directories and files (assuming they don't exist in the current directory):
 
 ```shell
-# 创建文件
+# Create a file
 touch test.sh
-# 查看权限，发现执行权限的设置不起作用。
+# Check permissions; note that execute permission settings do not apply to files by default.
 stat test.sh
-# 创建文件夹
-touch newdir
-# 查看权限，发现执行权限的设置可以起作用。
+# Create a directory
+mkdir newdir
+# Check permissions; execute permission settings do apply to directories.
 stat newdir
 ```
 
-### 注意
+### Notes
 
-1. 该命令是bash内建命令，相关的帮助信息请查看`help`命令。
-
-2. `chmod`用于更改已有对象的权限，`umask`影响之后新建对象的权限。
-
-3. **请谨慎使用该命令**，特别是不要取消当前用户的读取权限，那样会导致你在终端使用`TAB`键补全时报错。
-
-
+1. This command is a bash built-in; see the `help` command for related help information.
+2. `chmod` is used to change the permissions of existing objects, while `umask` affects the permissions of newly created objects.
+3. **Use this command with caution.** Specifically, do not remove read permission for the current user, as it will cause errors when using the `TAB` key for completion in the terminal.

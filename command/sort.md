@@ -1,86 +1,84 @@
 sort
 ===
 
-对文本文件中所有行进行排序。
+Sort lines of text files.
 
-## 概要
+## Synopsis
 
 ```shell
 sort [OPTION]... [FILE]...
 sort [OPTION]... --files0-from=F
 ```
 
-## 主要用途
+## Main Description
 
-- 将所有输入文件的内容排序后并输出。
-- 当没有文件或文件为`-`时，读取标准输入。
+- Writes sorted concatenation of all FILE(s) to standard output.
+- With no FILE, or when FILE is `-`, it reads from standard input.
 
-## 选项
+## Options
 
-排序选项：
+Sorting options:
 ```shell
--b, --ignore-leading-blanks    忽略开头的空白。
--d, --dictionary-order         仅考虑空白、字母、数字。
--f, --ignore-case              将小写字母作为大写字母考虑。
--g, --general-numeric-sort     根据数字排序。
--i, --ignore-nonprinting       排除不可打印字符。
--M, --month-sort               按照非月份、一月、十二月的顺序排序。
--h, --human-numeric-sort       根据存储容量排序(注意使用大写字母，例如：2K 1G)。
--n, --numeric-sort             根据数字排序。
--R, --random-sort              随机排序，但分组相同的行。
---random-source=FILE           从FILE中获取随机长度的字节。
--r, --reverse                  将结果倒序排列。
---sort=WORD                    根据WORD排序，其中: general-numeric 等价于 -g，human-numeric 等价于 -h，month 等价于 -M，numeric 等价于 -n，random 等价于 -R，version 等价于 -V。
--V, --version-sort             文本中(版本)数字的自然排序。
+-b, --ignore-leading-blanks    Ignore leading blanks.
+-d, --dictionary-order         Consider only blanks and alphanumeric characters.
+-f, --ignore-case              Fold lower case to upper case characters.
+-g, --general-numeric-sort     Compare according to general numerical value.
+-i, --ignore-nonprinting       Consider only printable characters.
+-M, --month-sort               Compare (unknown) < 'JAN' < ... < 'DEC'.
+-h, --human-numeric-sort       Compare human-readable numbers (e.g., 2K, 1G).
+-n, --numeric-sort             Compare according to string numerical value.
+-R, --random-sort              Shuffle, but group identical keys.
+--random-source=FILE           Get random bytes from FILE.
+-r, --reverse                  Reverse the result of comparisons.
+--sort=WORD                    Sort according to WORD: general-numeric (-g), human-numeric (-h), month (-M), numeric (-n), random (-R), version (-V).
+-V, --version-sort             Natural sort of (version) numbers within text.
 ```
 
-其他选项：
+Other options:
 ```shell
---batch-size=NMERGE                    一次合并最多NMERGE个输入；超过部分使用临时文件。
--c, --check, --check=diagnose-first    检查输入是否已排序，该操作不会执行排序。
--C, --check=quiet, --check=silent      类似于 -c 选项，但不输出第一个未排序的行。
---compress-program=PROG                使用PROG压缩临时文件；使用PROG -d解压缩。
---debug                                注释用于排序的行，发送可疑用法的警报到stderr。
---files0-from=F                        从文件F中读取以NUL结尾的所有文件名称；如果F是 - ，那么从标准输入中读取名字。
--k, --key=KEYDEF                       通过一个key排序；KEYDEF给出位置和类型。
--m, --merge                            合并已排序文件，之后不再排序。
--o, --output=FILE                      将结果写入FILE而不是标准输出。
--s, --stable                           通过禁用最后的比较来稳定排序。
--S, --buffer-size=SIZE                 使用SIZE作为内存缓存大小。
--t, --field-separator=SEP              使用SEP作为列的分隔符。
--T, --temporary-directory=DIR          使用DIR作为临时目录，而不是 $TMPDIR 或 /tmp；多次使用该选项指定多个临时目录。
---parallel=N                           将并发运行的排序数更改为N。
--u, --unique                           同时使用-c，严格检查排序；不同时使用-c，输出排序后去重的结果。
--z, --zero-terminated                  设置行终止符为NUL（空），而不是换行符。
---help                                 显示帮助信息并退出。
---version                              显示版本信息并退出。
+--batch-size=NMERGE                    Merge at most NMERGE inputs at once; for more, use temporary files.
+-c, --check, --check=diagnose-first    Check for sorted input; do not sort.
+-C, --check=quiet, --check=silent      Like -c, but do not report the first unsorted line.
+--compress-program=PROG                Compress temporary files with PROG; decompress them with PROG -d.
+--debug                                Annotate the part of the line used to sort, and warn about questionable usage to stderr.
+--files0-from=F                        Read input from the files specified by NUL-terminated names in file F; if F is -, then read names from standard input.
+-k, --key=KEYDEF                       Sort via a key; KEYDEF gives location and type.
+-m, --merge                            Merge already sorted files; do not sort.
+-o, --output=FILE                      Write result to FILE instead of standard output.
+-s, --stable                           Stabilize sort by disabling last-resort comparison.
+-S, --buffer-size=SIZE                 Use SIZE for main memory buffer.
+-t, --field-separator=SEP              Use SEP instead of non-blank to blank transition as field separator.
+-T, --temporary-directory=DIR          Use DIR for temporary files, not $TMPDIR or /tmp; multiple options specify multiple directories.
+--parallel=N                           Change the number of sorts run concurrently to N.
+-u, --unique                           With -c, check for strict ordering; without -c, output only the first of an equal run.
+-z, --zero-terminated                  Line delimiter is NUL, not newline.
+--help                                 Display help information and exit.
+--version                              Output version information and exit.
 
+The format of KEYDEF is: F[.C][OPTS][,F[.C][OPTS]], which represents the start to end positions.
+F indicates the field number.
+C indicates the character position within the field.
+OPTS is one or more single-letter ordering options [bdfgiMhnRrV], which override global ordering options for that key.
+Use the --debug option to diagnose incorrect usage.
 
-KEYDEF的格式为：F[.C][OPTS][,F[.C][OPTS]] ，表示开始到结束的位置。
-F表示列的编号
-C表示
-OPTS为[bdfgiMhnRrV]中的一到多个字符，用于覆盖当前排序选项。
-使用--debug选项可诊断出错误的用法。
-
-
-SIZE 可以有以下的乘法后缀:
-% 内存的1%；
-b 1；
-K 1024（默认）；
-剩余的 M, G, T, P, E, Z, Y 可以类推出来。
+SIZE can have the following multiplicative suffixes:
+% 1% of memory;
+b 1;
+K 1024 (default);
+Remaining M, G, T, P, E, Z, Y follow the same pattern.
 ```
 
-## 参数
+## Parameters
 
-FILE（可选）：要处理的文件，可以为任意数量。
+FILE (optional): The files to be processed, multiple files can be specified.
 
-## 返回值
+## Return Value
 
-返回0表示成功，返回非0值表示失败。
+Returns 0 for success, and a non-zero value for failure.
 
-## 例子
+## Examples
 
-sort将文件/文本的每一行作为一个单位相互比较，比较原则是从首字符向后依次按ASCII码值进行比较，最后将他们按升序输出。
+`sort` compares each line of a file/text as a unit. The comparison is done character by character based on ASCII values, and the lines are output in ascending order.
 
 ```shell
 root@[mail text]# cat sort.txt
@@ -100,7 +98,7 @@ eee:50:5.5
 eee:50:5.5
 ```
 
-忽略相同行使用`-u`选项或者`uniq`：
+Ignore duplicate lines using the `-u` option or the `uniq` command:
 
 ```shell
 [root@mail text]# cat sort.txt
@@ -126,7 +124,7 @@ bbb:20:2.2
 eee:50:5.5
 ```
 
-`sort`的`-n、-r、-k、-t`选项的使用：
+Using the `-n`, `-r`, `-k`, and `-t` options of `sort`:
 
 ```shell
 [root@mail text]# cat sort.txt
@@ -138,7 +136,7 @@ bbb:10:2.5
 eee:40:5.4
 eee:60:5.1
 
-# 将BB列按照数字从小到大顺序排列：
+# Sort the BB column numerically in ascending order:
 [root@mail text]# sort -nk 2 -t: sort.txt
 AAA:BB:CC
 bbb:10:2.5
@@ -148,8 +146,8 @@ eee:40:5.4
 ccc:50:3.3
 eee:60:5.1
 
-# 将CC列数字从大到小顺序排列：
-# -n是按照数字大小排序，-r是以相反顺序，-k是指定需要排序的栏位，-t指定栏位分隔符为冒号
+# Sort the CC column numerically in descending order:
+# -n for numeric sort, -r for reverse order, -k for field, -t for delimiter
 [root@mail text]# sort -nrk 3 -t: sort.txt
 eee:40:5.4
 eee:60:5.1
@@ -160,23 +158,22 @@ aaa:30:1.6
 AAA:BB:CC
 ```
 
-关于`-k`选项的解读和例子：
+Interpretation and examples of the `-k` option:
 
--k选项深度解读：
+Detailed interpretation of the -k option:
 
 ```shell
 FStart.CStart Modifier,FEnd.CEnd Modifier
 -------Start--------,-------End--------
- FStart.CStart 选项  ,  FEnd.CEnd 选项
+ FStart.CStart Option ,  FEnd.CEnd Option
 ```
 
-这个语法格式可以被其中的逗号`,`分为两大部分，**Start** 部分和 **End** 部分。
-Start部分由三部分组成，其中的Modifier部分就是我们之前说过的选项部分；
-我们重点说说`Start`部分的`FStart`和`C.Start`；`C.Start`是可以省略的，省略的话就表示从本域的开头部分开始。`FStart.CStart`，其中`FStart`就是表示使用的域，而`CStart`则表示在`FStart`域中从第几个字符开始算排序首字符。
-同理，在End部分中，你可以设定`FEnd.CEnd`，如果你省略`.CEnd`或将它设定为0，则表示结尾到本域的最后一个字符。
+This syntax format is divided into two main parts by a comma: the **Start** part and the **End** part.
+The Start part consists of three sub-parts, where the Modifier part is the option part we discussed earlier.
+Focusing on `FStart` and `C.Start` in the `Start` part: `C.Start` can be omitted, which means starting from the beginning of the field. `FStart.CStart` means: `FStart` is the field to use, and `CStart` is the character position within `FStart` to start sorting.
+Similarly, in the End part, you can set `FEnd.CEnd`. If you omit `.CEnd` or set it to 0, it means the end of the field.
 
-
-例子：从公司英文名称的第二个字母开始排序：
+Example: Sort starting from the second letter of the company's English name:
 
 ```shell
 $ sort -t ' ' -k 1.2 facebook.txt
@@ -186,10 +183,9 @@ google 110 5000
 guge 50 3000
 ```
 
-解读：使用了`-k 1.2`，表示对第一个域的第二个字符开始到本域的最后一个字符为止的字符串进行排序。你会发现baidu因为第二个字母是a而名列榜首。sohu和google第二个字符都是o，但sohu的h在google的o前面，所以两者分别排在第二和第三。guge只能屈居第四了。
+Explanation: Using `-k 1.2` means sorting the string starting from the second character of the first field to the end of the field. You'll find "baidu" at the top because its second letter is 'a'. Both "sohu" and "google" have 'o' as their second character, but 'h' in "sohu" comes before 'o' in "google", so they are second and third respectively. "guge" is fourth.
 
-
-例子：只针对公司英文名称的第二个字母进行排序，如果相同的按照员工工资进行降序排序：
+Example: Sort only by the second letter of the company name; if they are the same, sort by employee salary in descending order:
 
 ```shell
 $ sort -t ' ' -k 1.2,1.2 -nrk 3,3 facebook.txt
@@ -199,16 +195,10 @@ sohu 100 4500
 guge 50 3000
 ```
 
-解读：由于只对第二个字母进行排序，所以我们使用了`-k 1.2,1.2`的表示方式，表示我们只对第二个字母进行排序（如果你问我使用`-k 1.2`怎么不行？当然不行，因为你省略了End部分，这就意味着你将对从第二个字母起到本域最后一个字符为止的字符串进行排序）。
-对员工工资进行排序，我们也使用了`-k 3,3`，这是最准确的表述，表示我们只对本域进行排序，因为如果你省略了后面的3，就变成了我们对第3个域开始到最后一个域位置的内容进行排序了。
+Explanation: Since we only want to sort by the second letter, we use `-k 1.2,1.2`. If we used `-k 1.2`, it would sort from the second letter to the end of the field. For employee salary, we use `-k 3,3` to sort only by the third field.
 
+### Notes
 
-### 注意
-
-1. [关于-g和-n选项的区别：stackoverflow](https://stackoverflow.com/questions/1255782/whats-the-difference-between-general-numeric-sort-and-numeric-sort-options)
-
-2. 关于这个复杂命令的学习，建议您阅读info文档及参考博客、问答网站等。
-
-3. 该命令是`GNU coreutils`包中的命令，相关的帮助信息请查看`man -s 1 shuf`，`info coreutils 'shuf invocation'`。
-
-
+1. [Difference between -g and -n options: stackoverflow](https://stackoverflow.com/questions/1255782/whats-the-difference-between-general-numeric-sort-and-numeric-sort-options)
+2. For more complex usage, refer to the info documentation or community resources.
+3. This command is part of the `GNU coreutils` package. For more details, see `man -s 1 sort` or `info coreutils 'sort invocation'`.

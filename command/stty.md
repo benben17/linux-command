@@ -1,96 +1,94 @@
 stty
 ===
 
-修改终端命令行的相关设置
+Modify terminal command line settings
 
-## 补充说明
+## Description
 
-**stty命令** 修改终端命令行的相关设置。
+The **stty command** is used to change and print terminal line settings.
 
-###  语法
-
-```shell
-stty(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--a：以容易阅读的方式打印当前的所有配置；
--g：以stty可读方式打印当前的所有配置。
+stty (options) (parameters)
 ```
 
-###  参数
-
-终端设置：指定终端命令行的设置选项。
-
-###  实例
-
- **在命令行下，禁止输出大写的方法：** 
+### Options
 
 ```shell
-stty iuclc     #开启
-stty -iuclc    #恢复
+-a: Print all current settings in a human-readable format.
+-g: Print all current settings in a format readable by stty.
 ```
 
- **在命令行下禁止输出小写：** 
+### Parameters
+
+Terminal settings: Specify terminal command line setting options.
+
+### Examples
+
+**Disable uppercase output on the command line:**
 
 ```shell
-stty olcuc    #开启
-stty -olcuc   #恢复
+stty iuclc     # Enable
+stty -iuclc    # Restore
 ```
 
- **打印出终端的行数和列数：** 
+**Disable lowercase output on the command line:**
+
+```shell
+stty olcuc    # Enable
+stty -olcuc   # Restore
+```
+
+**Print terminal rows and columns:**
 
 ```shell
 stty size
 ```
 
- **改变Ctrl+D的方法:** 
+**Change the Ctrl+D (EOF) key:**
 
 ```shell
 stty eof "string"
 ```
 
-系统默认是Ctrl+D来表示文件的结束，而通过这种方法，可以改变！
+The system defaults to Ctrl+D to indicate EOF; this method allows you to change it.
 
- **屏蔽显示：** 
-
-```shell
-stty -echo   #禁止回显
-stty echo    #打开回显
-```
-
-测试方法:
+**Toggle echoing:**
 
 ```shell
-stty -echo;read;stty echo;read
+stty -echo   # Disable echo
+stty echo    # Enable echo
 ```
 
- **忽略回车符：** 
+Test method:
 
 ```shell
-stty igncr     #开启
-stty -igncr    #恢复
+stty -echo; read; stty echo; read
 ```
 
- **定时输入：** 
+**Ignore carriage returns:**
+
+```shell
+stty igncr     # Enable
+stty -igncr    # Restore
+```
+
+**Timed input:**
 
 ```shell
 timeout_read()
 {
     timeout=$1
-    old_stty_settings=`stty -g`　　#save current settings
-    stty -icanon min 0 time 100　　#set 10seconds,not 100seconds
-    eval read varname　　          #=read $varname
-    stty "$old_stty_settings"　　  #recover settings
+    old_stty_settings=`stty -g`    # Save current settings
+    stty -icanon min 0 time 100    # Set to 10 seconds (time is in deciseconds)
+    eval read varname              # Read into varname
+    stty "$old_stty_settings"      # Recover settings
 }
 ```
 
-更简单的方法就是利用read命令的`-t`选项：
+A simpler method is using the `-t` option of the `read` command:
 
 ```shell
 read -t 10 varname
 ```
-
-

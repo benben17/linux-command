@@ -1,30 +1,28 @@
 rlogin
 ===
 
-从当前终端登录到远程Linux主机
+Log in to a remote Linux host from the current terminal.
 
-## 补充说明
+## Description
 
-**rlogin命令** 用于从当前终端登录到远程Linux主机。
+The **rlogin command** is used to log in to a remote Linux host from the current terminal.
 
-###  语法
-
-```shell
-rlogin(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--8：允许输入8位字符数据；
--e脱离字符>：设置脱离字符；
--E：滤除脱离字符；
--l用户名称>：指定要登入远端主机的用户名称；
--L：使用litout模式进行远端登入阶段操作。
+rlogin(options)(parameters)
 ```
 
-###  参数
+### Options
 
-远程主机：指定要登录的远程主机（ip地址或者域名）。
+```shell
+-8: Allows the input of 8-bit character data.
+-e<escape_char>: Sets the escape character.
+-E: Filters out the escape character.
+-l<username>: Specifies the username to log in to the remote host.
+-L: Uses litout mode for the remote login session.
+```
 
+### Parameters
 
+Remote host: Specifies the remote host to log in to (IP address or domain name).

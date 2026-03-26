@@ -1,41 +1,38 @@
 nice
 ===
 
-调整程序执行的优先权等级
+Run a program with a modified scheduling priority
 
-## 补充说明
+## Description
 
-**nice命令** 用于调整进程调度优先级启动其他的程序。
+The **nice command** is used to start a process with a specific scheduling priority.
 
-
-###  语法
-
-```shell
-nice [选项] [命令 [参数]...]
-```
-
-###  选项
+### Syntax
 
 ```shell
--n：指定nice值（整数，-20（最高）~19（最低））。
+nice [option] [command [arguments]...]
 ```
 
-###  参数
-
-指令及选项：需要运行的指令及其他选项。
-
-###  实例
-
-新建一个进程并设置优先级，将当前目录下的documents目录打包，但不希望tar占用太多CPU：
+### Options
 
 ```shell
-nice -19 tar zcf pack.tar.gz documents
+-n, --adjustment=N: Add integer N to the niceness (default 10). Nice values range from -20 (highest priority) to 19 (lowest priority).
 ```
 
-方法非常简单，即在原命令前加上`nice -19`。很多人可能有疑问了，最低优先级不是19么？那是因为这个“-19”中的“-”仅表示参数前缀；所以，如果希望将当前目录下的documents目录打包，并且赋予tar进程最高的优先级就应该加上`nice --20`：
+### Parameters
+
+Command and Arguments: The command to be executed along with any arguments.
+
+### Examples
+
+Start a process with a specific priority. For example, compressing a directory while ensuring it doesn't consume too much CPU:
 
 ```shell
-nice --20 tar zcf pack.tar.gz documents
+nice -n 19 tar zcf pack.tar.gz documents
 ```
 
+The usage is simple: just prefix the original command with `nice -n <value>`. Note that for many systems, positive values indicate lower priority. To give a process the highest possible priority (requires root privileges), use `--20`:
 
+```shell
+nice -n -20 tar zcf pack.tar.gz documents
+```

@@ -1,60 +1,54 @@
 help
 ===
 
-该命令是bash内建命令，用于显示bash内建命令的帮助信息。
+Display help information for bash built-in commands.
 
-## 补充说明
+## Supplemental Information
 
-**help命令** help命令只能显示bash内建命令的帮助信息，而对于外部命令的帮助信息只能使用man或者info命令查看。
+The **help command** is a bash built-in that displays information for other shell built-in commands. To view help for external commands, use `man` or `info`.
 
-###  语法
+### Syntax
 
 ```shell
-help(选项)(参数)
+help [options] [pattern ...]
 ```
 
-###  选项
+### Options
 
 ```shell
--d：显示内建命令的简要描述。
--m：按照man手册的格式输出内建命令的帮助信息。
--s：仅输出内建命令的命令格式。
-不指定选项时：输出的帮助信息类似于-m选项，但是缺少段落名称和'SEE ALSO'，'IMPLEMENTATION'部分。
+-d: Display a short description for each pattern.
+-m: Display usage in a format similar to a man page.
+-s: Display only a short usage synopsis for each pattern.
+If no options are specified: Displays help information similar to -m but without specific sections like 'SEE ALSO' or 'IMPLEMENTATION'.
 ```
 
-###  参数
+### Parameters
 
-bash内建命令（可以为多个，请用空格分隔开）。
+bash built-in commands (one or more, separated by spaces).
 
-### 常见问题
+### Frequently Asked Questions
 
-Q：有哪些命令是bash内建命令？我如何判断一个命令是否为bash内建命令？
+Q: Which commands are bash built-ins? How can I tell if a command is a built-in?
+A: You can use `man builtin` or `man builtins`. You can also check the help for the bash built-in command `type`.
 
-A：您可以在终端使用 'man builtin' 或 'man builtins' 来获取；您可以查看bash内建命令 'type' 的帮助信息。
+Q: How can I get help for the `help` command itself?
+A: Pass `help` as an argument to the `help` command: `help help`.
 
-Q：那么help命令本身的帮助信息如何获取？
+Q: Why can I also use `man echo` to see help for `echo`?
+A: Because besides the bash built-in `echo`, there is also an `echo` command in the GNU/Linux `coreutils` package. The `man` page for `echo` usually contains a note about the differences between the built-in and the standalone version.
 
-A：把help作为参数传给help命令；）
+PS: If you define a function named `echo` in a shell script, what is the execution priority?
+Refer to the `builtin` command.
 
-Q：为什么echo也可以用 'man echo' 来查看帮助信息？
+Q: I need more help with bash.
+A: You can run `man bash`, `info bash`, visit the [official bash website](http://www.gnu.org/software/bash/), or use search engines.
 
-A：因为除了bash内建的echo，GNU/linux的coreutils包里也有该命令；在echo的man手册中，DESCRIPTION段落的 'NOTE' 也提示了和同名内建的不同。
+### Examples
 
-PS：当你在shell脚本里定义了一个叫 'echo' 的函数，那么调用的时候优先级会如何呢？
-
-请参考 'builtin' 命令
-
-Q：我需要获得更多的bash的相关帮助信息
-
-A：限于篇幅和主题，您可以在终端执行 'man bash' ， 'info bash' ，[访问bash官方网站](http://www.gnu.org/software/bash/)，以及搜索引擎等。
-
-
-###  实例
-
-使用help命令显示shell内部shopt命令的帮助信息，输入如下命令：
+Display help information for the shell's internal `shopt` command:
 
 ```shell
-help shopt                #获取shopt命令的帮助信息
+help shopt
 shopt: shopt [-pqsu] [-o long-option] optname [optname...]
     Toggle the values of variables controlling optional behavior.
     The -s flag means to enable (set) each OPTNAME; the -u flag
@@ -65,6 +59,3 @@ shopt: shopt [-pqsu] [-o long-option] optname [optname...]
     settable options is displayed, with an indication of whether or
     not each is set.
 ```
-
-
-

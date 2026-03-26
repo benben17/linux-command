@@ -1,55 +1,56 @@
 du
 ===
 
-显示每个文件和目录的磁盘使用空间
+Display disk usage for each file and directory.
 
-## 补充说明
+## Description
 
-**du命令** 也是查看使用空间的，但是与df命令不同的是Linux du命令是对文件和目录磁盘使用的空间的查看，还是和df命令有一些区别的。
+The **du** command is also used to check space usage, but unlike the `df` command, the Linux `du` command is used to view the space used by files and directories. There are some differences between it and the `df` command.
 
-### 语法
-
-```shell
-du [选项][文件]
-```
-
-### 选项
+### Syntax
 
 ```shell
--a, --all                              显示目录中个别文件的大小。
--B, --block-size=大小                  使用指定字节数的块
--b, --bytes                            显示目录或文件大小时，以byte为单位。
--c, --total                            除了显示个别目录或文件的大小外，同时也显示所有目录或文件的总和。
--D, --dereference-args                 显示指定符号链接的源文件大小。
--d, --max-depth=N                      限制文件夹深度
--H, --si                               与-h参数相同，但是K，M，G是以1000为换算单位。
--h, --human-readable                   以K，M，G为单位，提高信息的可读性。
--k, --kilobytes                        以KB(1024bytes)为单位输出。
--l, --count-links                      重复计算硬件链接的文件。
--m, --megabytes                        以MB为单位输出。
--L<符号链接>, --dereference<符号链接>  显示选项中所指定符号链接的源文件大小。
--P, --no-dereference                   不跟随任何符号链接(默认)
--0, --null                             将每个空行视作0 字节而非换行符
--S, --separate-dirs                    显示个别目录的大小时，并不含其子目录的大小。
--s, --summarize                        仅显示总计，只列出最后加总的值。
--x, --one-file-xystem                  以一开始处理时的文件系统为准，若遇上其它不同的文件系统目录则略过。
--X<文件>, --exclude-from=<文件>        在<文件>指定目录或文件。
---apparent-size                        显示表面用量，而并非是磁盘用量；虽然表面用量通常会小一些，但有时它会因为稀疏文件间的"洞"、内部碎片、非直接引用的块等原因而变大。
---files0-from=F                        计算文件F中以NUL结尾的文件名对应占用的磁盘空间如果F的值是"-"，则从标准输入读入文件名
---exclude=<目录或文件>                 略过指定的目录或文件。
---max-depth=N                          显示目录总计(与--all 一起使用计算文件)当N为指定数值时计算深度为N，等于0时等同--summarize
---si                                   类似-h，但在计算时使用1000 为基底而非1024
---time                                 显示目录或该目录子目录下所有文件的最后修改时间
---time=WORD                            显示WORD时间，而非修改时间：atime，access，use，ctime 或status
---time-style=样式                      按照指定样式显示时间(样式解释规则同"date"命令)：full-iso，long-iso，iso，+FORMAT
---help                                 显示此帮助信息并退出
---version                              显示版本信息并退出
+du [OPTION]... [FILE]...
 ```
 
-### 实例
+### Options
 
-文件从大到小排序
+```shell
+-a, --all                              Show sizes for individual files in directories.
+-B, --block-size=SIZE                  Use SIZE-byte blocks.
+-b, --bytes                            Display directory or file sizes in bytes.
+-c, --total                            Produce a grand total.
+-D, --dereference-args                 Dereference FILEs that are symbolic links.
+-d, --max-depth=N                      Limit folder depth.
+-H, --si                               Same as -h, but use powers of 1000 (K, M, G).
+-h, --human-readable                   Print sizes in human readable format (e.g., 1K 234M 2G).
+-k, --kilobytes                        Like --block-size=1K.
+-l, --count-links                      Count sizes many times if hard linked.
+-m, --megabytes                        Like --block-size=1M.
+-L, --dereference                      Dereference all symbolic links.
+-P, --no-dereference                   Don't follow any symbolic links (default).
+-0, --null                             End each output line with NUL, not newline.
+-S, --separate-dirs                    For directories do not include size of subdirectories.
+-s, --summarize                        Display only a total for each argument.
+-x, --one-file-system                  Skip directories on different file systems.
+-X, --exclude-from=FILE                Exclude files that match any pattern in FILE.
+--apparent-size                        Print apparent sizes, rather than disk usage; although the apparent size is usually smaller, it may be larger due to holes in ('sparse') files, internal fragmentation, indirect blocks, and the like.
+--files0-from=F                        Summarize disk usage of the NUL-terminated file names specified in file F; if F is '-', then read names from standard input.
+--exclude=PATTERN                      Exclude files that match PATTERN.
+--max-depth=N                          Print the total for a directory (or file, with --all) only if it is N or fewer levels below the command line argument; --max-depth=0 is the same as --summarize.
+--si                                   Like -h, but use powers of 1000 not 1024.
+--time                                 Show time of the last modification of any file in the directory, or any of its subdirectories.
+--time=WORD                            Show time as WORD instead of modification time: atime, access, use, ctime or status.
+--time-style=STYLE                     Show times using STYLE, which can be full-iso, long-iso, iso, or +FORMAT; FORMAT is interpreted like in 'date'.
+--help                                 Display this help and exit.
+--version                              Output version information and exit.
 ```
+
+### Examples
+
+Sort files from largest to smallest:
+
+```shell
 ubuntu@VM-0-14-ubuntu:~/git-work/linux-command$ du -sh * |sort -rh
 2.9M    command
 1.9M    assets
@@ -63,7 +64,7 @@ ubuntu@VM-0-14-ubuntu:~/git-work/linux-command$ du -sh * |sort -rh
 4.0K    LICENSE
 ```
 
-只显示当前目录下子目录的大小。
+Display only the size of subdirectories in the current directory:
 
 ```shell
 ubuntu@VM-0-14-ubuntu:~/git-work/linux-command$ du -sh ./*/
@@ -74,7 +75,7 @@ ubuntu@VM-0-14-ubuntu:~/git-work/linux-command$ du -sh ./*/
 148K    ./template/
 ```
 
-查看指定目录下文件所占的空间：
+Check the space occupied by files in a specified directory:
 
 ```shell
 ubuntu@VM-0-14-ubuntu:~/git-work/linux-command/assets$ du ./*
@@ -85,18 +86,16 @@ ubuntu@VM-0-14-ubuntu:~/git-work/linux-command/assets$ du ./*
 16      ./qr.png
 ```
 
-只显示总和的大小:
+Display only the total size:
 
 ```shell
 ubuntu@VM-0-14-ubuntu:~/git-work/linux-command/assets$ du -s .
 1932    .
 ```
 
-显示总和的大小且易读:
+Display the total size in a human-readable format:
 
 ```shell
 ubuntu@VM-0-14-ubuntu:~/git-work/linux-command/assets$ du -sh .
 1.9M    .
 ```
-
-

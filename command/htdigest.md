@@ -1,28 +1,26 @@
 htdigest
 ===
 
-Apache服务器内置工具
+A utility for creating and updating user authentication files for Apache.
 
-## 补充说明
+## Supplemental Information
 
-**htdigest命令** 是Apache的Web服务器内置工具，用于创建和更新储存用户名、域和用于摘要认证的密码文件。
+The **htdigest command** is a built-in utility for the Apache web server used to create and update the flat-files used to store usernames, realms, and passwords for digest authentication.
 
-###  语法
-
-```shell
-htdigest(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--c：创建密码文件。
+htdigest [options] passwdfile realm username
 ```
 
-###  参数
+### Options
 
-*   密码文件：指定要创建或更新的密码文件；
-*   域：指定用户名所属的域；
-*   用户名：要创建或者更新的用户名。
+```shell
+-c    # Create the passwdfile. If the file already exists, it is overwritten.
+```
 
+### Parameters
 
+*   **passwdfile**: Specifies the path to the password file to be created or updated.
+*   **realm**: Specifies the authentication realm to which the username belongs.
+*   **username**: The username to create or update in the passwdfile.

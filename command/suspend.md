@@ -1,51 +1,46 @@
 suspend
 ===
 
-挂起shell的执行。
+Suspend execution of the shell
 
-## 概要
+## Summary
 
 ```shell
 suspend [-f]
 ```
 
-## 主要用途
+## Description
 
-- 挂起shell的执行，直到收到`SIGCONT`信号。
+- Suspends the execution of the shell until a `SIGCONT` signal is received.
+- Cannot be used on a `login shell` unless the `-f` option is used.
 
-- 除非使用`-f`选项，否则无法对`login shell`使用。
-
-
-## 选项
+## Options
 
 ```shell
--f    对login shell执行挂起操作。
+-f: Force suspension of a login shell.
 ```
 
-## 返回值
+## Return Value
 
-返回成功除非未开启作业控制或发生了错误。
+Returns success unless job control is not enabled or an error occurs.
 
-## 例子
+## Examples
 
 ```shell
-# 打开一个终端，首先获取PID。
+# Open a terminal and get the PID
 echo $$
-# 执行挂起命令
+# Suspend execution
 suspend
 ```
 
 ```shell
-# 再打开一个终端，发送SIGCONT命令
-kill -s SIGCONT PID
-# 此时之前的终端结束挂起状态，可以正常交互。
+# Open another terminal and send SIGCONT signal
+kill -s SIGCONT <PID>
+# The original terminal will resume and allow interaction.
 ```
 
-### 注意
+### Notes
 
-1. `bash`的作业控制命令包括`bg fg kill wait disown suspend`。
-2. 该命令需要`set`选项`monitor`处于开启状态时才能执行；查看作业控制状态：输入`set -o`查看`monitor`行；执行`set -o monitor`或`set -m`开启该选项。
-3. 该命令是bash内建命令，相关的帮助信息请查看`help`命令。
-
-
-
+1. Bash job control commands include `bg`, `fg`, `kill`, `wait`, `disown`, and `suspend`.
+2. This command requires the `monitor` option to be enabled. Check status with `set -o` and looking at the `monitor` row; enable with `set -o monitor` or `set -m`.
+3. This is a bash builtin. Use the `help` command for related information.

@@ -1,27 +1,25 @@
 showmount
 ===
 
-显示NFS服务器加载的信息
+Display information about the NFS server's mount points.
 
-## 补充说明
+## Description
 
-**showmount命令** 查询“mountd”守护进程，以显示NFS服务器加载的信息。
+The **showmount command** queries the "mountd" daemon to display information about the NFS server's mount points.
 
-###  语法
-
-```shell
-showmount(选项)(参数)
-```
-
-###  选项
+### Syntax
 
 ```shell
--d：仅显示已被NFS客户端加载的目录；
--e：显示NFS服务器上所有的共享目录。
+showmount [option] [parameter]
 ```
 
-###  参数
+### Options
 
-NFS服务器：指定NFS服务器的ip地址或者主机名。
+```shell
+-d: List only the directories that have been mounted by some NFS client;
+-e: Show the NFS server's export list.
+```
 
+### Parameters
 
+NFS server: Specify the IP address or hostname of the NFS server.

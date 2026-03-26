@@ -1,25 +1,23 @@
 col
 ===
 
-过滤控制字符
+Filter control characters from input
 
-## 补充说明
+## Description
 
-**col命令** 是一个标准输入文本过滤器，它从标注输入设备读取文本内容，并把内容显示到标注输出设备。在许多UNIX说明文件里，都有RLF控制字符。当我们运用shell特殊字符`>`和`>>`，把说明文件的内容输出成纯文本文件时，控制字符会变成乱码，col命令则能有效滤除这些控制字符。
+The **col command** is a standard input text filter that reads from standard input and writes to standard output. Many UNIX manual pages contain reverse line feed (RLF) control characters. When using shell redirection characters `>` and `>>` to save a manual page to a plain text file, these control characters can result in garbled text. The `col` command effectively filters out these control characters.
 
-### 语法
-
-```shell
-col(选项)
-```
-
-### 选项
+### Syntax
 
 ```shell
--b：过滤掉所有的控制字符，包括RLF和HRLF；
--f：滤掉RLF字符，但允许将HRLF字符呈现出来；
--x：以多个空格字符来表示跳格字符；
--l<缓冲区列数>：预设的内存缓冲区有128列，用户可以自行指定缓冲区的大小。
+col [options]
 ```
 
+### Options
 
+```shell
+-b: Filter out all control characters, including RLF and HRLF (Half Reverse Line Feed).
+-f: Filter out RLF but allow HRLF to be displayed.
+-x: Convert tabs to spaces.
+-l <number>: Specify the number of lines to buffer in memory (default is 128).
+```
