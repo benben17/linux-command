@@ -59,6 +59,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+        continue-on-error: true
 
       - name: Build and push image to Docker Hub
         uses: docker/build-push-action@v6
@@ -69,3 +70,4 @@ jobs:
           tags: |
             ${{ secrets.DOCKER_USER }}/linux-command:latest
             ${{ secrets.DOCKER_USER }}/linux-command:v${{ env.PACKAGE_VERSION }}
+        continue-on-error: true

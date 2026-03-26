@@ -48,8 +48,8 @@ const contributorsPath = path.resolve(process.cwd(), 'CONTRIBUTORS.svg');
       path.resolve(deployDir, 'index.html'),
       {
         p: '/index.html',
-        n: 'Linux命令搜索引擎',
-        d: '最专业的Linux命令大全，内容包含Linux命令手册、详解、学习，值得收藏的Linux命令速查手册。',
+        n: 'Linux Command Search Engine',
+        d: 'The most professional Linux command collection with manual, in-depth explanations, and learning resources. A great quick reference guide worth saving.',
         command_length: jsonData.data.length
       }
     );
