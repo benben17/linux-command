@@ -149,7 +149,10 @@ const contributorsPath = path.resolve(process.cwd(), 'CONTRIBUTORS.svg');
         const con = FS.readFileSync(mdPath);
         const str = con.toString();
         let title = str.match(/[^===]+(?=[===])/g);
-        title = title[0] ? title[0].replace(/\n/g, '') : title[0];
+        if (!title || !title[0]) {
+          throw `Format error (missing title): ${mdPath}`;
+        }
+        title = title[0].replace(/\n/g, '');
         title = title.replace(/\r/, '')
         // 命令名称
         json["n"] = title;

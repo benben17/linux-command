@@ -1,4 +1,5 @@
-# realpath
+realpath
+========
 
 Resolve and canonicalize file paths, returning the absolute path.
 

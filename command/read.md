@@ -1,5 +1,5 @@
-# read
-
+read
+===
 Read variable values from standard input (keyboard).
 
 ## Description

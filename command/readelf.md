@@ -1,4 +1,5 @@
-# readelf
+readelf
+===
 
 Used to display information about ELF (Executable and Linkable Format) files.
 

@@ -1,4 +1,5 @@
-# readonly
+readonly
+====
 
 Mark shell variables or functions as read-only.
 

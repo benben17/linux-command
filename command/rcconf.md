@@ -1,5 +1,5 @@
-# rcconf
-
+rcconf
+====
 A run-level service configuration tool for Debian Linux.
 
 ## Description

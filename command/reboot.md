@@ -1,4 +1,5 @@
-# reboot
+reboot
+===
 
 Restart the running Linux operating system.
 
