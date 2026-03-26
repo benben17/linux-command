@@ -22,7 +22,6 @@ Scan the QR code to preview and search on mobile, or use the link below the QR c
 
 [![Linux Command Encyclopedia](https://user-images.githubusercontent.com/1680273/123261718-ab585380-d529-11eb-86e1-e97cdcd78150.png)](https://benben17.github.io/linux-command/)
 
-Preview search: **https://git.io/linux**
 
 [![Linux 命令大全](https://user-images.githubusercontent.com/1680273/123261829-ce830300-d529-11eb-8cea-a39059b972dd.gif)](https://benben17.github.io/linux-command/)
 
@@ -79,7 +78,6 @@ You can deploy to [Netlify](https://netlify.com) with one click using the button
 <details>
 <summary>Deploy Result</summary>
 
-![](./assets/netlify.png)
 
 </details>
 
@@ -163,7 +161,7 @@ You can quickly deploy linux-command through the 1Panel application store
 
 ## Linux Command Classification
 
-*The Linux commands directory stored here is not complete. You can search through [linux-command](https://jaywcjlove.github.io/linux-command/). It takes the commands collected in the [command](./assets/command) directory, generates static HTML, and provides preview and index search.*
+*The Linux commands directory stored here is not complete. You can search through [linux-command](https://benben17.github.io/linux-command/). It takes the commands collected in the [command](./assets/command) directory, generates static HTML, and provides preview and index search.*
 
 ### File Transfer
 
@@ -243,9 +241,9 @@ You can also get the latest content through Github's Raw
 
 ```shell
 # Command index JSON data
-https://raw.githubusercontent.com/jaywcjlove/linux-command/master/dist/data.json
+https://raw.githubusercontent.com/benben17/linux-command/master/dist/data.json
 # Corresponding command details (Markdown) data
-https://raw.githubusercontent.com/jaywcjlove/linux-command/master/command/<command-name>.md 
+https://raw.githubusercontent.com/benben17/linux-command/master/command/<command-name>.md 
 ```
 
 ## Linux Learning Resources
