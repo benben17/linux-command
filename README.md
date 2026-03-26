@@ -16,17 +16,17 @@ This repository collects over 600 Linux commands and is a non-profit repository.
 
 ## Web Version
 
-[Github Web](http://jaywcjlove.github.io/linux-command/) | [Githack](https://raw.githack.com/jaywcjlove/linux-command/gh-pages/index.html) | [Statically](https://cdn.statically.io/gh/jaywcjlove/linux-command/gh-pages/index.html)
+[Github Web](http://benben17.github.io/linux-command/) | [Githack](https://raw.githack.com/benben17/linux-command/gh-pages/index.html) | [Statically](https://cdn.statically.io/gh/benben17/linux-command/gh-pages/index.html)
 
 Scan the QR code to preview and search on mobile, or use the link below the QR code to open and use. The following website is automatically updated through Github Action.
 
-[![Linux Command Encyclopedia](https://user-images.githubusercontent.com/1680273/123261718-ab585380-d529-11eb-86e1-e97cdcd78150.png)](https://jaywcjlove.github.io/linux-command/)
+[![Linux Command Encyclopedia](https://user-images.githubusercontent.com/1680273/123261718-ab585380-d529-11eb-86e1-e97cdcd78150.png)](https://benben17.github.io/linux-command/)
 
 Preview search: **https://git.io/linux**
 
-[![Linux 命令大全](https://user-images.githubusercontent.com/1680273/123261829-ce830300-d529-11eb-8cea-a39059b972dd.gif)](https://jaywcjlove.github.io/linux-command/)
+[![Linux 命令大全](https://user-images.githubusercontent.com/1680273/123261829-ce830300-d529-11eb-8cea-a39059b972dd.gif)](https://benben17.github.io/linux-command/)
 
-You can freely deploy the web version, which is very simple. Just clone the [gh-pages](https://github.com/jaywcjlove/linux-command/tree/gh-pages) branch code to your static server. You can also take the Markdown files from the [`command`](https://github.com/jaywcjlove/linux-command/tree/master/command) directory and generate HTML yourself. You can also use the [Docker deployment](#docker-deployment) method below to deploy the web version.
+You can freely deploy the web version, which is very simple. Just clone the [gh-pages](https://github.com/benben17/linux-command/tree/gh-pages) branch code to your static server. You can also take the Markdown files from the [`command`](https://github.com/benben17/linux-command/tree/master/command) directory and generate HTML yourself. You can also use the [Docker deployment](#docker-deployment) method below to deploy the web version.
 
 ⚠️ For the deployed static website, it's hoped that you keep a GitHub address link, so that everyone can maintain the command documentation together, making the documentation more complete and rich. Of course, if you delete all relevant information from this site, I don't really mind. By default, I allow you to do as you wish, and I don't take any responsibility. If you have also deployed a copy, you can put the link below :).
 
@@ -39,13 +39,13 @@ You can freely deploy the web version, which is very simple. Just clone the [gh-
 Easily deploy the linux-command website via docker.
 
 ```bash
-docker pull wcjiang/linux-command
+docker pull benben17/linux-command
 ```
 
 ```bash
-docker run --name linux-command --rm -d -p 9665:3000 wcjiang/linux-command:latest
+docker run --name linux-command --rm -d -p 9665:3000 benben17/linux-command:latest
 # Or
-docker run --name linux-command -itd -p 9665:3000 wcjiang/linux-command:latest
+docker run --name linux-command -itd -p 9665:3000 benben17/linux-command:latest
 ```
 
 Access the following URL in your browser
