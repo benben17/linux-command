@@ -57,7 +57,7 @@ http://localhost:9665/
 
 You can deploy to [Vercel](https://vercel.com) with one click using the button below:
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/jaywcjlove/linux-command)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/benben17/linux-command)
 
 <details>
 <summary>Deploy Result</summary>
@@ -73,7 +73,7 @@ Access through the domain assigned by Vercel, or bind your own domain in the set
 
 You can deploy to [Netlify](https://netlify.com) with one click using the button below:
 
-[![Deploy to Netlify Button](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/jaywcjlove/linux-command)
+[![Deploy to Netlify Button](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/benben17/linux-command)
 
 <details>
 <summary>Deploy Result</summary>

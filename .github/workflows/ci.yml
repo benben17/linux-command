@@ -54,20 +54,19 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Login to Docker Hub
+      - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKER_USER }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-        continue-on-error: true
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and push image to Docker Hub
+      - name: Build and push image to GitHub Container Registry
         uses: docker/build-push-action@v6
         with:
           push: true
           context: .
           platforms: linux/amd64,linux/arm64
           tags: |
-            ${{ secrets.DOCKER_USER }}/linux-command:latest
-            ${{ secrets.DOCKER_USER }}/linux-command:v${{ env.PACKAGE_VERSION }}
-        continue-on-error: true
+            ghcr.io/${{ github.repository }}:latest
+            ghcr.io/${{ github.repository }}:v${{ env.PACKAGE_VERSION }}
