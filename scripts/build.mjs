@@ -59,8 +59,8 @@ const contributorsPath = path.resolve(process.cwd(), 'CONTRIBUTORS.svg');
       path.resolve(deployDir, 'list.html'),
       {
         p: '/list.html',
-        n: '搜索',
-        d: '最专业的Linux命令大全，命令搜索引擎，内容包含Linux命令手册、详解、学习，值得收藏的Linux命令速查手册。',
+        n: 'Search',
+        d: 'The most professional Linux command collection. A command search engine with command manuals, detailed explanations, and learning resources. A valuable quick reference guide.',
         command_length: jsonData.data.length
       }
     );
@@ -70,8 +70,8 @@ const contributorsPath = path.resolve(process.cwd(), 'CONTRIBUTORS.svg');
       path.resolve(deployDir, 'hot.html'),
       {
         p: '/hot.html',
-        n: '搜索',
-        d: '最专业的Linux命令大全，命令搜索引擎，内容包含Linux命令手册、详解、学习，值得收藏的Linux命令速查手册。',
+        n: 'Hot',
+        d: 'The most professional Linux command collection. A command search engine with command manuals, detailed explanations, and learning resources. A valuable quick reference guide.',
         arr: jsonData.data,
         command_length: jsonData.data.length
       }
@@ -87,8 +87,8 @@ const contributorsPath = path.resolve(process.cwd(), 'CONTRIBUTORS.svg');
       path.resolve(deployDir, 'contributors.html'),
       {
         p: '/contributors.html',
-        n: '搜索',
-        d: '最专业的Linux命令大全，命令搜索引擎，内容包含Linux命令手册、详解、学习，值得收藏的Linux命令速查手册。',
+        n: 'Contributors',
+        d: 'The most professional Linux command collection. A command search engine with command manuals, detailed explanations, and learning resources. A valuable quick reference guide.',
         arr: jsonData.data,
         command_length: jsonData.data.length,
         contributors: svgStr,
@@ -115,8 +115,8 @@ const contributorsPath = path.resolve(process.cwd(), 'CONTRIBUTORS.svg');
 })();
 
 /**
- * 返回 MD 所有路径的 Array
- * @param {String} filepath 
+ * Return an array of all markdown paths under a directory.
+ * @param {String} filepath
  */
  function readMarkdownPaths(filepath) {
   return new Promise((resolve, reject) => {
@@ -136,7 +136,7 @@ const contributorsPath = path.resolve(process.cwd(), 'CONTRIBUTORS.svg');
 }
 
 /**
- * Ensures that the directory exists.
+ * Generate a JSON index from markdown files.
  * @param {String} pathArr
  */
  function createDataJSON(pathArr) {
@@ -161,7 +161,7 @@ const contributorsPath = path.resolve(process.cwd(), 'CONTRIBUTORS.svg');
         // 命令描述
         let des = str.match(/\n==={1,}([\s\S]*?)##/i);
         if (!des) {
-          throw `格式错误: ${mdPath}`;
+          throw `Format error: ${mdPath}`;
         }
         des = des[1] ? des[1].replace(/\n/g, '') : des[1];
         des = des.replace(/\r/g, '')
