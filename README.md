@@ -15,7 +15,7 @@ This repository collects over 600 Linux commands and is a non-profit repository.
 
 ## Web Version
 
-[Github Web](http://benben17.github.io/linux-command/) | [Githack](https://raw.githack.com/benben17/linux-command/gh-pages/index.html) | [Statically](https://cdn.statically.io/gh/benben17/linux-command/gh-pages/index.html) |[![Chinese List](https://jaywcjlove.github.io/sb/lang/chinese.svg)](https://github.com/jaywcjlove/linux-command)
+[Github Web](http://benben17.github.io/linux-command/) | [Githack](https://raw.githack.com/benben17/linux-command/gh-pages/index.html) | [Statically](https://cdn.statically.io/gh/benben17/linux-command/gh-pages/index.html) |[Chinese](https://github.com/jaywcjlove/linux-command)
 
 Scan the QR code to preview and search on mobile, or use the link below the QR code to open and use. The following website is automatically updated through Github Action.
 
