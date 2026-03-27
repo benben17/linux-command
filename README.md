@@ -1,11 +1,9 @@
-
 <p align="center">
   <a href="https://benben17.github.io/linux-command">
     <img src="./template/img/banner.svg?sanitize=true">
   </a>
   <h1>Linux Command</h1>
 </p>
-
 
 [![NPM Download](https://img.shields.io/npm/dm/linux-command.svg?style=flat)](https://www.npmjs.com/package/linux-command-en)
 [![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/benben17/linux-command?logo=docker)](https://hub.docker.com/r/benben17/linux-command)
@@ -14,21 +12,18 @@ This repository collects over 600 Linux commands and is a non-profit repository.
 
 
 
+
 ## Web Version
 
-[Github Web](http://benben17.github.io/linux-command/) | [Githack](https://raw.githack.com/benben17/linux-command/gh-pages/index.html) | [Statically](https://cdn.statically.io/gh/benben17/linux-command/gh-pages/index.html)
+[Github Web](http://benben17.github.io/linux-command/) | [Githack](https://raw.githack.com/benben17/linux-command/gh-pages/index.html) | [Statically](https://cdn.statically.io/gh/benben17/linux-command/gh-pages/index.html) |[![Chinese List](https://jaywcjlove.github.io/sb/lang/chinese.svg)](https://github.com/jaywcjlove/linux-command)
 
 Scan the QR code to preview and search on mobile, or use the link below the QR code to open and use. The following website is automatically updated through Github Action.
-
-
 
 [![Linux 命令大全](https://user-images.githubusercontent.com/1680273/123261829-ce830300-d529-11eb-8cea-a39059b972dd.gif)](https://benben17.github.io/linux-command/)
 
 You can freely deploy the web version, which is very simple. Just clone the [gh-pages](https://github.com/benben17/linux-command/tree/gh-pages) branch code to your static server. You can also take the Markdown files from the [`command`](https://github.com/benben17/linux-command/tree/master/command) directory and generate HTML yourself. You can also use the [Docker deployment](#docker-deployment) method below to deploy the web version.
 
 ⚠️ For the deployed static website, it's hoped that you keep a GitHub address link, so that everyone can maintain the command documentation together, making the documentation more complete and rich. Of course, if you delete all relevant information from this site, I don't really mind. By default, I allow you to do as you wish, and I don't take any responsibility. If you have also deployed a copy, you can put the link below :).
-
-
 
 ## Docker Deployment
 
@@ -67,7 +62,6 @@ You can deploy to [Vercel](https://vercel.com) with one click using the button b
 
 Access through the domain assigned by Vercel, or bind your own domain in the settings.
 
-
 ## Netlify
 
 You can deploy to [Netlify](https://netlify.com) with one click using the button below:
@@ -76,7 +70,6 @@ You can deploy to [Netlify](https://netlify.com) with one click using the button
 
 <details>
 <summary>Deploy Result</summary>
-
 
 </details>
 
@@ -91,8 +84,8 @@ You can quickly deploy linux-command through the Baota Panel application store
 
 ### Prerequisites
 
-* Only applicable to Baota Panel 9.2.0 and above
-* Install Baota Panel. Go to the [Baota Panel](https://www.bt.cn/new/download.html) official website, select the official version script and download to install
+- Only applicable to Baota Panel 9.2.0 and above
+- Install Baota Panel. Go to the [Baota Panel](https://www.bt.cn/new/download.html) official website, select the official version script and download to install
 
 ### Deployment
 
@@ -100,20 +93,22 @@ You can quickly deploy linux-command through the Baota Panel application store
 2. On first use, you will be prompted to install `Docker` and `Docker Compose` services. Click "Install Now". If already installed, ignore this step.
 3. After installation, find `linux-command` in `Docker-Application Store-Utilities`, click `Install`, or search for `linux` directly in the search box.
 4. Set the domain and other basic information, click `Confirm`
-* Note:
-  * Name: Application name, default `linuxcommand_random_characters`
-  * Version selection: default `latest`
-  * Domain: If you need to access via domain, please enter your domain here
-  * Allow external access: If you need to access directly via `IP+Port`, check this option. If you have already set a domain, do not check this option
-  * Port: Default `3000`, can be modified
-  * CPU Limit: 0 means unlimited, set according to actual needs
-  * Memory Limit: 0 means unlimited, set according to actual needs
+
+- Note:
+  - Name: Application name, default `linuxcommand_random_characters`
+  - Version selection: default `latest`
+  - Domain: If you need to access via domain, please enter your domain here
+  - Allow external access: If you need to access directly via `IP+Port`, check this option. If you have already set a domain, do not check this option
+  - Port: Default `3000`, can be modified
+  - CPU Limit: 0 means unlimited, set according to actual needs
+  - Memory Limit: 0 means unlimited, set according to actual needs
+
 5. After submission, the panel will automatically initialize the application, which takes about `1-3` minutes. You can access it after initialization is complete.
 
 ### Access linux-command
 
-* If you have entered a domain, please enter the domain in the browser to access, such as `http://demo.linux-command`, to access the `linux-command` page.
-* If you choose `IP+Port access`, please enter `http://<Baota Panel IP>:6806` in the browser address bar to access the `linux-command` page.
+- If you have entered a domain, please enter the domain in the browser to access, such as `http://demo.linux-command`, to access the `linux-command` page.
+- If you choose `IP+Port access`, please enter `http://<Baota Panel IP>:6806` in the browser address bar to access the `linux-command` page.
 
 </details>
 
@@ -137,7 +132,6 @@ You can quickly deploy linux-command through the 1Panel application store
 3. Click `Confirm`
 
 - Note:
-
   - Name: Application name, default `linux-command`
   - Version: Default to the latest release
   - Port: Default `40255`
@@ -160,7 +154,7 @@ You can quickly deploy linux-command through the 1Panel application store
 
 ## Linux Command Classification
 
-*The Linux commands directory stored here is not complete. You can search through [linux-command](https://benben17.github.io/linux-command/). It takes the commands collected in the [command](./assets/command) directory, generates static HTML, and provides preview and index search.*
+_The Linux commands directory stored here is not complete. You can search through [linux-command](https://benben17.github.io/linux-command/). It takes the commands collected in the [command](./assets/command) directory, generates static HTML, and provides preview and index search._
 
 ### File Transfer
 
@@ -210,7 +204,6 @@ archive、ctlinnd、elm、getlist、inncheck、mail、mailconf、mailq、message
 
 yes
 
-
 ## Development Usage
 
 You can install the [`linux-command`](https://www.npmjs.com/package/linux-command-en) package via `npm`, which contains markdown text for all commands and an [index file](dist/data.json).
@@ -242,11 +235,10 @@ You can also get the latest content through Github's Raw
 # Command index JSON data
 https://raw.githubusercontent.com/benben17/linux-command/master/dist/data.json
 # Corresponding command details (Markdown) data
-https://raw.githubusercontent.com/benben17/linux-command/master/command/<command-name>.md 
+https://raw.githubusercontent.com/benben17/linux-command/master/command/<command-name>.md
 ```
 
 ## Linux Learning Resources
-
 
 ### Community Websites
 
@@ -271,8 +263,6 @@ https://raw.githubusercontent.com/benben17/linux-command/master/command/<command
 
 - [Awesome Linux Software](https://www.gitbook.com/book/alim0x/awesome-linux-software-zh_cn/details) Github Repository [Zh](https://github.com/alim0x/Awesome-Linux-Software-zh_CN) [En](https://github.com/VoLuong/Awesome-Linux-Software)
 
-
-
 ### China Open Source Mirror Sites
 
 - Aliyun Open Source Mirror: http://mirrors.aliyun.com/
@@ -283,7 +273,7 @@ https://raw.githubusercontent.com/benben17/linux-command/master/command/<command
 - Shanghai Jiao Tong University: http://ftp.sjtu.edu.cn/
 - Tsinghua University: http://mirrors.tuna.tsinghua.edu.cn/
   - http://mirrors4.tuna.tsinghua.edu.cn/
-- University of Science and Technology of China: http://mirrors.ustc.edu.cn/ 
+- University of Science and Technology of China: http://mirrors.ustc.edu.cn/
   - http://ipv6.ustc.edu.cn/ \<IPv6 only\>
 - Northeastern University: http://mirror.neu.edu.cn/
 - Zhejiang University: http://mirrors.zju.edu.cn/
@@ -291,7 +281,7 @@ https://raw.githubusercontent.com/benben17/linux-command/master/command/<command
 
 ### Gaming-Oriented Linux Distributions
 
-*Eight best Linux distributions for gamers, organized by Open Source China. [Original article here](https://my.oschina.net/editorial-story/blog/888795)*.
+_Eight best Linux distributions for gamers, organized by Open Source China. [Original article here](https://my.oschina.net/editorial-story/blog/888795)_.
 
 - [SteamOS](http://store.steampowered.com/livingroom/SteamOS/) [Official Documentation](http://store.steampowered.com/steamos/buildyourown) [Mirror Download](http://repo.steampowered.com/download/)
 - [Ubuntu GamePack](https://ualinux.com/en/ubuntu-gamepack) [Download](https://ualinux.com/en/ubuntu-gamepack)
@@ -304,12 +294,14 @@ https://raw.githubusercontent.com/benben17/linux-command/master/command/<command
 
 ## Team
 
-[![jaywcjlove](https://github.com/jaywcjlove.png?size=100)](https://github.com/jaywcjlove) 
+[![jaywcjlove](https://github.com/jaywcjlove.png?size=100)](https://github.com/jaywcjlove)
+
 ## Thanks to All Contributors
 
 As always, thanks to our outstanding contributors!
 
 <!--AUTO_GENERATED_PLEASE_DONT_DELETE_IT-->
+
 <a href="https://github.com/jaywcjlove" title="小弟调调"><img src="https://avatars.githubusercontent.com/u/1680273?v=4" width="42;" alt="小弟调调"/></a>
 <a href="https://github.com/ZhuangZhu-74" title="ZhuangZhu-74"><img src="https://avatars.githubusercontent.com/u/49544524?v=4" width="42;" alt="ZhuangZhu-74"/></a>
 <a href="https://github.com/renovate-bot" title="Mend Renovate"><img src="https://avatars.githubusercontent.com/u/25180681?v=4" width="42;" alt="Mend Renovate"/></a>
@@ -498,9 +490,6 @@ As always, thanks to our outstanding contributors!
 <a href="https://github.com/T-TRz879" title="T-TRz879"><img src="https://avatars.githubusercontent.com/u/50860504?v=4" width="42;" alt="T-TRz879"/></a>
 <a href="https://github.com/iwangjie" title="Na Meng"><img src="https://avatars.githubusercontent.com/u/23075587?v=4" width="42;" alt="Na Meng"/></a>
 <a href="https://github.com/wingrez" title="Wingrez"><img src="https://avatars.githubusercontent.com/u/31106425?v=4" width="42;" alt="Wingrez"/></a>
-
-
-
 
 ## License
 
