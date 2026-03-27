@@ -500,9 +500,7 @@ As always, thanks to our outstanding contributors!
 <a href="https://github.com/wingrez" title="Wingrez"><img src="https://avatars.githubusercontent.com/u/31106425?v=4" width="42;" alt="Wingrez"/></a>
 
 
-<!--AUTO_GENERATED_PLEASE_DONT_DELETE_IT-END-->
 
-贡献者列表，由 [contributors](https://github.com/jaywcjlove/github-action-contributors) 自动生成
 
 ## License
 
