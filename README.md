@@ -5,13 +5,12 @@
   <h1>Linux Command</h1>
 </p>
 
+[![Buy me a coffee](https://img.shields.io/badge/Buy_Me_a_Coffee-ffdd00?logo=buy-me-a-coffee&logoColor=black)](https://github.com/sponsors/benben17)
+
 [![NPM Download](https://img.shields.io/npm/dm/linux-command.svg?style=flat)](https://www.npmjs.com/package/linux-command-en)
 [![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/benben17/linux-command?logo=docker)](https://hub.docker.com/r/benben17/linux-command)
 
 This repository collects over 600 Linux commands and is a non-profit repository. It generates a web website for easy use. Currently, the website has no ads. The content includes Linux command manuals, detailed explanations, and learning materials. The content comes from the internet and supplements from netizens. It is a very worthwhile Linux command quick reference manual to save. Copyright belongs to the original author. We do not assume any responsibility for any legal issues or risks. There is no commercial purpose. If you believe your copyright has been infringed, please let me know by email. I cannot fully guarantee the correctness of the content. Any risks arising from the use of this site's content are not my responsibility. By using this site, you accept the site's terms of use and privacy policy.
-
-
-
 
 ## Web Version
 
