@@ -33,7 +33,7 @@ You can freely deploy the web version, which is very simple. Just clone the [gh-
 
 ## Docker Deployment
 
-[![Docker Image Version (latest by date)](https://img.shields.io/docker/v/wcjiang/linux-command?logo=docker)](https://hub.docker.com/r/wcjiang/linux-command) [![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/wcjiang/linux-command?logo=docker)](https://hub.docker.com/r/wcjiang/linux-command) [![Docker Pulls](https://img.shields.io/docker/pulls/wcjiang/linux-command?logo=docker)](https://hub.docker.com/r/wcjiang/linux-command)
+[![Docker Image Version (latest by date)](https://img.shields.io/docker/v/benben17/linux-command?logo=docker)](https://hub.docker.com/r/benben17/linux-command) [![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/benben17/linux-command?logo=docker)](https://hub.docker.com/r/benben17/linux-command) [![Docker Pulls](https://img.shields.io/docker/pulls/benben17/linux-command?logo=docker)](https://hub.docker.com/r/benben17/linux-command)
 
 Easily deploy the linux-command website via docker.
 
@@ -214,10 +214,10 @@ yes
 
 ## Development Usage
 
-You can install the [`linux-command`](https://www.npmjs.com/package/linux-command) package via `npm`, which contains markdown text for all commands and an [index file](dist/data.json).
+You can install the [`linux-command`](https://www.npmjs.com/package/linux-command-en) package via `npm`, which contains markdown text for all commands and an [index file](dist/data.json).
 
 ```bash
-npm install linux-command
+npm install linux-command-en
 ```
 
 ```js
