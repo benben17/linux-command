@@ -7,8 +7,8 @@
 </p>
 
 
-[![NPM Download](https://img.shields.io/npm/dm/linux-command.svg?style=flat)](https://www.npmjs.com/package/linux-command)
-[![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/wcjiang/linux-command?logo=docker)](https://hub.docker.com/r/wcjiang/linux-command)
+[![NPM Download](https://img.shields.io/npm/dm/linux-command.svg?style=flat)](https://www.npmjs.com/package/linux-command-en)
+[![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/benben17/linux-command?logo=docker)](https://hub.docker.com/r/benben17/linux-command)
 
 This repository collects over 600 Linux commands and is a non-profit repository. It generates a web website for easy use. Currently, the website has no ads. The content includes Linux command manuals, detailed explanations, and learning materials. The content comes from the internet and supplements from netizens. It is a very worthwhile Linux command quick reference manual to save. Copyright belongs to the original author. We do not assume any responsibility for any legal issues or risks. There is no commercial purpose. If you believe your copyright has been infringed, please let me know by email. I cannot fully guarantee the correctness of the content. Any risks arising from the use of this site's content are not my responsibility. By using this site, you accept the site's terms of use and privacy policy.
 
@@ -20,7 +20,6 @@ This repository collects over 600 Linux commands and is a non-profit repository.
 
 Scan the QR code to preview and search on mobile, or use the link below the QR code to open and use. The following website is automatically updated through Github Action.
 
-[![Linux Command Encyclopedia](https://user-images.githubusercontent.com/1680273/123261718-ab585380-d529-11eb-86e1-e97cdcd78150.png)](https://benben17.github.io/linux-command/)
 
 
 [![Linux 命令大全](https://user-images.githubusercontent.com/1680273/123261829-ce830300-d529-11eb-8cea-a39059b972dd.gif)](https://benben17.github.io/linux-command/)
