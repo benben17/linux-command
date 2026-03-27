@@ -13,11 +13,11 @@ This repository collects over 600 Linux commands and is a non-profit repository.
 
 ## Web Version
 
-[Github Web](http://benben17.github.io/linux-command/) | [Githack](https://raw.githack.com/benben17/linux-command/gh-pages/index.html) | [Statically](https://cdn.statically.io/gh/benben17/linux-command/gh-pages/index.html) | [中文](https://github.com/jaywcjlove/linux-command)
+[Github Web](https://benben17.github.io/linux-command/) | [Githack](https://raw.githack.com/benben17/linux-command/gh-pages/index.html) | [Statically](https://cdn.statically.io/gh/benben17/linux-command/gh-pages/index.html) | [中文](https://github.com/jaywcjlove/linux-command)
 
 Scan the QR code to preview and search on mobile, or use the link below the QR code to open and use. The following website is automatically updated thr ough Github Action.
 
-[![Linux 命令大全](github.com/user-attachments/assets/5ca5c4d7-9099-4caf-b518-3b008aa26a00)](https://benben17.github.io/linux-command/)
+[![Linux 命令大全](https://github.com/user-attachments/assets/5ca5c4d7-9099-4caf-b518-3b008aa26a00)](https://benben17.github.io/linux-command/)
 
 You can freely deploy the web version, which is very simple. Just clone the [gh-pages](https://github.com/benben17/linux-command/tree/gh-pages) branch code to your static server. You can also take the Markdown files from the [`command`](https://github.com/benben17/linux-command/tree/master/command) directory and generate HTML yourself. You can also use the [Docker deployment](#docker-deployment) method below to deploy the web version.
 
