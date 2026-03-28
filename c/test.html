@@ -9,7 +9,7 @@
     <meta name="keywords" content="Linux,Command,Command Reference,Linux Command Manual,test,Evaluate conditional expressions.">
     <title>test Command, Linux test command details: Evaluate conditional expressions. -  Linux Command Search Engine</title>
     <link rel="shortcut icon" href="../img/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="../css/index.css?v=1774669589925">
+    <link rel="stylesheet" type="text/css" href="../css/index.css?v=1774671089978">
     <script src="../js/dark-mode.min.js"></script>
     <script type="module" src="../js/github-corners.js"></script>
 </head>
@@ -135,134 +135,494 @@ customElements.define('markdown-style', MarkdownStyle);</script><markdown-style 
 <p>Evaluate conditional expressions.</p>
 <h2 id="synopsis"><a class="anchor" aria-hidden="true" tabindex="-1" href="#synopsis"><span class="octicon octicon-link"></span></a>Synopsis</h2>
 <pre class="language-shell"><code class="language-shell code-highlight"><span class="code-line line-number" line="1"><span class="token builtin class-name">test</span> <span class="token punctuation">[</span>expr<span class="token punctuation">]</span>
+</span><span class="code-line line-number" line="2"><span class="token comment"># Or use square brackets (must have spaces inside):</span>
+</span><span class="code-line line-number" line="3"><span class="token punctuation">[</span> EXPRESSION <span class="token punctuation">]</span>
 </span></code><div onclick="copied(this)" data-code="test [expr]
+# Or use square brackets (must have spaces inside):
+[ EXPRESSION ]
 " class="copied"><svg class="octicon-copy" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" height="12" width="12"><path fill-rule="evenodd" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"></path><path fill-rule="evenodd" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"></path></svg><svg class="octicon-check" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" height="12" width="12"><path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path></svg></div></pre>
 <h2 id="main-purpose"><a class="anchor" aria-hidden="true" tabindex="-1" href="#main-purpose"><span class="octicon octicon-link"></span></a>Main Purpose</h2>
 <ul>
-  <li>Evaluate conditional expressions.</li>
+  <li>Evaluate conditional expressions and return boolean values (true/false)</li>
+  <li>Commonly used with <code>if</code> statements for logical control in shell scripts</li>
+  <li>Can perform three types of tests: numeric, string, and file tests</li>
 </ul>
-<h2 id="parameters"><a class="anchor" aria-hidden="true" tabindex="-1" href="#parameters"><span class="octicon octicon-link"></span></a>Parameters</h2>
-<h3 id="file-operators"><a class="anchor" aria-hidden="true" tabindex="-1" href="#file-operators"><span class="octicon octicon-link"></span></a>File Operators:</h3>
-<pre class="language-shell"><code class="language-shell code-highlight"><span class="code-line line-number" line="1"><span class="token parameter variable">-a</span> FILE    True <span class="token keyword">if</span> <span class="token function">file</span> exists.
-</span><span class="code-line line-number" line="2"><span class="token parameter variable">-b</span> FILE    True <span class="token keyword">if</span> <span class="token function">file</span> is block special.
-</span><span class="code-line line-number" line="3"><span class="token parameter variable">-c</span> FILE    True <span class="token keyword">if</span> <span class="token function">file</span> is character special.
-</span><span class="code-line line-number" line="4"><span class="token parameter variable">-d</span> FILE    True <span class="token keyword">if</span> <span class="token function">file</span> is a directory.
-</span><span class="code-line line-number" line="5"><span class="token parameter variable">-e</span> FILE    True <span class="token keyword">if</span> <span class="token function">file</span> exists.
-</span><span class="code-line line-number" line="6"><span class="token parameter variable">-f</span> FILE    True <span class="token keyword">if</span> <span class="token function">file</span> exists and is a regular file.
-</span><span class="code-line line-number" line="7"><span class="token parameter variable">-g</span> FILE    True <span class="token keyword">if</span> <span class="token function">file</span> is set-group-id.
-</span><span class="code-line line-number" line="8"><span class="token parameter variable">-h</span> FILE    True <span class="token keyword">if</span> <span class="token function">file</span> is a symbolic link.
-</span><span class="code-line line-number" line="9"><span class="token parameter variable">-L</span> FILE    True <span class="token keyword">if</span> <span class="token function">file</span> is a symbolic link.
-</span><span class="code-line line-number" line="10"><span class="token parameter variable">-k</span> FILE    True <span class="token keyword">if</span> <span class="token function">file</span> has its sticky bit set.
-</span><span class="code-line line-number" line="11"><span class="token parameter variable">-p</span> FILE    True <span class="token keyword">if</span> <span class="token function">file</span> is a named pipe.
-</span><span class="code-line line-number" line="12"><span class="token parameter variable">-r</span> FILE    True <span class="token keyword">if</span> you can <span class="token builtin class-name">read</span> the file.
-</span><span class="code-line line-number" line="13"><span class="token parameter variable">-s</span> FILE    True <span class="token keyword">if</span> <span class="token function">file</span> exists and is not empty.
-</span><span class="code-line line-number" line="14"><span class="token parameter variable">-S</span> FILE    True <span class="token keyword">if</span> <span class="token function">file</span> is a socket.
-</span><span class="code-line line-number" line="15"><span class="token parameter variable">-t</span> FD      True <span class="token keyword">if</span> FD is opened on a terminal.
-</span><span class="code-line line-number" line="16"><span class="token parameter variable">-u</span> FILE    True <span class="token keyword">if</span> <span class="token function">file</span> is set-user-id.
-</span><span class="code-line line-number" line="17"><span class="token parameter variable">-w</span> FILE    True <span class="token keyword">if</span> <span class="token function">file</span> is writable.
-</span><span class="code-line line-number" line="18"><span class="token parameter variable">-x</span> FILE    True <span class="token keyword">if</span> you can execute the file.
-</span><span class="code-line line-number" line="19"><span class="token parameter variable">-O</span> FILE    True <span class="token keyword">if</span> <span class="token function">file</span> is effectively owned by you.
-</span><span class="code-line line-number" line="20"><span class="token parameter variable">-G</span> FILE    True <span class="token keyword">if</span> <span class="token function">file</span> is effectively owned by your group.
-</span><span class="code-line line-number" line="21"><span class="token parameter variable">-N</span> FILE    True <span class="token keyword">if</span> <span class="token function">file</span> has been modified since it was last read.
-</span><span class="code-line line-number" line="22">    
-</span><span class="code-line line-number" line="23">FILE1 <span class="token parameter variable">-nt</span> FILE2    True <span class="token keyword">if</span> file1 is newer than file2 <span class="token punctuation">(</span>according to modification <span class="token function">date</span><span class="token punctuation">)</span>.
-</span><span class="code-line line-number" line="24">FILE1 <span class="token parameter variable">-ot</span> FILE2    True <span class="token keyword">if</span> file1 is older than file2 <span class="token punctuation">(</span>according to modification <span class="token function">date</span><span class="token punctuation">)</span>.
-</span><span class="code-line line-number" line="25">FILE1 <span class="token parameter variable">-ef</span> FILE2    True <span class="token keyword">if</span> file1 is a hard <span class="token function">link</span> to file2.
-</span></code><div onclick="copied(this)" data-code="-a FILE    True if file exists.
--b FILE    True if file is block special.
--c FILE    True if file is character special.
--d FILE    True if file is a directory.
--e FILE    True if file exists.
--f FILE    True if file exists and is a regular file.
--g FILE    True if file is set-group-id.
--h FILE    True if file is a symbolic link.
--L FILE    True if file is a symbolic link.
--k FILE    True if file has its sticky bit set.
--p FILE    True if file is a named pipe.
--r FILE    True if you can read the file.
--s FILE    True if file exists and is not empty.
--S FILE    True if file is a socket.
--t FD      True if FD is opened on a terminal.
--u FILE    True if file is set-user-id.
--w FILE    True if file is writable.
--x FILE    True if you can execute the file.
--O FILE    True if file is effectively owned by you.
--G FILE    True if file is effectively owned by your group.
--N FILE    True if file has been modified since it was last read.
-    
-FILE1 -nt FILE2    True if file1 is newer than file2 (according to modification date).
-FILE1 -ot FILE2    True if file1 is older than file2 (according to modification date).
-FILE1 -ef FILE2    True if file1 is a hard link to file2.
+<h2 id="file-test-operators"><a class="anchor" aria-hidden="true" tabindex="-1" href="#file-test-operators"><span class="octicon octicon-link"></span></a>File Test Operators</h2>
+<p>The <code>test</code> command is most commonly used to check file attributes:</p>
+<table>
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Description</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>-e FILE</code></td>
+      <td>File exists</td>
+      <td><code>[ -e file.txt ]</code></td>
+    </tr>
+    <tr>
+      <td><code>-f FILE</code></td>
+      <td>Is a regular file</td>
+      <td><code>[ -f /path/to/file ]</code></td>
+    </tr>
+    <tr>
+      <td><code>-d FILE</code></td>
+      <td>Is a directory</td>
+      <td><code>[ -d /path/to/dir ]</code></td>
+    </tr>
+    <tr>
+      <td><code>-r FILE</code></td>
+      <td>Is readable</td>
+      <td><code>[ -r file.txt ]</code></td>
+    </tr>
+    <tr>
+      <td><code>-w FILE</code></td>
+      <td>Is writable</td>
+      <td><code>[ -w file.txt ]</code></td>
+    </tr>
+    <tr>
+      <td><code>-x FILE</code></td>
+      <td>Is executable</td>
+      <td><code>[ -x script.sh ]</code></td>
+    </tr>
+    <tr>
+      <td><code>-s FILE</code></td>
+      <td>File size > 0</td>
+      <td><code>[ -s logfile ]</code></td>
+    </tr>
+    <tr>
+      <td><code>-L FILE</code></td>
+      <td>Is a symbolic link</td>
+      <td><code>[ -L symlink ]</code></td>
+    </tr>
+    <tr>
+      <td><code>-a FILE</code></td>
+      <td>True if file exists (same as -e)</td>
+      <td><code>[ -a file.txt ]</code></td>
+    </tr>
+    <tr>
+      <td><code>-b FILE</code></td>
+      <td>Is block special</td>
+      <td><code>[ -b /dev/sda ]</code></td>
+    </tr>
+    <tr>
+      <td><code>-c FILE</code></td>
+      <td>Is character special</td>
+      <td><code>[ -c /dev/tty ]</code></td>
+    </tr>
+    <tr>
+      <td><code>-g FILE</code></td>
+      <td>Is set-group-id</td>
+      <td><code>[ -g file ]</code></td>
+    </tr>
+    <tr>
+      <td><code>-h FILE</code></td>
+      <td>Is a symbolic link (same as -L)</td>
+      <td><code>[ -h symlink ]</code></td>
+    </tr>
+    <tr>
+      <td><code>-k FILE</code></td>
+      <td>Has sticky bit set</td>
+      <td><code>[ -k file ]</code></td>
+    </tr>
+    <tr>
+      <td><code>-p FILE</code></td>
+      <td>Is a named pipe</td>
+      <td><code>[ -p pipe ]</code></td>
+    </tr>
+    <tr>
+      <td><code>-S FILE</code></td>
+      <td>Is a socket</td>
+      <td><code>[ -S socket ]</code></td>
+    </tr>
+    <tr>
+      <td><code>-t FD</code></td>
+      <td>FD is opened on a terminal</td>
+      <td><code>[ -t 0 ]</code></td>
+    </tr>
+    <tr>
+      <td><code>-u FILE</code></td>
+      <td>Is set-user-id</td>
+      <td><code>[ -u file ]</code></td>
+    </tr>
+    <tr>
+      <td><code>-O FILE</code></td>
+      <td>Effectively owned by you</td>
+      <td><code>[ -O file ]</code></td>
+    </tr>
+    <tr>
+      <td><code>-G FILE</code></td>
+      <td>Effectively owned by your group</td>
+      <td><code>[ -G file ]</code></td>
+    </tr>
+    <tr>
+      <td><code>-N FILE</code></td>
+      <td>Modified since last read</td>
+      <td><code>[ -N file ]</code></td>
+    </tr>
+    <tr>
+      <td><code>FILE1 -nt FILE2</code></td>
+      <td>FILE1 is newer than FILE2</td>
+      <td><code>[ file1 -nt file2 ]</code></td>
+    </tr>
+    <tr>
+      <td><code>FILE1 -ot FILE2</code></td>
+      <td>FILE1 is older than FILE2</td>
+      <td><code>[ file1 -ot file2 ]</code></td>
+    </tr>
+    <tr>
+      <td><code>FILE1 -ef FILE2</code></td>
+      <td>FILE1 is a hard link to FILE2</td>
+      <td><code>[ file1 -ef file2 ]</code></td>
+    </tr>
+  </tbody>
+</table>
+<h3 id="example-script"><a class="anchor" aria-hidden="true" tabindex="-1" href="#example-script"><span class="octicon octicon-link"></span></a>Example Script:</h3>
+<pre class="language-shell"><code class="language-shell code-highlight"><span class="code-line line-number" line="1"><span class="token shebang important">#!/bin/bash</span>
+</span><span class="code-line line-number" line="2"><span class="token assign-left variable">file</span><span class="token operator">=</span><span class="token string">"/etc/passwd"</span>
+</span><span class="code-line line-number" line="3"><span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token parameter variable">-e</span> <span class="token string">"<span class="token variable">$file</span>"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+</span><span class="code-line line-number" line="4">    <span class="token builtin class-name">echo</span> <span class="token string">"<span class="token variable">$file</span> exists"</span>
+</span><span class="code-line line-number" line="5">    <span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token parameter variable">-r</span> <span class="token string">"<span class="token variable">$file</span>"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+</span><span class="code-line line-number" line="6">        <span class="token builtin class-name">echo</span> <span class="token string">"and is readable"</span>
+</span><span class="code-line line-number" line="7">    <span class="token keyword">fi</span>
+</span><span class="code-line line-number" line="8"><span class="token keyword">else</span>
+</span><span class="code-line line-number" line="9">    <span class="token builtin class-name">echo</span> <span class="token string">"<span class="token variable">$file</span> does not exist"</span>
+</span><span class="code-line line-number" line="10"><span class="token keyword">fi</span>
+</span></code><div onclick="copied(this)" data-code="#!/bin/bash
+file=&#x22;/etc/passwd&#x22;
+if [ -e &#x22;$file&#x22; ]; then
+    echo &#x22;$file exists&#x22;
+    if [ -r &#x22;$file&#x22; ]; then
+        echo &#x22;and is readable&#x22;
+    fi
+else
+    echo &#x22;$file does not exist&#x22;
+fi
 " class="copied"><svg class="octicon-copy" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" height="12" width="12"><path fill-rule="evenodd" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"></path><path fill-rule="evenodd" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"></path></svg><svg class="octicon-check" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" height="12" width="12"><path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path></svg></div></pre>
-<h3 id="string-operators"><a class="anchor" aria-hidden="true" tabindex="-1" href="#string-operators"><span class="octicon octicon-link"></span></a>String Operators:</h3>
-<pre class="language-shell"><code class="language-shell code-highlight"><span class="code-line line-number" line="1"><span class="token parameter variable">-z</span> STRING              True <span class="token keyword">if</span> string is empty.
-</span><span class="code-line line-number" line="2"><span class="token parameter variable">-n</span> STRING              True <span class="token keyword">if</span> string is not empty.
-</span><span class="code-line line-number" line="3">STRING                 True <span class="token keyword">if</span> string is not empty.
-</span><span class="code-line line-number" line="4">STRING1 <span class="token operator">=</span> STRING2      True <span class="token keyword">if</span> the strings are equal.
-</span><span class="code-line line-number" line="5">STRING1 <span class="token operator">!=</span> STRING2     True <span class="token keyword">if</span> the strings are not equal.
-</span><span class="code-line line-number" line="6">STRING1 <span class="token operator">&#x3C;</span> STRING2      True <span class="token keyword">if</span> STRING1 sorts before STRING2 lexicographically.
-</span><span class="code-line line-number" line="7">STRING1 <span class="token operator">></span> STRING2      True <span class="token keyword">if</span> STRING1 sorts after STRING2 lexicographically.
-</span></code><div onclick="copied(this)" data-code="-z STRING              True if string is empty.
--n STRING              True if string is not empty.
-STRING                 True if string is not empty.
-STRING1 = STRING2      True if the strings are equal.
-STRING1 != STRING2     True if the strings are not equal.
-STRING1 < STRING2      True if STRING1 sorts before STRING2 lexicographically.
-STRING1 > STRING2      True if STRING1 sorts after STRING2 lexicographically.
+<p>Output:</p>
+<pre><code class="code-highlight"><span class="code-line line-number" line="1">/etc/passwd exists
+</span><span class="code-line line-number" line="2">and is readable
+</span></code><div onclick="copied(this)" data-code="/etc/passwd exists
+and is readable
 " class="copied"><svg class="octicon-copy" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" height="12" width="12"><path fill-rule="evenodd" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"></path><path fill-rule="evenodd" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"></path></svg><svg class="octicon-check" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" height="12" width="12"><path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path></svg></div></pre>
-<h3 id="other-operators"><a class="anchor" aria-hidden="true" tabindex="-1" href="#other-operators"><span class="octicon octicon-link"></span></a>Other Operators:</h3>
-<pre class="language-shell"><code class="language-shell code-highlight"><span class="code-line line-number" line="1"><span class="token parameter variable">-o</span> OPTION         True <span class="token keyword">if</span> shell option OPTION is enabled.
-</span><span class="code-line line-number" line="2"><span class="token parameter variable">-v</span> VAR            True <span class="token keyword">if</span> shell variable VAR is set.
-</span><span class="code-line line-number" line="3"><span class="token parameter variable">-R</span> VAR            True <span class="token keyword">if</span> shell variable VAR is <span class="token builtin class-name">set</span> and is a name reference.
-</span><span class="code-line line-number" line="4"><span class="token operator">!</span> EXPR            True <span class="token keyword">if</span> <span class="token function">expr</span> is false.
-</span><span class="code-line line-number" line="5">EXPR1 <span class="token parameter variable">-a</span> EXPR2    True <span class="token keyword">if</span> both expr1 and expr2 are true.
-</span><span class="code-line line-number" line="6">EXPR1 <span class="token parameter variable">-o</span> EXPR2    True <span class="token keyword">if</span> either expr1 or expr2 is true.
-</span><span class="code-line line-number" line="7">arg1 OP arg2      Arithmetic expression <span class="token builtin class-name">test</span><span class="token punctuation">;</span> OP is one of -eq, -ne, -lt, -le, -gt, -ge<span class="token punctuation">;</span> returns <span class="token boolean">true</span> <span class="token keyword">if</span> the arithmetic expression is true.
-</span></code><div onclick="copied(this)" data-code="-o OPTION         True if shell option OPTION is enabled.
--v VAR            True if shell variable VAR is set.
--R VAR            True if shell variable VAR is set and is a name reference.
-! EXPR            True if expr is false.
-EXPR1 -a EXPR2    True if both expr1 and expr2 are true.
-EXPR1 -o EXPR2    True if either expr1 or expr2 is true.
-arg1 OP arg2      Arithmetic expression test; OP is one of -eq, -ne, -lt, -le, -gt, -ge; returns true if the arithmetic expression is true.
+<h2 id="string-operators"><a class="anchor" aria-hidden="true" tabindex="-1" href="#string-operators"><span class="octicon octicon-link"></span></a>String Operators</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Description</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>-z STRING</code></td>
+      <td>String is empty</td>
+      <td><code>[ -z "$var" ]</code></td>
+    </tr>
+    <tr>
+      <td><code>-n STRING</code></td>
+      <td>String is not empty</td>
+      <td><code>[ -n "$var" ]</code></td>
+    </tr>
+    <tr>
+      <td><code>STRING</code></td>
+      <td>String is not empty</td>
+      <td><code>[ "$var" ]</code></td>
+    </tr>
+    <tr>
+      <td><code>STRING1 = STRING2</code></td>
+      <td>Strings are equal</td>
+      <td><code>[ "$var1" = "$var2" ]</code></td>
+    </tr>
+    <tr>
+      <td><code>STRING1 != STRING2</code></td>
+      <td>Strings are not equal</td>
+      <td><code>[ "$var1" != "$var2" ]</code></td>
+    </tr>
+    <tr>
+      <td><code>STRING1 &#x3C; STRING2</code></td>
+      <td>STRING1 sorts before STRING2</td>
+      <td><code>[ "$a" &#x3C; "$b" ]</code></td>
+    </tr>
+    <tr>
+      <td><code>STRING1 > STRING2</code></td>
+      <td>STRING1 sorts after STRING2</td>
+      <td><code>[ "$a" > "$b" ]</code></td>
+    </tr>
+  </tbody>
+</table>
+<p><strong>Important:</strong> Always quote string variables to prevent syntax errors from empty variables.</p>
+<h3 id="example"><a class="anchor" aria-hidden="true" tabindex="-1" href="#example"><span class="octicon octicon-link"></span></a>Example:</h3>
+<pre class="language-shell"><code class="language-shell code-highlight"><span class="code-line line-number" line="1"><span class="token shebang important">#!/bin/bash</span>
+</span><span class="code-line line-number" line="2"><span class="token builtin class-name">read</span> <span class="token parameter variable">-p</span> <span class="token string">"Enter username: "</span> username
+</span><span class="code-line line-number" line="3"><span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token parameter variable">-z</span> <span class="token string">"<span class="token variable">$username</span>"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+</span><span class="code-line line-number" line="4">    <span class="token builtin class-name">echo</span> <span class="token string">"Error: username cannot be empty"</span>
+</span><span class="code-line line-number" line="5">    <span class="token builtin class-name">exit</span> <span class="token number">1</span>
+</span><span class="code-line line-number" line="6"><span class="token keyword">elif</span> <span class="token punctuation">[</span> <span class="token string">"<span class="token variable">$username</span>"</span> <span class="token operator">=</span> <span class="token string">"root"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+</span><span class="code-line line-number" line="7">    <span class="token builtin class-name">echo</span> <span class="token string">"Warning: not recommended to use root account"</span>
+</span><span class="code-line line-number" line="8"><span class="token keyword">else</span>
+</span><span class="code-line line-number" line="9">    <span class="token builtin class-name">echo</span> <span class="token string">"Welcome, <span class="token variable">$username</span>"</span>
+</span><span class="code-line line-number" line="10"><span class="token keyword">fi</span>
+</span></code><div onclick="copied(this)" data-code="#!/bin/bash
+read -p &#x22;Enter username: &#x22; username
+if [ -z &#x22;$username&#x22; ]; then
+    echo &#x22;Error: username cannot be empty&#x22;
+    exit 1
+elif [ &#x22;$username&#x22; = &#x22;root&#x22; ]; then
+    echo &#x22;Warning: not recommended to use root account&#x22;
+else
+    echo &#x22;Welcome, $username&#x22;
+fi
+" class="copied"><svg class="octicon-copy" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" height="12" width="12"><path fill-rule="evenodd" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"></path><path fill-rule="evenodd" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"></path></svg><svg class="octicon-check" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" height="12" width="12"><path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path></svg></div></pre>
+<h2 id="numeric-comparison-operators"><a class="anchor" aria-hidden="true" tabindex="-1" href="#numeric-comparison-operators"><span class="octicon octicon-link"></span></a>Numeric Comparison Operators</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Description</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>-eq</code></td>
+      <td>Equal to</td>
+      <td><code>[ "$a" -eq "$b" ]</code></td>
+    </tr>
+    <tr>
+      <td><code>-ne</code></td>
+      <td>Not equal to</td>
+      <td><code>[ "$a" -ne "$b" ]</code></td>
+    </tr>
+    <tr>
+      <td><code>-gt</code></td>
+      <td>Greater than</td>
+      <td><code>[ "$a" -gt "$b" ]</code></td>
+    </tr>
+    <tr>
+      <td><code>-ge</code></td>
+      <td>Greater than or equal to</td>
+      <td><code>[ "$a" -ge "$b" ]</code></td>
+    </tr>
+    <tr>
+      <td><code>-lt</code></td>
+      <td>Less than</td>
+      <td><code>[ "$a" -lt "$b" ]</code></td>
+    </tr>
+    <tr>
+      <td><code>-le</code></td>
+      <td>Less than or equal to</td>
+      <td><code>[ "$a" -le "$b" ]</code></td>
+    </tr>
+  </tbody>
+</table>
+<h3 id="example-1"><a class="anchor" aria-hidden="true" tabindex="-1" href="#example-1"><span class="octicon octicon-link"></span></a>Example:</h3>
+<pre class="language-shell"><code class="language-shell code-highlight"><span class="code-line line-number" line="1"><span class="token shebang important">#!/bin/bash</span>
+</span><span class="code-line line-number" line="2"><span class="token builtin class-name">read</span> <span class="token parameter variable">-p</span> <span class="token string">"Enter age: "</span> age
+</span><span class="code-line line-number" line="3"><span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token string">"<span class="token variable">$age</span>"</span> <span class="token parameter variable">-lt</span> <span class="token number">0</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+</span><span class="code-line line-number" line="4">    <span class="token builtin class-name">echo</span> <span class="token string">"Age cannot be negative"</span>
+</span><span class="code-line line-number" line="5"><span class="token keyword">elif</span> <span class="token punctuation">[</span> <span class="token string">"<span class="token variable">$age</span>"</span> <span class="token parameter variable">-lt</span> <span class="token number">18</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+</span><span class="code-line line-number" line="6">    <span class="token builtin class-name">echo</span> <span class="token string">"Minor"</span>
+</span><span class="code-line line-number" line="7"><span class="token keyword">elif</span> <span class="token punctuation">[</span> <span class="token string">"<span class="token variable">$age</span>"</span> <span class="token parameter variable">-ge</span> <span class="token number">18</span> <span class="token punctuation">]</span> <span class="token operator">&#x26;&#x26;</span> <span class="token punctuation">[</span> <span class="token string">"<span class="token variable">$age</span>"</span> <span class="token parameter variable">-lt</span> <span class="token number">60</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+</span><span class="code-line line-number" line="8">    <span class="token builtin class-name">echo</span> <span class="token string">"Adult"</span>
+</span><span class="code-line line-number" line="9"><span class="token keyword">else</span>
+</span><span class="code-line line-number" line="10">    <span class="token builtin class-name">echo</span> <span class="token string">"Senior"</span>
+</span><span class="code-line line-number" line="11"><span class="token keyword">fi</span>
+</span></code><div onclick="copied(this)" data-code="#!/bin/bash
+read -p &#x22;Enter age: &#x22; age
+if [ &#x22;$age&#x22; -lt 0 ]; then
+    echo &#x22;Age cannot be negative&#x22;
+elif [ &#x22;$age&#x22; -lt 18 ]; then
+    echo &#x22;Minor&#x22;
+elif [ &#x22;$age&#x22; -ge 18 ] &#x26;&#x26; [ &#x22;$age&#x22; -lt 60 ]; then
+    echo &#x22;Adult&#x22;
+else
+    echo &#x22;Senior&#x22;
+fi
+" class="copied"><svg class="octicon-copy" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" height="12" width="12"><path fill-rule="evenodd" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"></path><path fill-rule="evenodd" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"></path></svg><svg class="octicon-check" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" height="12" width="12"><path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path></svg></div></pre>
+<h2 id="logical-operators"><a class="anchor" aria-hidden="true" tabindex="-1" href="#logical-operators"><span class="octicon octicon-link"></span></a>Logical Operators</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Description</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>! EXPR</code></td>
+      <td>Logical NOT</td>
+      <td><code>[ ! -f "$file" ]</code></td>
+    </tr>
+    <tr>
+      <td><code>EXPR1 -a EXPR2</code></td>
+      <td>Logical AND</td>
+      <td><code>[ "$a" -eq 1 -a "$b" -eq 2 ]</code></td>
+    </tr>
+    <tr>
+      <td><code>EXPR1 -o EXPR2</code></td>
+      <td>Logical OR</td>
+      <td><code>[ "$a" -eq 1 -o "$b" -eq 2 ]</code></td>
+    </tr>
+  </tbody>
+</table>
+<p><strong>Modern recommended syntax:</strong> Use <code>&#x26;&#x26;</code> and <code>||</code> instead of <code>-a</code> and <code>-o</code> for POSIX compliance:</p>
+<pre class="language-shell"><code class="language-shell code-highlight"><span class="code-line line-number" line="1"><span class="token punctuation">[</span> <span class="token string">"<span class="token variable">$a</span>"</span> <span class="token parameter variable">-eq</span> <span class="token number">1</span> <span class="token punctuation">]</span> <span class="token operator">&#x26;&#x26;</span> <span class="token punctuation">[</span> <span class="token string">"<span class="token variable">$b</span>"</span> <span class="token parameter variable">-eq</span> <span class="token number">2</span> <span class="token punctuation">]</span>  <span class="token comment"># AND</span>
+</span><span class="code-line line-number" line="2"><span class="token punctuation">[</span> <span class="token string">"<span class="token variable">$a</span>"</span> <span class="token parameter variable">-eq</span> <span class="token number">1</span> <span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token punctuation">[</span> <span class="token string">"<span class="token variable">$b</span>"</span> <span class="token parameter variable">-eq</span> <span class="token number">2</span> <span class="token punctuation">]</span>  <span class="token comment"># OR</span>
+</span></code><div onclick="copied(this)" data-code="[ &#x22;$a&#x22; -eq 1 ] &#x26;&#x26; [ &#x22;$b&#x22; -eq 2 ]  # AND
+[ &#x22;$a&#x22; -eq 1 ] || [ &#x22;$b&#x22; -eq 2 ]  # OR
+" class="copied"><svg class="octicon-copy" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" height="12" width="12"><path fill-rule="evenodd" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"></path><path fill-rule="evenodd" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"></path></svg><svg class="octicon-check" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" height="12" width="12"><path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path></svg></div></pre>
+<h2 id="other-operators"><a class="anchor" aria-hidden="true" tabindex="-1" href="#other-operators"><span class="octicon octicon-link"></span></a>Other Operators</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Description</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>-o OPTION</code></td>
+      <td>Shell option is enabled</td>
+      <td><code>[ -o nounset ]</code></td>
+    </tr>
+    <tr>
+      <td><code>-v VAR</code></td>
+      <td>Shell variable is set</td>
+      <td><code>[ -v myvar ]</code></td>
+    </tr>
+    <tr>
+      <td><code>-R VAR</code></td>
+      <td>Shell variable is set and is a name reference</td>
+      <td><code>[ -R myvar ]</code></td>
+    </tr>
+  </tbody>
+</table>
+<h2 id="advanced-syntax---and--"><a class="anchor" aria-hidden="true" tabindex="-1" href="#advanced-syntax---and--"><span class="octicon octicon-link"></span></a>Advanced Syntax: [[ ]] and (( ))</h2>
+<p>Bash provides more powerful test syntax:</p>
+<h3 id="double-brackets--"><a class="anchor" aria-hidden="true" tabindex="-1" href="#double-brackets--"><span class="octicon octicon-link"></span></a>Double brackets <code>[[ ]]</code></h3>
+<ul>
+  <li>Pattern matching: <code>[[ "$var" == *.txt ]]</code></li>
+  <li>Regular expressions: <code>[[ "$var" =~ ^[0-9]+$ ]]</code></li>
+  <li>Safer string handling</li>
+</ul>
+<h3 id="double-parentheses--"><a class="anchor" aria-hidden="true" tabindex="-1" href="#double-parentheses--"><span class="octicon octicon-link"></span></a>Double parentheses <code>(( ))</code></h3>
+<ul>
+  <li>Designed for numeric comparisons: <code>(( a > b ))</code></li>
+  <li>Supports complex arithmetic expressions</li>
+</ul>
+<pre class="language-shell"><code class="language-shell code-highlight"><span class="code-line line-number" line="1"><span class="token keyword">if</span> <span class="token punctuation">[</span><span class="token punctuation">[</span> <span class="token string">"<span class="token variable">$file</span>"</span> <span class="token operator">==</span> *.log <span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+</span><span class="code-line line-number" line="2">    <span class="token builtin class-name">echo</span> <span class="token string">"This is a log file"</span>
+</span><span class="code-line line-number" line="3"><span class="token keyword">fi</span>
+</span><span class="code-line line-number" line="4">
+</span><span class="code-line line-number" line="5"><span class="token keyword">if</span> <span class="token variable"><span class="token punctuation">((</span> $count <span class="token operator">></span> <span class="token number">10</span> <span class="token punctuation">))</span></span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+</span><span class="code-line line-number" line="6">    <span class="token builtin class-name">echo</span> <span class="token string">"Count exceeds 10"</span>
+</span><span class="code-line line-number" line="7"><span class="token keyword">fi</span>
+</span></code><div onclick="copied(this)" data-code="if [[ &#x22;$file&#x22; == *.log ]]; then
+    echo &#x22;This is a log file&#x22;
+fi
+
+if (( $count > 10 )); then
+    echo &#x22;Count exceeds 10&#x22;
+fi
 " class="copied"><svg class="octicon-copy" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" height="12" width="12"><path fill-rule="evenodd" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"></path><path fill-rule="evenodd" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"></path></svg><svg class="octicon-check" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" height="12" width="12"><path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path></svg></div></pre>
 <h2 id="return-value"><a class="anchor" aria-hidden="true" tabindex="-1" href="#return-value"><span class="octicon octicon-link"></span></a>Return Value</h2>
 <p>Returns 0 if the expression evaluates to success, and returns 1 if the expression evaluates to failure or if invalid parameters are given.</p>
-<h2 id="examples"><a class="anchor" aria-hidden="true" tabindex="-1" href="#examples"><span class="octicon octicon-link"></span></a>Examples</h2>
-<pre class="language-shell"><code class="language-shell code-highlight"><span class="code-line line-number" line="1"><span class="token comment"># Execute a conditional expression and show the return value.</span>
+<h2 id="practical-examples"><a class="anchor" aria-hidden="true" tabindex="-1" href="#practical-examples"><span class="octicon octicon-link"></span></a>Practical Examples</h2>
+<h3 id="1-check-if-a-service-is-running"><a class="anchor" aria-hidden="true" tabindex="-1" href="#1-check-if-a-service-is-running"><span class="octicon octicon-link"></span></a>1. Check if a service is running</h3>
+<pre class="language-shell"><code class="language-shell code-highlight"><span class="code-line line-number" line="1"><span class="token shebang important">#!/bin/bash</span>
+</span><span class="code-line line-number" line="2"><span class="token assign-left variable">service</span><span class="token operator">=</span><span class="token string">"nginx"</span>
+</span><span class="code-line line-number" line="3"><span class="token keyword">if</span> systemctl is-active <span class="token parameter variable">--quiet</span> <span class="token string">"<span class="token variable">$service</span>"</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+</span><span class="code-line line-number" line="4">    <span class="token builtin class-name">echo</span> <span class="token string">"<span class="token variable">$service</span> is running"</span>
+</span><span class="code-line line-number" line="5"><span class="token keyword">else</span>
+</span><span class="code-line line-number" line="6">    <span class="token builtin class-name">echo</span> <span class="token string">"<span class="token variable">$service</span> is not running"</span>
+</span><span class="code-line line-number" line="7">    <span class="token comment"># Can add command to start the service here</span>
+</span><span class="code-line line-number" line="8"><span class="token keyword">fi</span>
+</span></code><div onclick="copied(this)" data-code="#!/bin/bash
+service=&#x22;nginx&#x22;
+if systemctl is-active --quiet &#x22;$service&#x22;; then
+    echo &#x22;$service is running&#x22;
+else
+    echo &#x22;$service is not running&#x22;
+    # Can add command to start the service here
+fi
+" class="copied"><svg class="octicon-copy" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" height="12" width="12"><path fill-rule="evenodd" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"></path><path fill-rule="evenodd" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"></path></svg><svg class="octicon-check" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" height="12" width="12"><path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path></svg></div></pre>
+<h3 id="2-backup-file-check"><a class="anchor" aria-hidden="true" tabindex="-1" href="#2-backup-file-check"><span class="octicon octicon-link"></span></a>2. Backup file check</h3>
+<pre class="language-shell"><code class="language-shell code-highlight"><span class="code-line line-number" line="1"><span class="token shebang important">#!/bin/bash</span>
+</span><span class="code-line line-number" line="2"><span class="token assign-left variable">backup_file</span><span class="token operator">=</span><span class="token string">"/backups/data_<span class="token variable"><span class="token variable">$(</span><span class="token function">date</span> +%Y%m%d<span class="token variable">)</span></span>.tar.gz"</span>
+</span><span class="code-line line-number" line="3"><span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token operator">!</span> <span class="token parameter variable">-f</span> <span class="token string">"<span class="token variable">$backup_file</span>"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+</span><span class="code-line line-number" line="4">    <span class="token builtin class-name">echo</span> <span class="token string">"Error: backup file <span class="token variable">$backup_file</span> does not exist"</span>
+</span><span class="code-line line-number" line="5">    <span class="token builtin class-name">exit</span> <span class="token number">1</span>
+</span><span class="code-line line-number" line="6"><span class="token keyword">elif</span> <span class="token punctuation">[</span> <span class="token operator">!</span> <span class="token parameter variable">-s</span> <span class="token string">"<span class="token variable">$backup_file</span>"</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token keyword">then</span>
+</span><span class="code-line line-number" line="7">    <span class="token builtin class-name">echo</span> <span class="token string">"Warning: backup file is empty"</span>
+</span><span class="code-line line-number" line="8"><span class="token keyword">else</span>
+</span><span class="code-line line-number" line="9">    <span class="token builtin class-name">echo</span> <span class="token string">"Backup verification successful"</span>
+</span><span class="code-line line-number" line="10"><span class="token keyword">fi</span>
+</span></code><div onclick="copied(this)" data-code="#!/bin/bash
+backup_file=&#x22;/backups/data_$(date +%Y%m%d).tar.gz&#x22;
+if [ ! -f &#x22;$backup_file&#x22; ]; then
+    echo &#x22;Error: backup file $backup_file does not exist&#x22;
+    exit 1
+elif [ ! -s &#x22;$backup_file&#x22; ]; then
+    echo &#x22;Warning: backup file is empty&#x22;
+else
+    echo &#x22;Backup verification successful&#x22;
+fi
+" class="copied"><svg class="octicon-copy" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" height="12" width="12"><path fill-rule="evenodd" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"></path><path fill-rule="evenodd" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"></path></svg><svg class="octicon-check" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" height="12" width="12"><path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path></svg></div></pre>
+<h3 id="3-basic-usage-examples"><a class="anchor" aria-hidden="true" tabindex="-1" href="#3-basic-usage-examples"><span class="octicon octicon-link"></span></a>3. Basic usage examples</h3>
+<pre class="language-shell"><code class="language-shell code-highlight"><span class="code-line line-number" line="1"><span class="token comment"># Execute a conditional expression and show the return value</span>
 </span><span class="code-line line-number" line="2"><span class="token punctuation">[</span>root@pc root<span class="token punctuation">]</span>$ <span class="token builtin class-name">test</span> <span class="token operator">!</span> <span class="token string">"abc"</span> <span class="token operator">==</span> <span class="token number">123</span><span class="token punctuation">;</span> <span class="token builtin class-name">echo</span> <span class="token variable">$?</span>
 </span><span class="code-line line-number" line="3"><span class="token number">0</span>
 </span><span class="code-line line-number" line="4">
-</span><span class="code-line line-number" line="5"><span class="token comment"># Equivalent form, note: space after the opening bracket [ and before the closing bracket ].</span>
+</span><span class="code-line line-number" line="5"><span class="token comment"># Equivalent form using square brackets (note the spaces)</span>
 </span><span class="code-line line-number" line="6"><span class="token punctuation">[</span>root@pc root<span class="token punctuation">]</span>$ <span class="token punctuation">[</span> <span class="token operator">!</span> <span class="token string">"abc"</span> <span class="token operator">==</span> <span class="token number">123</span> <span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token builtin class-name">echo</span> <span class="token variable">$?</span>
 </span><span class="code-line line-number" line="7"><span class="token number">0</span>
 </span><span class="code-line line-number" line="8">
-</span><span class="code-line line-number" line="9"><span class="token punctuation">[</span>root@pc root<span class="token punctuation">]</span>$ <span class="token punctuation">[</span><span class="token punctuation">[</span> <span class="token operator">!</span> <span class="token string">"abc"</span> <span class="token operator">==</span> <span class="token number">123</span> <span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token builtin class-name">echo</span> <span class="token variable">$?</span>
-</span><span class="code-line line-number" line="10"><span class="token number">0</span>
-</span></code><div onclick="copied(this)" data-code="# Execute a conditional expression and show the return value.
+</span><span class="code-line line-number" line="9"><span class="token comment"># Using double brackets</span>
+</span><span class="code-line line-number" line="10"><span class="token punctuation">[</span>root@pc root<span class="token punctuation">]</span>$ <span class="token punctuation">[</span><span class="token punctuation">[</span> <span class="token operator">!</span> <span class="token string">"abc"</span> <span class="token operator">==</span> <span class="token number">123</span> <span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token builtin class-name">echo</span> <span class="token variable">$?</span>
+</span><span class="code-line line-number" line="11"><span class="token number">0</span>
+</span></code><div onclick="copied(this)" data-code="# Execute a conditional expression and show the return value
 [root@pc root]$ test ! &#x22;abc&#x22; == 123; echo $?
 0
 
-# Equivalent form, note: space after the opening bracket [ and before the closing bracket ].
+# Equivalent form using square brackets (note the spaces)
 [root@pc root]$ [ ! &#x22;abc&#x22; == 123 ]; echo $?
 0
 
+# Using double brackets
 [root@pc root]$ [[ ! &#x22;abc&#x22; == 123 ]]; echo $?
 0
 " class="copied"><svg class="octicon-copy" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" height="12" width="12"><path fill-rule="evenodd" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"></path><path fill-rule="evenodd" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"></path></svg><svg class="octicon-check" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" height="12" width="12"><path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path></svg></div></pre>
-<h3 id="notes"><a class="anchor" aria-hidden="true" tabindex="-1" href="#notes"><span class="octicon octicon-link"></span></a>Notes</h3>
+<h2 id="common-errors-and-debugging-tips"><a class="anchor" aria-hidden="true" tabindex="-1" href="#common-errors-and-debugging-tips"><span class="octicon octicon-link"></span></a>Common Errors and Debugging Tips</h2>
+<h3 id="common-mistakes"><a class="anchor" aria-hidden="true" tabindex="-1" href="#common-mistakes"><span class="octicon octicon-link"></span></a>Common Mistakes:</h3>
+<ol>
+  <li><strong>Missing spaces</strong>: <code>[ "$a"="$b" ]</code> is incorrect, correct is <code>[ "$a" = "$b" ]</code></li>
+  <li><strong>Unquoted variables</strong>: <code>[ -f $file ]</code> should be <code>[ -f "$file" ]</code></li>
+  <li><strong>Confusing string and numeric comparison</strong>: Use <code>=</code> for strings, <code>-eq</code> for numbers</li>
+</ol>
+<h3 id="debugging-tips"><a class="anchor" aria-hidden="true" tabindex="-1" href="#debugging-tips"><span class="octicon octicon-link"></span></a>Debugging Tips:</h3>
+<p>Add <code>set -x</code> at the beginning of the script to enable debug mode, or use <code>echo</code> to print test expressions:</p>
+<pre class="language-shell"><code class="language-shell code-highlight"><span class="code-line line-number" line="1"><span class="token builtin class-name">echo</span> <span class="token string">"Test expression: [ <span class="token variable">$a</span> -eq <span class="token variable">$b</span> ]"</span>
+</span><span class="code-line line-number" line="2"><span class="token punctuation">[</span> <span class="token string">"<span class="token variable">$a</span>"</span> <span class="token parameter variable">-eq</span> <span class="token string">"<span class="token variable">$b</span>"</span> <span class="token punctuation">]</span> <span class="token operator">&#x26;&#x26;</span> <span class="token builtin class-name">echo</span> <span class="token string">"True"</span> <span class="token operator">||</span> <span class="token builtin class-name">echo</span> <span class="token string">"False"</span>
+</span></code><div onclick="copied(this)" data-code="echo &#x22;Test expression: [ $a -eq $b ]&#x22;
+[ &#x22;$a&#x22; -eq &#x22;$b&#x22; ] &#x26;&#x26; echo &#x22;True&#x22; || echo &#x22;False&#x22;
+" class="copied"><svg class="octicon-copy" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" height="12" width="12"><path fill-rule="evenodd" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"></path><path fill-rule="evenodd" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"></path></svg><svg class="octicon-check" aria-hidden="true" viewBox="0 0 16 16" fill="currentColor" height="12" width="12"><path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path></svg></div></pre>
+<h2 id="notes"><a class="anchor" aria-hidden="true" tabindex="-1" href="#notes"><span class="octicon octicon-link"></span></a>Notes</h2>
 <ol>
   <li>This command is equivalent to <code>[</code>.</li>
-  <li>To write bash conditional expressions, you can use the built-in command <code>test</code>, <code>[</code>, or the compound command <code>[[</code>.</li>
-</ol>
-<blockquote>
-  <ul>
-    <li>For conditional expressions, see <a href="http://www.gnu.org/software/bash/manual/html_node/Bash-Conditional-Expressions.html#Bash-Conditional-Expressions">here</a>.</li>
-    <li>For an index of built-in commands, see <a href="http://www.gnu.org/software/bash/manual/html_node/Builtin-Index.html#Builtin-Index">here</a>.</li>
-    <li>For an index of compound commands, see <a href="http://www.gnu.org/software/bash/manual/html_node/Reserved-Word-Index.html#Reserved-Word-Index">here</a>.</li>
-  </ul>
-</blockquote>
-<ol start="3">
+  <li>To write bash conditional expressions, you can use the built-in command <code>test</code>, <code>[</code>, or the compound command <code>[[</code>.
+    <ul>
+      <li>For conditional expressions, see <a href="http://www.gnu.org/software/bash/manual/html_node/Bash-Conditional-Expressions.html#Bash-Conditional-Expressions">here</a>.</li>
+      <li>For an index of built-in commands, see <a href="http://www.gnu.org/software/bash/manual/html_node/Builtin-Index.html#Builtin-Index">here</a>.</li>
+      <li>For an index of compound commands, see <a href="http://www.gnu.org/software/bash/manual/html_node/Reserved-Word-Index.html#Reserved-Word-Index">here</a>.</li>
+    </ul>
+  </li>
   <li>This command is a bash built-in; see the <code>help</code> command for related help information.</li>
 </ol>
 <style>markdown-style pre .copied {
@@ -337,7 +697,7 @@ function copied(target, str) {
   
   
 </div>
-<script type="text/javascript" src="../js/dt.js?v=1774669589925"></script>
-<script type="text/javascript" src="../js/index.js?v=1774669589925"></script>
+<script type="text/javascript" src="../js/dt.js?v=1774671089978"></script>
+<script type="text/javascript" src="../js/index.js?v=1774671089978"></script>
 </body>
 </html>
