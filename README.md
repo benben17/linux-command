@@ -247,15 +247,6 @@ https://raw.githubusercontent.com/benben17/linux-command/master/command/<command
 - [Linux Today](http://www.linuxde.net) - Linux news and information release, Linux professional technology learning!
 - [X-CMD](https://www.x-cmd.com/) - Core with Shell + AWK to enhance native command output and interactive experience. Introduction and usage tutorials for various commands and modern software packages. Daily technology news and information. Welcome to browse and follow!
 
-### Knowledge Resources
-
-- [Linux Mind Map Collections](http://www.jianshu.com/p/59f759207862)
-- [Linux Beginner Advanced Learning Resources](http://www.jianshu.com/p/fe2a790b41eb)
-- [Linux Beginner Guide (Hands-on Practice)](https://labex.io/zh/courses/linux-for-noobs)
-- [Understanding Linux Conceptual Architecture](http://www.jianshu.com/p/c5ae8f061cfe) [En](http://oss.org.cn/ossdocs/linux/kernel/a1/index.html)
-- [How to Start Linux Daemon Processes](http://www.ruanyifeng.com/blog/2016/02/linux-daemon.html)
-- [Linux Knowledge Points Summary](https://blog.huachao.me/2016/1/Linux%E7%9F%A5%E8%AF%86%E7%82%B9%E5%B0%8F%E7%BB%93/)
-- [Top 10 Linux Operating Systems for White Hat Hackers](https://linux.cn/article-6971-1.html)
 
 ### Software Tools
 
@@ -291,7 +282,7 @@ _Eight best Linux distributions for gamers, organized by Open Source China. [Ori
 - [Manjaro Gaming Edition (mGAMe)](https://sourceforge.net/projects/mgame/) [Download](https://sourceforge.net/projects/mgame/)
 
 ## Team
-
+[![jaywcjlove](https://avatars.githubusercontent.com/u/11755695?s=100&v=4)](https://github.com/benben17)
 [![jaywcjlove](https://github.com/jaywcjlove.png?size=100)](https://github.com/jaywcjlove)
 
 ## Thanks to All Contributors
