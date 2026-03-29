@@ -1,10 +1,3 @@
-<p align="center">
-  <a href="https://benben17.github.io/linux-command">
-    <img src="./template/img/banner.svg?sanitize=true">
-  </a>
-  <h1>Linux Command</h1>
-</p>
-
 [![Buy me a coffee](https://img.shields.io/badge/Buy_Me_a_Coffee-ffdd00?logo=buy-me-a-coffee&logoColor=black)](https://github.com/sponsors/benben17)
 [![NPM Download](https://img.shields.io/npm/dm/linux-command.svg?style=flat)](https://www.npmjs.com/package/linux-command-en)
 [![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/benben17/linux-command?logo=docker)](https://hub.docker.com/r/benben17/linux-command)
@@ -247,7 +240,6 @@ https://raw.githubusercontent.com/benben17/linux-command/master/command/<command
 - [Linux Today](http://www.linuxde.net) - Linux news and information release, Linux professional technology learning!
 - [X-CMD](https://www.x-cmd.com/) - Core with Shell + AWK to enhance native command output and interactive experience. Introduction and usage tutorials for various commands and modern software packages. Daily technology news and information. Welcome to browse and follow!
 
-
 ### Software Tools
 
 - [Awesome Linux Software](https://www.gitbook.com/book/alim0x/awesome-linux-software-zh_cn/details) Github Repository [Zh](https://github.com/alim0x/Awesome-Linux-Software-zh_CN) [En](https://github.com/VoLuong/Awesome-Linux-Software)
@@ -282,6 +274,7 @@ _Eight best Linux distributions for gamers, organized by Open Source China. [Ori
 - [Manjaro Gaming Edition (mGAMe)](https://sourceforge.net/projects/mgame/) [Download](https://sourceforge.net/projects/mgame/)
 
 ## Team
+
 [![jaywcjlove](https://avatars.githubusercontent.com/u/11755695?s=100&v=4)](https://github.com/benben17)
 [![jaywcjlove](https://github.com/jaywcjlove.png?size=100)](https://github.com/jaywcjlove)
 
