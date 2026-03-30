@@ -1,6 +1,6 @@
 {
   "name": "linux-command-en",
-  "version": "1.22.0",
+  "version": "1.22.1",
   "description": "Linux Command Engine is a command-line tool that provides detailed information about Linux commands, including their descriptions, usage, and examples. It serves as a comprehensive reference for users to quickly access information about various Linux commands.",
   "homepage": "https://benben17.github.io/linux-command/",
   "main": "dist/data.json",
