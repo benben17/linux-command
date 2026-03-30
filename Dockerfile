@@ -1,6 +1,6 @@
 # https://lipanski.com/posts/smallest-docker-image-static-website
 # https://github.com/forksss/docker-static-website
-FROM benben17/docker-static-website:latest
+FROM lipanski/docker-static-website:latest
 
 # Copy the static website
 # Use the .dockerignore file to control what ends up inside the image!
