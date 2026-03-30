@@ -40,7 +40,7 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "linux-command": "^1.22.1"
+    "linux-command": "^1.22.0"
   },
   "author": "benben17",
   "bugs": {
