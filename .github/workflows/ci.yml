@@ -61,3 +61,27 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Generate Docker Hub README
+        run: |
+          sed -n '1,/## Team/p' README.md > docker-readme.md
+          echo " " >> docker-readme.md
+          echo "> **Note:** _Contributors list and some sections are omitted here due to Docker Hub length limits. Full instructions and contributor list are available on our [GitHub repository](https://github.com/${{ github.repository }})._" >> docker-readme.md
+
+      - name: Sync README to Docker Hub Overview
+        uses: peter-evans/dockerhub-description@v4
+        with:
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+          repository: ${{ secrets.DOCKER_USER }}/linux-command
+          readme-filepath: ./docker-readme.md
+
+      - name: Build and push image to Docker Hub
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          context: .
+          platforms: linux/amd64,linux/arm64
+          tags: |
+            ${{ secrets.DOCKER_USER }}/linux-command:latest
+            ${{ secrets.DOCKER_USER }}/linux-command:v${{ env.PACKAGE_VERSION }}
